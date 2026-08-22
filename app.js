@@ -842,3 +842,85 @@ $('saveCloseout').onclick=()=>{const s=closeoutSnapshot();const rec={id:Date.now
 syncJobInputs();if(state.job.latestM3A&&Number.isFinite(state.job.latestM3A.md))$('md').value=state.job.latestM3A.md.toFixed(3);if(state.job.latestM4&&Number.isFinite(state.job.latestM4.bws))$('bws').value=state.job.latestM4.bws.toFixed(5);renderJobHub();renderMethods();renderPoints();renderBanners();renderM1();renderIso();renderRecovery();renderCloseout();renderM3A();renderM4();renderEmissions();renderChecklist();renderEquipment();renderGasInventory();renderAnalyzer();renderQA();renderRuns();
 
 if($('saveProfile'))$('saveProfile').onclick=saveCurrentProfile;if($('newJobFromHistory'))$('newJobFromHistory').onclick=startNewJob;if($('newBlankJob'))$('newBlankJob').onclick=startNewJob;
+
+
+// v2.0 Beta feedback/reporting
+const FEEDBACK_EMAIL='heberttravis90@gmail.com';
+const APP_VERSION='2.0 Beta';
+
+function currentScreenName(){
+  const visible=[...document.querySelectorAll('.screen')].find(x=>{
+    const style=getComputedStyle(x);
+    return style.display!=='none' && !x.hidden;
+  });
+  return visible?.id || 'unknown';
+}
+function feedbackContextText(){
+  const screen=currentScreenName();
+  const job=(typeof state!=='undefined' && state.job) ? state.job : {};
+  return [
+    `App: StackTest Field ${APP_VERSION}`,
+    `Screen: ${screen}`,
+    `Project/WO: ${job.project||'not entered'}`,
+    `Facility: ${job.facility||'not entered'}`,
+    `Unit/Stack: ${job.stack||'not entered'}`,
+    `Methods: ${(job.methods||[]).map(x=>'M'+x).join(', ')||'none selected'}`,
+    `Device: ${navigator.userAgent}`
+  ].join('\n');
+}
+function openFeedback(){
+  const modal=document.getElementById('feedbackModal');
+  const ctx=document.getElementById('feedbackContext');
+  if(ctx) ctx.textContent=feedbackContextText();
+  if(modal) modal.style.display='block';
+}
+function closeFeedback(){
+  const modal=document.getElementById('feedbackModal');
+  if(modal) modal.style.display='none';
+}
+function buildFeedbackText(){
+  const type=document.getElementById('feedbackType')?.value||'Feedback';
+  const msg=document.getElementById('feedbackMessage')?.value.trim()||'(no description entered)';
+  const name=document.getElementById('feedbackName')?.value.trim()||'Anonymous tester';
+  const job=document.getElementById('feedbackJob')?.value.trim()||'Not provided';
+  return [
+    'STACKTEST FIELD BETA FEEDBACK',
+    '',
+    `Type: ${type}`,
+    `Tester: ${name}`,
+    `Job/Facility: ${job}`,
+    '',
+    'Feedback:',
+    msg,
+    '',
+    'Automatic context:',
+    feedbackContextText()
+  ].join('\n');
+}
+function sendFeedback(){
+  const type=document.getElementById('feedbackType')?.value||'Feedback';
+  const subject=`StackTest Field Beta - ${type}`;
+  const body=buildFeedbackText();
+  window.location.href=`mailto:${FEEDBACK_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+async function copyFeedback(){
+  const text=buildFeedbackText();
+  try{
+    await navigator.clipboard.writeText(text);
+    const b=document.getElementById('copyFeedbackBtn');
+    if(b){b.textContent='Copied ✓';setTimeout(()=>b.textContent='Copy Feedback',1200);}
+  }catch(e){
+    const t=document.getElementById('feedbackMessage');
+    if(t) t.value += `\n\n${text}`;
+  }
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('openFeedbackBtn')?.addEventListener('click',openFeedback);
+  document.getElementById('closeFeedbackBtn')?.addEventListener('click',closeFeedback);
+  document.getElementById('sendFeedbackBtn')?.addEventListener('click',sendFeedback);
+  document.getElementById('copyFeedbackBtn')?.addEventListener('click',copyFeedback);
+  document.getElementById('feedbackModal')?.addEventListener('click',e=>{
+    if(e.target?.id==='feedbackModal')closeFeedback();
+  });
+});
+

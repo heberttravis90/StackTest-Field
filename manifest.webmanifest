@@ -1,7 +1,7 @@
 {
   "name": "StackTest Field",
   "short_name": "StackTest",
-  "description": "Offline-first stack testing field workflow, calculations, QA, equipment, gases, runs, recovery, closeout, and reporting.",
+  "description": "Stack testing field workflow, calculations, QA, equipment, analyzer runs, reporting, and beta feedback.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

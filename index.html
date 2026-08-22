@@ -1,5 +1,65 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#12202b"><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css"><title>StackTest Field</title></head><body>
 
+<button id="openFeedbackBtn" aria-label="Report feedback" style="
+position:fixed;right:14px;bottom:14px;z-index:9998;
+border:none;border-radius:999px;padding:12px 16px;
+font-weight:700;box-shadow:0 6px 22px rgba(0,0,0,.22);
+background:#111;color:#fff;">
+Feedback
+</button>
+
+<div id="feedbackModal" style="
+display:none;position:fixed;inset:0;z-index:10000;
+background:rgba(0,0,0,.55);padding:18px;overflow:auto;">
+  <div style="
+  max-width:620px;margin:6vh auto;background:#fff;color:#111;
+  border-radius:16px;padding:18px;box-shadow:0 12px 36px rgba(0,0,0,.3);">
+    <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;">
+      <div>
+        <div style="font-size:.78rem;font-weight:700;letter-spacing:.08em;">BETA FEEDBACK</div>
+        <h2 style="margin:.2rem 0;">Report a Problem / Suggestion</h2>
+      </div>
+      <button id="closeFeedbackBtn" style="border:0;background:#eee;border-radius:10px;padding:9px 12px;font-weight:700;">Close</button>
+    </div>
+
+    <p style="margin-top:8px;font-size:.95rem;">
+      Tell us what happened, what was confusing, or what would make this more useful in the field.
+    </p>
+
+    <label style="display:block;margin:10px 0 4px;font-weight:700;">Feedback Type</label>
+    <select id="feedbackType" style="width:100%;padding:11px;border-radius:10px;border:1px solid #bbb;">
+      <option>Bug / Something did not work</option>
+      <option>Missing feature</option>
+      <option>Calculation / result concern</option>
+      <option>Equipment / method list correction</option>
+      <option>Workflow is confusing</option>
+      <option>General suggestion</option>
+    </select>
+
+    <label style="display:block;margin:10px 0 4px;font-weight:700;">What happened or what should change?</label>
+    <textarea id="feedbackMessage" rows="6" placeholder="Example: On Method 2, I entered all traverse points but the dry flow did not update..."
+      style="width:100%;padding:11px;border-radius:10px;border:1px solid #bbb;box-sizing:border-box;"></textarea>
+
+    <label style="display:block;margin:10px 0 4px;font-weight:700;">Your name (optional)</label>
+    <input id="feedbackName" placeholder="Name" style="width:100%;padding:11px;border-radius:10px;border:1px solid #bbb;box-sizing:border-box;">
+
+    <label style="display:block;margin:10px 0 4px;font-weight:700;">Job / facility (optional)</label>
+    <input id="feedbackJob" placeholder="Project, unit, or facility" style="width:100%;padding:11px;border-radius:10px;border:1px solid #bbb;box-sizing:border-box;">
+
+    <div id="feedbackContext" style="margin:12px 0;padding:10px;background:#f4f4f4;border-radius:10px;font-size:.85rem;"></div>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;">
+      <button id="sendFeedbackBtn" style="border:0;border-radius:10px;padding:11px 14px;font-weight:700;background:#111;color:#fff;">Send Feedback</button>
+      <button id="copyFeedbackBtn" style="border:0;border-radius:10px;padding:11px 14px;font-weight:700;background:#eaeaea;color:#111;">Copy Feedback</button>
+    </div>
+
+    <p style="font-size:.8rem;margin-top:10px;">
+      “Send Feedback” opens your phone’s email app with the report filled in. No test data is automatically attached.
+    </p>
+  </div>
+</div>
+
+
 <div id="installBanner" style="display:none;position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;background:#111;color:#fff;padding:12px;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.25)">
   <strong>Install StackTest Field</strong>
   <div style="font-size:.9rem;margin:4px 0 8px">Install it on this phone for app-like, offline field use.</div>
