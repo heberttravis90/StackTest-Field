@@ -23,17 +23,22 @@
       Verify all final calculations against the applicable method, subpart, approved test plan, calibrations, and company QA/QC before regulatory use.
     </section>
 
-    <section class="mode-switch card compact">
-      <div>
-        <div class="eyebrow">WORKSPACE MODE</div>
-        <h2 id="modeTitle">Field Mode</h2>
-        <p id="modeHelp" class="muted">Fast entry for active testing. Only the essentials stay in front of you.</p>
+
+    <section class="card job-start">
+      <div class="eyebrow">JOB PREPARATION</div>
+      <h2>What are we testing?</h2>
+      <p class="muted">Enter the EPA methods for this job, or choose them from the method list. StackTest Pro will build the mobilization and setup package for those methods.</p>
+      <div class="method-entry-row">
+        <input id="methodEntry" placeholder="Example: 1, 2, 3A, 4, 5, 7E, 10, 25A, 320" />
+        <button id="parseMethodsBtn" class="secondary">Add Methods</button>
       </div>
-      <div class="segmented">
-        <button id="fieldModeBtn" class="seg active">Field Mode</button>
-        <button id="fullModeBtn" class="seg">Full Mode</button>
+      <div id="homeSelectedMethods" class="chips"></div>
+      <div class="job-start-actions">
+        <button id="browseMethodsBtn" class="secondary">Browse EPA Methods</button>
+        <button id="buildPrepBtn" class="primary">Build Job Prep</button>
       </div>
     </section>
+
 
     <section class="job-card card">
       <div class="card-title-row">
@@ -43,18 +48,7 @@
         </div>
         <span id="saveStatus" class="pill">Saved locally</span>
       </div>
-      <div id="fieldQuickBar" class="quick-bar">
-        <button class="quick" data-quick="m1">Method 1</button>
-        <button class="quick active" data-quick="m2">Method 2</button>
-        <button class="quick" data-quick="m3a">Method 3A</button>
-        <button class="quick" data-quick="m4">Method 4</button>
-        <button class="quick" data-quick="m5">Method 5</button>
-        <button class="quick" data-quick="inst">Analyzers</button>
-        <button class="quick" data-quick="m320">FTIR</button>
-        <button class="quick" data-quick="compare">Compare</button>
-      </div>
-
-      <div class="grid two">
+<div class="grid two">
         <label>Project / Job ID<input id="jobId" placeholder="e.g. 26-1842"></label>
         <label>Client<input id="client" placeholder="Client name"></label>
         <label>Facility<input id="facility" placeholder="Facility"></label>
@@ -68,13 +62,15 @@
       </div>
     </section>
 
+
     <nav class="steps" aria-label="Workflow">
-      <button class="step active" data-view="prejob">1 Pre-Job</button>
-      <button class="step" data-view="prelims">2 Prelims</button>
+      <button class="step active" data-view="prejob">1 Job Info</button>
+      <button class="step" data-view="prelims">2 Job Prep</button>
       <button class="step" data-view="field">3 Field Test</button>
       <button class="step" data-view="compare">4 Compare</button>
       <button class="step" data-view="postjob">5 Post-Job</button>
     </nav>
+
 
     <section id="prejob" class="view active">
       <div class="card">
@@ -86,78 +82,63 @@
       </div>
     </section>
 
-    <section id="prelims" class="view full-only">
+
+    <section id="prelims" class="view">
       <div class="card">
-        <div class="eyebrow">METHOD 1</div><h2>Stack Geometry Prelim</h2>
-        <div class="grid two">
-          <label>Stack Shape
-            <select id="stackShape"><option>Circular</option><option>Rectangular</option></select>
-          </label>
-          <label>Diameter (ft)<input id="diameter" type="number" step="any"></label>
-          <label>Width (ft)<input id="width" type="number" step="any"></label>
-          <label>Depth (ft)<input id="depth" type="number" step="any"></label>
-          <label>Upstream distance (ft)<input id="upstreamFt" type="number" step="any"></label>
-          <label>Downstream distance (ft)<input id="downstreamFt" type="number" step="any"></label>
+        <div class="card-title-row">
+          <div>
+            <div class="eyebrow">GENERATED JOB PREP</div>
+            <h2>Mobilization & Setup Plan</h2>
+            <p class="muted">This page is built from the methods selected for the job. Enter the prelim information you have; StackTest Pro will calculate what it can and flag what still needs to be confirmed.</p>
+          </div>
+          <button id="editPrepMethodsBtn" class="secondary">Edit Methods</button>
         </div>
-        <div class="result-grid">
-          <div><span>Area</span><strong id="areaOut">—</strong><small>ft²</small></div>
-          <div><span>Eq. Diameter</span><strong id="eqDiaOut">—</strong><small>ft</small></div>
-          <div><span>Upstream</span><strong id="upDiaOut">—</strong><small>diameters</small></div>
-          <div><span>Downstream</span><strong id="downDiaOut">—</strong><small>diameters</small></div>
-        </div>
-        <div id="m1Flag" class="status neutral">Enter prelim geometry.</div>
+        <div id="prepMethodChips" class="chips"></div>
       </div>
 
       <div class="card">
-        <div class="eyebrow">METHOD 2</div><h2>Preliminary Flow</h2>
+        <div class="eyebrow">COMMON PRELIMS</div><h2>Stack / Process Prelim Data</h2>
         <div class="grid two">
-          <label>Stack velocity (ft/s)<input id="velocity" type="number" step="any"></label>
-          <label>Stack temp (°F)<input id="stackTemp" type="number" step="any"></label>
-          <label>Stack abs. pressure (in Hg)<input id="stackPress" type="number" step="any" value="29.92"></label>
-          <label>Moisture Bws (fraction)<input id="bws" type="number" step="0.001" min="0" max="0.99"></label>
+          <label>Stack Shape<select id="jpStackShape"><option>Circular</option><option>Rectangular</option></select></label>
+          <label>Stack Diameter (ft)<input id="jpDiameter" type="number" step="any"></label>
+          <label>Width (ft)<input id="jpWidth" type="number" step="any"></label>
+          <label>Depth (ft)<input id="jpDepth" type="number" step="any"></label>
+          <label>Expected Stack Temp (°F)<input id="jpTemp" type="number" step="any"></label>
+          <label>Expected Velocity (ft/s)<input id="jpVelocity" type="number" step="any"></label>
+          <label>Expected ACFM<input id="jpAcfm" type="number" step="any"></label>
+          <label>Expected DSCFM<input id="jpDscfm" type="number" step="any"></label>
+          <label>Expected Moisture Bws<input id="jpBws" type="number" step="0.001"></label>
+          <label>Expected O₂ (%)<input id="jpO2" type="number" step="any"></label>
+          <label>Expected CO₂ (%)<input id="jpCo2" type="number" step="any"></label>
+          <label>Barometric Pressure (in Hg)<input id="jpBaro" type="number" step="any" value="29.92"></label>
         </div>
         <div class="result-grid">
-          <div><span>ACFM</span><strong id="acfmOut">—</strong></div>
-          <div><span>SCFM wet</span><strong id="scfmOut">—</strong></div>
-          <div><span>DSCFM</span><strong id="dscfmOut">—</strong></div>
+          <div><span>Area</span><strong id="jpAreaOut">—</strong><small>ft²</small></div>
+          <div><span>Calc ACFM</span><strong id="jpAcfmOut">—</strong></div>
+          <div><span>Calc DSCFM</span><strong id="jpDscfmOut">—</strong></div>
+          <div><span>Dry MW</span><strong id="jpDryMwOut">—</strong></div>
         </div>
       </div>
 
+      <div id="generatedPrepSections"></div>
+
       <div class="card">
-        <div class="eyebrow">METHOD 5 / ISOKINETIC</div><h2>Nozzle & Sample Plan</h2>
-        <div class="grid two">
-          <label>Target dry std sample rate (DSCFM)<input id="targetDscfm" type="number" step="any" placeholder="e.g. 0.75"></label>
-          <label>Target dry std volume (DSCF)<input id="targetVolume" type="number" step="any"></label>
-          <label>Planned run time (min)<input id="runTime" type="number" step="any"></label>
-        </div>
-        <div class="hero-result">
-          <span>Calculated preliminary nozzle diameter</span>
-          <strong id="nozzleOut">—</strong>
-          <small>inches</small>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Nozzle (in)</th><th>Required DSCFM</th><th>Planning note</th></tr></thead>
-            <tbody id="nozzleTable"></tbody>
-          </table>
-        </div>
-        <div class="status neutral">Re-check with actual Method 2 and Method 4 field data before the run.</div>
+        <div class="eyebrow">MASTER MOBILIZATION</div><h2>Combined Equipment Loadout</h2>
+        <p class="muted">Duplicates are combined so the crew gets one loadout list for the whole job.</p>
+        <div id="masterEquipmentList" class="checklist"></div>
       </div>
 
       <div class="card">
-        <div class="eyebrow">METHODS 3A / 4</div><h2>Gas Composition & Moisture</h2>
-        <div class="grid two">
-          <label>O₂ dry (%)<input id="o2Pre" type="number" step="any"></label>
-          <label>CO₂ dry (%)<input id="co2Pre" type="number" step="any"></label>
-          <label>Prelim Bws<input id="bwsGas" type="number" step="0.001"></label>
-        </div>
+        <div class="eyebrow">READY TO LEAVE?</div><h2>Job Prep Status</h2>
         <div class="result-grid">
-          <div><span>N₂ estimate</span><strong id="n2Out">—</strong><small>%</small></div>
-          <div><span>Dry MW</span><strong id="dryMwOut">—</strong></div>
-          <div><span>Wet MW</span><strong id="wetMwOut">—</strong></div>
+          <div><span>Methods</span><strong id="prepMethodCount">0</strong></div>
+          <div><span>Equipment Items</span><strong id="prepEquipCount">0</strong></div>
+          <div><span>Checked / Loaded</span><strong id="prepEquipLoaded">0</strong></div>
         </div>
+        <div id="prepReadyFlag" class="status neutral">Build the job prep to begin.</div>
       </div>
     </section>
+
 
 
     <section id="field" class="view">
@@ -473,7 +454,7 @@
       </div>
     </section>
 
-    <section id="postjob" class="view full-only">
+    <section id="postjob" class="view">
       <div class="card">
         <div class="eyebrow">POST-JOB</div><h2>Closeout</h2>
         <div class="checklist">
@@ -511,7 +492,7 @@
     </div>
   </div>
 
-  <footer>StackTest Pro v0.4 Field Mode · Local/offline-first field workflow</footer>
+  <footer>StackTest Pro v0.6 Job Prep · Local/offline-first field workflow</footer>
   <script src="app.js"></script>
 </body>
 </html>
