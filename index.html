@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0e2a3d" />
+  <title>StackTest Pro</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <div class="eyebrow">FIELD WORKFLOW</div>
+      <h1>StackTest Pro</h1>
+    </div>
+    <button id="installBtn" class="ghost hidden">Install</button>
+  </header>
+
+  <main class="shell">
+    <section class="notice">
+      <strong>Planning & field calculation aid.</strong>
+      Verify all final calculations against the applicable method, subpart, approved test plan, calibrations, and company QA/QC before regulatory use.
+    </section>
+
+
+    <section class="job-card card">
+      <div class="card-title-row">
+        <div>
+          <div class="eyebrow">ACTIVE JOB</div>
+          <h2 id="jobTitle">New Stack Test</h2>
+        </div>
+        <span id="saveStatus" class="pill">Saved locally</span>
+      </div>
+<div class="grid two">
+        <label>Project / Job ID<input id="jobId" placeholder="e.g. 26-1842"></label>
+        <label>Client<input id="client" placeholder="Client name"></label>
+        <label>Facility<input id="facility" placeholder="Facility"></label>
+        <label>Unit / Stack<input id="unit" placeholder="Unit or stack"></label>
+        <label>Test Date<input id="testDate" type="date"></label>
+        <label>Selected Methods
+          <button id="chooseMethodsBtn" type="button" class="selector-btn">Choose EPA Methods</button>
+          <div id="selectedMethodChips" class="chips"></div>
+          <input id="methods" class="hidden" />
+        </label>
+      </div>
+    </section>
+
+
+
+    <section class="card job-start">
+      <div class="eyebrow">JOB PREPARATION</div>
+      <h2>What are we testing?</h2>
+      <p class="muted">Enter the EPA methods for this job, or choose them from the method list. StackTest Pro will build the mobilization and setup package for those methods.</p>
+      <div class="method-entry-row">
+        <input id="methodEntry" placeholder="Example: 1, 2, 3A, 4, 5, 7E, 10, 25A, 320" />
+        <button id="parseMethodsBtn" class="secondary">Add Methods</button>
+      </div>
+      <div id="homeSelectedMethods" class="chips"></div>
+      <div class="job-start-actions">
+        <button id="browseMethodsBtn" class="secondary">Browse EPA Methods</button>
+        <button id="buildPrepBtn" class="primary">Build Job Prep</button>
+      </div>
+    </section>
+
+
+    <nav class="steps" aria-label="Workflow">
+      <button class="step active" data-view="prejob">1 Mobilize</button>
+      <button class="step" data-view="prelims">2 Prelims & Setup</button>
+      <button class="step" data-view="field">3 Field Testing</button>
+      <button class="step" data-view="compare">4 Results</button>
+      <button class="step" data-view="postjob">5 Closeout</button>
+    </nav>
+
+
+    <section id="prejob" class="view active">
+      <div class="card">
+        <div class="card-title-row">
+          <div><div class="eyebrow">MOBILIZATION</div><h2>Equipment Checklist</h2></div>
+          <span id="equipProgress" class="pill">0 / 0</span>
+        </div>
+        <div id="equipmentList" class="checklist"></div>
+      </div>
+    </section>
+
+
+    <section id="prelims" class="view">
+      <div class="card">
+        <div class="card-title-row">
+          <div>
+            <div class="eyebrow">GENERATED JOB PREP</div>
+            <h2>Mobilization & Setup Plan</h2>
+            <p class="muted">This page is built from the methods selected for the job. Enter the prelim information you have; StackTest Pro will calculate what it can and flag what still needs to be confirmed.</p>
+          </div>
+          <button id="editPrepMethodsBtn" class="secondary">Edit Methods</button>
+        </div>
+        <div id="prepMethodChips" class="chips"></div>
+      </div>
+
+      <div class="card">
+        <div class="eyebrow">COMMON PRELIMS</div><h2>Stack / Process Prelim Data</h2>
+        <div class="grid two">
+          <label>Stack Shape<select id="jpStackShape"><option>Circular</option><option>Rectangular</option></select></label>
+          <label>Stack Diameter (ft)<input id="jpDiameter" type="number" step="any"></label>
+          <label>Width (ft)<input id="jpWidth" type="number" step="any"></label>
+          <label>Depth (ft)<input id="jpDepth" type="number" step="any"></label>
+          <label>Expected Stack Temp (°F)<input id="jpTemp" type="number" step="any"></label>
+          <label>Expected Velocity (ft/s)<input id="jpVelocity" type="number" step="any"></label>
+          <label>Expected ACFM<input id="jpAcfm" type="number" step="any"></label>
+          <label>Expected DSCFM<input id="jpDscfm" type="number" step="any"></label>
+          <label>Expected Moisture Bws<input id="jpBws" type="number" step="0.001"></label>
+          <label>Expected O₂ (%)<input id="jpO2" type="number" step="any"></label>
+          <label>Expected CO₂ (%)<input id="jpCo2" type="number" step="any"></label>
+          <label>Barometric Pressure (in Hg)<input id="jpBaro" type="number" step="any" value="29.92"></label>
+        </div>
+        <div class="result-grid">
+          <div><span>Area</span><strong id="jpAreaOut">—</strong><small>ft²</small></div>
+          <div><span>Calc ACFM</span><strong id="jpAcfmOut">—</strong></div>
+          <div><span>Calc DSCFM</span><strong id="jpDscfmOut">—</strong></div>
+          <div><span>Dry MW</span><strong id="jpDryMwOut">—</strong></div>
+        </div>
+      </div>
+
+      <div id="m19PrepHint" class="status neutral">If Method 19 is selected, its NOx/O₂/Fd data-entry card will appear below and stay open.</div>
+      <div id="generatedPrepSections"></div>
+
+      <div class="card">
+        <div class="eyebrow">MASTER MOBILIZATION</div><h2>Combined Equipment Loadout</h2>
+        <p class="muted">Detailed combined loadout: common field gear plus every selected method-specific item. Duplicates are removed, but small fittings, recovery supplies, calibration items, documentation, and safety gear stay on the list.</p>
+        <div id="masterEquipmentList" class="checklist"></div>
+      </div>
+
+      <div class="card">
+        <div class="eyebrow">READY TO LEAVE?</div><h2>Job Prep Status</h2>
+        <div class="result-grid">
+          <div><span>Methods</span><strong id="prepMethodCount">0</strong></div>
+          <div><span>Equipment Items</span><strong id="prepEquipCount">0</strong></div>
+          <div><span>Checked / Loaded</span><strong id="prepEquipLoaded">0</strong></div>
+        </div>
+        <div id="prepReadyFlag" class="status neutral">Build the job prep to begin.</div>
+      </div>
+    </section>
+
+
+
+    <section id="field" class="view">
+      <div class="card">
+        <div class="card-title-row">
+          <div><div class="eyebrow">FIELD TEST</div><h2>Run Entry</h2></div>
+          <span id="fieldStatus" class="pill">0 modules complete</span>
+        </div>
+        <p class="muted">Enter actual field data by method. Results stay attached to the active job and roll into the run summary.</p>
+        <div class="field-run-bar">
+          <label>Current run<input id="fieldRunName" placeholder="Run 1"></label>
+          <label>Status
+            <select id="fieldRunStatus"><option value="valid">Valid</option><option value="invalid">Invalid</option></select>
+          </label>
+          <button id="fieldSaveActiveBtn" class="primary">Save Active Run</button>
+        </div>
+
+        <div class="module-tabs">
+          <button class="module-tab active" data-module="m2">Method 2</button>
+          <button class="module-tab" data-module="m4">Method 4</button>
+          <button class="module-tab" data-module="m5">Method 5</button>
+          <button class="module-tab" data-module="inst">6C/7E/10</button>
+          <button class="module-tab" data-module="m25a">25A</button>
+          <button class="module-tab" data-module="m320">320</button>
+          <button class="module-tab" data-module="rata">RATA</button>
+        </div>
+      </div>
+
+
+      <div id="m1" class="field-module card">
+        <div class="eyebrow">METHOD 1</div><h2>Traverse Location & Point Planner</h2>
+        <p class="muted">Enter the two Method 1 disturbance measurements exactly as shown in EPA Figures 1-1 and 1-2. Distance A is from the measurement site to the downstream disturbance. Distance B is from the measurement site to the upstream disturbance. The app converts both to duct diameters and uses the higher traverse-point requirement.</p>
+        <div class="grid two">
+          <label>Traverse purpose
+            <select id="m1TraverseType">
+              <option value="particulate">Particulate / Isokinetic — Figure 1-1</option>
+              <option value="velocity">Velocity / Flow Only — Figure 1-2</option>
+            </select>
+          </label>
+          <label>Stack shape
+            <select id="m1Shape"><option>Circular</option><option>Rectangular</option></select>
+          </label>
+          <label>Diameter (ft)<input id="m1Diameter" type="number" step="any"></label>
+          <label>Width (ft)<input id="m1Width" type="number" step="any"></label>
+          <label>Depth (ft)<input id="m1Depth" type="number" step="any"></label>
+          <label class="m1-disturbance-input"><strong>A DISTURBANCE MEASUREMENT</strong><span>Measurement site → downstream disturbance (ft)</span><input id="m1Upstream" type="number" step="any" min="0" inputmode="decimal" placeholder="Enter Distance A"></label>
+          <label class="m1-disturbance-input"><strong>B DISTURBANCE MEASUREMENT</strong><span>Upstream disturbance → measurement site (ft)</span><input id="m1Downstream" type="number" step="any" min="0" inputmode="decimal" placeholder="Enter Distance B"></label>
+          <label>Port / nipple length (in., optional)<input id="m1Nipple" type="number" step="any" min="0" placeholder="Used for insertion depths"></label>
+        </div>
+        <div class="result-grid m1-results">
+          <div><span>Area</span><strong id="m1Area">—</strong><small>ft²</small></div>
+          <div><span>Equivalent Dia.</span><strong id="m1EqDia">—</strong><small>ft</small></div>
+          <div><span>Distance A / De</span><strong id="m1UpDia">—</strong><small>site upstream of downstream disturbance</small></div>
+          <div><span>Distance B / De</span><strong id="m1DownDia">—</strong><small>site downstream of upstream disturbance</small></div>
+          <div><span>Points from A</span><strong id="m1PointsA">—</strong><small>minimum traverse points</small></div>
+          <div><span>Points from B</span><strong id="m1PointsB">—</strong><small>minimum traverse points</small></div>
+        </div>
+        <div class="hero-result m1-hero">
+          <span>Governing Minimum Traverse Points</span>
+          <strong id="m1RequiredPoints">—</strong>
+          <small id="m1PointBasis">Enter A, B, and stack dimensions</small>
+        </div>
+        <div id="m1FieldFlag" class="status neutral">Enter Method 1 stack geometry and disturbance distances.</div>
+        <div id="m1LayoutWrap" class="m1-layout-wrap" hidden>
+          <div class="section-head compact-head">
+            <div><div class="eyebrow">TRAVERSE LAYOUT</div><h3 id="m1LayoutTitle">Point Locations</h3></div>
+          </div>
+          <div id="m1LayoutSummary" class="status neutral"></div>
+          <div id="m1LayoutTable" class="m1-table-wrap"></div>
+          <p class="muted m1-note">Method 1 planning aid. Verify the final site, point layout, wall-clearance adjustments, cyclonic-flow check, test plan, and applicable rule before regulatory use.</p>
+        </div>
+      </div>
+
+      <div id="m3a" class="field-module card">
+        <div class="eyebrow">METHOD 3A</div><h2>O₂ / CO₂ & Molecular Weight</h2>
+        <div class="grid two">
+          <label>O₂ Run Average (%)<input id="m3aO2" type="number" step="any"></label>
+          <label>CO₂ Run Average (%)<input id="m3aCo2" type="number" step="any"></label>
+          <label>Moisture Bws (optional)<input id="m3aBws" type="number" step="0.001"></label>
+        </div>
+        <div class="result-grid">
+          <div><span>N₂ estimate</span><strong id="m3aN2">—</strong><small>%</small></div>
+          <div><span>Dry MW</span><strong id="m3aDryMw">—</strong></div>
+          <div><span>Wet MW</span><strong id="m3aWetMw">—</strong></div>
+        </div>
+        <div id="m3aFlag" class="status neutral">Enter Method 3A averages.</div>
+      </div>
+
+      <div id="m2" class="field-module active card">
+        <div class="eyebrow">METHOD 2</div><h2>Velocity & Flow Run</h2>
+        <div class="grid two">
+          <label>Run ID<input id="m2RunId" placeholder="Run 1"></label>
+          <label>Pitot coefficient Cp<input id="m2Cp" type="number" step="any" value="0.84"></label>
+          <label>Barometric pressure (in Hg)<input id="m2Pb" type="number" step="any" value="29.92"></label>
+          <label>Static pressure (in H₂O)<input id="m2Ps" type="number" step="any"></label>
+          <label>Dry molecular weight<input id="m2Md" type="number" step="any" value="29.0"></label>
+          <label>Bws<input id="m2Bws" type="number" step="0.001"></label>
+          <label>Average ΔP (in H₂O)<input id="m2Dp" type="number" step="any"></label>
+          <label>Average stack temp (°F)<input id="m2Ts" type="number" step="any"></label>
+        </div>
+        <div class="result-grid">
+          <div><span>Wet MW</span><strong id="m2Mw">—</strong></div>
+          <div><span>Velocity</span><strong id="m2Vel">—</strong><small>ft/s</small></div>
+          <div><span>ACFM</span><strong id="m2Acfm">—</strong></div>
+          <div><span>SCFM wet</span><strong id="m2Scfm">—</strong></div>
+          <div><span>DSCFM</span><strong id="m2Dscfm">—</strong></div>
+        </div>
+        <div id="m2Flag" class="status neutral">Enter Method 2 field data.</div>
+      </div>
+
+      <div id="m4" class="field-module card">
+        <div class="eyebrow">METHOD 4</div><h2>Moisture Run</h2>
+        <div class="grid two">
+          <label>Run ID<input id="m4RunId" placeholder="Run 1"></label>
+          <label>Dry gas volume Vm(std) (dscf)<input id="m4Vm" type="number" step="any"></label>
+          <label>Condensate collected (mL)<input id="m4WaterMl" type="number" step="any"></label>
+          <label>Silica gel gain (g)<input id="m4SilicaG" type="number" step="any"></label>
+        </div>
+        <div class="result-grid">
+          <div><span>Water vapor std</span><strong id="m4Vw">—</strong><small>scf</small></div>
+          <div><span>Bws</span><strong id="m4BwsOut">—</strong></div>
+        </div>
+        <div id="m4Flag" class="status neutral">Enter Method 4 field data.</div>
+      </div>
+
+      <div id="m5" class="field-module card">
+        <div class="eyebrow">METHOD 5</div><h2>Isokinetic / Particulate Run</h2>
+        <div class="grid two">
+          <label>Run ID<input id="m5RunId" placeholder="Run 1"></label>
+          <label>Nozzle diameter (in)<input id="m5Nozzle" type="number" step="any"></label>
+          <label>Run time (min)<input id="m5Time" type="number" step="any"></label>
+          <label>Actual dry standard sample volume (dscf)<input id="m5VmStd" type="number" step="any"></label>
+          <label>Stack velocity (ft/s)<input id="m5Vel" type="number" step="any"></label>
+          <label>Stack temp (°F)<input id="m5Ts" type="number" step="any"></label>
+          <label>Stack abs. pressure (in Hg)<input id="m5P" type="number" step="any" value="29.92"></label>
+          <label>Bws<input id="m5Bws" type="number" step="0.001"></label>
+          <label>Filter catch (mg)<input id="m5Filter" type="number" step="any"></label>
+          <label>Probe / acetone catch (mg)<input id="m5Probe" type="number" step="any"></label>
+          <label>Other approved catch (mg)<input id="m5Other" type="number" step="any" value="0"></label>
+          <label>Acetone blank correction (mg)<input id="m5Blank" type="number" step="any" value="0"></label>
+        </div>
+        <div class="result-grid">
+          <div><span>Ideal dry std vol</span><strong id="m5Ideal">—</strong><small>dscf</small></div>
+          <div><span>Isokinetic</span><strong id="m5Iso">—</strong><small>%</small></div>
+          <div><span>Total PM</span><strong id="m5PmMg">—</strong><small>mg</small></div>
+          <div><span>PM conc</span><strong id="m5GrDscf">—</strong><small>gr/dscf</small></div>
+        </div>
+        <div id="m5Flag" class="status neutral">Enter Method 5 field data.</div>
+      </div>
+
+      <div id="inst" class="field-module card">
+        <div class="eyebrow">METHODS 6C / 7E / 10</div><h2>Analyzer QA</h2>
+        <div class="grid two">
+          <label>Pollutant / Analyzer<input id="instPollutant" placeholder="NOx / SO₂ / CO"></label>
+          <label>Analyzer span (ppm)<input id="instSpan" type="number" step="any"></label>
+          <label>Low gas certified value<input id="instLowCert" type="number" step="any"></label>
+          <label>Low gas response<input id="instLowResp" type="number" step="any"></label>
+          <label>Mid gas certified value<input id="instMidCert" type="number" step="any"></label>
+          <label>Mid gas response<input id="instMidResp" type="number" step="any"></label>
+          <label>High gas certified value<input id="instHighCert" type="number" step="any"></label>
+          <label>High gas response<input id="instHighResp" type="number" step="any"></label>
+          <label>Pre-run zero response<input id="instPreZero" type="number" step="any"></label>
+          <label>Post-run zero response<input id="instPostZero" type="number" step="any"></label>
+          <label>Pre-run upscale response<input id="instPreUp" type="number" step="any"></label>
+          <label>Post-run upscale response<input id="instPostUp" type="number" step="any"></label>
+        </div>
+        <div class="result-grid">
+          <div><span>Low CE</span><strong id="instLowCe">—</strong><small>% span</small></div>
+          <div><span>Mid CE</span><strong id="instMidCe">—</strong><small>% span</small></div>
+          <div><span>High CE</span><strong id="instHighCe">—</strong><small>% span</small></div>
+          <div><span>Zero drift</span><strong id="instZeroDrift">—</strong><small>% span</small></div>
+          <div><span>Upscale drift</span><strong id="instUpDrift">—</strong><small>% span</small></div>
+        </div>
+        <div id="instFlag" class="status neutral">Enter calibration and drift data.</div>
+      </div>
+
+      <div id="m25a" class="field-module card">
+        <div class="eyebrow">METHOD 25A</div><h2>FID QA & VOC Result</h2>
+        <div class="grid two">
+          <label>Span value (ppmC)<input id="m25Span" type="number" step="any"></label>
+          <label>Calibration gas certified (ppmC)<input id="m25Cert" type="number" step="any"></label>
+          <label>Calibration response (ppmC)<input id="m25Resp" type="number" step="any"></label>
+          <label>Pre-run zero<input id="m25PreZero" type="number" step="any"></label>
+          <label>Post-run zero<input id="m25PostZero" type="number" step="any"></label>
+          <label>Pre-run upscale<input id="m25PreUp" type="number" step="any"></label>
+          <label>Post-run upscale<input id="m25PostUp" type="number" step="any"></label>
+          <label>Average sample response (ppmC)<input id="m25Sample" type="number" step="any"></label>
+        </div>
+        <div class="result-grid">
+          <div><span>Calibration error</span><strong id="m25Ce">—</strong><small>% span</small></div>
+          <div><span>Zero drift</span><strong id="m25Zd">—</strong><small>% span</small></div>
+          <div><span>Upscale drift</span><strong id="m25Ud">—</strong><small>% span</small></div>
+          <div><span>VOC result</span><strong id="m25Voc">—</strong><small>ppmC</small></div>
+        </div>
+        <div id="m25Flag" class="status neutral">Enter Method 25A data.</div>
+      </div>
+
+      <div id="m320" class="field-module card">
+        <div class="eyebrow">METHOD 320</div><h2>FTIR Run Review</h2>
+        <div class="grid two">
+          <label>Run ID<input id="m320RunId" placeholder="Run 1"></label>
+          <label>Sample cell temp (°C)<input id="m320CellTemp" type="number" step="any"></label>
+          <label>Heated line temp (°C)<input id="m320LineTemp" type="number" step="any"></label>
+          <label>Estimated dew point (°C)<input id="m320Dew" type="number" step="any"></label>
+          <label>CTS expected<input id="m320CtsExp" type="number" step="any"></label>
+          <label>CTS measured<input id="m320CtsMeas" type="number" step="any"></label>
+          <label>Spike expected<input id="m320SpikeExp" type="number" step="any"></label>
+          <label>Spike recovered<input id="m320SpikeMeas" type="number" step="any"></label>
+        </div>
+        <div class="checklist top-gap">
+          <label class="check"><input id="m320Bg" type="checkbox"> Background file saved</label>
+          <label class="check"><input id="m320SampleFile" type="checkbox"> Sample spectra/files retained</label>
+          <label class="check"><input id="m320CtsFile" type="checkbox"> CTS file retained</label>
+        </div>
+        <div class="result-grid">
+          <div><span>Line temp margin</span><strong id="m320Margin">—</strong><small>°C</small></div>
+          <div><span>CTS difference</span><strong id="m320CtsDiff">—</strong><small>%</small></div>
+          <div><span>Spike recovery</span><strong id="m320SpikeRec">—</strong><small>%</small></div>
+        </div>
+        <div id="m320Flag" class="status neutral">Enter FTIR run-review data.</div>
+      </div>
+
+
+      <div id="genericMethod" class="field-module card">
+        <div class="eyebrow" id="genericEyebrow">EPA METHOD</div>
+        <h2 id="genericTitle">Method Workspace</h2>
+        <div id="genericStatus" class="status warn">Workspace available; calculation module not yet validated.</div>
+        <div class="grid two top-gap">
+          <label>Prelim / Source Information<textarea id="genericPrelim" rows="5" placeholder="Client data, prior test results, permit requirements..."></textarea></label>
+          <label>Equipment / Setup Notes<textarea id="genericEquipment" rows="5" placeholder="Train, analyzer, glassware, reagents, sample media, etc."></textarea></label>
+          <label>Field Data / Run Notes<textarea id="genericField" rows="7" placeholder="Field readings and observations..."></textarea></label>
+          <label>QA/QC / Post-Run Notes<textarea id="genericQa" rows="7" placeholder="Leak checks, calibrations, recoveries, blanks, deviations..."></textarea></label>
+        </div>
+        <button id="saveGenericBtn" class="primary wide">Save Method Workspace</button>
+      </div>
+
+      <div id="rata" class="field-module card">
+        <div class="eyebrow">RATA / PART 75</div><h2>Paired Run Data</h2>
+        <p class="muted">Enter paired reference-method and CEMS values. This screen calculates basic pair statistics for field review; final Part 75 RA/bias determinations still require the applicable rule basis.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Run</th><th>Reference</th><th>CEMS</th><th>Difference</th></tr></thead>
+            <tbody id="rataRows"></tbody>
+          </table>
+        </div>
+        <div class="result-grid">
+          <div><span>Pairs entered</span><strong id="rataN">0</strong></div>
+          <div><span>Avg reference</span><strong id="rataRefAvg">—</strong></div>
+          <div><span>Avg CEMS</span><strong id="rataCemsAvg">—</strong></div>
+          <div><span>Mean difference</span><strong id="rataDiffAvg">—</strong></div>
+          <div><span>Relative diff</span><strong id="rataRelDiff">—</strong><small>%</small></div>
+        </div>
+        <div id="rataFlag" class="status neutral">Enter at least 9 paired runs for a normal RATA review set.</div>
+      </div>
+
+
+      <div class="card full-only">
+        <div class="card-title-row">
+          <div><div class="eyebrow">MULTI-RUN MANAGER</div><h2>Save Valid / Invalid Runs</h2></div>
+          <span id="savedRunCount" class="pill">0 saved</span>
+        </div>
+        <p class="muted">Save the current method screen as a run. Invalid runs stay in the record but are excluded from valid-run averages.</p>
+        <div class="grid two">
+          <label>Method
+            <select id="saveRunMethod">
+              <option value="m2">Method 2</option>
+              <option value="m4">Method 4</option>
+              <option value="m5">Method 5</option>
+              <option value="inst">6C / 7E / 10</option>
+              <option value="m25a">Method 25A</option>
+              <option value="m320">Method 320</option>
+              <option value="rata">RATA snapshot</option>
+            </select>
+          </label>
+          <label>Run status
+            <select id="saveRunStatus">
+              <option value="valid">Valid</option>
+              <option value="invalid">Invalid</option>
+            </select>
+          </label>
+          <label>Run name<input id="saveRunName" placeholder="Run 1"></label>
+          <label>Reason / Notes<input id="saveRunNotes" placeholder="Optional note or invalidation reason"></label>
+        </div>
+        <button id="saveRunBtn" class="primary wide">Save Current Run</button>
+        <div id="savedRuns" class="saved-runs top-gap"></div>
+      </div>
+
+      <div class="card full-only">
+        <div class="eyebrow">RUN AVERAGES</div><h2>Valid-Run Averages</h2>
+        <div id="runAverages" class="summary-list"></div>
+      </div>
+
+      <div class="card">
+        <div class="eyebrow">FINAL JOB SUMMARY</div><h2>Field Results At A Glance</h2>
+        <div id="runSummary" class="summary-list"></div>
+      </div>
+    </section>
+
+
+    <section id="compare" class="view">
+      <div class="card">
+        <div class="eyebrow">NOx / METHOD 19</div><h2>Tester vs Client vs Permit</h2>
+        <div class="compare-head"><span></span><b>Tester</b><b>Client</b></div>
+        <div class="compare-grid">
+          <label>NOx dry ppmvd</label><input id="testerNox" type="number" step="any"><input id="clientNox" type="number" step="any">
+          <label>O₂ dry %</label><input id="testerO2" type="number" step="any"><input id="clientO2" type="number" step="any">
+        </div>
+        <div class="grid two top-gap">
+          <label>Fuel
+            <select id="fuel">
+              <option value="8710">Natural gas</option>
+              <option value="9190">Fuel oil</option>
+              <option value="9780">Bituminous coal</option>
+              <option value="10100">Anthracite coal</option>
+              <option value="9860">Lignite</option>
+              <option value="8710">Propane</option>
+              <option value="8710">Butane</option>
+              <option value="custom">Custom Fd</option>
+            </select>
+          </label>
+          <label>Custom Fd (dscf/MMBtu)<input id="customFd" type="number" step="any"></label>
+          <label>Permit limit (lb/MMBtu)<input id="permitLimit" type="number" step="any"></label>
+          <label>Client reported lb/MMBtu (optional)<input id="clientReported" type="number" step="any"></label>
+          <label>Tester mass rate (lb/hr, optional)<input id="testerLbHr" type="number" step="any"></label>
+          <label>Heat input (MMBtu/hr, optional)<input id="heatInput" type="number" step="any"></label>
+        </div>
+
+        <div class="result-grid">
+          <div><span>Tester NOx — Method 19</span><strong id="testerM19">—</strong><small>lb/MMBtu</small></div>
+          <div><span>Client NOx — Method 19</span><strong id="clientM19">—</strong><small>lb/MMBtu</small></div>
+          <div><span>Difference</span><strong id="noxDiff">—</strong><small>%</small></div>
+          <div><span>Permit Margin</span><strong id="permitMargin">—</strong><small>%</small></div>
+          <div><span>Optional lb/hr ÷ Heat Input</span><strong id="directLbMmbtu">—</strong><small>lb/MMBtu</small></div>
+        </div>
+        <div id="noxFlag" class="status neutral">Enter tester NOx, dry O₂, and fuel. Client data is optional.</div>
+      </div>
+    </section>
+
+    <section id="postjob" class="view">
+      <div class="card">
+        <div class="eyebrow">POST-JOB</div><h2>Closeout</h2>
+        <div class="checklist">
+          <label class="check"><input type="checkbox" data-post="postLeak"> Post-test leak checks complete</label>
+          <label class="check"><input type="checkbox" data-post="samples"> Samples / COC verified</label>
+          <label class="check"><input type="checkbox" data-post="qa"> Analyzer QA / drift reviewed</label>
+          <label class="check"><input type="checkbox" data-post="client"> Client comparison reviewed</label>
+          <label class="check"><input type="checkbox" data-post="backup"> Data backed up</label>
+          <label class="check"><input type="checkbox" data-post="notes"> Field notes / deviations documented</label>
+        </div>
+        <button id="exportBtn" class="primary wide">Export Job Data (.json)</button>
+        <button id="resetBtn" class="danger wide">Start New Job</button>
+      </div>
+    </section>
+  </main>
+
+
+  <div id="methodModal" class="modal hidden">
+    <div class="modal-panel">
+      <div class="card-title-row">
+        <div>
+          <div class="eyebrow">JOB SETUP</div>
+          <h2>Choose EPA Methods</h2>
+          <p class="muted">Select every method planned for this job. StackTest Pro will show only the tools tied to those methods.</p>
+        </div>
+        <button id="closeMethodModal" class="ghost-dark">Close</button>
+      </div>
+      <input id="methodSearch" placeholder="Search method number or title..." />
+      <div class="selector-actions">
+        <button id="selectCommonBtn" class="secondary">Select Common Stack Methods</button>
+        <button id="clearMethodsBtn" class="secondary">Clear All</button>
+      </div>
+      <div id="methodCatalog" class="method-catalog"></div>
+      <button id="applyMethodsBtn" class="primary wide">Use Selected Methods</button>
+    </div>
+  </div>
+
+  <footer>StackTest Pro v0.7 Organized Field Workflow · Local/offline-first field workflow</footer>
+  <script src="app.js"></script>
+</body>
+</html>
