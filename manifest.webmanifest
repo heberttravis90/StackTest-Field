@@ -1,0 +1,9 @@
+{
+  "name": "StackTest Pro v0.14",
+  "short_name": "StackTest Pro v0.14",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f3f6f8",
+  "theme_color": "#0e2a3d",
+  "description": "Stack testing job-preparation app that generates method-specific prelim, mobilization, setup, field, and post-job workflows."
+}
