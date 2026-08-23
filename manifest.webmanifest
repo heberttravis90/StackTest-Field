@@ -1,9 +1,0 @@
-{
-  "name": "StackTest Pro",
-  "short_name": "StackTest Pro",
-  "start_url": "./",
-  "display": "standalone",
-  "background_color": "#f3f6f8",
-  "theme_color": "#0e2a3d",
-  "description": "Offline-first stack testing app with fast Field Mode and full pre-job-to-closeout workflow."
-}
