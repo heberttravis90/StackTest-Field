@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
+  <title>Stack Test Pro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="app-header">
+  <div>
+    <p class="eyebrow">Air Emissions Field Toolkit</p>
+    <h1>Stack Test Pro</h1>
+    <p class="subtitle">EPA stationary-source emissions testing, calculations, job preparation, and field review.</p>
+  </div>
+</header>
+
+<main class="container">
+  <section class="card">
+    <h2>Job Setup</h2>
+    <div class="grid">
+      <label>Job ID<input id="jobId" type="text" placeholder="Example: 26-0815"></label>
+      <label>Client<input id="client" type="text" placeholder="Client name"></label>
+      <label>Facility<input id="facility" type="text" placeholder="Facility"></label>
+      <label>Unit / Source<input id="unit" type="text" placeholder="Boiler, turbine, kiln, etc."></label>
+      <label>Test Date<input id="testDate" type="date"></label>
+      <label>Project Manager<input id="projectManager" type="text" placeholder="PM / crew lead"></label>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>EPA Emissions Methods</h2>
+    <p class="help">Select the stationary-source air-emissions methods being performed on this project.</p>
+    <label>Search Methods<input id="methodSearch" type="search" placeholder="Example: 7E, NOx, FTIR, particulate..."></label>
+    <button id="clearMethodsBtn" type="button" class="secondary-btn">Clear Selection</button>
+    <div id="methodCatalog" class="method-catalog"></div>
+    <div id="selectedMethodSummary" class="status neutral">No methods selected.</div>
+    <button id="buildJobBtn" type="button" class="primary-btn">Build Job</button>
+  </section>
+
+  <section id="jobMethodsSection" class="card hidden">
+    <h2>Selected Test Program</h2>
+    <div id="selectedMethodsList" class="selected-methods-list"></div>
+  </section>
+
+  <section id="method1Section" class="card method-section">
+    <h2>Method 1</h2>
+    <p class="help">Traverse-point and stack geometry review.</p>
+    <div class="grid">
+      <label>Stack Shape<select id="stackShape"><option value="Circular">Circular</option><option value="Rectangular">Rectangular</option></select></label>
+      <label>Diameter (ft)<input id="diameter" type="number" step="any"></label>
+      <label>Width (ft)<input id="width" type="number" step="any"></label>
+      <label>Depth (ft)<input id="depth" type="number" step="any"></label>
+      <label>Upstream Distance (ft)<input id="upstreamFt" type="number" step="any"></label>
+      <label>Downstream Distance (ft)<input id="downstreamFt" type="number" step="any"></label>
+    </div>
+    <div class="results">
+      <div class="result"><span>Stack Area</span><strong id="areaOut">—</strong><small>ft²</small></div>
+      <div class="result"><span>Equivalent Diameter</span><strong id="eqDiaOut">—</strong><small>ft</small></div>
+      <div class="result"><span>Upstream Diameters</span><strong id="upDiaOut">—</strong><small>D</small></div>
+      <div class="result"><span>Downstream Diameters</span><strong id="downDiaOut">—</strong><small>D</small></div>
+    </div>
+    <div id="m1Flag" class="status neutral">Enter stack geometry.</div>
+  </section>
+
+  <section id="method2Section" class="card method-section">
+    <h2>Method 2</h2>
+    <p class="help">S-type pitot velocity and volumetric flow.</p>
+    <div class="grid">
+      <label>Pitot Coefficient (Cp)<input id="m2Cp" type="number" step="any" value="0.84"></label>
+      <label>Barometric Pressure (in Hg)<input id="m2Pb" type="number" step="any"></label>
+      <label>Stack Static Pressure (in H₂O)<input id="m2Ps" type="number" step="any" value="0"></label>
+      <label>Dry Molecular Weight<input id="m2Md" type="number" step="any"></label>
+      <label>Moisture Fraction Bws<input id="m2Bws" type="number" step="any"></label>
+      <label>Average ΔP (in H₂O)<input id="m2Dp" type="number" step="any"></label>
+      <label>Stack Temperature (°F)<input id="m2Ts" type="number" step="any"></label>
+    </div>
+    <button id="calcM2Btn" class="primary-btn" type="button">Calculate Method 2</button>
+    <div class="results">
+      <div class="result"><span>Wet Molecular Weight</span><strong id="m2Mw">—</strong></div>
+      <div class="result"><span>Velocity</span><strong id="m2Vel">—</strong><small>ft/min</small></div>
+      <div class="result"><span>ACFM</span><strong id="m2Acfm">—</strong></div>
+      <div class="result"><span>SCFM</span><strong id="m2Scfm">—</strong></div>
+      <div class="result"><span>DSCFM</span><strong id="m2Dscfm">—</strong></div>
+    </div>
+    <div id="m2Flag" class="status neutral">Enter Method 2 field data.</div>
+    <button id="testM2Btn" class="secondary-btn" type="button">Run Test Calculation</button>
+  </section>
+
+  <section id="method4Section" class="card method-section">
+    <h2>Method 4</h2>
+    <p class="help">Stack gas moisture determination.</p>
+    <div class="grid">
+      <label>Dry Gas Volume (dscf)<input id="m4Vm" type="number" step="any"></label>
+      <label>Condensed Water (mL)<input id="m4WaterMl" type="number" step="any"></label>
+      <label>Silica Gel Gain (g)<input id="m4SilicaG" type="number" step="any"></label>
+    </div>
+    <button id="calcM4Btn" class="primary-btn" type="button">Calculate Method 4</button>
+    <div class="results">
+      <div class="result"><span>Water Vapor Volume</span><strong id="m4Vw">—</strong><small>scf</small></div>
+      <div class="result"><span>Bws</span><strong id="m4BwsOut">—</strong></div>
+      <div class="result"><span>Moisture</span><strong id="m4Percent">—</strong><small>%</small></div>
+    </div>
+    <div id="m4Flag" class="status neutral">Enter Method 4 field data.</div>
+  </section>
+
+  <section id="method5Section" class="card method-section">
+    <h2>Method 5</h2>
+    <p class="help">Isokinetic particulate sampling review.</p>
+    <div class="grid">
+      <label>Nozzle Diameter (in)<input id="m5Nozzle" type="number" step="any"></label>
+      <label>Run Time (min)<input id="m5Time" type="number" step="any"></label>
+      <label>Actual Sample Volume (dscf)<input id="m5VmStd" type="number" step="any"></label>
+      <label>Stack Velocity (ft/min)<input id="m5Vel" type="number" step="any"></label>
+      <label>Stack Temperature (°F)<input id="m5Ts" type="number" step="any"></label>
+      <label>Absolute Pressure (in Hg)<input id="m5P" type="number" step="any"></label>
+      <label>Moisture Fraction Bws<input id="m5Bws" type="number" step="any"></label>
+      <label>Filter Catch (mg)<input id="m5Filter" type="number" step="any"></label>
+      <label>Probe / Rinse Catch (mg)<input id="m5Probe" type="number" step="any"></label>
+      <label>Other Catch (mg)<input id="m5Other" type="number" step="any" value="0"></label>
+      <label>Blank Correction (mg)<input id="m5Blank" type="number" step="any" value="0"></label>
+    </div>
+    <button id="calcM5Btn" class="primary-btn" type="button">Calculate Method 5</button>
+    <div class="results">
+      <div class="result"><span>Ideal Sample Volume</span><strong id="m5Ideal">—</strong><small>dscf</small></div>
+      <div class="result"><span>Isokinetic Rate</span><strong id="m5Iso">—</strong><small>%</small></div>
+      <div class="result"><span>Total Particulate</span><strong id="m5PmMg">—</strong><small>mg</small></div>
+      <div class="result"><span>Loading</span><strong id="m5GrDscf">—</strong><small>gr/dscf</small></div>
+    </div>
+    <div id="m5Flag" class="status neutral">Enter Method 5 field data.</div>
+  </section>
+
+  <section id="methodWorkspaceSection" class="card hidden">
+    <h2>Method Workspaces</h2>
+    <div id="genericMethodWorkspaces"></div>
+  </section>
+
+  <section id="jobPrepSection" class="card hidden">
+    <h2>Mobilize Equipment</h2>
+    <p class="help">
+      Built automatically from the methods selected for this job.
+      Shared equipment is listed once, and method-specific gear is added as needed.
+    </p>
+
+    <div id="mobilizeSummary" class="status neutral">
+      Build the job to generate the mobilization checklist.
+    </div>
+
+    <div id="jobPrepList"></div>
+  </section>
+
+  <section id="fieldNotesSection" class="card hidden">
+    <h2>Job Notes</h2>
+    <label>Field / Project Notes<textarea id="jobNotes" rows="8"></textarea></label>
+  </section>
+
+
+  <section class="card">
+    <h2>Tester vs Client</h2>
+    <p class="help">
+      Compare tester and client NOx results on a Method 19 lb/MMBtu basis,
+      review percent difference, permit margin, or calculate directly from lb/hr and heat input.
+    </p>
+
+    <div class="grid">
+      <label>Tester NOx (ppm)
+        <input id="testerNox" type="number" step="any">
+      </label>
+
+      <label>Tester O₂ (%)
+        <input id="testerO2" type="number" step="any">
+      </label>
+
+      <label>Client NOx (ppm)
+        <input id="clientNox" type="number" step="any">
+      </label>
+
+      <label>Client O₂ (%)
+        <input id="clientO2" type="number" step="any">
+      </label>
+
+      <label>Fuel
+        <select id="fuel">
+          <option value="">Select fuel</option>
+          <option value="natural gas">Natural Gas</option>
+          <option value="distillate oil">Distillate Oil</option>
+          <option value="residual oil">Residual Oil</option>
+          <option value="coal">Coal</option>
+          <option value="wood">Wood</option>
+        </select>
+      </label>
+
+      <label>Custom Fd
+        <input id="customFd" type="number" step="any" placeholder="Overrides fuel default">
+      </label>
+
+      <label>Client Reported lb/MMBtu
+        <input id="clientReported" type="number" step="any">
+      </label>
+
+      <label>Permit Limit (lb/MMBtu)
+        <input id="permitLimit" type="number" step="any">
+      </label>
+
+      <label>Tester lb/hr
+        <input id="testerLbHr" type="number" step="any">
+      </label>
+
+      <label>Heat Input (MMBtu/hr)
+        <input id="heatInput" type="number" step="any">
+      </label>
+    </div>
+
+    <button id="calcCompareBtn" class="primary-btn" type="button">
+      Calculate Tester vs Client
+    </button>
+
+    <div class="results">
+      <div class="result">
+        <span>Tester Method 19</span>
+        <strong id="testerM19">—</strong>
+        <small>lb/MMBtu</small>
+      </div>
+
+      <div class="result">
+        <span>Client Method 19</span>
+        <strong id="clientM19">—</strong>
+        <small>lb/MMBtu</small>
+      </div>
+
+      <div class="result">
+        <span>Difference</span>
+        <strong id="noxDiff">—</strong>
+        <small>%</small>
+      </div>
+
+      <div class="result">
+        <span>Permit Margin</span>
+        <strong id="permitMargin">—</strong>
+        <small>%</small>
+      </div>
+
+      <div class="result">
+        <span>Direct lb/MMBtu</span>
+        <strong id="directLbMmbtu">—</strong>
+        <small>lb/MMBtu</small>
+      </div>
+    </div>
+
+    <div id="noxFlag" class="status neutral">
+      Enter tester NOx, O₂, and fuel/Fd information.
+    </div>
+  </section>
+
+
+  <section class="card">
+    <h2>Job Data</h2>
+    <button id="saveJobBtn" type="button" class="primary-btn">Save Job</button>
+    <button id="loadJobBtn" type="button" class="secondary-btn">Load Saved Job</button>
+    <button id="newJobBtn" type="button" class="secondary-btn">Start New Job</button>
+    <div id="saveStatus" class="status neutral">No saved changes yet.</div>
+  </section>
+
+  <section class="card">
+    <h2>Calculator Check</h2>
+    <p class="help">Confirms that the Stack Test Pro calculation engine is running correctly.</p>
+    <button id="systemTestBtn" class="test-btn" type="button">Test App</button>
+    <div id="systemTestResult" class="status neutral">Test not run.</div>
+  </section>
+</main>
+
+<footer class="app-footer">Stack Test Pro</footer>
+<script src="app.js?v=5"></script>
+</body>
+</html>
