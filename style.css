@@ -84,3 +84,23 @@ body.full-mode #fieldQuickBar{display:none}
   .field-run-bar{grid-template-columns:1fr 1fr}
   .field-run-bar .primary{grid-column:1/-1;width:100%}
 }
+
+.selector-btn,.secondary,.ghost-dark{border:1px solid var(--line);background:white;border-radius:10px;padding:10px 12px;font-weight:800;color:var(--navy2)}
+.selector-btn{width:100%;margin-top:5px;text-align:left}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{background:var(--sky);border:1px solid #c9deeb;color:var(--navy2);font-size:11px;font-weight:850;padding:5px 8px;border-radius:999px}
+.modal{position:fixed;inset:0;background:#0008;z-index:100;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal-panel{background:white;border-radius:18px;padding:16px;width:min(920px,100%);max-height:90vh;overflow:auto}
+.ghost-dark{white-space:nowrap}
+.selector-actions{display:flex;gap:8px;margin:10px 0}
+.method-catalog{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}
+.method-option{display:grid;grid-template-columns:auto 1fr auto;gap:9px;align-items:start;padding:10px;border:1px solid var(--line);border-radius:11px;background:#fafcfd}
+.method-option input{width:18px;height:18px;margin:2px 0 0}
+.method-option b{font-size:13px}.method-option small{display:block;color:var(--muted);margin-top:2px;line-height:1.3}
+.badge{font-size:10px;font-weight:850;border-radius:999px;padding:4px 7px;white-space:nowrap}
+.badge.calc{background:#e5f5eb;color:var(--ok)}.badge.workspace{background:#fff2d9;color:var(--warn)}
+.method-workspace-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.method-workspace-card{border:1px solid var(--line);border-radius:11px;padding:11px;background:#fafcfd;cursor:pointer}
+.method-workspace-card b{display:block}.method-workspace-card small{color:var(--muted)}
+textarea{width:100%;margin-top:5px;padding:10px;border:1px solid #bdc8d0;border-radius:10px;background:var(--input);font:inherit}
+@media(max-width:640px){.method-catalog,.method-workspace-grid{grid-template-columns:1fr}.selector-actions{flex-direction:column}}

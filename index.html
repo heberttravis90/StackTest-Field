@@ -44,7 +44,9 @@
         <span id="saveStatus" class="pill">Saved locally</span>
       </div>
       <div id="fieldQuickBar" class="quick-bar">
+        <button class="quick" data-quick="m1">Method 1</button>
         <button class="quick active" data-quick="m2">Method 2</button>
+        <button class="quick" data-quick="m3a">Method 3A</button>
         <button class="quick" data-quick="m4">Method 4</button>
         <button class="quick" data-quick="m5">Method 5</button>
         <button class="quick" data-quick="inst">Analyzers</button>
@@ -58,7 +60,11 @@
         <label>Facility<input id="facility" placeholder="Facility"></label>
         <label>Unit / Stack<input id="unit" placeholder="Unit or stack"></label>
         <label>Test Date<input id="testDate" type="date"></label>
-        <label>Methods<input id="methods" placeholder="1, 2, 3A, 4, 5, 7E, 10..."></label>
+        <label>Selected Methods
+          <button id="chooseMethodsBtn" type="button" class="selector-btn">Choose EPA Methods</button>
+          <div id="selectedMethodChips" class="chips"></div>
+          <input id="methods" class="hidden" />
+        </label>
       </div>
     </section>
 
@@ -178,6 +184,43 @@
           <button class="module-tab" data-module="m320">320</button>
           <button class="module-tab" data-module="rata">RATA</button>
         </div>
+      </div>
+
+
+      <div id="m1" class="field-module card">
+        <div class="eyebrow">METHOD 1</div><h2>Sample / Velocity Traverse Setup</h2>
+        <div class="grid two">
+          <label>Stack shape
+            <select id="m1Shape"><option>Circular</option><option>Rectangular</option></select>
+          </label>
+          <label>Diameter (ft)<input id="m1Diameter" type="number" step="any"></label>
+          <label>Width (ft)<input id="m1Width" type="number" step="any"></label>
+          <label>Depth (ft)<input id="m1Depth" type="number" step="any"></label>
+          <label>Upstream disturbance distance (ft)<input id="m1Upstream" type="number" step="any"></label>
+          <label>Downstream disturbance distance (ft)<input id="m1Downstream" type="number" step="any"></label>
+        </div>
+        <div class="result-grid">
+          <div><span>Area</span><strong id="m1Area">—</strong><small>ft²</small></div>
+          <div><span>Equivalent Dia.</span><strong id="m1EqDia">—</strong><small>ft</small></div>
+          <div><span>Upstream</span><strong id="m1UpDia">—</strong><small>diameters</small></div>
+          <div><span>Downstream</span><strong id="m1DownDia">—</strong><small>diameters</small></div>
+        </div>
+        <div id="m1FieldFlag" class="status neutral">Enter Method 1 site geometry.</div>
+      </div>
+
+      <div id="m3a" class="field-module card">
+        <div class="eyebrow">METHOD 3A</div><h2>O₂ / CO₂ & Molecular Weight</h2>
+        <div class="grid two">
+          <label>O₂ Run Average (%)<input id="m3aO2" type="number" step="any"></label>
+          <label>CO₂ Run Average (%)<input id="m3aCo2" type="number" step="any"></label>
+          <label>Moisture Bws (optional)<input id="m3aBws" type="number" step="0.001"></label>
+        </div>
+        <div class="result-grid">
+          <div><span>N₂ estimate</span><strong id="m3aN2">—</strong><small>%</small></div>
+          <div><span>Dry MW</span><strong id="m3aDryMw">—</strong></div>
+          <div><span>Wet MW</span><strong id="m3aWetMw">—</strong></div>
+        </div>
+        <div id="m3aFlag" class="status neutral">Enter Method 3A averages.</div>
       </div>
 
       <div id="m2" class="field-module active card">
@@ -314,6 +357,20 @@
         <div id="m320Flag" class="status neutral">Enter FTIR run-review data.</div>
       </div>
 
+
+      <div id="genericMethod" class="field-module card">
+        <div class="eyebrow" id="genericEyebrow">EPA METHOD</div>
+        <h2 id="genericTitle">Method Workspace</h2>
+        <div id="genericStatus" class="status warn">Workspace available; calculation module not yet validated.</div>
+        <div class="grid two top-gap">
+          <label>Prelim / Source Information<textarea id="genericPrelim" rows="5" placeholder="Client data, prior test results, permit requirements..."></textarea></label>
+          <label>Equipment / Setup Notes<textarea id="genericEquipment" rows="5" placeholder="Train, analyzer, glassware, reagents, sample media, etc."></textarea></label>
+          <label>Field Data / Run Notes<textarea id="genericField" rows="7" placeholder="Field readings and observations..."></textarea></label>
+          <label>QA/QC / Post-Run Notes<textarea id="genericQa" rows="7" placeholder="Leak checks, calibrations, recoveries, blanks, deviations..."></textarea></label>
+        </div>
+        <button id="saveGenericBtn" class="primary wide">Save Method Workspace</button>
+      </div>
+
       <div id="rata" class="field-module card">
         <div class="eyebrow">RATA / PART 75</div><h2>Paired Run Data</h2>
         <p class="muted">Enter paired reference-method and CEMS values. This screen calculates basic pair statistics for field review; final Part 75 RA/bias determinations still require the applicable rule basis.</p>
@@ -432,6 +489,27 @@
       </div>
     </section>
   </main>
+
+
+  <div id="methodModal" class="modal hidden">
+    <div class="modal-panel">
+      <div class="card-title-row">
+        <div>
+          <div class="eyebrow">JOB SETUP</div>
+          <h2>Choose EPA Methods</h2>
+          <p class="muted">Select every method planned for this job. StackTest Pro will show only the tools tied to those methods.</p>
+        </div>
+        <button id="closeMethodModal" class="ghost-dark">Close</button>
+      </div>
+      <input id="methodSearch" placeholder="Search method number or title..." />
+      <div class="selector-actions">
+        <button id="selectCommonBtn" class="secondary">Select Common Stack Methods</button>
+        <button id="clearMethodsBtn" class="secondary">Clear All</button>
+      </div>
+      <div id="methodCatalog" class="method-catalog"></div>
+      <button id="applyMethodsBtn" class="primary wide">Use Selected Methods</button>
+    </div>
+  </div>
 
   <footer>StackTest Pro v0.4 Field Mode · Local/offline-first field workflow</footer>
   <script src="app.js"></script>
