@@ -1,25 +1,9 @@
 {
-  "name": "StackTest Field",
-  "short_name": "StackTest",
-  "description": "Stack testing field workflow, calculations, QA, equipment, analyzer runs, reporting, and beta feedback.",
+  "name": "StackTest Pro",
+  "short_name": "StackTest Pro",
   "start_url": "./",
-  "scope": "./",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#111111",
-  "orientation": "portrait-primary",
-  "icons": [
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ]
+  "background_color": "#f3f6f8",
+  "theme_color": "#0e2a3d",
+  "description": "Offline-first stack testing app with fast Field Mode and full pre-job-to-closeout workflow."
 }
