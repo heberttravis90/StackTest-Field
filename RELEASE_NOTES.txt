@@ -1,9 +1,0 @@
-StackTest Pro v0.20 RC3 — Cache Recovery
-
-- Moves service-worker update bootstrap into the document head.
-- Forces service-worker update checks with updateViaCache:none.
-- Uses cache:reload for app navigations and same-origin assets.
-- Deletes older Cache Storage entries during worker install/activate.
-- Uses a versioned PWA start URL.
-- Corrects the visible build marker to v0.20 RC3.
-- Keeps the v0.20 selected-method workflow and calculators intact.
