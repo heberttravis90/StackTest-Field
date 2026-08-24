@@ -1,0 +1,17 @@
+StackTest Pro v0.20 RC2 - Cache/Update Fix
+- Preserves the v0.20 RC1 selected-method workflow.
+- Updates the PWA/service-worker cache version.
+- Uses network-first, no-store fetching for app updates.
+- Deletes obsolete caches on activation.
+- Updates manifest/start URL and service-worker registration version.
+- Keeps cached app shell as offline fallback.
+
+StackTest Pro v0.20 RC1 — Selected-Method Workflow
+
+- NEW: Field Testing is now generated from the EPA methods selected in Mobilize.
+- NEW: Only selected methods appear as Field Testing method tabs.
+- NEW: Workspace-only methods selected in Mobilize also appear in Field Testing and open their method workspace.
+- NEW: Method 19 quick-access button and Method 19 prelim hint only appear when Method 19 is selected.
+- CONFIRMED: Prelims method cards are generated only for methods selected in Mobilize.
+- RETAINED: Method 19 O2/Fd and CO2/Fc calculation paths, including natural-gas defaults Fd 8710 and Fc 1040.
+- UPDATED: Offline cache/version identifiers for the new build.
