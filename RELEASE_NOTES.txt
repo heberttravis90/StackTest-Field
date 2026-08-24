@@ -1,0 +1,17 @@
+StackTest Pro v0.24 RC1 — Field Release Candidate
+
+Built from the verified v0.23 RC1 Run Manager baseline.
+
+New in this release:
+- End-of-job Closeout Control Center with job-level readiness KPIs.
+- Validation pass for missing selected-method data, unresolved Needs Attention flags, QA/QC, final review, open/flagged runs, RATA completion, and closeout checklist items.
+- Field Summary export as a human-readable HTML report suitable for opening/printing/saving as PDF from the browser.
+- Full JSON backup export retained and JSON job-backup import added.
+- Run Manager now shows the latest saved calculation snapshot beside applicable methods.
+- Existing calculator snapshots continue to feed valid-run averages and final summary.
+- Larger Part 75 and Part 60 RATA CEMS/Client and Reference Method entry boxes for touch/phone use.
+- General mobile touch-target and focus improvements.
+- New service-worker/cache key for v0.24 RC1 to reduce stale-build problems in normal Chrome.
+
+Important:
+StackTest Pro remains a calculation/workflow aid. Promulgated EPA methods, applicable subparts/performance specifications, approved test protocols, permits, calibrated equipment, and company QA/QC requirements control.
