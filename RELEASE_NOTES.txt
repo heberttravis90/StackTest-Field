@@ -1,6 +1,0 @@
-StackTest Pro v0.20 RC5
-Built directly from RC3 known-good baseline.
-Method 19 O2/Fd and CO2/Fc input/calculator retained.
-Added separate Part 75 RATA and Part 60 RATA choices.
-Added prominent Part 75 bias-after-every-run and no-dilution reminder.
-Retained RC3 cache recovery.
