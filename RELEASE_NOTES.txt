@@ -1,9 +1,0 @@
-StackTest Pro v0.20 RC4 — RATA Workflow
-
-Changes from RC3:
-- Keeps the working Part 75 Method 19 O2/Fd and CO2/Fc calculations unchanged.
-- Adds a separate Part 60 RATA choice in the method selector.
-- Part 75 RATA now displays a field reminder for required post-run system bias checks and the prohibition on calibration-gas dilution devices for Part 75 reference-method RATA applications.
-- Part 60 RATA uses a separate workflow label and reminds the tester to use the applicable Part 60 performance specification/subpart criteria.
-- Saved RATA snapshots are identified as Part 75 or Part 60.
-- Cache/build version advanced to RC4.
