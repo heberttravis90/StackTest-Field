@@ -1,0 +1,8 @@
+Stack Test Pro v0.28 RC1
+
+Recovery build based on v0.26 RC2 working foundation.
+- Restores dark theme, green accent, slide-out side menu, Settings, and working navigation.
+- Adds Client / Plant as the first dedicated side-menu screen.
+- Removes client/plant card from the top of all workflow screens.
+- Keeps EPA method selection and job preparation inside Mobilize.
+- Preserves existing calculations, field testing workflow, results, complete, Clear All / New Job, and offline support.
