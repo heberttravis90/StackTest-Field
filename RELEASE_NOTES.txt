@@ -1,0 +1,10 @@
+Stack Test Pro v0.30 RC1
+
+Controlled Method 1 update built on the known-good v0.29 RC1 baseline.
+
+- Reworked Method 1 entry to follow the field sheet order: duct orientation, duct design, far-wall-to-outside-port distance, nipple length, duct depth/diameter, cross-sectional area, test ports, readings per point, Distance A, Distance B, duct-diameter ratios, and governing traverse points.
+- Circular duct depth/diameter auto-calculates as far-wall-to-outside-port minus nipple length.
+- Cross-sectional area auto-calculates.
+- Existing Method 1 traverse-point and probe-mark planner retained.
+- Method 19 wet/dry workflow and method-driven Mobilize equipment logic from v0.29 RC1 left intact.
+- Offline cache bumped to v0.30 RC1.
