@@ -1,9 +1,0 @@
-Stack Test Pro v0.30 RC2 — Method 1 Nipple/Depth Fix
-
-- Method 1 now makes nipple length explicit in the field workflow.
-- Actual inside stack/duct depth is automatically calculated as:
-  far wall to outside of port MINUS nipple length.
-- The calculated inside depth/diameter is locked as an automatic field so it cannot be accidentally overridden.
-- Traverse-point geometry uses the calculated inside depth/diameter.
-- Probe-mark distances automatically add the nipple length back to each inside-wall traverse distance, so the displayed mark is measured from the outside end of the port.
-- Method 19 wet/dry workflow and method-driven Mobilize logic are unchanged from the known-good v0.29/v0.30 baseline.
