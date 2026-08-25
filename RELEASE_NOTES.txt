@@ -1,8 +1,0 @@
-StackTest Pro v0.26 RC1 — Slide-Out Workflow Menu
-
-- Replaced visible top workflow tabs with a left slide-out menu.
-- Workflow order: Mobilize, Setup / Prelims, Field Testing, Results, Complete.
-- Added Settings with Dark / Light / System appearance and user-selectable accent color.
-- Added About / Legal ownership and field-use notice.
-- Preserved existing v0.25 RC3 calculations, method filtering, RATA workflows, run manager, clear-all/new-job behavior, offline PWA support, and stack icon.
-- Updated service worker cache/version to force the new build to refresh on installed devices.
