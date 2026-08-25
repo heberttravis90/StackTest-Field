@@ -1,0 +1,6 @@
+StackTest Pro v0.32 RC1
+- Removed the large Common Prelims / Stack Process Prelim Data block from Generated Job Prep.
+- Method-specific prelim/setup cards remain in place.
+- Method 1 calculation logic is unchanged.
+- Redesigned circular Method 1 probe marks into a mobile-friendly field checklist.
+- Each point now emphasizes the probe mark from the outside end of the nipple, with point number and supporting %/inside-wall detail.
