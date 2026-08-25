@@ -1,0 +1,16 @@
+Stack Test Pro v0.32 RC2 — Readable Traverse Points
+
+- Reformatted Method 1 circular traverse-point output for phone use.
+- Each traverse point now gets its own clean card.
+- Probe mark is shown as the primary large measurement.
+- Inside-wall distance and percent-of-diameter are separated below it.
+- Completion checkbox moved to the top-right of each point card.
+- Desktop uses two columns; phones stay one point per row.
+- No calculation logic changed.
+
+StackTest Pro v0.32 RC1
+- Removed the large Common Prelims / Stack Process Prelim Data block from Generated Job Prep.
+- Method-specific prelim/setup cards remain in place.
+- Method 1 calculation logic is unchanged.
+- Redesigned circular Method 1 probe marks into a mobile-friendly field checklist.
+- Each point now emphasizes the probe mark from the outside end of the nipple, with point number and supporting %/inside-wall detail.
