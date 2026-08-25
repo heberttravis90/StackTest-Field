@@ -1,8 +1,0 @@
-Stack Test Pro v0.29 RC1
-
-Three field-workflow updates:
-- Method 19: independent Wet/Dry selection for Tester and Client/CEMS data. CO2/Fc supports matched wet/wet or dry/dry pairs; optional moisture enables true wet-to-dry concentration display. O2/Fd wet data requires moisture for dry conversion. Added dry-equivalent NOx quick comparison.
-- Method 1: clearer field-style A/B disturbance questions with upstream/downstream direction guidance, while preserving traverse-point and probe-mark calculations.
-- Mobilize equipment: equipment checklist is now method-driven. Isokinetic-specific loadout appears only when an isokinetic method is selected; mixed jobs merge and deduplicate requirements.
-
-Built on v0.28 RC1 recovery/client-plant foundation.
