@@ -1,9 +1,0 @@
-Stack Test Pro v0.31 RC1 — Method 1 Visible Nipple Workflow
-
-- Fixed the Method 1 card actually used in Setup / Prelims.
-- Added far-wall-to-outside-port measurement and port/nipple length.
-- Circular stack diameter now calculates automatically: far-wall measurement minus nipple length.
-- Added testing-port count.
-- Probe marks are generated automatically from the governing Method 1 traverse-point count.
-- Probe marks include nipple length so the field measurement is taken from the outside end of the port.
-- Preserved the rest of the v0.30 RC2 application.
