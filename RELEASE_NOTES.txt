@@ -1,3 +1,0 @@
-Stack Test Pro v0.26 RC2
-
-Button fix build. Restores v0.25 RC3 core app engine unchanged and isolates the new side-menu/settings code in a separate script. Service worker bumped to 026rc2.
