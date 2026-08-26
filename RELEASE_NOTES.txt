@@ -1,0 +1,7 @@
+StackTest Pro v0.42 RC1 — Client Navigation Label Fix
+
+Changes from v0.41 RC1:
+- Removed the Mobilize screen name from the bottom of Client / Plant.
+- Bottom workflow controls now display simple Next and Back labels.
+- The controls still navigate through the full workflow in the correct order.
+- Preserved the Field Mode visibility fix and all existing app features.
