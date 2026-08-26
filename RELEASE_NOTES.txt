@@ -1,0 +1,7 @@
+StackTest Pro v0.36 RC1 — Saved Jobs Navigation
+
+Changes from v0.35 RC1:
+- Moved Saved Jobs from the top of the workflow menu to directly beneath Complete.
+- Styled Saved Jobs as a subordinate archive option while keeping it fully accessible.
+- Preserved all save, open, duplicate, export, and delete behavior.
+- Updated the service-worker cache version so installed devices receive the new navigation.
