@@ -1,8 +1,0 @@
-Stack Test Pro v0.33 RC3 — Traverse Point Display Fix
-
-- Preserved the working dark/green theme from v0.33 RC2.
-- Fixed the second Method 1 traverse/probe-mark output that was still displaying all marks on one crowded line.
-- Probe marks now render as a two-column Point / Mark Probe At table in both Method 1 locations.
-- Nipple length and calculated inside diameter remain directly below the table.
-- Method 1 calculation logic was not changed.
-- Updated PWA cache version so phones can pull the corrected build.
