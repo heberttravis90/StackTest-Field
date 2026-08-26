@@ -1,6 +1,0 @@
-StackTest Pro v0.41 RC1 — Field Mode Navigation Fix
-
-Changes from v0.40 RC1:
-- Fixed Field Testing remaining visible beneath Client / Plant and other workflow pages when Field Mode was remembered.
-- Field Testing now renders only when it is the active page.
-- Preserved CGA cleanup, special equipment, job notes/photos, streamlined run saving, navigation, saved jobs, themes, calculators, and offline operation.
