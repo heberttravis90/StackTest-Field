@@ -1,8 +1,0 @@
-StackTest Pro v0.35 RC1 — Full Accent Theme
-
-Changes from v0.34 RC1:
-- Accent color now drives the decorative green UI throughout the app, including borders, input outlines, focus rings, cards, active navigation, chips, result panels, checkboxes, and success/complete highlights.
-- Added Pink preset (#ff4fa3) to Settings.
-- Preserved amber warning and red error/attention states for field readability.
-- Preserved Saved Jobs and the Method 1 traverse display fixes from prior builds.
-- Updated service-worker cache version to force the new theme assets to refresh on installed devices.
