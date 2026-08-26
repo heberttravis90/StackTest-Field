@@ -1,7 +1,0 @@
-StackTest Pro v0.43 RC1 — Screen Isolation Fix
-
-Changes from v0.42 RC1:
-- Fixed Field Testing appearing underneath Client / Plant after saved data loaded.
-- Field methods now activate only when Field Testing is intentionally opened.
-- Preserved the simple mobile-friendly Next and Back labels.
-- Refreshed the offline cache so installed copies receive the fix.
