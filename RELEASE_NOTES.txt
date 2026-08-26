@@ -1,0 +1,10 @@
+StackTest Pro v0.37 RC1 — CGA, Loadout Sharing & Workflow Navigation
+
+Changes from v0.36 RC1:
+- Added Cylinder Gas Audit as a selectable job test with its own mobilization equipment.
+- Added repeatable CGA audit cards for O2, CO2, CO, NOx, SO2, H2S, THC, and other parameters.
+- Added Low and Mid range cylinder details, three timed responses, averages, differences, accuracy, and preliminary criteria status.
+- Added Share Loadout List plus Print / Save PDF actions.
+- Added Back and Next buttons to every primary workflow page and Finish / Save Job on Complete.
+- Preserved saved jobs, method calculators, themes, and offline operation.
+- Updated the service-worker cache version so installed devices receive the release.
