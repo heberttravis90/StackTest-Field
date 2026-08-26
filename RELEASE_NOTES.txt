@@ -1,7 +1,0 @@
-StackTest Pro v0.40 RC1 — CGA Loadout Cleanup
-
-Changes from v0.39 RC1:
-- Removed Applicable analyzer(s), Data acquisition system / laptop, and Time synchronization method from CGA equipment.
-- Removed Chain of custody forms and DAS / data interface from CGA-only loadouts.
-- Mixed-method jobs retain shared equipment when another selected method may require it.
-- Preserved special equipment, job notes/photos, streamlined run saving, navigation, saved jobs, themes, calculators, and offline operation.
