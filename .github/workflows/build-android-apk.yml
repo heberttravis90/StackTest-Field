@@ -37,6 +37,12 @@ jobs:
       - name: Sync Stack Test Pro
         run: npx cap sync android
 
+      - name: Generate Stack Test Pro icon
+        run: |
+          mkdir -p assets
+          cp app-icon.png assets/icon-only.png
+          npx --yes @capacitor/assets generate --android
+
       - name: Build APK
         run: |
           chmod +x android/gradlew
@@ -45,8 +51,7 @@ jobs:
 
       - name: Rename APK
         run: |
-          cp android/app/build/outputs/apk/debug/app-debug.apk \
-          StackTest_Pro_v0.54_RC2_External_Evaluation.apk
+          cp android/app/build/outputs/apk/debug/app-debug.apk StackTest_Pro_v0.54_RC2_External_Evaluation.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
