@@ -1,0 +1,8 @@
+{
+  "appId": "com.stacktestpro.app",
+  "appName": "Stack Test Pro",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  }
+}
