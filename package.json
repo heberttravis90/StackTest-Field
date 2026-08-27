@@ -1,0 +1,13 @@
+{
+  "name": "stacktest-pro-android",
+  "version": "0.54.2",
+  "private": true,
+  "description": "Stack Test Pro Android wrapper - v0.54 RC2 External Evaluation",
+  "dependencies": {
+    "@capacitor/android": "8.0.0",
+    "@capacitor/core": "8.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.0.0"
+  }
+}
