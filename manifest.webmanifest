@@ -6,5 +6,17 @@
   "display": "standalone",
   "background_color": "#07100b",
   "theme_color": "#07110b",
-  "description": "Offline stack-testing job preparation, field calculation, and results comparison aid."
+  "description": "Offline stack-testing job preparation, field calculation, and results comparison aid.", 
+"icons": [
+  {
+    "src": "./icon-192.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  },
+  {
+    "src": "./icon-512.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }
+]
 }
