@@ -1,0 +1,108 @@
+StackTest Pro v0.54 RC1 — Wet-Method Loadout Deduplication
+
+NEW IN v0.54 RC1
+- Fixed duplicate / equivalent equipment entries surviving the combined loadout when wet or isokinetic methods overlap.
+- Added one centralized equipment deduplication pass used by method prep, Mobilize, Master Loadout, sharing, and printing.
+- Normalizes whitespace / punctuation variants and consolidates common wet-train aliases such as Ice Chest variants and DGM / meter-console variants.
+- Preserves distinct equipment that is genuinely separate rather than blindly collapsing similar-looking items.
+- Built on v0.53 RC1 so the Method 7E RM bias-correction workflow remains intact.
+- Updated About / Legal and refreshed the offline cache.
+
+PREVIOUS RELEASE
+
+StackTest Pro v0.53 RC1 — Method 7E RM Bias Correction
+
+NEW IN v0.53 RC1
+- Added an optional Method 7E reference-method correction workflow inside Part 75 RATA.
+- Supports zero-gas Equation 7E-5b and non-zero-low-gas Equation 7E-5a.
+- Stores raw RM averages, shared certified/direct calibration values, and per-run pre/post low and upscale responses.
+- Calculates and displays the corrected RM value for each run.
+- Screens pre/post system bias and low/upscale drift using Method 7E limits and the 0.5 ppm alternatives.
+- Uses only the corrected RM values in RATA statistics when correction mode is enabled.
+- Keeps the reference-method correction separate from the Part 75 CEMS statistical bias test and BAF.
+- Preserves manual corrected-RM entry for existing jobs and workflows.
+- Updated About / Legal and refreshed the offline cache.
+
+PREVIOUS RELEASE
+
+StackTest Pro v0.52 RC1 — Complete Part 75 RATA Pathways
+
+NEW IN v0.52 RC1
+- Added monitor-specific Part 75 RATA evaluation for SO₂, NOx concentration, NOx-diluent emission rate, flow, O₂, CO₂, and moisture.
+- Automatically evaluates both the normal percent-relative-accuracy specification and every applicable alternate mean-difference specification.
+- Automatically reports PASS/FAIL, the passing pathway, and whether annual or semiannual RATA frequency was earned.
+- Corrected alternate specifications to use the absolute difference between the CEMS and reference-method means without adding the confidence coefficient.
+- Added low-emitter, low-emission-rate, and low-flow eligibility checks.
+- Added the separate statistical bias test for SO₂, applicable NOx, NOx-diluent, and flow monitoring systems, with a calculated bias adjustment factor when required.
+- Kept post-run system bias-check completion separate from the statistical RATA bias test.
+- Updated the About / Legal version and refreshed the offline cache.
+
+PREVIOUS RELEASE
+StackTest Pro v0.50 RC1 — Selected Loadout Sharing
+
+NEW IN v0.50 RC1
+- Shared and printed loadouts now include only equipment checked in either loadout checklist.
+- Detailed monorail style, length, and quantity are always included when configured.
+- Added special equipment is always included in its own section.
+- The full checklist and its checked state still remain saved with the job.
+- Updated the About / Legal version and refreshed the offline cache.
+
+PREVIOUS RELEASE
+Stack Test Pro v0.49 RC1 — Detailed Monorail Loadout
+
+NEW IN v0.49 RC1
+- Added monorail style choices: Bolt-on Plate, Pin Style, and Verify at Shop.
+- Added 5 ft, 8 ft, 10 ft, 12 ft, 15 ft, and Verify at Shop length choices.
+- Added quantity entry and support for multiple monorail combinations on one job.
+- Detailed monorails are saved with the job and included in checklists, exports, printed lists, and shared loadouts.
+- Corrected the About / Legal screen version to 0.49 RC1.
+
+PREVIOUS RELEASE
+Stack Test Pro v0.48 RC1 — Isokinetic Monorails
+
+NEW IN v0.48 RC1
+- Added Monorails automatically to the equipment list for every isokinetic method.
+- Monorails now appear in method-specific checklists, the combined loadout, and shared/printed loadout lists.
+- Refreshed the offline cache so installed copies receive the update.
+
+PREVIOUS RELEASE
+StackTest Pro v0.47 RC1 — Client Job Notes & Documents
+
+- Moved Job Notes and Photos from Mobilize to the bottom of Client / Plant.
+- Added permit, test plan, Word document, PDF, and image uploads.
+- Documents remain tied to the saved job on the device and can be opened or deleted.
+- Duplicating or deleting a saved job now includes its attached documents.
+
+Previous v0.46 RC1 changes:
+
+- Added Split Cold Boxes when Method 23 is selected.
+- Added Split Cold Boxes when Method 202 is selected.
+
+Previous v0.45 RC1 changes:
+
+- Added Oven to every isokinetic method loadout.
+- Added separate Small Cold Box and Large Cold Box items to every isokinetic method loadout.
+- Added Method 202 Kit whenever Method 202 is selected.
+- Applied these items to both method-specific Mobilize lists and the combined equipment checklist.
+
+Previous v0.44 RC1 changes:
+
+- Changed placeholder labels from "Example:" to "Ex:".
+- Changed Special Equipment to a taller, wrapping entry field.
+- Shortened the Special Equipment and Job Notes examples for phone screens.
+
+Previous v0.43 RC1 changes:
+
+Changes from v0.42 RC1:
+- Fixed Field Testing appearing underneath Client / Plant after saved data loaded.
+- Field methods now activate only when Field Testing is intentionally opened.
+- Preserved the simple mobile-friendly Next and Back labels.
+- Refreshed the offline cache so installed copies receive the fix.
+v0.51 RC1 — Full RATA Statistics and PS Criteria
+- Keeps Part 75 and Part 60 RATA workspaces separate.
+- Adds included/excluded run controls for all 12 paired runs.
+- Adds run-count-specific Student's t values, sample standard deviation, confidence coefficient, and full relative accuracy.
+- Adds Part 75 selectable acceptance bases and a reminder that bias testing remains separate.
+- Adds Part 60 PS 2, 3, 4, 4A, 5, 6, 7, and 8 alternative acceptance pathways.
+- Adds custom/subpart-specific criteria for PS 15 and other governing requirements.
+- Shows PASS only when at least nine included runs populate an applicable acceptance pathway.
