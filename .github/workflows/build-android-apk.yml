@@ -40,9 +40,10 @@ jobs:
       - name: Generate Stack Test Pro icon
         run: |
           mkdir -p assets
-          cp app-icon.png assets/icon-only.png
-          npx --yes @capacitor/assets generate --android
-
+cp app-icon.png assets/icon-only.png
+cp app-icon.png assets/icon-foreground.png
+cp app-icon.png assets/icon-background.png
+npx --yes @capacitor/assets generate --android --iconBackgroundColor '#111111' --iconBackgroundColorDark '#111111'
       - name: Build APK
         run: |
           chmod +x android/gradlew
