@@ -1,0 +1,55 @@
+name: Build Stack Test Pro APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - android-evaluation
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "21"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Create Android project
+        run: |
+          if [ ! -d android ]; then
+            npx cap add android
+          fi
+
+      - name: Sync Stack Test Pro
+        run: npx cap sync android
+
+      - name: Build APK
+        run: |
+          chmod +x android/gradlew
+          cd android
+          ./gradlew assembleDebug
+
+      - name: Rename APK
+        run: |
+          cp android/app/build/outputs/apk/debug/app-debug.apk \
+          StackTest_Pro_v0.54_RC2_External_Evaluation.apk
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: StackTest-Pro-v0.54-RC2-External-Evaluation
+          path: StackTest_Pro_v0.54_RC2_External_Evaluation.apk
