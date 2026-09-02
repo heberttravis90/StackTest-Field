@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#07110b" />
   <title>StackTest Pro</title>
-  <link rel="manifest" href="manifest.webmanifest?v=060rc1" />
+  <link rel="manifest" href="manifest.webmanifest?v=061rc1" />
   <style>
 :root{
   --navy:#0e2a3d; --navy2:#163f59; --blue:#2d78a8; --sky:#e8f3fa;
@@ -423,6 +423,11 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
 .drawer-link.drawer-sub{width:calc(100% - 18px);margin-left:18px;padding-top:10px;padding-bottom:10px;color:var(--muted)}
 .drawer-link.drawer-sub.active{color:var(--accent)}
 .workflow-nav{display:flex;justify-content:space-between;gap:12px;margin:18px 0 6px}.workflow-nav button{min-width:120px}.workflow-nav .next-step{margin-left:auto}.cga-audit-card{border:1px solid var(--accent-line);border-radius:14px;padding:14px;margin:12px 0;background:var(--input)}.cga-card-head{display:flex;justify-content:space-between;gap:10px;align-items:center}.cga-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.cga-range-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.cga-range{border:1px solid var(--line);border-radius:12px;padding:12px}.cga-response-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.cga-results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:10px}.cga-results div{background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:9px;padding:8px}.cga-results span{display:block;font-size:10px;text-transform:uppercase;color:var(--muted)}.cga-results strong{font-size:16px}.share-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.monorail-entry{display:grid;grid-template-columns:1.4fr 1fr .8fr auto;gap:10px;align-items:end}.monorail-list{display:grid;gap:8px;margin-top:12px}.monorail-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 12px;border:1px solid var(--accent-line);border-radius:11px;background:var(--input)}.monorail-item strong{color:var(--accent-text)}.monorail-item button{flex:0 0 auto}@media(max-width:700px){.cga-grid,.cga-range-grid,.monorail-entry{grid-template-columns:1fr}.workflow-nav button{min-width:0;flex:1}.monorail-entry button{width:100%}}
+
+/* v0.61 RC1 — Crew Time / job-level leadership */
+.crew-head-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.crew-roster-list,.crew-time-list{display:grid;gap:9px;margin-top:12px}.crew-roster-card,.crew-time-row{border:1px solid var(--accent-line);border-radius:12px;padding:12px;background:var(--input)}.crew-roster-top,.crew-time-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}.crew-name{font-weight:900;font-size:15px}.crew-meta{color:var(--muted);font-size:12px;margin-top:3px}.crew-actions{display:flex;gap:7px;flex-wrap:wrap}.crew-actions button{padding:7px 9px;font-size:11px}.crew-entry-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.crew-entry-grid .wide{grid-column:1/-1}.crew-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}.crew-kpis>div{border:1px solid var(--accent-line);border-radius:10px;padding:10px;background:var(--accent-soft)}.crew-kpis span{display:block;font-size:10px;color:var(--muted);text-transform:uppercase;font-weight:800}.crew-kpis strong{display:block;font-size:20px;margin-top:3px}.crew-member-summary{border:1px solid var(--accent-line);border-radius:12px;padding:12px;background:rgba(255,255,255,.02)}.crew-member-summary-head{display:flex;justify-content:space-between;gap:10px;align-items:center}.crew-category-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.crew-category-chips span{border:1px solid var(--accent-line);border-radius:999px;padding:5px 8px;font-size:11px;color:var(--muted)}.crew-access{margin-top:10px}.crew-readonly{opacity:.65}.crew-time-row .crew-time-detail{margin-top:6px;color:var(--muted);font-size:12px;line-height:1.45}.crew-time-hours{font-size:20px;font-weight:950;color:var(--accent-text)}
+@media(max-width:700px){.crew-head-grid,.crew-entry-grid{grid-template-columns:1fr}.crew-entry-grid .wide{grid-column:auto}.crew-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
 </style>
 
   <script>
@@ -431,13 +436,13 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
   (async function(){
     if (!("serviceWorker" in navigator)) return;
     try {
-      const reg = await navigator.serviceWorker.register("./sw.js?v=060rc1", { updateViaCache: "none" });
+      const reg = await navigator.serviceWorker.register("./sw.js?v=061rc1", { updateViaCache: "none" });
       await reg.update();
-      let reloaded = sessionStorage.getItem("stp_060rc1_controller_reload");
+      let reloaded = sessionStorage.getItem("stp_061rc1_controller_reload");
       navigator.serviceWorker.addEventListener("controllerchange", ()=>{
         if (!reloaded) {
-          sessionStorage.setItem("stp_060rc1_controller_reload","1");
-          location.replace("./?v=060rc1&t=" + Date.now());
+          sessionStorage.setItem("stp_061rc1_controller_reload","1");
+          location.replace("./?v=061rc1&t=" + Date.now());
         }
       });
     } catch(e) { console.log("STP worker bootstrap:", e); }
@@ -465,14 +470,15 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
       <button class="drawer-link" data-view="prejob"><span class="drawer-num">2</span><span>Mobilize</span><span class="drawer-state">•</span></button>
       <button class="drawer-link" data-view="prelims"><span class="drawer-num">3</span><span>Setup / Prelims</span><span class="drawer-state">•</span></button>
       <button class="drawer-link" data-view="field"><span class="drawer-num">4</span><span>Field Testing</span><span class="drawer-state">•</span></button>
-      <button class="drawer-link" data-view="compare"><span class="drawer-num">5</span><span>Results</span><span class="drawer-state">•</span></button>
-      <button class="drawer-link" data-view="postjob"><span class="drawer-num">6</span><span>Complete</span><span class="drawer-state">•</span></button>
+      <button class="drawer-link" data-view="crewtime"><span class="drawer-num">5</span><span>Crew Time</span><span class="drawer-state">•</span></button>
+      <button class="drawer-link" data-view="compare"><span class="drawer-num">6</span><span>Results</span><span class="drawer-state">•</span></button>
+      <button class="drawer-link" data-view="postjob"><span class="drawer-num">7</span><span>Complete</span><span class="drawer-state">•</span></button>
       <button class="drawer-link drawer-sub" data-view="savedjobs"><span class="drawer-num">★</span><span>Saved Jobs</span><span class="drawer-state">•</span></button>
     </nav>
     <div class="drawer-bottom">
       <button class="drawer-link utility" data-view="settings"><span>⚙</span><span>Settings</span></button>
       <button class="drawer-link utility" data-view="about"><span>ⓘ</span><span>About / Legal</span></button>
-      <div class="drawer-version">v0.60 RC1 · Evaluation Beta</div>
+      <div class="drawer-version">v0.61 RC1 · Evaluation Beta</div>
     </div>
   </aside>
 
@@ -535,8 +541,9 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
       <button class="step" data-view="prejob">2 Mobilize</button>
       <button class="step" data-view="prelims">3 Prelims & Setup</button>
       <button class="step" data-view="field">4 Field Testing</button>
-      <button class="step" data-view="compare">5 Results</button>
-      <button class="step" data-view="postjob">6 Closeout</button>
+      <button class="step" data-view="crewtime">5 Crew Time</button>
+      <button class="step" data-view="compare">6 Results</button>
+      <button class="step" data-view="postjob">7 Closeout</button>
     </nav>
 
     <section id="prejob" class="view">
@@ -1086,6 +1093,55 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
     </section>
 
 
+    <section id="crewtime" class="view">
+      <div class="card">
+        <div class="card-title-row"><div><div class="eyebrow">JOB CONTROL</div><h2>Crew Time</h2></div><span id="crewAccessPill" class="pill">Local manager mode</span></div>
+        <p class="muted">Build the crew for this project, designate the Job Lead, and track labor by work status. Project Managers have broad oversight. A Team Lead designated as Job Lead controls the whole job. Other Team Leads can manage technicians assigned to them. Technicians can view their own recorded time.</p>
+        <div class="crew-head-grid">
+          <label>Viewing / Acting As<select id="crewActingProfile"><option value="">Local manager mode (no sign-in yet)</option></select></label>
+          <label>Job Lead<select id="crewJobLead"><option value="">Not assigned</option></select></label>
+        </div>
+        <div id="crewAccessNote" class="status neutral crew-access">Local-only prototype: profile permissions are previewed on this device. Cross-phone visibility will use the future sign-in/backend sync.</div>
+      </div>
+
+      <div class="card" id="crewRosterCard">
+        <div class="card-title-row"><div><div class="eyebrow">PROJECT CREW</div><h2>Crew Roster</h2></div><span id="crewCount" class="pill">0 people</span></div>
+        <div class="crew-entry-grid">
+          <label>Name<input id="crewName" placeholder="Crew member name"></label>
+          <label>Profile Role<select id="crewRole"><option>Technician</option><option>Team Lead</option><option>Project Manager</option></select></label>
+          <label class="wide">Assigned Team Lead<select id="crewReportsTo"><option value="">None / assign later</option></select></label>
+        </div>
+        <button id="addCrewMemberBtn" class="primary wide" type="button">+ Add Crew Member</button>
+        <div id="crewRosterList" class="crew-roster-list"></div>
+      </div>
+
+      <div class="card" id="crewEntryCard">
+        <div class="card-title-row"><div><div class="eyebrow">LABOR ENTRY</div><h2>Add Crew Time</h2></div><span id="crewTimePreview" class="pill">0.00 hr</span></div>
+        <div class="crew-entry-grid">
+          <label>Crew Member<select id="crewTimeMember"><option value="">Choose crew member</option></select></label>
+          <label>Work Status<select id="crewTimeCategory"><option>Mobilize</option><option>Travel</option><option>Onsite</option><option>Delay</option><option>Standby</option><option>Demobilize</option></select></label>
+          <label>Start<input id="crewTimeStart" type="datetime-local"></label>
+          <label>End<input id="crewTimeEnd" type="datetime-local"></label>
+          <label class="wide">Notes / Delay or Standby Reason<textarea id="crewTimeNotes" rows="3" placeholder="Optional — reason for delay, standby details, travel note, etc."></textarea></label>
+        </div>
+        <button id="saveCrewTimeBtn" class="primary wide" type="button">Add Time Entry</button>
+        <button id="cancelCrewTimeEditBtn" class="secondary wide hidden" type="button">Cancel Edit</button>
+        <div id="crewTimeEntryStatus" class="status neutral">Choose a crew member and enter start/end time.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title-row"><div><div class="eyebrow">LABOR SUMMARY</div><h2>Project Crew Hours</h2></div><span id="crewLaborTotal" class="pill">0.00 hr</span></div>
+        <div id="crewTimeKpis" class="crew-kpis"></div>
+        <div id="crewTimeSummary" class="crew-roster-list"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title-row"><div><div class="eyebrow">TIME RECORD</div><h2>Time Entries</h2></div><span id="crewEntryCount" class="pill">0 entries</span></div>
+        <div id="crewTimeList" class="crew-time-list"></div>
+      </div>
+    </section>
+
+
     <section id="compare" class="view">
       <div class="card">
         <div class="eyebrow">RESULTS</div><h2>Field Results</h2>
@@ -1139,7 +1195,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
 
     <section id="about" class="view">
       <div class="card"><div class="eyebrow">ABOUT</div><h2>Stack Test Pro</h2><div class="about-mark">STP</div><p class="muted">Offline-first stack-testing job preparation, field calculation, results, and closeout workflow.</p>
-        <div class="summary-list"><div class="summary-row"><b>Version</b><span>0.58 RC1 — External Evaluation</span></div><div class="summary-row"><b>Status</b><span>Evaluation Beta</span></div><div class="summary-row"><b>Data</b><span>Saved locally on this device</span></div></div>
+        <div class="summary-list"><div class="summary-row"><b>Version</b><span>0.61 RC1 — External Evaluation</span></div><div class="summary-row"><b>Status</b><span>Evaluation Beta</span></div><div class="summary-row"><b>Data</b><span>Saved locally on this device</span></div></div>
       </div>
       <div class="card"><div class="eyebrow">EVALUATION</div><h2>Evaluation Beta</h2><p class="muted"><strong>This prerelease build is provided solely for evaluation and testing.</strong></p><p class="muted">It may not be redistributed, resold, copied for distribution, modified for redistribution, or represented as another party’s work. Evaluation access does not grant ownership of Stack Test Pro or its source code.</p></div><div class="card"><div class="eyebrow">DATA & PRIVACY</div><h2>Local Data Notice</h2><p class="muted">Job information and saved-job data are stored locally on this device. Photos and uploaded documents may also be stored locally on the device. Evaluators are responsible for following their company’s policies for client, facility, permit, test-plan, field, and other confidential information. Use non-confidential or test data when required by company policy.</p></div><div class="card"><div class="eyebrow">LEGAL</div><h2>Ownership & Use</h2><p class="muted"><strong>© 2026 Stack Test Pro. All rights reserved.</strong></p><p class="muted">This software, its original source code, interface, graphics, and original written content are proprietary. Unauthorized copying, redistribution, resale, modification for redistribution, or representation of this software as another party’s work is prohibited.</p><p class="muted">Stack Test Pro is a planning and field calculation aid. It is not a substitute for applicable regulatory requirements, approved test protocols, permits, calibrations, or company QA/QC procedures. The applicable EPA method, regulation, approved test plan, permit, calibrations, and company QA/QC requirements control.</p></div>
     </section>
@@ -1166,7 +1222,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
     </div>
   </div>
 
-  <footer>StackTest Pro v0.58 RC1 · External Evaluation Beta · Local/offline-first field workflow</footer>
+  <footer>StackTest Pro v0.61 RC1 · External Evaluation Beta · Local/offline-first field workflow</footer>
   <script>
 const $ = id => document.getElementById(id);
 
@@ -1905,7 +1961,7 @@ async function addJobDocument(file){if(!file)return;const status=$("jobDocumentS
 function makeJobKey(){return (globalThis.crypto?.randomUUID?.()||(`job_${Date.now()}_${Math.random().toString(36).slice(2,10)}`));}
 function getJobLibrary(){try{const x=JSON.parse(localStorage.getItem(JOB_LIBRARY_STORAGE)||"{}");return x&&typeof x==="object"&&!Array.isArray(x)?x:{}}catch{return {}}}
 function setJobLibrary(lib){localStorage.setItem(JOB_LIBRARY_STORAGE,JSON.stringify(lib));}
-function hasMeaningfulJob(data){const f=data?.fields||{};return !!([f.jobId,f.client,f.facility,f.unit,f.testDate].some(v=>String(v||"").trim()) || (data?.selectedMethods||[]).length || (data?.jobRuns||[]).length || (data?.runs||[]).length || (data?.monorails||[]).length || (data?.specialEquipment||[]).length || (data?.jobNotes||[]).length);}
+function hasMeaningfulJob(data){const f=data?.fields||{};return !!([f.jobId,f.client,f.facility,f.unit,f.testDate].some(v=>String(v||"").trim()) || (data?.selectedMethods||[]).length || (data?.jobRuns||[]).length || (data?.runs||[]).length || (data?.monorails||[]).length || (data?.specialEquipment||[]).length || (data?.jobNotes||[]).length || (data?.crewRoster||[]).length || (data?.crewTimeEntries||[]).length);}
 function jobDisplayName(data){const f=data?.fields||{};return String(f.jobId||"").trim() || [f.client,f.facility,f.unit].filter(Boolean).join(" · ") || "Untitled Job";}
 function upsertJobLibrary(data){if(!data||!hasMeaningfulJob(data))return;data._jobKey ||= makeJobKey();const lib=getJobLibrary();lib[data._jobKey]=JSON.parse(JSON.stringify(data));setJobLibrary(lib);}
 function formatSavedAt(v){if(!v)return "Not dated";try{return new Date(v).toLocaleString()}catch{return v}}
@@ -2937,6 +2993,8 @@ function finalSummaryRows(){
   rows.push(["Client NOx M19",$("clientM19")?.textContent==="—"?"Not entered":($("clientM19")?.textContent||"Not entered")+" lb/MMBtu"]);
   rows.push(["Saved Runs",`${state.runs.filter(r=>r.status==="valid").length} valid / ${state.runs.filter(r=>r.status==="invalid").length} invalid`]);
   const jr=state.jobRuns||[]; rows.push(["Job Run Manager",`${jr.filter(r=>r.status==="closed"&&r.disposition==="complete").length} complete / ${jr.filter(r=>r.status==="open").length} open / ${jr.filter(r=>r.status==="closed"&&r.disposition!=="complete").length} flagged`]);
+  const crewHours=(state.crewTimeEntries||[]).reduce((sum,e)=>sum+(Number(e.hours)||0),0);
+  if((state.crewRoster||[]).length) rows.push(["Crew Labor",`${crewHours.toFixed(2)} hr · ${(state.crewRoster||[]).length} crew member${(state.crewRoster||[]).length===1?'':'s'}`]);
   return rows;
 }
 
@@ -3263,14 +3321,99 @@ function renderCloseoutCenter(runValidation=false){
   return issues;
 }
 function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+// v0.61 RC1 — Crew Time and job-level authority
+const CREW_TIME_CATEGORIES=["Mobilize","Travel","Onsite","Delay","Standby","Demobilize"];
+let crewTimeEditId=null;
+function crewId(){return globalThis.crypto?.randomUUID?.()||`crew_${Date.now()}_${Math.random().toString(36).slice(2)}`;}
+function crewMember(id){return (state.crewRoster||[]).find(x=>x.id===id)||null;}
+function crewActing(){return crewMember(state.crewActingId)||null;}
+function crewJobLead(){return crewMember(state.jobLeadId)||null;}
+function crewCanManageAll(){const a=crewActing();return !a || a.role==="Project Manager" || a.id===state.jobLeadId;}
+function crewCanManageMember(memberId){
+  const a=crewActing(); if(!a)return true;
+  if(a.role==="Project Manager"||a.id===state.jobLeadId)return true;
+  if(a.role==="Team Lead")return memberId===a.id || crewMember(memberId)?.reportsTo===a.id;
+  return false;
+}
+function crewCanManageRoster(){return crewCanManageAll();}
+function crewVisibleEntries(){
+  const a=crewActing(),entries=state.crewTimeEntries||[];
+  if(!a||a.role==="Project Manager"||a.id===state.jobLeadId)return entries;
+  if(a.role==="Team Lead")return entries.filter(e=>e.memberId===a.id||crewMember(e.memberId)?.reportsTo===a.id);
+  return entries.filter(e=>e.memberId===a.id);
+}
+function crewHoursBetween(start,end){const a=new Date(start),b=new Date(end);const h=(b-a)/36e5;return Number.isFinite(h)&&h>0?h:null;}
+function crewFormatDateTime(v){if(!v)return "";try{return new Date(v).toLocaleString([], {month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})}catch{return v}}
+function crewLeadOptions(selected=""){return (state.crewRoster||[]).filter(m=>m.role==="Team Lead"||m.role==="Project Manager").map(m=>`<option value="${m.id}" ${m.id===selected?'selected':''}>${escapeHtml(m.name)} — ${m.role}</option>`).join("");}
+function renderCrewTime(){
+  if(!$("crewtime"))return;
+  state.crewRoster||=[];state.crewTimeEntries||=[];state.crewActingId||="";state.jobLeadId||="";
+  if(state.jobLeadId&&!crewMember(state.jobLeadId))state.jobLeadId="";
+  if(state.crewActingId&&!crewMember(state.crewActingId))state.crewActingId="";
+  const roster=state.crewRoster,acting=crewActing(),lead=crewJobLead(),manageAll=crewCanManageAll(),manageRoster=crewCanManageRoster();
+  if($("crewCount"))$("crewCount").textContent=`${roster.length} ${roster.length===1?'person':'people'}`;
+  const actingSel=$("crewActingProfile");if(actingSel){actingSel.innerHTML='<option value="">Local manager mode (no sign-in yet)</option>'+roster.map(m=>`<option value="${m.id}" ${m.id===state.crewActingId?'selected':''}>${escapeHtml(m.name)} — ${m.role}</option>`).join('');}
+  const leadSel=$("crewJobLead");if(leadSel){leadSel.innerHTML='<option value="">Not assigned</option>'+roster.filter(m=>m.role!=="Technician").map(m=>`<option value="${m.id}" ${m.id===state.jobLeadId?'selected':''}>${escapeHtml(m.name)} — ${m.role}</option>`).join('');leadSel.disabled=!manageRoster;}
+  const pill=$("crewAccessPill"),note=$("crewAccessNote");
+  if(pill)pill.textContent=!acting?'Local manager mode':acting.role==="Project Manager"?'PM oversight':acting.id===state.jobLeadId?'Job Lead control':acting.role==="Team Lead"?'Team Lead crew control':'Technician view';
+  if(note){note.className='status '+(!acting?'neutral':crewCanManageAll()?'ok':acting.role==="Team Lead"?'warn':'neutral');note.textContent=!acting?'Local-only prototype: all crew time can be managed on this device. Select a profile above to preview future permissions.':acting.role==="Project Manager"?'Project Manager access: can manage this job roster, Job Lead assignment, and all crew time.':acting.id===state.jobLeadId?`${acting.name} is the Job Lead for this project and can manage the entire crew and time record.`:acting.role==="Team Lead"?`${acting.name} can manage their own time and technicians assigned to them. ${lead?lead.name+' is the Job Lead.':'No Job Lead is assigned yet.'}`:`Technician view: ${acting.name} can see their own time record. Editing is controlled by the PM / Job Lead / assigned Team Lead.`;}
+  const reports=$("crewReportsTo");if(reports){reports.innerHTML='<option value="">None / assign later</option>'+crewLeadOptions();reports.disabled=!manageRoster;}
+  ["crewName","crewRole","addCrewMemberBtn"].forEach(id=>{if($(id))$(id).disabled=!manageRoster;});
+  const techView=acting?.role==="Technician";if($("crewRosterCard"))$("crewRosterCard").classList.toggle("hidden",techView);if($("crewEntryCard"))$("crewEntryCard").classList.toggle("hidden",techView);
+  const rosterBox=$("crewRosterList");if(rosterBox){rosterBox.innerHTML=roster.length?roster.map(m=>{const boss=crewMember(m.reportsTo);const assign=manageRoster&&m.role==="Technician"?`<label style="margin-top:8px;display:block">Assigned Team Lead<select data-crew-assign="${m.id}"><option value="">None</option>${crewLeadOptions(m.reportsTo)}</select></label>`:"";return `<div class="crew-roster-card"><div class="crew-roster-top"><div><div class="crew-name">${escapeHtml(m.name)} ${m.id===state.jobLeadId?'<span class="chip">JOB LEAD</span>':''}</div><div class="crew-meta">${m.role}${boss?` · Assigned to ${escapeHtml(boss.name)}`:''}</div></div><div class="crew-actions">${manageRoster&&m.role!=="Technician"&&m.id!==state.jobLeadId?`<button class="secondary" type="button" data-crew-lead="${m.id}">Make Job Lead</button>`:''}${manageRoster?`<button class="danger" type="button" data-crew-remove="${m.id}">Remove</button>`:''}</div></div>${assign}</div>`}).join(''):'<div class="status neutral">No crew members added yet.</div>';}
+  const allowedMembers=roster.filter(m=>crewCanManageMember(m.id));
+  const memberSel=$("crewTimeMember");if(memberSel){const current=memberSel.value;memberSel.innerHTML='<option value="">Choose crew member</option>'+allowedMembers.map(m=>`<option value="${m.id}">${escapeHtml(m.name)} — ${m.role}</option>`).join('');if(allowedMembers.some(m=>m.id===current))memberSel.value=current;}
+  const canEnter=allowedMembers.length>0;
+  ["crewTimeMember","crewTimeCategory","crewTimeStart","crewTimeEnd","crewTimeNotes","saveCrewTimeBtn"].forEach(id=>{if($(id))$(id).disabled=!canEnter;});
+  if($("crewEntryCard"))$("crewEntryCard").classList.toggle('crew-readonly',!canEnter);
+  renderCrewTimePreview();renderCrewSummary();renderCrewTimeList();
+}
+function addCrewMember(){
+  if(!crewCanManageRoster())return alert("Only the Project Manager or current Job Lead can change the project roster.");
+  const name=String($("crewName")?.value||"").trim(),role=$("crewRole")?.value||"Technician",reportsTo=$("crewReportsTo")?.value||"";
+  if(!name)return alert("Enter the crew member's name.");
+  const m={id:crewId(),name,role,reportsTo:role==="Technician"?reportsTo:""};state.crewRoster||=[];state.crewRoster.push(m);
+  if(!state.jobLeadId&&(role==="Project Manager"||role==="Team Lead"))state.jobLeadId=m.id;
+  $("crewName").value="";save();renderCrewTime();
+}
+function removeCrewMember(id){
+  if(!crewCanManageRoster())return;
+  const m=crewMember(id);if(!m)return;if(!confirm(`Remove ${m.name} from this project crew? Their existing time entries will also be removed.`))return;
+  state.crewRoster=state.crewRoster.filter(x=>x.id!==id);state.crewTimeEntries=(state.crewTimeEntries||[]).filter(e=>e.memberId!==id);state.crewRoster.forEach(x=>{if(x.reportsTo===id)x.reportsTo=""});if(state.jobLeadId===id)state.jobLeadId="";if(state.crewActingId===id)state.crewActingId="";save();renderCrewTime();
+}
+function renderCrewTimePreview(){const h=crewHoursBetween($("crewTimeStart")?.value,$("crewTimeEnd")?.value);if($("crewTimePreview"))$("crewTimePreview").textContent=h==null?'0.00 hr':`${h.toFixed(2)} hr`;}
+function saveCrewTimeEntry(){
+  const memberId=$("crewTimeMember")?.value||"";if(!memberId||!crewCanManageMember(memberId))return alert("Choose a crew member you are allowed to manage.");
+  const start=$("crewTimeStart")?.value||"",end=$("crewTimeEnd")?.value||"",hours=crewHoursBetween(start,end),category=$("crewTimeCategory")?.value||"Onsite",notes=String($("crewTimeNotes")?.value||"").trim();
+  if(hours==null){if($("crewTimeEntryStatus")){$("crewTimeEntryStatus").className="status warn";$("crewTimeEntryStatus").textContent="End time must be after start time.";}return;}
+  state.crewTimeEntries||=[];const existing=crewTimeEditId&&state.crewTimeEntries.find(e=>e.id===crewTimeEditId);
+  const payload={memberId,category,start,end,hours,notes,updatedAt:new Date().toISOString(),updatedBy:state.crewActingId||"local-manager"};
+  if(existing)Object.assign(existing,payload);else state.crewTimeEntries.push({id:crewId(),...payload,createdAt:new Date().toISOString()});
+  crewTimeEditId=null;$("crewTimeStart").value="";$("crewTimeEnd").value="";$("crewTimeNotes").value="";$("saveCrewTimeBtn").textContent="Add Time Entry";$("cancelCrewTimeEditBtn")?.classList.add("hidden");if($("crewTimeEntryStatus")){$("crewTimeEntryStatus").className="status ok";$("crewTimeEntryStatus").textContent="Crew time saved to this job.";}save();renderCrewTime();
+}
+function editCrewTimeEntry(id){const e=(state.crewTimeEntries||[]).find(x=>x.id===id);if(!e||!crewCanManageMember(e.memberId))return;crewTimeEditId=id;$("crewTimeMember").value=e.memberId;$("crewTimeCategory").value=e.category;$("crewTimeStart").value=e.start;$("crewTimeEnd").value=e.end;$("crewTimeNotes").value=e.notes||"";$("saveCrewTimeBtn").textContent="Save Changes";$("cancelCrewTimeEditBtn")?.classList.remove("hidden");renderCrewTimePreview();$("crewEntryCard")?.scrollIntoView({behavior:"smooth",block:"start"});}
+function cancelCrewTimeEdit(){crewTimeEditId=null;["crewTimeStart","crewTimeEnd","crewTimeNotes"].forEach(id=>{if($(id))$(id).value=""});if($("saveCrewTimeBtn"))$("saveCrewTimeBtn").textContent="Add Time Entry";$("cancelCrewTimeEditBtn")?.classList.add("hidden");renderCrewTimePreview();}
+function deleteCrewTimeEntry(id){const e=(state.crewTimeEntries||[]).find(x=>x.id===id);if(!e||!crewCanManageMember(e.memberId))return;if(!confirm("Delete this crew time entry?"))return;state.crewTimeEntries=state.crewTimeEntries.filter(x=>x.id!==id);save();renderCrewTime();}
+function renderCrewSummary(){
+  const entries=crewVisibleEntries(),roster=state.crewRoster||[],visibleIds=new Set(entries.map(e=>e.memberId));const a=crewActing();if(a)visibleIds.add(a.id);const visibleRoster=!a||crewCanManageAll()?roster:roster.filter(m=>visibleIds.has(m.id)|| (a.role==="Team Lead"&&(m.id===a.id||m.reportsTo===a.id)));
+  const total=entries.reduce((s,e)=>s+(Number(e.hours)||0),0);if($("crewLaborTotal"))$("crewLaborTotal").textContent=`${total.toFixed(2)} hr`;
+  const k=$("crewTimeKpis");if(k){k.innerHTML=CREW_TIME_CATEGORIES.map(c=>{const h=entries.filter(e=>e.category===c).reduce((s,e)=>s+(Number(e.hours)||0),0);return `<div><span>${c}</span><strong>${h.toFixed(2)}</strong></div>`}).join('');}
+  const box=$("crewTimeSummary");if(box){box.innerHTML=visibleRoster.length?visibleRoster.map(m=>{const own=entries.filter(e=>e.memberId===m.id),h=own.reduce((s,e)=>s+(Number(e.hours)||0),0);const cats=CREW_TIME_CATEGORIES.map(c=>[c,own.filter(e=>e.category===c).reduce((x,e)=>x+(Number(e.hours)||0),0)]).filter(([,v])=>v>0);return `<div class="crew-member-summary"><div class="crew-member-summary-head"><div><div class="crew-name">${escapeHtml(m.name)}</div><div class="crew-meta">${m.role}${m.id===state.jobLeadId?' · Job Lead':''}</div></div><div class="crew-time-hours">${h.toFixed(2)} hr</div></div><div class="crew-category-chips">${cats.length?cats.map(([c,v])=>`<span>${c}: ${v.toFixed(2)}</span>`).join(''):'<span>No time entered</span>'}</div></div>`}).join(''):'<div class="status neutral">Add crew and time entries to build the labor summary.</div>';}
+}
+function renderCrewTimeList(){
+  const entries=crewVisibleEntries().slice().sort((a,b)=>String(b.start).localeCompare(String(a.start)));if($("crewEntryCount"))$("crewEntryCount").textContent=`${entries.length} ${entries.length===1?'entry':'entries'}`;const box=$("crewTimeList");if(!box)return;
+  box.innerHTML=entries.length?entries.map(e=>{const m=crewMember(e.memberId);return `<div class="crew-time-row"><div class="crew-time-top"><div><div class="crew-name">${escapeHtml(m?.name||'Removed crew member')} · ${escapeHtml(e.category)}</div><div class="crew-time-detail">${escapeHtml(crewFormatDateTime(e.start))} → ${escapeHtml(crewFormatDateTime(e.end))}${e.notes?`<br>${escapeHtml(e.notes)}`:''}</div></div><div><div class="crew-time-hours">${Number(e.hours||0).toFixed(2)} hr</div>${crewCanManageMember(e.memberId)?`<div class="crew-actions"><button class="secondary" type="button" data-crew-time-edit="${e.id}">Edit</button><button class="danger" type="button" data-crew-time-delete="${e.id}">Delete</button></div>`:''}</div></div></div>`}).join(''):'<div class="status neutral">No crew time entries yet.</div>';
+}
+
 function downloadBlob(name,type,text){const blob=new Blob([text],{type});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
 function buildFieldSummaryHtml(){
   const data=collect(),issues=collectValidationIssues(),rows=finalSummaryRows(),jobRuns=state.jobRuns||[];
   const methodRows=selectedMethods.map(c=>`<tr><td>${escapeHtml(methodDisplayLabel(c))}</td><td>${escapeHtml(fieldMethodStatus(c).label)}</td><td>${escapeHtml(linkedRunResult(c))}</td></tr>`).join('');
   const runRows=jobRuns.map(r=>`<tr><td>${escapeHtml(r.name)}</td><td>${escapeHtml(jobRunStatus(r).label)}</td><td>${escapeHtml(r.notes||'')}</td><td>${escapeHtml(r.startedAt?new Date(r.startedAt).toLocaleString():'')}</td></tr>`).join('');
+  const crewRows=(state.crewTimeEntries||[]).slice().sort((a,b)=>String(a.start).localeCompare(String(b.start))).map(e=>{const m=crewMember(e.memberId);return `<tr><td>${escapeHtml(m?.name||'Crew member')}</td><td>${escapeHtml(e.category)}</td><td>${escapeHtml(crewFormatDateTime(e.start))}</td><td>${escapeHtml(crewFormatDateTime(e.end))}</td><td>${Number(e.hours||0).toFixed(2)}</td><td>${escapeHtml(e.notes||'')}</td></tr>`}).join('');
   return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>StackTest Pro Field Summary</title><style>body{font-family:Arial,sans-serif;margin:32px;color:#17212b}h1{margin-bottom:4px}small{color:#66727e}table{border-collapse:collapse;width:100%;margin:14px 0 24px}th,td{border:1px solid #d7e0e7;padding:8px;text-align:left;vertical-align:top}th{background:#eef3f6}.bad{color:#a83131}.warn{color:#8a5a00}@media print{body{margin:12mm}}</style>  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
   <link rel="apple-touch-icon" href="icon-192.png">
-</head><body><h1>StackTest Pro — Field Summary</h1><small>Generated ${escapeHtml(new Date().toLocaleString())}</small><h2>Job</h2><table>${rows.map(([a,b])=>`<tr><th>${escapeHtml(a)}</th><td>${escapeHtml(b)}</td></tr>`).join('')}</table><h2>Selected Method Status</h2><table><tr><th>Method</th><th>Status</th><th>Latest Saved Result</th></tr>${methodRows}</table><h2>Job Runs</h2><table><tr><th>Run</th><th>Status</th><th>Notes</th><th>Started</th></tr>${runRows||'<tr><td colspan="4">No job runs saved.</td></tr>'}</table><h2>Closeout Validation</h2>${issues.length?`<ul>${issues.map(i=>`<li class="${i.level}">${escapeHtml(i.text)}</li>`).join('')}</ul>`:'<p>No unresolved items found by the app validation check.</p>'}<p><small>Calculation aid only. The promulgated method, applicable rule/subpart, approved test protocol, calibrated equipment, and company QA/QC requirements control.</small></p></body></html>`;
+</head><body><h1>StackTest Pro — Field Summary</h1><small>Generated ${escapeHtml(new Date().toLocaleString())}</small><h2>Job</h2><table>${rows.map(([a,b])=>`<tr><th>${escapeHtml(a)}</th><td>${escapeHtml(b)}</td></tr>`).join('')}</table><h2>Selected Method Status</h2><table><tr><th>Method</th><th>Status</th><th>Latest Saved Result</th></tr>${methodRows}</table><h2>Job Runs</h2><table><tr><th>Run</th><th>Status</th><th>Notes</th><th>Started</th></tr>${runRows||'<tr><td colspan="4">No job runs saved.</td></tr>'}</table><h2>Crew Time</h2><table><tr><th>Crew Member</th><th>Status</th><th>Start</th><th>End</th><th>Hours</th><th>Notes</th></tr>${crewRows||'<tr><td colspan="6">No crew time entered.</td></tr>'}</table><h2>Closeout Validation</h2>${issues.length?`<ul>${issues.map(i=>`<li class="${i.level}">${escapeHtml(i.text)}</li>`).join('')}</ul>`:'<p>No unresolved items found by the app validation check.</p>'}<p><small>Calculation aid only. The promulgated method, applicable rule/subpart, approved test protocol, calibrated equipment, and company QA/QC requirements control.</small></p></body></html>`;
 }
 
 function calcFieldAll(){
@@ -3308,13 +3451,14 @@ function load(){
   state.equipment ||= {}; state.post ||= {}; state.runs ||= []; state.jobRuns ||= []; state.fieldProgress ||= {};
   state.cgaAudits ||= [];
   state.specialEquipment ||= []; state.monorails ||= []; state.jobNotes ||= [];
+  state.crewRoster ||= []; state.crewTimeEntries ||= []; state.jobLeadId ||= ""; state.crewActingId ||= "";
   state.selectedMethods ||= []; state.genericMethods ||= {}; state.prepInputs ||= {}; state.prepEquipment ||= {}; selectedMethods=[...state.selectedMethods];
   if(state.fields) fields.forEach(id=>{if($(id)&&state.fields[id]!=null)$(id).value=state.fields[id];});
   if(state.checks) ["m320Bg","m320SampleFile","m320CtsFile"].forEach(id=>{if($(id))$(id).checked=!!state.checks[id];});
   if(state.rata){if($("rata75UseCorrection"))$("rata75UseCorrection").checked=!!state.rata.useCorrection;for(let i=1;i<=12;i++){if($("rataRef"+i))$("rataRef"+i).value=state.rata["ref"+i]||"";if($("rataCems"+i))$("rataCems"+i).value=state.rata["cems"+i]||"";if($("rataBias"+i))$("rataBias"+i).checked=!!state.rata["bias"+i];if($("rataInclude"+i))$("rataInclude"+i).checked=state.rata["include"+i]!==false;["PreLow","PostLow","PreUp","PostUp"].forEach(k=>{const el=$("rata"+k+i),key=k.charAt(0).toLowerCase()+k.slice(1)+i;if(el)el.value=state.rata[key]||"";});}}
   if(state.rata60) for(let i=1;i<=12;i++){if($("rata60Ref"+i))$("rata60Ref"+i).value=state.rata60["ref"+i]||"";if($("rata60Cems"+i))$("rata60Cems"+i).value=state.rata60["cems"+i]||"";if($("rata60Complete"+i))$("rata60Complete"+i).checked=!!state.rata60["complete"+i];if($("rata60Include"+i))$("rata60Include"+i).checked=state.rata60["include"+i]!==false;}
   document.querySelectorAll("[data-post]").forEach(cb=>cb.checked=!!state.post[cb.dataset.post]);
-  buildEquipment();renderSpecialEquipment();renderMonorails();renderJobNotes();renderJobPhotos();renderJobDocuments();renderSelectedMethods();renderHomeMethodChips();renderQuickMethods();renderFieldMethods();renderRunManager();calcAll();renderSavedRuns();updateRunAverages();updateRunSummary();renderCloseoutCenter(false);if(selectedMethods.length)renderPrepPage();save();
+  buildEquipment();renderSpecialEquipment();renderMonorails();renderJobNotes();renderJobPhotos();renderJobDocuments();renderSelectedMethods();renderHomeMethodChips();renderQuickMethods();renderFieldMethods();renderRunManager();renderCrewTime();calcAll();renderSavedRuns();updateRunAverages();updateRunSummary();renderCloseoutCenter(false);if(selectedMethods.length)renderPrepPage();save();
 }
 
 document.querySelectorAll(".step").forEach(btn=>btn.addEventListener("click",()=>{
@@ -3380,6 +3524,16 @@ function syncJobInfo(){
   pairs.forEach(([a,b])=>{if($(a)&&$(b))$(b).value=$(a).value;});
 }
 ["prepJobId","prepClient","prepFacility","prepUnit","prepDate"].forEach(id=>$(id)?.addEventListener("input",()=>{syncJobInfo();save();}));
+
+$("addCrewMemberBtn")?.addEventListener("click",addCrewMember);
+$("crewName")?.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();addCrewMember();}});
+$("crewActingProfile")?.addEventListener("change",e=>{state.crewActingId=e.target.value||"";crewTimeEditId=null;save();renderCrewTime();});
+$("crewJobLead")?.addEventListener("change",e=>{if(!crewCanManageRoster())return;state.jobLeadId=e.target.value||"";save();renderCrewTime();});
+$("crewTimeStart")?.addEventListener("input",renderCrewTimePreview);$("crewTimeEnd")?.addEventListener("input",renderCrewTimePreview);
+$("saveCrewTimeBtn")?.addEventListener("click",saveCrewTimeEntry);$("cancelCrewTimeEditBtn")?.addEventListener("click",cancelCrewTimeEdit);
+$("crewRosterList")?.addEventListener("click",e=>{const lead=e.target.dataset.crewLead,remove=e.target.dataset.crewRemove;if(lead){state.jobLeadId=lead;save();renderCrewTime();}if(remove)removeCrewMember(remove);});
+$("crewRosterList")?.addEventListener("change",e=>{const id=e.target.dataset.crewAssign;if(!id||!crewCanManageRoster())return;const m=crewMember(id);if(!m)return;m.reportsTo=e.target.value||"";save();renderCrewTime();});
+$("crewTimeList")?.addEventListener("click",e=>{const edit=e.target.dataset.crewTimeEdit,del=e.target.dataset.crewTimeDelete;if(edit)editCrewTimeEntry(edit);if(del)deleteCrewTimeEntry(del);});
 
 buildRataRows();
 updatePart75Ui();
@@ -3460,7 +3614,7 @@ $("installBtn")?.addEventListener("click",async()=>{
   function openDrawer(){byId('sideDrawer')?.classList.add('open');byId('drawerScrim')?.classList.remove('hidden');byId('sideDrawer')?.setAttribute('aria-hidden','false');byId('menuBtn')?.setAttribute('aria-expanded','true');}
   function navigate(view){if(typeof save==='function')save();document.querySelectorAll('.view').forEach(v=>v.classList.remove('active','quick-open'));const target=byId(view);if(target)target.classList.add('active');if(view==='field'&&typeof renderFieldMethods==='function')renderFieldMethods(true);document.querySelectorAll('.drawer-link[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));document.querySelectorAll('.step[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));closeDrawer();window.scrollTo({top:0,behavior:'smooth'});}
   globalThis.navigateStackTest=navigate;
-  const flow=[['clientplant','Client / Plant'],['prejob','Mobilize'],['prelims','Setup / Prelims'],['field','Field Testing'],['compare','Results'],['postjob','Complete']];
+  const flow=[['clientplant','Client / Plant'],['prejob','Mobilize'],['prelims','Setup / Prelims'],['field','Field Testing'],['crewtime','Crew Time'],['compare','Results'],['postjob','Complete']];
   flow.forEach(([id,label],i)=>{const view=byId(id);if(!view||view.querySelector('.workflow-nav'))return;const nav=document.createElement('nav');nav.className='workflow-nav';nav.setAttribute('aria-label',`${label} navigation`);if(i>0){const back=document.createElement('button');back.className='secondary';back.type='button';back.textContent=`← Back: ${flow[i-1][1]}`;back.addEventListener('click',()=>navigate(flow[i-1][0]));nav.appendChild(back);}const next=document.createElement('button');next.className='primary next-step';next.type='button';if(i<flow.length-1){next.textContent=`Next: ${flow[i+1][1]} →`;next.addEventListener('click',()=>navigate(flow[i+1][0]));}else{next.textContent='Finish / Save Job';next.addEventListener('click',()=>{if(typeof save==='function')save();navigate('savedjobs');});}nav.appendChild(next);view.appendChild(nav);});
   document.querySelectorAll('.workflow-nav').forEach(nav=>{
     const buttons=nav.querySelectorAll('button');
