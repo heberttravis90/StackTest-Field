@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#07110b" />
   <title>StackTest Pro</title>
-  <link rel="manifest" href="manifest.webmanifest?v=062rc1" />
+  <link rel="manifest" href="manifest.webmanifest?v=064rc1" />
   <style>
 :root{
   --navy:#0e2a3d; --navy2:#163f59; --blue:#2d78a8; --sky:#e8f3fa;
@@ -428,9 +428,13 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
 .crew-head-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.crew-roster-list,.crew-time-list{display:grid;gap:9px;margin-top:12px}.crew-roster-card,.crew-time-row{border:1px solid var(--accent-line);border-radius:12px;padding:12px;background:var(--input)}.crew-roster-top,.crew-time-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}.crew-name{font-weight:900;font-size:15px}.crew-meta{color:var(--muted);font-size:12px;margin-top:3px}.crew-actions{display:flex;gap:7px;flex-wrap:wrap}.crew-actions button{padding:7px 9px;font-size:11px}.crew-entry-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.crew-entry-grid .wide{grid-column:1/-1}.crew-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}.crew-kpis>div{border:1px solid var(--accent-line);border-radius:10px;padding:10px;background:var(--accent-soft)}.crew-kpis span{display:block;font-size:10px;color:var(--muted);text-transform:uppercase;font-weight:800}.crew-kpis strong{display:block;font-size:20px;margin-top:3px}.crew-member-summary{border:1px solid var(--accent-line);border-radius:12px;padding:12px;background:rgba(255,255,255,.02)}.crew-member-summary-head{display:flex;justify-content:space-between;gap:10px;align-items:center}.crew-category-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.crew-category-chips span{border:1px solid var(--accent-line);border-radius:999px;padding:5px 8px;font-size:11px;color:var(--muted)}.crew-access{margin-top:10px}.crew-readonly{opacity:.65}.crew-time-row .crew-time-detail{margin-top:6px;color:var(--muted);font-size:12px;line-height:1.45}.crew-time-hours{font-size:20px;font-weight:950;color:var(--accent-text)}
 @media(max-width:700px){.crew-head-grid,.crew-entry-grid{grid-template-columns:1fr}.crew-entry-grid .wide{grid-column:auto}.crew-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* v0.62 RC1 — shared job board / collaborative notes / activity trail */
+/* v0.63 RC1 — preliminary stack conditions + Method 5 nozzle planner */
+/* v0.64 RC1 — Supabase authentication + shared cloud job foundation */
 .job-brief-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:10px}.job-brief-item{border:1px solid var(--accent-line);border-radius:11px;padding:10px;background:var(--accent-soft)}.job-brief-item span{display:block;font-size:10px;text-transform:uppercase;font-weight:850;color:var(--muted)}.job-brief-item strong{display:block;margin-top:3px;font-size:15px}.shared-note-author{font-weight:850;color:var(--accent-text)}.activity-list{display:grid;gap:8px;margin-top:10px}.activity-row{border-left:3px solid var(--accent);padding:9px 11px;background:var(--accent-soft);border-radius:0 10px 10px 0}.activity-row b{display:block;font-size:13px}.activity-row small{display:block;color:var(--muted);margin-top:3px;line-height:1.4}.crew-shared-note{border:1px solid var(--accent-line);border-radius:10px;padding:10px;margin-top:8px;background:var(--input)}
 @media(max-width:700px){.job-brief-grid{grid-template-columns:1fr}}
 
+
+.cloud-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}.cloud-status{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.cloud-dot{width:10px;height:10px;border-radius:50%;background:#777;display:inline-block}.cloud-dot.online{background:var(--ok)}.cloud-dot.warn{background:var(--warn)}.cloud-job-list{display:grid;gap:8px;margin-top:10px}.cloud-job-row{border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--input)}.cloud-job-row b{display:block}.auth-actions{display:flex;gap:8px;flex-wrap:wrap}.cloud-small{font-size:12px;color:var(--muted)}
 </style>
 
   <script>
@@ -439,13 +443,13 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
   (async function(){
     if (!("serviceWorker" in navigator)) return;
     try {
-      const reg = await navigator.serviceWorker.register("./sw.js?v=062rc1", { updateViaCache: "none" });
+      const reg = await navigator.serviceWorker.register("./sw.js?v=063rc1", { updateViaCache: "none" });
       await reg.update();
-      let reloaded = sessionStorage.getItem("stp_062rc1_controller_reload");
+      let reloaded = sessionStorage.getItem("stp_063rc1_controller_reload");
       navigator.serviceWorker.addEventListener("controllerchange", ()=>{
         if (!reloaded) {
-          sessionStorage.setItem("stp_062rc1_controller_reload","1");
-          location.replace("./?v=062rc1&t=" + Date.now());
+          sessionStorage.setItem("stp_063rc1_controller_reload","1");
+          location.replace("./?v=063rc1&t=" + Date.now());
         }
       });
     } catch(e) { console.log("STP worker bootstrap:", e); }
@@ -481,7 +485,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
     <div class="drawer-bottom">
       <button class="drawer-link utility" data-view="settings"><span>⚙</span><span>Settings</span></button>
       <button class="drawer-link utility" data-view="about"><span>ⓘ</span><span>About / Legal</span></button>
-      <div class="drawer-version">v0.62 RC1 · Evaluation Beta</div>
+      <div class="drawer-version">v0.64 RC1 · Evaluation Beta</div>
     </div>
   </aside>
 
@@ -623,6 +627,37 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
           <button id="editPrepMethodsBtn" class="secondary">Edit Methods</button>
         </div>
         <div id="prepMethodChips" class="chips"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title-row">
+          <div><div class="eyebrow">SOURCE CONDITIONS</div><h2>Preliminary Stack Conditions</h2></div>
+          <span class="pill">Used by Method 5 nozzle planning</span>
+        </div>
+        <p class="muted">Enter the best preliminary values available. These are planning values only and should be replaced with measured field data when testing begins.</p>
+        <div class="grid two">
+          <label>Source preset<select id="jpSourcePreset"><option value="custom">Custom / enter values</option><option value="grain_dust">Grain handling dust collector / baghouse</option><option value="ambient_air">Ambient / non-combustion process air</option></select></label>
+          <label>Stack shape<select id="jpStackShape"><option>Circular</option><option>Rectangular</option></select></label>
+          <label>Diameter (ft) — circular<input id="jpDiameter" type="number" step="any" min="0" inputmode="decimal"></label>
+          <label>Width (ft) — rectangular<input id="jpWidth" type="number" step="any" min="0" inputmode="decimal"></label>
+          <label>Depth (ft) — rectangular<input id="jpDepth" type="number" step="any" min="0" inputmode="decimal"></label>
+          <label>Estimated stack velocity (ft/s)<input id="jpVelocity" type="number" step="any" min="0" inputmode="decimal" placeholder="Ex: 35"></label>
+          <label>Estimated stack temperature (°F)<input id="jpTemp" type="number" step="any" inputmode="decimal" placeholder="Ex: 95"></label>
+          <label>Barometric / absolute pressure (in. Hg)<input id="jpBaro" type="number" step="any" min="0" inputmode="decimal" value="29.92"></label>
+          <label>Moisture Bws (decimal)<input id="jpBws" type="number" step="0.001" min="0" max="0.99" inputmode="decimal" placeholder="0.02 = 2%"></label>
+          <label>O₂ dry (%)<input id="jpO2" type="number" step="any" min="0" max="25" inputmode="decimal"></label>
+          <label>CO₂ dry (%)<input id="jpCo2" type="number" step="any" min="0" max="100" inputmode="decimal"></label>
+          <label>Known ACFM (optional)<input id="jpAcfm" type="number" step="any" min="0" inputmode="decimal"></label>
+          <label>Known DSCFM (optional)<input id="jpDscfm" type="number" step="any" min="0" inputmode="decimal"></label>
+          <label class="wide">Available calibrated nozzle IDs (in.)<input id="jpNozzleSet" value="0.1875, 0.25, 0.3125, 0.375, 0.4375, 0.5" placeholder="Comma-separated nozzle IDs"></label>
+        </div>
+        <div class="method-prelim-results">
+          <div><span>Stack Area</span><strong id="jpAreaOut">—</strong><small>ft²</small></div>
+          <div><span>Calculated ACFM</span><strong id="jpAcfmOut">—</strong><small>acfm</small></div>
+          <div><span>Calculated DSCFM</span><strong id="jpDscfmOut">—</strong><small>dscfm</small></div>
+          <div><span>Dry MW</span><strong id="jpDryMwOut">—</strong></div>
+        </div>
+        <div id="jpPresetNote" class="status neutral">Custom source conditions. Enter the best available planning values.</div>
       </div>
 
       <div id="m19PrepHint" class="status neutral">Method 19 setup information appears below. Actual O₂/Fd or CO₂/Fc calculations are under Field Testing → Method 19.</div>
@@ -1210,11 +1245,28 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
         <div class="accent-presets"><button data-accent="#27d65f">Green</button><button data-accent="#2f8cff">Blue</button><button data-accent="#ff9f1c">Orange</button><button data-accent="#b26cff">Purple</button><button data-accent="#ff4fa3">Pink</button><button data-accent="#e74c3c">Red</button></div>
         <button id="resetAppearanceBtn" class="secondary wide">Reset Appearance</button>
       </div>
+      <div class="card">
+        <div class="eyebrow">STACK TEST PRO CLOUD</div><h2>Account & Shared Jobs</h2>
+        <div class="cloud-status"><span id="cloudDot" class="cloud-dot"></span><strong id="cloudStatus">Not signed in</strong><span id="cloudProfileBadge" class="pill">Local mode</span></div>
+        <p class="muted">Offline/local saving stays enabled. When signed in, you can connect the active job to the shared cloud record so assigned crew can see the same job.</p>
+        <div id="cloudAuthForm" class="grid two">
+          <label>Email<input id="cloudEmail" type="email" autocomplete="email" placeholder="you@company.com"></label>
+          <label>Password<input id="cloudPassword" type="password" autocomplete="current-password" placeholder="Password"></label>
+          <label class="wide">Display Name<input id="cloudDisplayName" placeholder="Your name (used when creating an account)"></label>
+        </div>
+        <div class="auth-actions top-gap"><button id="cloudSignInBtn" class="primary" type="button">Sign In</button><button id="cloudSignUpBtn" class="secondary" type="button">Create Account</button><button id="cloudSignOutBtn" class="secondary hidden" type="button">Sign Out</button></div>
+        <div id="cloudMessage" class="status neutral top-gap">Sign in to enable shared jobs.</div>
+        <div id="cloudControls" class="hidden top-gap">
+          <div class="auth-actions"><button id="cloudConnectJobBtn" class="primary" type="button">Connect Active Job to Cloud</button><button id="cloudSyncNowBtn" class="secondary" type="button">Sync Now</button><button id="cloudRefreshJobsBtn" class="secondary" type="button">Refresh Cloud Jobs</button></div>
+          <div class="cloud-small top-gap">Cloud Job ID: <span id="cloudJobIdText">Not connected</span></div>
+          <div id="cloudJobsList" class="cloud-job-list"></div>
+        </div>
+      </div>
     </section>
 
     <section id="about" class="view">
       <div class="card"><div class="eyebrow">ABOUT</div><h2>Stack Test Pro</h2><div class="about-mark">STP</div><p class="muted">Offline-first stack-testing job preparation, field calculation, results, and closeout workflow.</p>
-        <div class="summary-list"><div class="summary-row"><b>Version</b><span>0.62 RC1 — External Evaluation</span></div><div class="summary-row"><b>Status</b><span>Evaluation Beta</span></div><div class="summary-row"><b>Data</b><span>Saved locally on this device</span></div></div>
+        <div class="summary-list"><div class="summary-row"><b>Version</b><span>0.64 RC1 — External Evaluation</span></div><div class="summary-row"><b>Status</b><span>Evaluation Beta</span></div><div class="summary-row"><b>Data</b><span>Offline-first local storage + optional authenticated cloud sync</span></div></div>
       </div>
       <div class="card"><div class="eyebrow">EVALUATION</div><h2>Evaluation Beta</h2><p class="muted"><strong>This prerelease build is provided solely for evaluation and testing.</strong></p><p class="muted">It may not be redistributed, resold, copied for distribution, modified for redistribution, or represented as another party’s work. Evaluation access does not grant ownership of Stack Test Pro or its source code.</p></div><div class="card"><div class="eyebrow">DATA & PRIVACY</div><h2>Local Data Notice</h2><p class="muted">Job information and saved-job data are stored locally on this device. Photos and uploaded documents may also be stored locally on the device. Evaluators are responsible for following their company’s policies for client, facility, permit, test-plan, field, and other confidential information. Use non-confidential or test data when required by company policy.</p></div><div class="card"><div class="eyebrow">LEGAL</div><h2>Ownership & Use</h2><p class="muted"><strong>© 2026 Stack Test Pro. All rights reserved.</strong></p><p class="muted">This software, its original source code, interface, graphics, and original written content are proprietary. Unauthorized copying, redistribution, resale, modification for redistribution, or representation of this software as another party’s work is prohibited.</p><p class="muted">Stack Test Pro is a planning and field calculation aid. It is not a substitute for applicable regulatory requirements, approved test protocols, permits, calibrations, or company QA/QC procedures. The applicable EPA method, regulation, approved test plan, permit, calibrations, and company QA/QC requirements control.</p></div>
     </section>
@@ -1241,9 +1293,34 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
     </div>
   </div>
 
-  <footer>StackTest Pro v0.62 RC1 · External Evaluation Beta · Local/offline-first field workflow</footer>
+  <footer>StackTest Pro v0.64 RC1 · External Evaluation Beta · Cloud + offline-first field workflow</footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4/dist/umd/supabase.min.js"></script>
   <script>
 const $ = id => document.getElementById(id);
+
+// Stack Test Pro Cloud — Supabase authenticated shared-job foundation.
+const STP_SUPABASE_URL="https://sdtvdflyzncgakayvvak.supabase.co";
+const STP_SUPABASE_PUBLISHABLE_KEY="sb_publishable_FAUL6wQn3tuQX4rZAtRelg_8DVi2EZp";
+let cloudClient=null,cloudUser=null,cloudProfile=null,cloudSyncTimer=null,cloudSyncBusy=false;
+function cloudReady(){return !!(cloudClient&&cloudUser&&cloudProfile)}
+function cloudRoleLabel(r){return ({project_manager:"Project Manager",team_lead:"Team Lead",technician:"Technician"})[r]||r||"User"}
+function cloudSetMessage(text,kind="neutral"){const el=$("cloudMessage");if(el){el.className=`status ${kind}`;el.textContent=text}}
+function renderCloudUi(){const signed=cloudReady();$("cloudAuthForm")?.classList.toggle("hidden",signed);$("cloudSignInBtn")?.classList.toggle("hidden",signed);$("cloudSignUpBtn")?.classList.toggle("hidden",signed);$("cloudSignOutBtn")?.classList.toggle("hidden",!signed);$("cloudControls")?.classList.toggle("hidden",!signed);if($("cloudStatus"))$("cloudStatus").textContent=signed?`${cloudProfile.display_name}`:"Not signed in";if($("cloudProfileBadge"))$("cloudProfileBadge").textContent=signed?cloudRoleLabel(cloudProfile.role):"Local mode";$("cloudDot")?.classList.toggle("online",signed);if($("cloudJobIdText"))$("cloudJobIdText").textContent=state?.cloudJobId||"Not connected";if($("saveStatus"))$("saveStatus").textContent=state?.cloudJobId&&signed?"Saved locally + cloud":"Saved locally";}
+async function initCloud(){try{if(!globalThis.supabase?.createClient){cloudSetMessage("Cloud library did not load. Local mode is still available.","warn");return;}cloudClient=globalThis.supabase.createClient(STP_SUPABASE_URL,STP_SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});const {data:{session}}=await cloudClient.auth.getSession();if(session?.user)await cloudLoadProfile(session.user);cloudClient.auth.onAuthStateChange(async(_event,session)=>{if(session?.user)await cloudLoadProfile(session.user);else{cloudUser=null;cloudProfile=null;renderCloudUi();cloudSetMessage("Signed out. Local/offline saving remains active.");}});renderCloudUi();}catch(e){console.error(e);cloudSetMessage("Cloud initialization failed. Local mode is still available.","warn")}}
+async function cloudLoadProfile(user){cloudUser=user;const {data,error}=await cloudClient.from("profiles").select("id,display_name,role,active").eq("id",user.id).single();if(error){cloudProfile=null;cloudSetMessage(`Profile error: ${error.message}`,"warn");renderCloudUi();return;}cloudProfile=data;renderCloudUi();cloudSetMessage(`Signed in as ${data.display_name} · ${cloudRoleLabel(data.role)}.`,"ok");await cloudRefreshJobs();if(state?.cloudJobId)await cloudPullJob(state.cloudJobId,false);}
+async function cloudSignIn(){const email=$("cloudEmail")?.value.trim(),password=$("cloudPassword")?.value||"";if(!email||!password)return cloudSetMessage("Enter your email and password.","warn");cloudSetMessage("Signing in…");const {error}=await cloudClient.auth.signInWithPassword({email,password});if(error)cloudSetMessage(error.message,"warn")}
+async function cloudSignUp(){const email=$("cloudEmail")?.value.trim(),password=$("cloudPassword")?.value||"",display_name=$("cloudDisplayName")?.value.trim()||email?.split("@")[0]||"User";if(!email||password.length<6)return cloudSetMessage("Enter an email and a password of at least 6 characters.","warn");cloudSetMessage("Creating account…");const {data,error}=await cloudClient.auth.signUp({email,password,options:{data:{display_name}}});if(error)return cloudSetMessage(error.message,"warn");cloudSetMessage(data.session?"Account created and signed in.":"Account created. Check your email to confirm it, then sign in.","ok")}
+async function cloudSignOut(){if(cloudClient)await cloudClient.auth.signOut();}
+function cloudJobPayload(){const c=collect(),f=c.fields||{};return {job_number:f.jobId||null,client:f.client||null,facility:f.facility||null,unit_stack:f.unit||null,test_date:f.testDate||null,status:c.completedAt?"archived":"active",job_data:{...c,cloudJobId:undefined}}}
+async function cloudConnectActiveJob(){if(!cloudReady())return cloudSetMessage("Sign in first.","warn");if(state.cloudJobId)return cloudSyncNow();const payload=cloudJobPayload();payload.created_by=cloudUser.id;payload.job_lead_user_id=cloudProfile.role==="technician"?null:cloudUser.id;const {data,error}=await cloudClient.from("jobs").insert(payload).select("id").single();if(error)return cloudSetMessage(`Could not create cloud job: ${error.message}`,"warn");state.cloudJobId=data.id;state=collect();state.cloudJobId=data.id;localStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);if(cloudProfile.role!=="technician"){await cloudClient.from("job_members").upsert({job_id:data.id,user_id:cloudUser.id,added_by:cloudUser.id},{onConflict:"job_id,user_id"});}renderCloudUi();cloudSetMessage("Active job connected to cloud.","ok");await cloudPushSharedNotes();await cloudRefreshJobs();}
+async function cloudSyncNow(){if(!cloudReady()||!state?.cloudJobId)return cloudSetMessage("Connect the active job to cloud first.","warn");if(cloudSyncBusy)return;cloudSyncBusy=true;try{const payload=cloudJobPayload();const {error}=await cloudClient.from("jobs").update(payload).eq("id",state.cloudJobId);if(error)throw error;await cloudPushSharedNotes();cloudSetMessage(`Cloud synced ${new Date().toLocaleTimeString()}.`,"ok");renderCloudUi();}catch(e){cloudSetMessage(`Cloud sync failed: ${e.message||e}`,"warn")}finally{cloudSyncBusy=false}}
+function queueCloudSync(){if(!cloudReady()||!state?.cloudJobId)return;clearTimeout(cloudSyncTimer);cloudSyncTimer=setTimeout(()=>cloudSyncNow(),1200)}
+async function cloudPushSharedNotes(){if(!cloudReady()||!state?.cloudJobId)return;const notes=state.jobNotes||[];for(const n of notes){if(n.cloudSynced||!n.text)continue;const {data,error}=await cloudClient.from("job_notes").insert({job_id:state.cloudJobId,author_user_id:cloudUser.id,note:n.text}).select("id,created_at").single();if(!error&&data){n.id=data.id;n.createdAt=data.created_at;n.authorId=cloudUser.id;n.authorName=cloudProfile.display_name;n.cloudSynced=true;}}localStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);await cloudPullNotes();}
+async function cloudPullNotes(){if(!cloudReady()||!state?.cloudJobId)return;const {data,error}=await cloudClient.from("job_notes").select("id,note,author_user_id,created_at,profiles:author_user_id(display_name)").eq("job_id",state.cloudJobId).order("created_at",{ascending:true});if(error)return;state.jobNotes=(data||[]).map(n=>({id:n.id,text:n.note,authorId:n.author_user_id,authorName:n.profiles?.display_name||"Crew Member",createdAt:n.created_at,cloudSynced:true}));localStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);renderJobNotes();renderCrewJobBriefing();}
+async function cloudRefreshJobs(){if(!cloudReady())return;const {data,error}=await cloudClient.from("jobs").select("id,job_number,client,facility,unit_stack,test_date,status,updated_at").order("updated_at",{ascending:false}).limit(30);const box=$("cloudJobsList");if(!box)return;if(error){box.innerHTML=`<div class="status warn">${escapeHtml(error.message)}</div>`;return;}box.innerHTML=(data||[]).length?(data||[]).map(j=>`<div class="cloud-job-row"><b>${escapeHtml(j.job_number||[j.client,j.facility,j.unit_stack].filter(Boolean).join(" · ")||"Untitled Job")}</b><span class="cloud-small">${escapeHtml([j.client,j.facility,j.unit_stack].filter(Boolean).join(" • "))} · ${escapeHtml(j.status)}</span><div class="top-gap"><button class="secondary" type="button" data-cloud-open="${j.id}">Open Cloud Job</button></div></div>`).join(""):'<div class="status neutral">No cloud jobs assigned yet.</div>';box.querySelectorAll("[data-cloud-open]").forEach(b=>b.addEventListener("click",()=>cloudPullJob(b.dataset.cloudOpen,true)));}
+async function cloudPullJob(id,reload=true){if(!cloudReady())return;const {data,error}=await cloudClient.from("jobs").select("*").eq("id",id).single();if(error)return cloudSetMessage(error.message,"warn");const incoming=data.job_data&&typeof data.job_data==="object"?data.job_data:{};incoming.cloudJobId=data.id;incoming.fields={...(incoming.fields||{}),jobId:data.job_number||incoming.fields?.jobId||"",client:data.client||incoming.fields?.client||"",facility:data.facility||incoming.fields?.facility||"",unit:data.unit_stack||incoming.fields?.unit||"",testDate:data.test_date||incoming.fields?.testDate||""};incoming._jobKey=incoming._jobKey||makeJobKey();localStorage.setItem(STORAGE,JSON.stringify(incoming));upsertJobLibrary(incoming);cloudSetMessage("Cloud job loaded.","ok");if(reload)location.reload();}
+async function cloudDeleteNote(id){if(!cloudReady()||!state?.cloudJobId||!id)return false;const {error}=await cloudClient.from("job_notes").delete().eq("id",id);if(error){cloudSetMessage(error.message,"warn");return false;}return true;}
+
 
 const METHOD_CATALOG = [
   ["1","Sample and Velocity Traverses","calc","m1"],
@@ -1944,7 +2021,7 @@ const fields=["jobId","client","facility","unit","testDate","methods","stackShap
 "m25Span","m25Cert","m25Resp","m25PreZero","m25PostZero","m25PreUp","m25PostUp","m25Sample",
 "m320RunId","m320CellTemp","m320LineTemp","m320Dew","m320CtsExp","m320CtsMeas","m320SpikeExp","m320SpikeMeas",
 "actualDscfm","actualBws","actualVelocity","actualTemp","m19Basis","testerM19Basis","clientM19Basis","testerM19Moisture","clientM19Moisture","testerNox","clientNox","testerO2","clientO2","testerCo2M19","clientCo2M19","fuel","customFd","fcFactor",
-"permitLimit","clientReported","testerLbHr","heatInput","m1TraverseType","m1Orientation","m1Shape","m1FarWall","m1DuctDepthIn","m1ReadingsPerPoint","m1Diameter","m1Width","m1Depth","m1WidthIn","m1DepthIn","m1Upstream","m1Downstream","m1Ports","m1Nipple","m3aO2","m3aCo2","m3aBws","prepJobId","prepClient","prepFacility","prepUnit","prepDate","prepPm","permitRef","operatingCondition","prepFuel","requiredRuns","requiredRunTime","permitRequirement","protocolNotes","jpStackShape","jpDiameter","jpWidth","jpDepth","jpTemp","jpVelocity","jpAcfm","jpDscfm","jpBws","jpO2","jpCo2","jpBaro"];
+"permitLimit","clientReported","testerLbHr","heatInput","m1TraverseType","m1Orientation","m1Shape","m1FarWall","m1DuctDepthIn","m1ReadingsPerPoint","m1Diameter","m1Width","m1Depth","m1WidthIn","m1DepthIn","m1Upstream","m1Downstream","m1Ports","m1Nipple","m3aO2","m3aCo2","m3aBws","prepJobId","prepClient","prepFacility","prepUnit","prepDate","prepPm","permitRef","operatingCondition","prepFuel","requiredRuns","requiredRunTime","permitRequirement","protocolNotes","jpSourcePreset","jpStackShape","jpDiameter","jpWidth","jpDepth","jpTemp","jpVelocity","jpAcfm","jpDscfm","jpBws","jpO2","jpCo2","jpBaro","jpNozzleSet"];
 
 fields.push("rata75Monitor","rata75RaLimit","rata75AbsLimit","rata75RmSpan","rata75LowType","rata75LowCert","rata75LowDirect","rata75UpCert","rata75UpDirect","rata60Ps","rata60Standard","rata60CustomRa","rata60CustomAbs");
 let state={equipment:{},post:{},runs:[],jobRuns:[]};
@@ -2662,14 +2739,19 @@ function methodPrelimHtml(code){
     </div>`;
   }
   if(code==="5" || code==="17" || code==="26A" || code==="29" || code==="201A" || code==="0010"){
-    return `<div class="prep-inputs">
-      <label>Target dry std sample rate (DSCFM)<input data-prep-input="${code}:rate" type="number" step="any"></label>
-      <label>Planned run time (min)<input data-prep-input="${code}:time" type="number" step="any" value="${$("requiredRunTime")?.value||""}"></label>
+    return `<div class="status neutral" style="margin-top:12px"><strong>Nozzle planner:</strong> Uses the preliminary stack velocity, temperature, pressure, and moisture entered above to calculate the ideal isokinetic nozzle ID.</div>
+    <div class="prep-inputs">
+      <label>Target dry std sample rate (DSCFM)<input data-prep-input="${code}:rate" type="number" step="any" min="0" placeholder="Ex: 0.75"></label>
+      <label>Planned run time (min)<input data-prep-input="${code}:time" type="number" step="any" min="0" value="${$("requiredRunTime")?.value||""}"></label>
     </div>
     <div class="method-prelim-results">
-      <div><span>Suggested nozzle</span><strong data-prep-result="${code}:nozzle">—</strong></div>
-      <div><span>Target volume</span><strong data-prep-result="${code}:volume">—</strong></div>
-    </div>`;
+      <div><span>Ideal Nozzle ID</span><strong data-prep-result="${code}:nozzle">—</strong></div>
+      <div><span>Nearest Available</span><strong data-prep-result="${code}:nearestNozzle">—</strong></div>
+      <div><span>Predicted Rate</span><strong data-prep-result="${code}:predRate">—</strong><small>dscfm</small></div>
+      <div><span>Rate Difference</span><strong data-prep-result="${code}:rateDiff">—</strong><small>%</small></div>
+      <div><span>Target Volume</span><strong data-prep-result="${code}:volume">—</strong></div>
+    </div>
+    <div data-prep-result="${code}:nozzleFlag" class="status neutral">Enter preliminary stack conditions and a target sample rate.</div>`;
   }
   if(["6C","7E","10","25A"].includes(code)){
     return `<div class="prep-inputs">
@@ -2788,6 +2870,31 @@ function updatePrepM19UI(){
   const note=card.querySelector("[data-m19-prep-note]");if(note)note.innerHTML=co2?`<strong>CO₂ / Fc:</strong> E = 1.194×10⁻⁷ × NOx × Fc × 100 ÷ %CO₂. Natural-gas Fc defaults to 1040. NOx and CO₂ must be on the same ${wet?"wet":"dry"} basis.`:`<strong>O₂ / Fd:</strong> E = 1.194×10⁻⁷ × NOx × Fd × 20.9 ÷ (20.9 − %O₂). Natural-gas Fd defaults to 8710.`;
 }
 function setPrepResult(key,val,d=2,suffix=""){const el=document.querySelector(`[data-prep-result="${key}"]`);if(el)el.textContent=Number.isFinite(val)?fmt(val,d)+suffix:"—";}
+function parseNozzleSet(){
+  const raw=$("jpNozzleSet")?.value||"";
+  return [...new Set(raw.split(/[,;\s]+/).map(Number).filter(n=>Number.isFinite(n)&&n>0))].sort((a,b)=>a-b);
+}
+function nearestNozzle(ideal){
+  const sizes=parseNozzleSet(); if(!(ideal>0)||!sizes.length)return null;
+  return sizes.reduce((best,n)=>Math.abs(n-ideal)<Math.abs(best-ideal)?n:best,sizes[0]);
+}
+function nozzlePredictedDscfm(nozzleIn,velocity,tempF,pressureInHg,bws){
+  if(!(nozzleIn>0)||!(velocity>0)||tempF==null||!(pressureInHg>0)||bws==null||bws<0||bws>=1)return null;
+  const areaFt2=Math.PI*Math.pow(nozzleIn/12,2)/4;
+  const qWetActual=velocity*areaFt2*60;
+  return qWetActual*(528/(tempF+459.67))*(pressureInHg/29.92)*(1-bws);
+}
+function applySourcePreset(saveAfter=true){
+  const preset=$("jpSourcePreset")?.value||"custom",note=$("jpPresetNote");
+  if(preset==="grain_dust"){
+    if($("jpBws"))$("jpBws").value="0.02"; if($("jpO2"))$("jpO2").value="20.9"; if($("jpCo2"))$("jpCo2").value="0.04";
+    if(note){note.className="status ok";note.textContent="Grain dust collector planning preset: 2.0% moisture, 20.9% O₂, 0.04% CO₂. Enter actual stack velocity and temperature from prior data or field measurements.";}
+  } else if(preset==="ambient_air"){
+    if($("jpBws"))$("jpBws").value="0.01"; if($("jpO2"))$("jpO2").value="20.9"; if($("jpCo2"))$("jpCo2").value="0.04";
+    if(note){note.className="status neutral";note.textContent="Ambient / non-combustion planning preset: 1.0% moisture, 20.9% O₂, 0.04% CO₂. Adjust moisture for actual site conditions.";}
+  } else if(note){note.className="status neutral";note.textContent="Custom source conditions. Enter the best available planning values.";}
+  calcJobPrep(); if(saveAfter)save();
+}
 function calcJobPrep(){
   calcCommonJobPrep();
   const v=num("jpVelocity"),t=num("jpTemp"),p=num("jpBaro")||29.92,b=num("jpBws");
@@ -2842,12 +2949,30 @@ function calcJobPrep(){
     if(["5","17","26A","29","201A","0010"].includes(code)){
       const rate=prepVal(`${code}:rate`),mins=prepVal(`${code}:time`);
       let dia=null;
-      if(v>0&&t!=null&&p>0&&b!=null&&b<1&&rate>0){
+      if(v>0&&t!=null&&p>0&&b!=null&&b>=0&&b<1&&rate>0){
         const wetRate=rate/(1-b)*((t+459.67)/528)*(29.92/p);
         dia=Math.sqrt(4*(wetRate/(v*60))/Math.PI)*12;
       }
+      const nearest=nearestNozzle(dia);
+      const pred=nozzlePredictedDscfm(nearest,v,t,p,b);
+      const diff=(pred!=null&&rate>0)?(pred-rate)/rate*100:null;
       setPrepResult(`${code}:nozzle`,dia,3," in");
+      setPrepResult(`${code}:nearestNozzle`,nearest,4," in");
+      setPrepResult(`${code}:predRate`,pred,3);
+      setPrepResult(`${code}:rateDiff`,diff,1);
       setPrepResult(`${code}:volume`,rate!=null&&mins!=null?rate*mins:null,2," dscf");
+      const flag=document.querySelector(`[data-prep-result="${code}:nozzleFlag"]`);
+      if(flag){
+        if(!(rate>0)){flag.className="status neutral";flag.textContent="Enter the target dry-standard sample rate.";}
+        else if(!(v>0)||t==null||!(p>0)||b==null){flag.className="status neutral";flag.textContent="Enter stack velocity, temperature, pressure, and moisture in Preliminary Stack Conditions above.";}
+        else if(!(dia>0)){flag.className="status warn";flag.textContent="Unable to calculate a nozzle from the current planning values.";}
+        else if(!nearest){flag.className="status warn";flag.textContent=`Ideal nozzle is ${dia.toFixed(3)} in. Enter the calibrated nozzle sizes available on the truck to get a recommendation.`;}
+        else{
+          const delta=Math.abs(diff||0),direction=(diff||0)>=0?"above":"below";
+          flag.className=delta<=10?"status ok":"status warn";
+          flag.textContent=`Planning recommendation: ideal ${dia.toFixed(3)} in → nearest available ${nearest.toFixed(4)} in. At the entered stack conditions that nozzle corresponds to about ${pred.toFixed(3)} DSCFM, ${delta.toFixed(1)}% ${direction} the target. Verify actual nozzle calibration, Method 5 requirements, and field isokinetic settings before sampling.`;
+        }
+      }
     }
     if(["6C","7E","10","25A"].includes(code)){
       const c=prepVal(`${code}:conc`),s=prepVal(`${code}:span`);
@@ -3470,6 +3595,7 @@ function save(){
   if($("saveStatus")) $("saveStatus").textContent="Saved locally";
   const title=[state.fields.client,state.fields.facility,state.fields.unit].filter(Boolean).join(" · ");
   if($("jobTitle")) $("jobTitle").textContent=title||"New Stack Test";
+  queueCloudSync();
 }
 function load(){
   try{state=JSON.parse(localStorage.getItem(STORAGE))||{equipment:{},post:{},runs:[]};}
@@ -3494,6 +3620,14 @@ document.querySelectorAll(".step").forEach(btn=>btn.addEventListener("click",()=
   $(btn.dataset.view)?.classList.add("active");
   window.scrollTo({top:60,behavior:"smooth"});
 }));
+
+
+$("cloudSignInBtn")?.addEventListener("click",cloudSignIn);
+$("cloudSignUpBtn")?.addEventListener("click",cloudSignUp);
+$("cloudSignOutBtn")?.addEventListener("click",cloudSignOut);
+$("cloudConnectJobBtn")?.addEventListener("click",cloudConnectActiveJob);
+$("cloudSyncNowBtn")?.addEventListener("click",cloudSyncNow);
+$("cloudRefreshJobsBtn")?.addEventListener("click",cloudRefreshJobs);
 
 fields.forEach(id=>$(id)?.addEventListener("input",()=>{calcAll();save();}));
 const SHARED_JOB_FIELD_LABELS={jobId:"Job Number",client:"Client",facility:"Facility",unit:"Unit / Stack",testDate:"Test Date"};
@@ -3535,9 +3669,10 @@ $("browseMethodsBtn")?.addEventListener("click",openMethodModal);
 $("buildPrepBtn")?.addEventListener("click",buildJobPrep);
 $("editPrepMethodsBtn")?.addEventListener("click",openMethodModal);
 
-["jpStackShape","jpDiameter","jpWidth","jpDepth","jpTemp","jpVelocity","jpAcfm","jpDscfm","jpBws","jpO2","jpCo2","jpBaro"].forEach(id=>
+["jpStackShape","jpDiameter","jpWidth","jpDepth","jpTemp","jpVelocity","jpAcfm","jpDscfm","jpBws","jpO2","jpCo2","jpBaro","jpNozzleSet"].forEach(id=>
   $(id)?.addEventListener("input",()=>{calcJobPrep();save();})
 );
+$("jpSourcePreset")?.addEventListener("change",()=>applySourcePreset(true));
 
 $("chooseMethodsBtn")?.addEventListener("click",openMethodModal);
 $("editMethodsBtn")?.addEventListener("click",openMethodModal);
@@ -3617,6 +3752,7 @@ document.querySelectorAll(".module-tab").forEach(btn=>btn.addEventListener("clic
 appMode=localStorage.getItem("stacktestpro_mode")||"full";
 applyMode();
 load();
+initCloud();
 noxCalc();
 
 let installPrompt=null;
