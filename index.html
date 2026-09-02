@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#07110b" />
   <title>StackTest Pro</title>
-  <link rel="manifest" href="manifest.webmanifest?v=059rc1" />
+  <link rel="manifest" href="manifest.webmanifest?v=059rc2" />
   <style>
 :root{
   --navy:#0e2a3d; --navy2:#163f59; --blue:#2d78a8; --sky:#e8f3fa;
@@ -431,13 +431,13 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
   (async function(){
     if (!("serviceWorker" in navigator)) return;
     try {
-      const reg = await navigator.serviceWorker.register("./sw.js?v=059rc1", { updateViaCache: "none" });
+      const reg = await navigator.serviceWorker.register("./sw.js?v=059rc2", { updateViaCache: "none" });
       await reg.update();
-      let reloaded = sessionStorage.getItem("stp_059rc1_controller_reload");
+      let reloaded = sessionStorage.getItem("stp_059rc2_controller_reload");
       navigator.serviceWorker.addEventListener("controllerchange", ()=>{
         if (!reloaded) {
-          sessionStorage.setItem("stp_059rc1_controller_reload","1");
-          location.replace("./?v=059rc1&t=" + Date.now());
+          sessionStorage.setItem("stp_059rc2_controller_reload","1");
+          location.replace("./?v=059rc2&t=" + Date.now());
         }
       });
     } catch(e) { console.log("STP worker bootstrap:", e); }
@@ -472,7 +472,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
     <div class="drawer-bottom">
       <button class="drawer-link utility" data-view="settings"><span>⚙</span><span>Settings</span></button>
       <button class="drawer-link utility" data-view="about"><span>ⓘ</span><span>About / Legal</span></button>
-      <div class="drawer-version">v0.60 RC1 · Evaluation Beta</div>
+      <div class="drawer-version">v0.59 RC2 · Evaluation Beta</div>
     </div>
   </aside>
 
@@ -695,13 +695,21 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
             <label id="m1FarWallLabel">Distance from Far Wall to Outside of Port (in.)
               <input id="m1FarWall" type="number" step="any" min="0" inputmode="decimal" placeholder="Ex: 150.00">
             </label>
-            <label>Port / Nipple Length (in.)
+            <label id="m1NippleLabel">Port / Nipple Length (in.)
               <input id="m1Nipple" type="number" step="any" min="0" inputmode="decimal" placeholder="Ex: 6.00">
               <small class="muted">Measured from the outside stack/duct wall to the outside end of the test port.</small>
             </label>
-            <label>Actual Inside Depth / Diameter (in.) — Auto
+            <label id="m1DiameterAutoLabel">Actual Inside Diameter (in.) — Auto
               <input id="m1DuctDepthIn" class="m1-auto" type="number" step="any" min="0" inputmode="decimal" placeholder="Far wall − nipple" readonly>
               <small class="muted">Auto: far-wall-to-outside-port measurement − nipple length.</small>
+            </label>
+            <label id="m1RectWidthLabel" hidden>Duct Width (in.)
+              <input id="m1WidthIn" type="number" step="any" min="0" inputmode="decimal" placeholder="Ex: 48.00">
+              <small class="muted">Inside width of the rectangular duct.</small>
+            </label>
+            <label id="m1RectDepthLabel" hidden>Duct Depth (in.)
+              <input id="m1DepthIn" type="number" step="any" min="0" inputmode="decimal" placeholder="Ex: 36.00">
+              <small class="muted">Inside depth of the rectangular duct.</small>
             </label>
             <label>Cross-Sectional Area (ft²) — Auto
               <input id="m1AreaInput" class="m1-auto" type="text" readonly placeholder="Calculated">
@@ -1846,7 +1854,7 @@ const fields=["jobId","client","facility","unit","testDate","methods","stackShap
 "m25Span","m25Cert","m25Resp","m25PreZero","m25PostZero","m25PreUp","m25PostUp","m25Sample",
 "m320RunId","m320CellTemp","m320LineTemp","m320Dew","m320CtsExp","m320CtsMeas","m320SpikeExp","m320SpikeMeas",
 "actualDscfm","actualBws","actualVelocity","actualTemp","m19Basis","testerM19Basis","clientM19Basis","testerM19Moisture","clientM19Moisture","testerNox","clientNox","testerO2","clientO2","testerCo2M19","clientCo2M19","fuel","customFd","fcFactor",
-"permitLimit","clientReported","testerLbHr","heatInput","m1TraverseType","m1Orientation","m1Shape","m1FarWall","m1DuctDepthIn","m1ReadingsPerPoint","m1Diameter","m1Width","m1Depth","m1Upstream","m1Downstream","m1Ports","m1Nipple","m3aO2","m3aCo2","m3aBws","prepJobId","prepClient","prepFacility","prepUnit","prepDate","prepPm","permitRef","operatingCondition","prepFuel","requiredRuns","requiredRunTime","permitRequirement","protocolNotes","jpStackShape","jpDiameter","jpWidth","jpDepth","jpTemp","jpVelocity","jpAcfm","jpDscfm","jpBws","jpO2","jpCo2","jpBaro"];
+"permitLimit","clientReported","testerLbHr","heatInput","m1TraverseType","m1Orientation","m1Shape","m1FarWall","m1DuctDepthIn","m1ReadingsPerPoint","m1Diameter","m1Width","m1Depth","m1WidthIn","m1DepthIn","m1Upstream","m1Downstream","m1Ports","m1Nipple","m3aO2","m3aCo2","m3aBws","prepJobId","prepClient","prepFacility","prepUnit","prepDate","prepPm","permitRef","operatingCondition","prepFuel","requiredRuns","requiredRunTime","permitRequirement","protocolNotes","jpStackShape","jpDiameter","jpWidth","jpDepth","jpTemp","jpVelocity","jpAcfm","jpDscfm","jpBws","jpO2","jpCo2","jpBaro"];
 
 fields.push("rata75Monitor","rata75RaLimit","rata75AbsLimit","rata75RmSpan","rata75LowType","rata75LowCert","rata75LowDirect","rata75UpCert","rata75UpDirect","rata60Ps","rata60Standard","rata60CustomRa","rata60CustomAbs");
 let state={equipment:{},post:{},runs:[],jobRuns:[]};
@@ -1894,7 +1902,7 @@ async function deleteSavedJob(key){const lib=getJobLibrary(),j=lib[key];if(!j)re
 globalThis.openSavedJob=openSavedJob;globalThis.duplicateSavedJob=duplicateSavedJob;globalThis.exportSavedJob=exportSavedJob;globalThis.deleteSavedJob=deleteSavedJob;
 
 function buildEquipment(){
-  const wrap=$("masterEquipmentList"); if(!wrap)return;
+  const wrap=$("equipmentList"); if(!wrap)return;
   renderMonorails();
   wrap.innerHTML="";
   const items=allEquipment();
@@ -3072,17 +3080,40 @@ function method1PointPlan(shape,eq,aDia,bDia,type="particulate"){
   return {pointsA,pointsB,required,alternative};
 }
 
+function updateMethod1GeometryUI(shape){
+  const circular=shape!=="Rectangular";
+  ["m1FarWallLabel","m1NippleLabel","m1DiameterAutoLabel"].forEach(id=>{const el=$(id);if(el)el.hidden=!circular;});
+  ["m1RectWidthLabel","m1RectDepthLabel"].forEach(id=>{const el=$(id);if(el)el.hidden=circular;});
+}
+
 function method1Field(){
   const type=$("m1TraverseType")?.value||"particulate";
-  const shape=$("m1Shape")?.value,far=num("m1FarWall"),nipple=num("m1Nipple"),depthIn=num("m1DuctDepthIn"),up=num("m1Upstream"),down=num("m1Downstream"),ports=num("m1Ports");
+  const shape=$("m1Shape")?.value||"Circular";
+  const far=num("m1FarWall"),nipple=num("m1Nipple"),up=num("m1Upstream"),down=num("m1Downstream"),ports=num("m1Ports");
+  updateMethod1GeometryUI(shape);
   let d=null,w=null,dep=null;
   if(shape==="Circular"){
     const calcIn=(far!=null&&nipple!=null&&far>=nipple)?far-nipple:null;
     if($("m1DuctDepthIn")) $("m1DuctDepthIn").value=calcIn!=null?calcIn.toFixed(2):"";
-    if(calcIn>0){d=calcIn/12;if($("m1Diameter")) $("m1Diameter").value=d;}
+    if(calcIn>0){
+      d=calcIn/12;
+      if($("m1Diameter")) $("m1Diameter").value=d.toFixed(6);
+    }else if($("m1Diameter")){
+      $("m1Diameter").value="";
+    }
   } else {
-    // Rectangular jobs can use the legacy width/depth values if already saved; field depth remains available for one dimension.
-    w=num("m1Width"); dep=num("m1Depth") || (depthIn>0?depthIn/12:null);
+    // v0.59 RC2: rectangular measurements are entered in inches on the field screen,
+    // then converted to feet for the existing Method 1 area/equivalent-diameter math.
+    let widthIn=num("m1WidthIn"),rectDepthIn=num("m1DepthIn");
+    const legacyW=num("m1Width"),legacyD=num("m1Depth");
+    if(!(widthIn>0)&&legacyW>0){widthIn=legacyW*12;if($("m1WidthIn"))$("m1WidthIn").value=widthIn.toFixed(2);}
+    if(!(rectDepthIn>0)&&legacyD>0){rectDepthIn=legacyD*12;if($("m1DepthIn"))$("m1DepthIn").value=rectDepthIn.toFixed(2);}
+    w=widthIn>0?widthIn/12:null;
+    dep=rectDepthIn>0?rectDepthIn/12:null;
+    if($("m1Width")) $("m1Width").value=w!=null?w.toFixed(6):"";
+    if($("m1Depth")) $("m1Depth").value=dep!=null?dep.toFixed(6):"";
+    if($("m1DuctDepthIn")) $("m1DuctDepthIn").value="";
+    if($("m1Diameter")) $("m1Diameter").value="";
   }
   let area=null,eq=null;
   if(shape==="Circular"&&d>0){area=Math.PI*d*d/4;eq=d;}
@@ -3168,7 +3199,13 @@ function valuePresent(id){const el=$(id);return !!(el && String(el.value||'').tr
 function selectedGenericComplete(code){const g=state.genericMethods?.[code];return !!(g && [g.prelim,g.equipment,g.field,g.qa].some(v=>String(v||'').trim()));}
 function methodDataCheck(code){
   if(code==='CGA') return !!(state.cgaAudits||[]).some(a=>['low','mid'].some(k=>Array.isArray(a[k]?.responses)&&a[k].responses.some(r=>String(r.time||'').trim()&&String(r.value||'').trim())));
-  if(code==='1') return (valuePresent('m1Upstream')&&valuePresent('m1Downstream')&&(valuePresent('m1Diameter')||(valuePresent('m1Width')&&valuePresent('m1Depth'))));
+  if(code==='1'){
+    if(!(valuePresent('m1Upstream')&&valuePresent('m1Downstream'))) return false;
+    const shape=$("m1Shape")?.value||"Circular";
+    return shape==="Rectangular"
+      ? ((valuePresent('m1WidthIn')&&valuePresent('m1DepthIn'))||(valuePresent('m1Width')&&valuePresent('m1Depth')))
+      : valuePresent('m1Diameter');
+  }
   if(code==='2') return ['m2Cp','m2Pb','m2Ps','m2Md','m2Bws','m2Dp','m2Ts'].every(valuePresent);
   if(code==='3A') return valuePresent('m3aO2')&&valuePresent('m3aCo2');
   if(code==='4') return valuePresent('m4Vm')&&valuePresent('m4WaterMl');
@@ -3274,6 +3311,7 @@ document.querySelectorAll(".step").forEach(btn=>btn.addEventListener("click",()=
 }));
 
 fields.forEach(id=>$(id)?.addEventListener("input",()=>{calcAll();save();}));
+["m1Shape","m1TraverseType","m1Orientation"].forEach(id=>$(id)?.addEventListener("change",()=>{calcAll();save();}));
 $("rata75Monitor")?.addEventListener("change",()=>{updatePart75Ui();rataField();save();});
 $("rata75UseCorrection")?.addEventListener("change",()=>{updateRata75CorrectionUi();rataField();save();});
 document.querySelectorAll("[data-post]").forEach(cb=>cb.addEventListener("change",()=>{save();renderCloseoutCenter(false);}));
