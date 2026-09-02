@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#07110b" />
   <title>StackTest Pro</title>
-  <link rel="manifest" href="manifest.webmanifest?v=059rc2" />
+  <link rel="manifest" href="manifest.webmanifest?v=060rc1" />
   <style>
 :root{
   --navy:#0e2a3d; --navy2:#163f59; --blue:#2d78a8; --sky:#e8f3fa;
@@ -431,13 +431,13 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
   (async function(){
     if (!("serviceWorker" in navigator)) return;
     try {
-      const reg = await navigator.serviceWorker.register("./sw.js?v=059rc2", { updateViaCache: "none" });
+      const reg = await navigator.serviceWorker.register("./sw.js?v=060rc1", { updateViaCache: "none" });
       await reg.update();
-      let reloaded = sessionStorage.getItem("stp_059rc2_controller_reload");
+      let reloaded = sessionStorage.getItem("stp_060rc1_controller_reload");
       navigator.serviceWorker.addEventListener("controllerchange", ()=>{
         if (!reloaded) {
-          sessionStorage.setItem("stp_059rc2_controller_reload","1");
-          location.replace("./?v=059rc2&t=" + Date.now());
+          sessionStorage.setItem("stp_060rc1_controller_reload","1");
+          location.replace("./?v=060rc1&t=" + Date.now());
         }
       });
     } catch(e) { console.log("STP worker bootstrap:", e); }
@@ -472,7 +472,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
     <div class="drawer-bottom">
       <button class="drawer-link utility" data-view="settings"><span>⚙</span><span>Settings</span></button>
       <button class="drawer-link utility" data-view="about"><span>ⓘ</span><span>About / Legal</span></button>
-      <div class="drawer-version">v0.59 RC2 · Evaluation Beta</div>
+      <div class="drawer-version">v0.60 RC1 · Evaluation Beta</div>
     </div>
   </aside>
 
@@ -679,7 +679,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
         <button id="addCgaBtn" class="primary wide" type="button">+ Add Another CGA</button>
       </div>
 
-      <div id="m1" class="field-module card">
+      <div id="m1" class="field-module card hidden" aria-hidden="true">
         <div class="eyebrow">EPA METHOD 1</div><h2>Stack Parameters & Traverse Planner</h2>
         <p class="muted">Field entry follows the same order as the Method 1 sheet: stack/duct setup first, then A & B disturbance distances, then the traverse-point and probe-mark plan.</p>
 
@@ -1504,7 +1504,8 @@ function renderMethodWorkspace(){
 }
 function renderQuickMethods(){
   const bar=$("fieldQuickBar");if(!bar)return;
-  const buttons=selectedMethods.map(code=>{
+  const fieldCodes=selectedMethods.filter(c=>c!=="1");
+  const buttons=fieldCodes.map(code=>{
     const info=methodInfo(code);if(!info)return "";
     const [c,,,target]=info;
     return `<button class="quick" data-method-code="${c}" data-quick-target="${target}">${c==="RATA"?"P75 RATA":c==="RATA60"?"P60 RATA":c==="CGA"?"CGA":"M"+c}</button>`;
@@ -1518,7 +1519,14 @@ function fieldProgressState(code){
   state.fieldProgress[code] ||= {data:false,qa:false,review:false,attention:false};
   return state.fieldProgress[code];
 }
+function method1SetupComplete(){
+  const shape=prepText("1:shape")||"Circular", A=prepVal("1:A"), B=prepVal("1:B");
+  if(A==null||B==null) return false;
+  if(shape==="Rectangular") return prepVal("1:width")>0 && prepVal("1:depth")>0;
+  return prepVal("1:diameter")>0 || (prepVal("1:farwall")!=null && prepVal("1:nipple")!=null && prepVal("1:farwall")>=prepVal("1:nipple"));
+}
 function fieldMethodStatus(code){
+  if(code==="1") return method1SetupComplete()?{key:"complete",label:"Setup Complete"}:{key:"ready",label:"Setup / Prelims"};
   const p=fieldProgressState(code);
   if(p.attention) return {key:"attention",label:"Needs Attention"};
   const done=[p.data,p.qa,p.review].filter(Boolean).length;
@@ -1528,13 +1536,14 @@ function fieldMethodStatus(code){
 }
 function renderFieldProgress(){
   const wrap=$("fieldProgressBoard"); if(!wrap)return;
-  if(!selectedMethods.length){
-    wrap.innerHTML='<div class="status neutral">Select methods in Mobilize to begin field progress tracking.</div>';
+  const fieldCodes=selectedMethods.filter(c=>c!=="1");
+  if(!fieldCodes.length){
+    wrap.innerHTML=selectedMethods.includes("1")?'<div class="status neutral">Method 1 measurements are completed in Setup / Prelims. No run-data methods are selected for Field Testing.</div>':'<div class="status neutral">Select methods in Mobilize to begin field progress tracking.</div>';
     if($("fieldJobStatus")){ $("fieldJobStatus").className="pill"; $("fieldJobStatus").textContent="Ready"; }
-    if($("fieldStatus")) $("fieldStatus").textContent="0 methods selected";
+    if($("fieldStatus")) $("fieldStatus").textContent="0 field-test methods selected";
     return;
   }
-  wrap.innerHTML=selectedMethods.map(code=>{
+  wrap.innerHTML=fieldCodes.map(code=>{
     const info=methodInfo(code), title=info?info[1]:`Method ${code}`;
     const p=fieldProgressState(code), st=fieldMethodStatus(code);
     return `<div class="field-progress-row" data-progress-row="${code}">
@@ -1552,13 +1561,13 @@ function renderFieldProgress(){
     fieldProgressState(code)[key]=e.target.checked;
     save(); renderFieldProgress(); renderFieldMethods(false);
   }));
-  const statuses=selectedMethods.map(fieldMethodStatus);
+  const statuses=fieldCodes.map(fieldMethodStatus);
   const complete=statuses.filter(x=>x.key==="complete").length;
   const attention=statuses.filter(x=>x.key==="attention").length;
   const progress=statuses.filter(x=>x.key==="progress").length;
-  let job=attention?{key:"attention",label:"Needs Attention"}:complete===selectedMethods.length?{key:"complete",label:"Complete"}:progress||complete?{key:"progress",label:"In Progress"}:{key:"ready",label:"Ready"};
+  let job=attention?{key:"attention",label:"Needs Attention"}:complete===fieldCodes.length?{key:"complete",label:"Complete"}:progress||complete?{key:"progress",label:"In Progress"}:{key:"ready",label:"Ready"};
   if($("fieldJobStatus")){ $("fieldJobStatus").className=`pill status-${job.key}`; $("fieldJobStatus").textContent=job.label; }
-  if($("fieldStatus")) $("fieldStatus").textContent=`${complete} / ${selectedMethods.length} methods complete`;
+  if($("fieldStatus")) $("fieldStatus").textContent=`${complete} / ${fieldCodes.length} field-test methods complete`;
 }
 function markFieldProgressByTarget(target,key=true){
   const code=selectedMethods.find(c=>methodInfo(c)?.[3]===target);
@@ -1572,12 +1581,14 @@ function renderFieldMethods(openFirst=false){
   if(m19Btn) m19Btn.style.display=selectedMethods.includes("19")?"":"none";
   if($("m19PrepHint")) $("m19PrepHint").style.display=selectedMethods.includes("19")?"":"none";
   if(!tabs)return;
-  if(!selectedMethods.length){
-    tabs.innerHTML='<span class="muted">Select methods in Mobilize to build Field Testing.</span>';
+  const fieldCodes=selectedMethods.filter(c=>c!=="1");
+  if(!fieldCodes.length){
+    tabs.innerHTML=selectedMethods.includes("1")?'<span class="muted">Method 1 stack measurements are under Setup / Prelims. Field Testing is reserved for run data.</span>':'<span class="muted">Select methods in Mobilize to build Field Testing.</span>';
     document.querySelectorAll(".field-module").forEach(x=>x.classList.remove("active"));
+    renderFieldProgress();
     return;
   }
-  tabs.innerHTML=selectedMethods.map(code=>{
+  tabs.innerHTML=fieldCodes.map(code=>{
     const info=methodInfo(code); if(!info)return "";
     const [c,title,status]=info;
     const st=fieldMethodStatus(c);
@@ -1591,14 +1602,18 @@ function renderFieldMethods(openFirst=false){
   renderFieldProgress();
   if(openFirst){
     const active=document.querySelector(".field-module.active");
-    const activeCode=active && selectedMethods.find(c=>methodInfo(c)?.[3]===active.id);
-    const firstCode=activeCode||selectedMethods[0];
+    const activeCode=active && fieldCodes.find(c=>methodInfo(c)?.[3]===active.id);
+    const firstCode=activeCode||fieldCodes[0];
     const first=tabs.querySelector(`[data-field-method="${firstCode}"]`)||tabs.querySelector("[data-field-method]");
     if(first){first.classList.add("active");openSelectedMethod(first.dataset.fieldMethod);}
   }
 }
 
 function openSelectedMethod(code){
+  if(code==="1"){
+    if(typeof navigateStackTest==="function") navigateStackTest("prelims");
+    return;
+  }
   const info=methodInfo(code);if(!info)return;
   const [c,title,status,target]=info;
   document.querySelectorAll(".field-module").forEach(x=>x.classList.remove("active"));
@@ -2535,7 +2550,8 @@ function methodPrelimHtml(code){
   if(code==="1"){
     return `<div class="m1-prep-card">
       <div class="eyebrow">METHOD 1 DISTURBANCE / TRAVERSE PLANNER</div>
-      <h4>Distance A & B → Minimum Traverse Points</h4>
+      <h4>Stack Measurements, Disturbances & Traverse Plan</h4>
+      <div class="status neutral" style="margin-bottom:12px"><strong>Single source of truth:</strong> Enter Method 1 stack measurements here during setup. Field Testing will use this setup and will not ask for the measurements again.</div>
       <div class="grid two">
         <label>Traverse purpose
           <select data-prep-input="1:type">
@@ -3199,13 +3215,7 @@ function valuePresent(id){const el=$(id);return !!(el && String(el.value||'').tr
 function selectedGenericComplete(code){const g=state.genericMethods?.[code];return !!(g && [g.prelim,g.equipment,g.field,g.qa].some(v=>String(v||'').trim()));}
 function methodDataCheck(code){
   if(code==='CGA') return !!(state.cgaAudits||[]).some(a=>['low','mid'].some(k=>Array.isArray(a[k]?.responses)&&a[k].responses.some(r=>String(r.time||'').trim()&&String(r.value||'').trim())));
-  if(code==='1'){
-    if(!(valuePresent('m1Upstream')&&valuePresent('m1Downstream'))) return false;
-    const shape=$("m1Shape")?.value||"Circular";
-    return shape==="Rectangular"
-      ? ((valuePresent('m1WidthIn')&&valuePresent('m1DepthIn'))||(valuePresent('m1Width')&&valuePresent('m1Depth')))
-      : valuePresent('m1Diameter');
-  }
+  if(code==='1') return method1SetupComplete();
   if(code==='2') return ['m2Cp','m2Pb','m2Ps','m2Md','m2Bws','m2Dp','m2Ts'].every(valuePresent);
   if(code==='3A') return valuePresent('m3aO2')&&valuePresent('m3aCo2');
   if(code==='4') return valuePresent('m4Vm')&&valuePresent('m4WaterMl');
@@ -3225,6 +3235,10 @@ function collectValidationIssues(){
   if(!selectedMethods.length)issues.push({level:'bad',text:'No test methods are selected.'});
   selectedMethods.forEach(code=>{
     const st=fieldMethodStatus(code), p=fieldProgressState(code);
+    if(code==='1'){
+      if(!methodDataCheck(code))issues.push({level:'warn',text:'Method 1 setup measurements are incomplete under Setup / Prelims.'});
+      return;
+    }
     if(p.attention)issues.push({level:'bad',text:`${methodDisplayLabel(code)} is flagged Needs Attention.`});
     if(!methodDataCheck(code) && !p.data)issues.push({level:'warn',text:`${methodDisplayLabel(code)} does not appear to have complete field data.`});
     if(!p.qa)issues.push({level:'warn',text:`${methodDisplayLabel(code)} QA/QC is not marked complete.`});
