@@ -429,7 +429,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
 @media(max-width:700px){.crew-head-grid,.crew-entry-grid{grid-template-columns:1fr}.crew-entry-grid .wide{grid-column:auto}.crew-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* v0.62 RC1 — shared job board / collaborative notes / activity trail */
 /* v0.63 RC1 — preliminary stack conditions + Method 5 nozzle planner */
-/* v0.64 RC1 — Supabase authentication + shared cloud job foundation */
+/* v0.65 RC2 — Supabase authentication + shared cloud job foundation */
 .job-brief-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:10px}.job-brief-item{border:1px solid var(--accent-line);border-radius:11px;padding:10px;background:var(--accent-soft)}.job-brief-item span{display:block;font-size:10px;text-transform:uppercase;font-weight:850;color:var(--muted)}.job-brief-item strong{display:block;margin-top:3px;font-size:15px}.shared-note-author{font-weight:850;color:var(--accent-text)}.activity-list{display:grid;gap:8px;margin-top:10px}.activity-row{border-left:3px solid var(--accent);padding:9px 11px;background:var(--accent-soft);border-radius:0 10px 10px 0}.activity-row b{display:block;font-size:13px}.activity-row small{display:block;color:var(--muted);margin-top:3px;line-height:1.4}.crew-shared-note{border:1px solid var(--accent-line);border-radius:10px;padding:10px;margin-top:8px;background:var(--input)}
 @media(max-width:700px){.job-brief-grid{grid-template-columns:1fr}}
 
@@ -443,13 +443,13 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
   (async function(){
     if (!("serviceWorker" in navigator)) return;
     try {
-      const reg = await navigator.serviceWorker.register("./sw.js?v=063rc1", { updateViaCache: "none" });
+      const reg = await navigator.serviceWorker.register("./sw.js?v=065rc2", { updateViaCache: "none" });
       await reg.update();
-      let reloaded = sessionStorage.getItem("stp_063rc1_controller_reload");
+      let reloaded = sessionStorage.getItem("stp_065rc2_controller_reload");
       navigator.serviceWorker.addEventListener("controllerchange", ()=>{
         if (!reloaded) {
-          sessionStorage.setItem("stp_063rc1_controller_reload","1");
-          location.replace("./?v=063rc1&t=" + Date.now());
+          sessionStorage.setItem("stp_065rc2_controller_reload","1");
+          location.replace("./?v=065rc2&t=" + Date.now());
         }
       });
     } catch(e) { console.log("STP worker bootstrap:", e); }
@@ -485,7 +485,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
     <div class="drawer-bottom">
       <button class="drawer-link utility" data-view="settings"><span>⚙</span><span>Settings</span></button>
       <button class="drawer-link utility" data-view="about"><span>ⓘ</span><span>About / Legal</span></button>
-      <div class="drawer-version">v0.64 RC1 · Evaluation Beta</div>
+      <div class="drawer-version">v0.65 RC2 · Evaluation Beta</div>
     </div>
   </aside>
 
@@ -1266,7 +1266,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
 
     <section id="about" class="view">
       <div class="card"><div class="eyebrow">ABOUT</div><h2>Stack Test Pro</h2><div class="about-mark">STP</div><p class="muted">Offline-first stack-testing job preparation, field calculation, results, and closeout workflow.</p>
-        <div class="summary-list"><div class="summary-row"><b>Version</b><span>0.64 RC1 — External Evaluation</span></div><div class="summary-row"><b>Status</b><span>Evaluation Beta</span></div><div class="summary-row"><b>Data</b><span>Offline-first local storage + optional authenticated cloud sync</span></div></div>
+        <div class="summary-list"><div class="summary-row"><b>Version</b><span>0.65 RC2 — External Evaluation</span></div><div class="summary-row"><b>Status</b><span>Evaluation Beta</span></div><div class="summary-row"><b>Data</b><span>Offline-first local storage + optional authenticated cloud sync</span></div></div>
       </div>
       <div class="card"><div class="eyebrow">EVALUATION</div><h2>Evaluation Beta</h2><p class="muted"><strong>This prerelease build is provided solely for evaluation and testing.</strong></p><p class="muted">It may not be redistributed, resold, copied for distribution, modified for redistribution, or represented as another party’s work. Evaluation access does not grant ownership of Stack Test Pro or its source code.</p></div><div class="card"><div class="eyebrow">DATA & PRIVACY</div><h2>Local Data Notice</h2><p class="muted">Job information and saved-job data are stored locally on this device. Photos and uploaded documents may also be stored locally on the device. Evaluators are responsible for following their company’s policies for client, facility, permit, test-plan, field, and other confidential information. Use non-confidential or test data when required by company policy.</p></div><div class="card"><div class="eyebrow">LEGAL</div><h2>Ownership & Use</h2><p class="muted"><strong>© 2026 Stack Test Pro. All rights reserved.</strong></p><p class="muted">This software, its original source code, interface, graphics, and original written content are proprietary. Unauthorized copying, redistribution, resale, modification for redistribution, or representation of this software as another party’s work is prohibited.</p><p class="muted">Stack Test Pro is a planning and field calculation aid. It is not a substitute for applicable regulatory requirements, approved test protocols, permits, calibrations, or company QA/QC procedures. The applicable EPA method, regulation, approved test plan, permit, calibrations, and company QA/QC requirements control.</p></div>
     </section>
@@ -1293,12 +1293,57 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
     </div>
   </div>
 
-  <footer>StackTest Pro v0.64 RC1 · External Evaluation Beta · Cloud + offline-first field workflow</footer>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4/dist/umd/supabase.min.js"></script>
+  <footer>StackTest Pro v0.65 RC2 · External Evaluation Beta · Cloud + offline-first field workflow</footer>
   <script>
 const $ = id => document.getElementById(id);
 
+// Storage wrapper: localStorage can be unavailable in file/preview contexts.
+// Fall back to in-memory storage so navigation and calculations never die.
+const stpStorage=(()=>{
+  try{
+    const s=window.localStorage;
+    const k="__stp_storage_test__";
+    s.setItem(k,"1");s.removeItem(k);
+    return s;
+  }catch(_e){
+    const mem=new Map();
+    return {
+      getItem:k=>mem.has(k)?mem.get(k):null,
+      setItem:(k,v)=>{mem.set(k,String(v));},
+      removeItem:k=>{mem.delete(k);},
+      clear:()=>mem.clear()
+    };
+  }
+})();
+
 // Stack Test Pro Cloud — Supabase authenticated shared-job foundation.
+// IMPORTANT: Cloud SDK loads asynchronously so cloud/network trouble can never block the field app UI.
+const STP_SUPABASE_SDK_URLS=[
+  "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4/dist/umd/supabase.min.js",
+  "https://unpkg.com/@supabase/supabase-js@2.112.4/dist/umd/supabase.min.js"
+];
+let cloudSdkPromise=null;
+function loadSupabaseLibrary(){
+  if(globalThis.supabase?.createClient)return Promise.resolve(true);
+  if(cloudSdkPromise)return cloudSdkPromise;
+  cloudSdkPromise=(async()=>{
+    for(const src of STP_SUPABASE_SDK_URLS){
+      const ok=await new Promise(resolve=>{
+        const tag=document.createElement("script");
+        let done=false;
+        const finish=value=>{if(done)return;done=true;clearTimeout(timer);tag.onload=null;tag.onerror=null;resolve(value);};
+        const timer=setTimeout(()=>{try{tag.remove()}catch{}finish(false);},7000);
+        tag.src=src;tag.async=true;tag.crossOrigin="anonymous";
+        tag.onload=()=>finish(!!globalThis.supabase?.createClient);
+        tag.onerror=()=>finish(false);
+        document.head.appendChild(tag);
+      });
+      if(ok)return true;
+    }
+    return false;
+  })();
+  return cloudSdkPromise;
+}
 const STP_SUPABASE_URL="https://sdtvdflyzncgakayvvak.supabase.co";
 const STP_SUPABASE_PUBLISHABLE_KEY="sb_publishable_FAUL6wQn3tuQX4rZAtRelg_8DVi2EZp";
 let cloudClient=null,cloudUser=null,cloudProfile=null,cloudSyncTimer=null,cloudSyncBusy=false;
@@ -1306,19 +1351,19 @@ function cloudReady(){return !!(cloudClient&&cloudUser&&cloudProfile)}
 function cloudRoleLabel(r){return ({project_manager:"Project Manager",team_lead:"Team Lead",technician:"Technician"})[r]||r||"User"}
 function cloudSetMessage(text,kind="neutral"){const el=$("cloudMessage");if(el){el.className=`status ${kind}`;el.textContent=text}}
 function renderCloudUi(){const signed=cloudReady();$("cloudAuthForm")?.classList.toggle("hidden",signed);$("cloudSignInBtn")?.classList.toggle("hidden",signed);$("cloudSignUpBtn")?.classList.toggle("hidden",signed);$("cloudSignOutBtn")?.classList.toggle("hidden",!signed);$("cloudControls")?.classList.toggle("hidden",!signed);if($("cloudStatus"))$("cloudStatus").textContent=signed?`${cloudProfile.display_name}`:"Not signed in";if($("cloudProfileBadge"))$("cloudProfileBadge").textContent=signed?cloudRoleLabel(cloudProfile.role):"Local mode";$("cloudDot")?.classList.toggle("online",signed);if($("cloudJobIdText"))$("cloudJobIdText").textContent=state?.cloudJobId||"Not connected";if($("saveStatus"))$("saveStatus").textContent=state?.cloudJobId&&signed?"Saved locally + cloud":"Saved locally";}
-async function initCloud(){try{if(!globalThis.supabase?.createClient){cloudSetMessage("Cloud library did not load. Local mode is still available.","warn");return;}cloudClient=globalThis.supabase.createClient(STP_SUPABASE_URL,STP_SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});const {data:{session}}=await cloudClient.auth.getSession();if(session?.user)await cloudLoadProfile(session.user);cloudClient.auth.onAuthStateChange(async(_event,session)=>{if(session?.user)await cloudLoadProfile(session.user);else{cloudUser=null;cloudProfile=null;renderCloudUi();cloudSetMessage("Signed out. Local/offline saving remains active.");}});renderCloudUi();}catch(e){console.error(e);cloudSetMessage("Cloud initialization failed. Local mode is still available.","warn")}}
+async function initCloud(){try{renderCloudUi();cloudSetMessage("Local app ready. Connecting cloud…");const sdkOk=await loadSupabaseLibrary();if(!sdkOk||!globalThis.supabase?.createClient){cloudSetMessage("Cloud connection unavailable. The rest of Stack Test Pro still works normally.","warn");return;}cloudClient=globalThis.supabase.createClient(STP_SUPABASE_URL,STP_SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});const {data:{session}}=await cloudClient.auth.getSession();if(session?.user)await cloudLoadProfile(session.user);cloudClient.auth.onAuthStateChange(async(_event,session)=>{if(session?.user)await cloudLoadProfile(session.user);else{cloudUser=null;cloudProfile=null;renderCloudUi();cloudSetMessage("Signed out. Local/offline saving remains active.");}});renderCloudUi();}catch(e){console.error(e);cloudSetMessage("Cloud initialization failed. Local mode is still available.","warn")}}
 async function cloudLoadProfile(user){cloudUser=user;const {data,error}=await cloudClient.from("profiles").select("id,display_name,role,active").eq("id",user.id).single();if(error){cloudProfile=null;cloudSetMessage(`Profile error: ${error.message}`,"warn");renderCloudUi();return;}cloudProfile=data;renderCloudUi();cloudSetMessage(`Signed in as ${data.display_name} · ${cloudRoleLabel(data.role)}.`,"ok");await cloudRefreshJobs();if(state?.cloudJobId)await cloudPullJob(state.cloudJobId,false);}
 async function cloudSignIn(){const email=$("cloudEmail")?.value.trim(),password=$("cloudPassword")?.value||"";if(!email||!password)return cloudSetMessage("Enter your email and password.","warn");cloudSetMessage("Signing in…");const {error}=await cloudClient.auth.signInWithPassword({email,password});if(error)cloudSetMessage(error.message,"warn")}
 async function cloudSignUp(){const email=$("cloudEmail")?.value.trim(),password=$("cloudPassword")?.value||"",display_name=$("cloudDisplayName")?.value.trim()||email?.split("@")[0]||"User";if(!email||password.length<6)return cloudSetMessage("Enter an email and a password of at least 6 characters.","warn");cloudSetMessage("Creating account…");const {data,error}=await cloudClient.auth.signUp({email,password,options:{data:{display_name}}});if(error)return cloudSetMessage(error.message,"warn");cloudSetMessage(data.session?"Account created and signed in.":"Account created. Check your email to confirm it, then sign in.","ok")}
 async function cloudSignOut(){if(cloudClient)await cloudClient.auth.signOut();}
 function cloudJobPayload(){const c=collect(),f=c.fields||{};return {job_number:f.jobId||null,client:f.client||null,facility:f.facility||null,unit_stack:f.unit||null,test_date:f.testDate||null,status:c.completedAt?"archived":"active",job_data:{...c,cloudJobId:undefined}}}
-async function cloudConnectActiveJob(){if(!cloudReady())return cloudSetMessage("Sign in first.","warn");if(state.cloudJobId)return cloudSyncNow();const payload=cloudJobPayload();payload.created_by=cloudUser.id;payload.job_lead_user_id=cloudProfile.role==="technician"?null:cloudUser.id;const {data,error}=await cloudClient.from("jobs").insert(payload).select("id").single();if(error)return cloudSetMessage(`Could not create cloud job: ${error.message}`,"warn");state.cloudJobId=data.id;state=collect();state.cloudJobId=data.id;localStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);if(cloudProfile.role!=="technician"){await cloudClient.from("job_members").upsert({job_id:data.id,user_id:cloudUser.id,added_by:cloudUser.id},{onConflict:"job_id,user_id"});}renderCloudUi();cloudSetMessage("Active job connected to cloud.","ok");await cloudPushSharedNotes();await cloudRefreshJobs();}
+async function cloudConnectActiveJob(){if(!cloudReady())return cloudSetMessage("Sign in first.","warn");if(state.cloudJobId)return cloudSyncNow();const payload=cloudJobPayload();payload.created_by=cloudUser.id;payload.job_lead_user_id=cloudProfile.role==="technician"?null:cloudUser.id;const {data,error}=await cloudClient.from("jobs").insert(payload).select("id").single();if(error)return cloudSetMessage(`Could not create cloud job: ${error.message}`,"warn");state.cloudJobId=data.id;state=collect();state.cloudJobId=data.id;stpStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);if(cloudProfile.role!=="technician"){await cloudClient.from("job_members").upsert({job_id:data.id,user_id:cloudUser.id,added_by:cloudUser.id},{onConflict:"job_id,user_id"});}renderCloudUi();cloudSetMessage("Active job connected to cloud.","ok");await cloudPushSharedNotes();await cloudRefreshJobs();}
 async function cloudSyncNow(){if(!cloudReady()||!state?.cloudJobId)return cloudSetMessage("Connect the active job to cloud first.","warn");if(cloudSyncBusy)return;cloudSyncBusy=true;try{const payload=cloudJobPayload();const {error}=await cloudClient.from("jobs").update(payload).eq("id",state.cloudJobId);if(error)throw error;await cloudPushSharedNotes();cloudSetMessage(`Cloud synced ${new Date().toLocaleTimeString()}.`,"ok");renderCloudUi();}catch(e){cloudSetMessage(`Cloud sync failed: ${e.message||e}`,"warn")}finally{cloudSyncBusy=false}}
 function queueCloudSync(){if(!cloudReady()||!state?.cloudJobId)return;clearTimeout(cloudSyncTimer);cloudSyncTimer=setTimeout(()=>cloudSyncNow(),1200)}
-async function cloudPushSharedNotes(){if(!cloudReady()||!state?.cloudJobId)return;const notes=state.jobNotes||[];for(const n of notes){if(n.cloudSynced||!n.text)continue;const {data,error}=await cloudClient.from("job_notes").insert({job_id:state.cloudJobId,author_user_id:cloudUser.id,note:n.text}).select("id,created_at").single();if(!error&&data){n.id=data.id;n.createdAt=data.created_at;n.authorId=cloudUser.id;n.authorName=cloudProfile.display_name;n.cloudSynced=true;}}localStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);await cloudPullNotes();}
-async function cloudPullNotes(){if(!cloudReady()||!state?.cloudJobId)return;const {data,error}=await cloudClient.from("job_notes").select("id,note,author_user_id,created_at,profiles:author_user_id(display_name)").eq("job_id",state.cloudJobId).order("created_at",{ascending:true});if(error)return;state.jobNotes=(data||[]).map(n=>({id:n.id,text:n.note,authorId:n.author_user_id,authorName:n.profiles?.display_name||"Crew Member",createdAt:n.created_at,cloudSynced:true}));localStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);renderJobNotes();renderCrewJobBriefing();}
+async function cloudPushSharedNotes(){if(!cloudReady()||!state?.cloudJobId)return;const notes=state.jobNotes||[];for(const n of notes){if(n.cloudSynced||!n.text)continue;const {data,error}=await cloudClient.from("job_notes").insert({job_id:state.cloudJobId,author_user_id:cloudUser.id,note:n.text}).select("id,created_at").single();if(!error&&data){n.id=data.id;n.createdAt=data.created_at;n.authorId=cloudUser.id;n.authorName=cloudProfile.display_name;n.cloudSynced=true;}}stpStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);await cloudPullNotes();}
+async function cloudPullNotes(){if(!cloudReady()||!state?.cloudJobId)return;const {data,error}=await cloudClient.from("job_notes").select("id,note,author_user_id,created_at,profiles:author_user_id(display_name)").eq("job_id",state.cloudJobId).order("created_at",{ascending:true});if(error)return;state.jobNotes=(data||[]).map(n=>({id:n.id,text:n.note,authorId:n.author_user_id,authorName:n.profiles?.display_name||"Crew Member",createdAt:n.created_at,cloudSynced:true}));stpStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);renderJobNotes();renderCrewJobBriefing();}
 async function cloudRefreshJobs(){if(!cloudReady())return;const {data,error}=await cloudClient.from("jobs").select("id,job_number,client,facility,unit_stack,test_date,status,updated_at").order("updated_at",{ascending:false}).limit(30);const box=$("cloudJobsList");if(!box)return;if(error){box.innerHTML=`<div class="status warn">${escapeHtml(error.message)}</div>`;return;}box.innerHTML=(data||[]).length?(data||[]).map(j=>`<div class="cloud-job-row"><b>${escapeHtml(j.job_number||[j.client,j.facility,j.unit_stack].filter(Boolean).join(" · ")||"Untitled Job")}</b><span class="cloud-small">${escapeHtml([j.client,j.facility,j.unit_stack].filter(Boolean).join(" • "))} · ${escapeHtml(j.status)}</span><div class="top-gap"><button class="secondary" type="button" data-cloud-open="${j.id}">Open Cloud Job</button></div></div>`).join(""):'<div class="status neutral">No cloud jobs assigned yet.</div>';box.querySelectorAll("[data-cloud-open]").forEach(b=>b.addEventListener("click",()=>cloudPullJob(b.dataset.cloudOpen,true)));}
-async function cloudPullJob(id,reload=true){if(!cloudReady())return;const {data,error}=await cloudClient.from("jobs").select("*").eq("id",id).single();if(error)return cloudSetMessage(error.message,"warn");const incoming=data.job_data&&typeof data.job_data==="object"?data.job_data:{};incoming.cloudJobId=data.id;incoming.fields={...(incoming.fields||{}),jobId:data.job_number||incoming.fields?.jobId||"",client:data.client||incoming.fields?.client||"",facility:data.facility||incoming.fields?.facility||"",unit:data.unit_stack||incoming.fields?.unit||"",testDate:data.test_date||incoming.fields?.testDate||""};incoming._jobKey=incoming._jobKey||makeJobKey();localStorage.setItem(STORAGE,JSON.stringify(incoming));upsertJobLibrary(incoming);cloudSetMessage("Cloud job loaded.","ok");if(reload)location.reload();}
+async function cloudPullJob(id,reload=true){if(!cloudReady())return;const {data,error}=await cloudClient.from("jobs").select("*").eq("id",id).single();if(error)return cloudSetMessage(error.message,"warn");const incoming=data.job_data&&typeof data.job_data==="object"?data.job_data:{};incoming.cloudJobId=data.id;incoming.fields={...(incoming.fields||{}),jobId:data.job_number||incoming.fields?.jobId||"",client:data.client||incoming.fields?.client||"",facility:data.facility||incoming.fields?.facility||"",unit:data.unit_stack||incoming.fields?.unit||"",testDate:data.test_date||incoming.fields?.testDate||""};incoming._jobKey=incoming._jobKey||makeJobKey();stpStorage.setItem(STORAGE,JSON.stringify(incoming));upsertJobLibrary(incoming);cloudSetMessage("Cloud job loaded.","ok");if(reload)location.reload();}
 async function cloudDeleteNote(id){if(!cloudReady()||!state?.cloudJobId||!id)return false;const {error}=await cloudClient.from("job_notes").delete().eq("id",id);if(error){cloudSetMessage(error.message,"warn");return false;}return true;}
 
 
@@ -1830,7 +1875,7 @@ function applyMode(){
 }
 function setMode(mode){
   appMode=mode;
-  localStorage.setItem("stacktestpro_mode",mode);
+  stpStorage.setItem("stacktestpro_mode",mode);
   applyMode();
 }
 function activateFieldModule(id){
@@ -2027,6 +2072,14 @@ fields.push("rata75Monitor","rata75RaLimit","rata75AbsLimit","rata75RmSpan","rat
 let state={equipment:{},post:{},runs:[],jobRuns:[]};
 const STORAGE="stacktestpro_v01_job";
 const JOB_LIBRARY_STORAGE="stacktestpro_jobs_v1";
+function makeJobKey(){return (globalThis.crypto?.randomUUID?.()||(`job_${Date.now()}_${Math.random().toString(36).slice(2,10)}`));}
+async function renderJobPhotos(){const wrap=$("jobPhotoGrid");if(!wrap)return;jobPhotoUrls.forEach(URL.revokeObjectURL);jobPhotoUrls=[];try{const photos=await photosForJob(state._jobKey);wrap.innerHTML=photos.length?photos.map(p=>{const url=URL.createObjectURL(p.blob);jobPhotoUrls.push(url);return `<div class="job-photo"><img src="${url}" alt="${escapeHtml(p.caption||"Job photo")}"><div class="job-photo-head"><div><div class="job-photo-caption">${escapeHtml(p.caption||"Job photo")}</div><small>${escapeHtml(formatSavedAt(p.createdAt))}</small></div><button type="button" data-delete-photo="${p.id}">Delete</button></div></div>`}).join(""):'<div class="status neutral">No photos saved for this job yet.</div>';wrap.querySelectorAll("[data-delete-photo]").forEach(btn=>btn.addEventListener("click",async()=>{await removeJobPhotoRecord(btn.dataset.deletePhoto);renderJobPhotos()}))}catch{if($("jobPhotoStatus")){ $("jobPhotoStatus").className="status bad";$("jobPhotoStatus").textContent="Photos could not be opened on this device.";}}}
+async function addJobPhoto(file){if(!file)return;const status=$("jobPhotoStatus");if(status){status.className="status warn";status.textContent="Saving photo…";}try{const blob=await resizeJobPhoto(file);await putJobPhoto({id:crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random(),jobKey:state._jobKey,caption:$("jobPhotoCaption")?.value.trim()||"",createdAt:new Date().toISOString(),blob});if($("jobPhotoCaption"))$("jobPhotoCaption").value="";if($("jobPhotoInput"))$("jobPhotoInput").value="";if(status){status.className="status ok";status.textContent="Photo saved with this job on this device.";}await renderJobPhotos()}catch{if(status){status.className="status bad";status.textContent="That photo could not be saved. Try a different image.";}}}
+function formatFileSize(bytes){if(!Number.isFinite(bytes))return "";if(bytes<1024)return `${bytes} B`;if(bytes<1048576)return `${(bytes/1024).toFixed(1)} KB`;return `${(bytes/1048576).toFixed(1)} MB`}
+async function renderJobDocuments(){const wrap=$("jobDocumentList");if(!wrap)return;try{const docs=await documentsForJob(state._jobKey);wrap.innerHTML=docs.length?docs.map(d=>`<div class="job-document"><div class="job-document-info"><div class="job-document-name">${escapeHtml(d.caption||d.name)}</div><small>${escapeHtml(d.name)} • ${escapeHtml(formatFileSize(d.size))} • ${escapeHtml(formatSavedAt(d.createdAt))}</small></div><div class="job-document-actions"><button type="button" data-open-document="${d.id}">Open</button><button type="button" data-delete-document="${d.id}">Delete</button></div></div>`).join(""):'<div class="status neutral">No permits or test plans saved for this job yet.</div>';wrap.querySelectorAll("[data-open-document]").forEach(btn=>btn.addEventListener("click",async()=>{const doc=(await documentsForJob(state._jobKey)).find(d=>d.id===btn.dataset.openDocument);if(!doc)return;const url=URL.createObjectURL(doc.blob);const a=document.createElement("a");a.href=url;a.target="_blank";a.rel="noopener";a.download=doc.name;a.click();setTimeout(()=>URL.revokeObjectURL(url),3000)}));wrap.querySelectorAll("[data-delete-document]").forEach(btn=>btn.addEventListener("click",async()=>{await removeJobDocumentRecord(btn.dataset.deleteDocument);renderJobDocuments()}))}catch{if($("jobDocumentStatus")){ $("jobDocumentStatus").className="status bad";$("jobDocumentStatus").textContent="Documents could not be opened on this device.";}}}
+async function addJobDocument(file){if(!file)return;const status=$("jobDocumentStatus");if(status){status.className="status warn";status.textContent="Saving document…";}try{await putJobDocument({id:crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random(),jobKey:state._jobKey,name:file.name,caption:$("jobDocumentCaption")?.value.trim()||"",type:file.type||"application/octet-stream",size:file.size,createdAt:new Date().toISOString(),blob:file});if($("jobDocumentCaption"))$("jobDocumentCaption").value="";if($("jobDocumentInput"))$("jobDocumentInput").value="";if(status){status.className="status ok";status.textContent="Document saved with this job on this device.";}await renderJobDocuments()}catch{if(status){status.className="status bad";status.textContent="That document could not be saved. Check available device storage and try again.";}}}
+function getJobLibrary(){try{const x=JSON.parse(stpStorage.getItem(JOB_LIBRARY_STORAGE)||"{}");return x&&typeof x==="object"&&!Array.isArray(x)?x:{}}catch{return {}}}
+function setJobLibrary(lib){try{stpStorage.setItem(JOB_LIBRARY_STORAGE,JSON.stringify(lib||{}));}catch(_e){}}
 const PHOTO_DB="stacktestpro_job_photos_v1",PHOTO_STORE="photos";
 const DOCUMENT_DB="stacktestpro_job_documents_v1",DOCUMENT_STORE="documents";
 let jobPhotoUrls=[];
@@ -2062,10 +2115,10 @@ function jobDisplayName(data){const f=data?.fields||{};return String(f.jobId||""
 function upsertJobLibrary(data){if(!data||!hasMeaningfulJob(data))return;data._jobKey ||= makeJobKey();const lib=getJobLibrary();lib[data._jobKey]=JSON.parse(JSON.stringify(data));setJobLibrary(lib);}
 function formatSavedAt(v){if(!v)return "Not dated";try{return new Date(v).toLocaleString()}catch{return v}}
 function renderSavedJobs(){const box=$("savedJobsList");if(!box)return;const lib=getJobLibrary();const jobs=Object.values(lib).filter(hasMeaningfulJob).sort((a,b)=>String(b.savedAt||"").localeCompare(String(a.savedAt||"")));if($("savedJobCount"))$("savedJobCount").textContent=`${jobs.length} job${jobs.length===1?"":"s"}`;if(!jobs.length){box.innerHTML='<div class="saved-job-empty"><strong>No saved jobs yet.</strong><br>Your current job will appear here automatically after you enter job information or select a method.</div>';return;}box.innerHTML=jobs.map(j=>{const f=j.fields||{},active=j._jobKey&&j._jobKey===state?._jobKey;return `<div class="saved-job-card ${active?'active-job':''}"><div class="saved-job-head"><div><div class="saved-job-title">${escapeHtml(jobDisplayName(j))}</div><div class="saved-job-meta">${escapeHtml([f.client,f.facility,f.unit].filter(Boolean).join(' • ')||'No client/facility details')}<br>${escapeHtml(f.testDate?`Test date: ${f.testDate}`:'No test date')} • Last saved: ${escapeHtml(formatSavedAt(j.savedAt))}</div></div>${active?'<span class="pill">Active</span>':''}</div><div class="saved-job-actions"><button class="primary" type="button" onclick="openSavedJob('${j._jobKey}')">Open</button><button class="secondary" type="button" onclick="duplicateSavedJob('${j._jobKey}')">Duplicate</button><button class="secondary" type="button" onclick="exportSavedJob('${j._jobKey}')">Export</button><button class="danger" type="button" onclick="deleteSavedJob('${j._jobKey}')">Delete</button></div></div>`}).join('');}
-function openSavedJob(key){save();const j=getJobLibrary()[key];if(!j)return alert("That saved job could not be found.");localStorage.setItem(STORAGE,JSON.stringify(j));location.reload();}
+function openSavedJob(key){save();const j=getJobLibrary()[key];if(!j)return alert("That saved job could not be found.");stpStorage.setItem(STORAGE,JSON.stringify(j));location.reload();}
 async function duplicateSavedJob(key){const src=getJobLibrary()[key];if(!src)return;const copy=JSON.parse(JSON.stringify(src));copy._jobKey=makeJobKey();copy.savedAt=new Date().toISOString();copy.fields=copy.fields||{};if(copy.fields.jobId)copy.fields.jobId=`${copy.fields.jobId} - Copy`;const lib=getJobLibrary();lib[copy._jobKey]=copy;setJobLibrary(lib);try{const photos=await photosForJob(key);for(const p of photos)await putJobPhoto({...p,id:crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random(),jobKey:copy._jobKey});const docs=await documentsForJob(key);for(const d of docs)await putJobDocument({...d,id:crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random(),jobKey:copy._jobKey})}catch{}renderSavedJobs();}
 function exportSavedJob(key){const j=getJobLibrary()[key];if(!j)return;downloadBlob(`StackTestPro_${(j.fields?.jobId||'job').replace(/[^a-z0-9_-]+/gi,'_')}_${new Date().toISOString().slice(0,10)}.json`,"application/json",JSON.stringify(j,null,2));}
-async function deleteSavedJob(key){const lib=getJobLibrary(),j=lib[key];if(!j)return;if(!confirm(`Delete saved job "${jobDisplayName(j)}" and its photos/documents from this device?`))return;delete lib[key];setJobLibrary(lib);try{await removePhotosForJob(key);await removeDocumentsForJob(key)}catch{}if(state?._jobKey===key){localStorage.removeItem(STORAGE);location.reload();return;}renderSavedJobs();}
+async function deleteSavedJob(key){const lib=getJobLibrary(),j=lib[key];if(!j)return;if(!confirm(`Delete saved job "${jobDisplayName(j)}" and its photos/documents from this device?`))return;delete lib[key];setJobLibrary(lib);try{await removePhotosForJob(key);await removeDocumentsForJob(key)}catch{}if(state?._jobKey===key){stpStorage.removeItem(STORAGE);location.reload();return;}renderSavedJobs();}
 globalThis.openSavedJob=openSavedJob;globalThis.duplicateSavedJob=duplicateSavedJob;globalThis.exportSavedJob=exportSavedJob;globalThis.deleteSavedJob=deleteSavedJob;
 
 function buildEquipment(){
@@ -3589,7 +3642,7 @@ function collect(){
 }
 function save(){
   state=collect();
-  localStorage.setItem(STORAGE,JSON.stringify(state));
+  stpStorage.setItem(STORAGE,JSON.stringify(state));
   upsertJobLibrary(state);
   renderSavedJobs();
   if($("saveStatus")) $("saveStatus").textContent="Saved locally";
@@ -3598,7 +3651,7 @@ function save(){
   queueCloudSync();
 }
 function load(){
-  try{state=JSON.parse(localStorage.getItem(STORAGE))||{equipment:{},post:{},runs:[]};}
+  try{state=JSON.parse(stpStorage.getItem(STORAGE))||{equipment:{},post:{},runs:[]};}
   catch{state={equipment:{},post:{},runs:[]}}
   state._jobKey ||= makeJobKey();
   state.equipment ||= {}; state.post ||= {}; state.runs ||= []; state.jobRuns ||= []; state.fieldProgress ||= {};
@@ -3648,14 +3701,14 @@ $("validateJobBtn")?.addEventListener("click",()=>{renderCloseoutCenter(true);sa
 $("importBtn")?.addEventListener("click",()=>$("importFile")?.click());
 $("importFile")?.addEventListener("change",async e=>{
   const file=e.target.files?.[0];if(!file)return;
-  try{const incoming=JSON.parse(await file.text());incoming._jobKey ||= makeJobKey();incoming.savedAt=new Date().toISOString();localStorage.setItem(STORAGE,JSON.stringify(incoming));upsertJobLibrary(incoming);location.reload();}
+  try{const incoming=JSON.parse(await file.text());incoming._jobKey ||= makeJobKey();incoming.savedAt=new Date().toISOString();stpStorage.setItem(STORAGE,JSON.stringify(incoming));upsertJobLibrary(incoming);location.reload();}
   catch(err){alert("That file is not a valid StackTest Pro JSON backup.");}
 });
 
 function resetCurrentJob(){
   if(confirm("Start a new job?\n\nYour current job will stay in Saved Jobs on this device. App settings stay intact.")){
     save();
-    localStorage.removeItem(STORAGE);
+    stpStorage.removeItem(STORAGE);
     location.reload();
   }
 }
@@ -3749,7 +3802,7 @@ document.querySelectorAll(".module-tab").forEach(btn=>btn.addEventListener("clic
   el.addEventListener("change",()=>{noxCalc();save();});
 });
 
-appMode=localStorage.getItem("stacktestpro_mode")||"full";
+appMode=stpStorage.getItem("stacktestpro_mode")||"full";
 applyMode();
 load();
 initCloud();
@@ -3779,7 +3832,7 @@ $("installBtn")?.addEventListener("click",async()=>{
   const byId=id=>document.getElementById(id);
   function closeDrawer(){byId('sideDrawer')?.classList.remove('open');byId('drawerScrim')?.classList.add('hidden');byId('sideDrawer')?.setAttribute('aria-hidden','true');byId('menuBtn')?.setAttribute('aria-expanded','false');}
   function openDrawer(){byId('sideDrawer')?.classList.add('open');byId('drawerScrim')?.classList.remove('hidden');byId('sideDrawer')?.setAttribute('aria-hidden','false');byId('menuBtn')?.setAttribute('aria-expanded','true');}
-  function navigate(view){if(typeof save==='function')save();document.querySelectorAll('.view').forEach(v=>v.classList.remove('active','quick-open'));const target=byId(view);if(target)target.classList.add('active');if(view==='field'&&typeof renderFieldMethods==='function')renderFieldMethods(true);document.querySelectorAll('.drawer-link[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));document.querySelectorAll('.step[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));closeDrawer();window.scrollTo({top:0,behavior:'smooth'});}
+  function navigate(view){try{if(typeof save==='function')save();}catch(e){console.warn('Stack Test Pro save skipped during navigation:',e);}document.querySelectorAll('.view').forEach(v=>v.classList.remove('active','quick-open'));const target=byId(view);if(target)target.classList.add('active');if(view==='field'&&typeof renderFieldMethods==='function')renderFieldMethods(true);document.querySelectorAll('.drawer-link[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));document.querySelectorAll('.step[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));closeDrawer();window.scrollTo({top:0,behavior:'smooth'});}
   globalThis.navigateStackTest=navigate;
   const flow=[['clientplant','Client / Plant'],['prejob','Mobilize'],['prelims','Setup / Prelims'],['field','Field Testing'],['crewtime','Crew Time'],['compare','Results'],['postjob','Complete']];
   flow.forEach(([id,label],i)=>{const view=byId(id);if(!view||view.querySelector('.workflow-nav'))return;const nav=document.createElement('nav');nav.className='workflow-nav';nav.setAttribute('aria-label',`${label} navigation`);if(i>0){const back=document.createElement('button');back.className='secondary';back.type='button';back.textContent=`← Back: ${flow[i-1][1]}`;back.addEventListener('click',()=>navigate(flow[i-1][0]));nav.appendChild(back);}const next=document.createElement('button');next.className='primary next-step';next.type='button';if(i<flow.length-1){next.textContent=`Next: ${flow[i+1][1]} →`;next.addEventListener('click',()=>navigate(flow[i+1][0]));}else{next.textContent='Finish / Save Job';next.addEventListener('click',()=>{if(typeof addJobActivity==='function'){state.completedAt=state.completedAt||new Date().toISOString();addJobActivity('Job saved / closeout archived','All current shared notes, crew time, job information, field data, and activity remain attached to this saved job.');}if(typeof save==='function')save();if(typeof renderJobActivity==='function')renderJobActivity();navigate('savedjobs');});}nav.appendChild(next);view.appendChild(nav);});
@@ -3792,10 +3845,10 @@ $("installBtn")?.addEventListener("click",async()=>{
   });
   byId('menuBtn')?.addEventListener('click',openDrawer);byId('drawerClose')?.addEventListener('click',closeDrawer);byId('drawerScrim')?.addEventListener('click',closeDrawer);document.querySelectorAll('.drawer-link[data-view]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.view)));
   const KEY='stacktestpro_appearance_v1';
-  function getAppearance(){let a={theme:'dark',accent:'#27d65f'};try{a={...a,...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){}return a;}
+  function getAppearance(){let a={theme:'dark',accent:'#27d65f'};try{a={...a,...JSON.parse(stpStorage.getItem(KEY)||'{}')}}catch(e){}return a;}
   function applyAppearance(){const a=getAppearance();let resolved=a.theme;if(resolved==='system')resolved=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches)?'light':'dark';document.body.classList.toggle('theme-light',resolved==='light');document.documentElement.style.setProperty('--accent',a.accent);document.documentElement.style.setProperty('--blue',a.accent);const t=byId('themeSetting'),c=byId('accentSetting');if(t)t.value=a.theme;if(c)c.value=a.accent;document.querySelector('meta[name="theme-color"]')?.setAttribute('content',resolved==='light'?'#ffffff':'#07110b');}
-  function saveAppearance(){const a={theme:byId('themeSetting')?.value||'dark',accent:byId('accentSetting')?.value||'#27d65f'};localStorage.setItem(KEY,JSON.stringify(a));applyAppearance();}
-  byId('themeSetting')?.addEventListener('change',saveAppearance);byId('accentSetting')?.addEventListener('input',saveAppearance);document.querySelectorAll('[data-accent]').forEach(b=>b.addEventListener('click',()=>{const c=byId('accentSetting');if(c)c.value=b.dataset.accent;saveAppearance();}));byId('resetAppearanceBtn')?.addEventListener('click',()=>{localStorage.removeItem(KEY);applyAppearance();});applyAppearance();
+  function saveAppearance(){const a={theme:byId('themeSetting')?.value||'dark',accent:byId('accentSetting')?.value||'#27d65f'};stpStorage.setItem(KEY,JSON.stringify(a));applyAppearance();}
+  byId('themeSetting')?.addEventListener('change',saveAppearance);byId('accentSetting')?.addEventListener('input',saveAppearance);document.querySelectorAll('[data-accent]').forEach(b=>b.addEventListener('click',()=>{const c=byId('accentSetting');if(c)c.value=b.dataset.accent;saveAppearance();}));byId('resetAppearanceBtn')?.addEventListener('click',()=>{stpStorage.removeItem(KEY);applyAppearance();});applyAppearance();
 })();
 </script>
 </body>
