@@ -16,6 +16,6 @@ for (const f of required) {
 const config = JSON.parse(fs.readFileSync(path.join(root, 'capacitor.config.json'), 'utf8'));
 if (config.appId !== 'com.gulfcoastcodeworks.stacktestpro') { console.error('Unexpected appId'); bad = true; }
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-if (!html.includes('0.72 RC2')) { console.error('Root index is not v0.72 RC2'); bad = true; }
+if (!html.includes('0.73 RC1')) { console.error('Root index is not v0.73 RC1'); bad = true; }
 if (bad) process.exit(1);
 console.log('Stack Test Pro Android project checks passed.');

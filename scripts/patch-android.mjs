@@ -13,8 +13,8 @@ if (!fs.existsSync(android)) {
 const gradle = path.join(android, 'app', 'build.gradle');
 if (fs.existsSync(gradle)) {
   let text = fs.readFileSync(gradle, 'utf8');
-  text = text.replace(/versionCode\s+\d+/, 'versionCode 7202');
-  text = text.replace(/versionName\s+"[^"]+"/, 'versionName "0.72.2-rc2"');
+  text = text.replace(/versionCode\s+\d+/, 'versionCode 7301');
+  text = text.replace(/versionName\s+"[^"]+"/, 'versionName "0.73.0-rc1"');
   fs.writeFileSync(gradle, text);
 }
 

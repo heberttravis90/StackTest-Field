@@ -9,10 +9,10 @@ fs.mkdirSync(www, { recursive: true });
 fs.mkdirSync(path.join(www, 'vendor'), { recursive: true });
 
 let html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-html = html.replaceAll('manifest.webmanifest?v=068rc1', 'manifest.webmanifest?v=072rc2apk1');
-html = html.replaceAll('./sw.js?v=068rc1', './sw.js?v=072rc2apk1');
-html = html.replaceAll('stp_068rc1_controller_reload', 'stp_072rc2apk1_controller_reload');
-html = html.replaceAll('./?v=068rc1&t=', './?v=072rc2apk1&t=');
+html = html.replaceAll('manifest.webmanifest?v=073rc1', 'manifest.webmanifest?v=073rc1apk1');
+html = html.replaceAll('./sw.js?v=073rc1', './sw.js?v=073rc1apk1');
+html = html.replaceAll('stp_073rc1_controller_reload', 'stp_073rc1apk1_controller_reload');
+html = html.replaceAll('./?v=073rc1&t=', './?v=073rc1apk1&t=');
 
 const sdkNeedle = 'const STP_SUPABASE_SDK_URLS=[';
 if (html.includes(sdkNeedle) && !html.includes('"./vendor/supabase.min.js"')) {

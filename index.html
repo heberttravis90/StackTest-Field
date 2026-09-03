@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#07110b" />
   <title>StackTest Pro</title>
-  <link rel="manifest" href="manifest.webmanifest?v=068rc1" />
+  <link rel="manifest" href="manifest.webmanifest?v=073rc1" />
   <style>
 :root{
   --navy:#0e2a3d; --navy2:#163f59; --blue:#2d78a8; --sky:#e8f3fa;
@@ -435,7 +435,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
 
 
 .cloud-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}.cloud-status{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.cloud-dot{width:10px;height:10px;border-radius:50%;background:#777;display:inline-block}.cloud-dot.online{background:var(--ok)}.cloud-dot.warn{background:var(--warn)}.cloud-job-list{display:grid;gap:8px;margin-top:10px}.cloud-job-row{border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--input)}.cloud-job-row b{display:block}.auth-actions{display:flex;gap:8px;flex-wrap:wrap}.cloud-small{font-size:12px;color:var(--muted)}
-.auth-gate{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:22px;background:linear-gradient(160deg,#06100a 0%,#0a1710 55%,#07110b 100%);overflow:auto}.auth-gate.hidden{display:none}body.auth-locked{overflow:hidden}.auth-gate-card{width:min(520px,100%);border:1px solid var(--accent-line);border-radius:22px;padding:24px;background:rgba(10,20,14,.98);box-shadow:0 24px 80px rgba(0,0,0,.48)}.auth-gate-logo{width:62px;height:62px;border-radius:18px;display:grid;place-items:center;margin-bottom:16px;background:var(--accent-soft);border:1px solid var(--accent-line);color:var(--accent-text);font-weight:950;font-size:22px;letter-spacing:-1px}.auth-gate h1{margin:0 0 8px;font-size:30px}.auth-gate .auth-sub{margin:0 0 18px;color:var(--muted);line-height:1.45}.auth-gate-fields{display:grid;gap:11px}.auth-gate-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}.auth-gate-actions .offline{grid-column:1/-1}.auth-gate-status{margin-top:12px}.auth-gate-foot{font-size:11px;color:var(--muted);line-height:1.45;margin-top:14px;text-align:center}.auth-gate-loading{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-bottom:12px}.auth-gate-loading .cloud-dot{flex:0 0 auto}@media(max-width:520px){.auth-gate{align-items:flex-start;padding:16px}.auth-gate-card{margin-top:24px;padding:19px}.auth-gate-actions{grid-template-columns:1fr}.auth-gate-actions .offline{grid-column:auto}}
+.auth-gate{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:22px;background:linear-gradient(160deg,#06100a 0%,#0a1710 55%,#07110b 100%);overflow:auto}.auth-gate.hidden{display:none}body.auth-locked{overflow:hidden}.auth-gate-card{width:min(520px,100%);border:1px solid var(--accent-line);border-radius:22px;padding:24px;background:rgba(10,20,14,.98);box-shadow:0 24px 80px rgba(0,0,0,.48)}.auth-gate-logo{width:62px;height:62px;border-radius:18px;display:grid;place-items:center;margin-bottom:16px;background:var(--accent-soft);border:1px solid var(--accent-line);color:var(--accent-text);font-weight:950;font-size:22px;letter-spacing:-1px}.auth-gate h1{margin:0 0 8px;font-size:30px}.auth-gate .auth-sub{margin:0 0 18px;color:var(--muted);line-height:1.45}.auth-gate-fields{display:grid;gap:11px}.auth-gate-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}.auth-gate-actions .offline{grid-column:1/-1}.auth-gate-status{margin-top:12px}.auth-gate-foot{font-size:11px;color:var(--muted);line-height:1.45;margin-top:14px;text-align:center}.auth-gate-loading{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-bottom:12px}.auth-gate-loading .cloud-dot{flex:0 0 auto}.auth-remember{display:flex!important;align-items:center;gap:9px;font-weight:800!important;margin-top:2px}.auth-remember input{width:19px!important;height:19px!important;margin:0!important;accent-color:var(--accent)}.auth-remember span{display:flex;flex-direction:column;gap:1px}.auth-remember small{font-weight:500;color:var(--muted);font-size:11px}@media(max-width:520px){.auth-gate{align-items:flex-start;padding:16px}.auth-gate-card{margin-top:24px;padding:19px}.auth-gate-actions{grid-template-columns:1fr}.auth-gate-actions .offline{grid-column:auto}}
 
 </style>
 
@@ -445,13 +445,13 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
   (async function(){
     if (!("serviceWorker" in navigator)) return;
     try {
-      const reg = await navigator.serviceWorker.register("./sw.js?v=068rc1", { updateViaCache: "none" });
+      const reg = await navigator.serviceWorker.register("./sw.js?v=073rc1", { updateViaCache: "none" });
       await reg.update();
-      let reloaded = sessionStorage.getItem("stp_068rc1_controller_reload");
+      let reloaded = sessionStorage.getItem("stp_073rc1_controller_reload");
       navigator.serviceWorker.addEventListener("controllerchange", ()=>{
         if (!reloaded) {
-          sessionStorage.setItem("stp_068rc1_controller_reload","1");
-          location.replace("./?v=068rc1&t=" + Date.now());
+          sessionStorage.setItem("stp_073rc1_controller_reload","1");
+          location.replace("./?v=073rc1&t=" + Date.now());
         }
       });
     } catch(e) { console.log("STP worker bootstrap:", e); }
@@ -472,6 +472,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
       <div class="auth-gate-fields">
         <label>Email<input id="authGateEmail" type="email" autocomplete="email" placeholder="you@company.com"></label>
         <label>Password<input id="authGatePassword" type="password" autocomplete="current-password" placeholder="Password"></label>
+        <label class="auth-remember"><input id="authGateRememberMe" type="checkbox" checked><span>Remember me<small>Keep me signed in on this device. Your password is never saved.</small></span></label>
         <label>Display Name <span class="muted">(only needed to create an account)</span><input id="authGateDisplayName" autocomplete="name" placeholder="Your name"></label>
       </div>
       <div class="auth-gate-actions">
@@ -510,7 +511,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
     <div class="drawer-bottom">
       <button class="drawer-link utility" data-view="settings"><span>⚙</span><span>Settings</span></button>
       <button class="drawer-link utility" data-view="about"><span>ⓘ</span><span>About / Legal</span></button>
-      <div class="drawer-version">v0.72 RC2 · Evaluation Beta</div>
+      <div class="drawer-version">v0.73 RC1 · Evaluation Beta</div>
     </div>
   </aside>
 
@@ -1299,6 +1300,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
         <div id="cloudAuthForm" class="grid two">
           <label>Email<input id="cloudEmail" type="email" autocomplete="email" placeholder="you@company.com"></label>
           <label>Password<input id="cloudPassword" type="password" autocomplete="current-password" placeholder="Password"></label>
+          <label class="auth-remember wide"><input id="cloudRememberMe" type="checkbox" checked><span>Remember me<small>Keep me signed in on this device. Your password is never saved.</small></span></label>
           <label class="wide">Display Name<input id="cloudDisplayName" placeholder="Your name (used when creating an account)"></label>
         </div>
         <div class="auth-actions top-gap"><button id="cloudSignInBtn" class="primary" type="button">Sign In</button><button id="cloudSignUpBtn" class="secondary" type="button">Create Account</button><button id="cloudSignOutBtn" class="secondary hidden" type="button">Sign Out</button></div>
@@ -1320,7 +1322,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
 
     <section id="about" class="view">
       <div class="card"><div class="eyebrow">ABOUT</div><h2>Stack Test Pro</h2><div class="about-mark">STP</div><p class="muted">Offline-first stack-testing job preparation, field calculation, results, and closeout workflow.</p>
-        <div class="summary-list"><div class="summary-row"><b>Version</b><span>0.72 RC2 — External Evaluation</span></div><div class="summary-row"><b>Status</b><span>Evaluation Beta</span></div><div class="summary-row"><b>Data</b><span>Shared job/field/files sync + verified offline storage</span></div></div>
+        <div class="summary-list"><div class="summary-row"><b>Version</b><span>0.73 RC1 — External Evaluation</span></div><div class="summary-row"><b>Status</b><span>Evaluation Beta</span></div><div class="summary-row"><b>Data</b><span>Shared job/field/files sync + verified offline storage</span></div></div>
       </div>
       <div class="card"><div class="eyebrow">EVALUATION</div><h2>Evaluation Beta</h2><p class="muted"><strong>This prerelease build is provided solely for evaluation and testing.</strong></p><p class="muted">It may not be redistributed, resold, copied for distribution, modified for redistribution, or represented as another party’s work. Evaluation access does not grant ownership of Stack Test Pro or its source code.</p></div><div class="card"><div class="eyebrow">DATA & PRIVACY</div><h2>Local Data Notice</h2><p class="muted">Job information is stored locally on this device for offline use. When cloud sync is enabled, the active job workspace, field-method data, shared notes, crew assignments, and crew time are stored in the Stack Test Pro cloud database for assigned users. Photos and uploaded permits/test plans are stored locally for offline use and, when connected to a shared cloud job, are also stored in a private Stack Test Pro cloud file bucket restricted to assigned job members. Evaluators are responsible for following their company’s policies for client, facility, permit, test-plan, field, and other confidential information. Use non-confidential or test data when required by company policy.</p></div><div class="card"><div class="eyebrow">LEGAL</div><h2>Ownership & Use</h2><p class="muted"><strong>© 2026 Stack Test Pro. All rights reserved.</strong></p><p class="muted">This software, its original source code, interface, graphics, and original written content are proprietary. Unauthorized copying, redistribution, resale, modification for redistribution, or representation of this software as another party’s work is prohibited.</p><p class="muted">Stack Test Pro is a planning and field calculation aid. It is not a substitute for applicable regulatory requirements, approved test protocols, permits, calibrations, or company QA/QC procedures. The applicable EPA method, regulation, approved test plan, permit, calibrations, and company QA/QC requirements control.</p></div>
     </section>
@@ -1347,7 +1349,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
     </div>
   </div>
 
-  <footer>StackTest Pro v0.72 RC2 · External Evaluation Beta · Shared cloud files + field workflow</footer>
+  <footer>StackTest Pro v0.73 RC1 · External Evaluation Beta · Remember Me + Method 5 nozzle planning</footer>
   <script>
 const $ = id => document.getElementById(id);
 
@@ -1403,6 +1405,20 @@ const STP_SUPABASE_PUBLISHABLE_KEY="sb_publishable_FAUL6wQn3tuQX4rZAtRelg_8DVi2E
 let cloudClient=null,cloudUser=null,cloudProfile=null,cloudSyncTimer=null,cloudSyncBusy=false,authGateBypassed=false,cloudAccessTimer=null,cloudAssignableProfiles=[],cloudJobChannel=null,cloudLastLocalEditAt=0,cloudApplyingRemote=false;
 const STP_OFFLINE_ENTITLEMENT_KEY="stp_offline_entitlement_v1";
 const STP_OFFLINE_GRACE_MS=72*60*60*1000; // 72 hours after last verified active cloud profile
+const STP_REMEMBER_ME_KEY="stp_remember_me_v1";
+function rememberMeEnabled(){try{const raw=localStorage.getItem(STP_REMEMBER_ME_KEY);return raw==null?true:raw==="1"}catch(_e){return true}}
+function setRememberMePreference(enabled){
+  const on=enabled!==false;
+  try{localStorage.setItem(STP_REMEMBER_ME_KEY,on?"1":"0")}catch(_e){}
+  ["authGateRememberMe","cloudRememberMe"].forEach(id=>{const el=$(id);if(el)el.checked=on});
+  return on;
+}
+const stpAuthStorage={
+  getItem:key=>{try{return rememberMeEnabled()?localStorage.getItem(key):sessionStorage.getItem(key)}catch(_e){return null}},
+  setItem:(key,value)=>{try{if(rememberMeEnabled()){localStorage.setItem(key,value);sessionStorage.removeItem(key)}else{sessionStorage.setItem(key,value);localStorage.removeItem(key)}}catch(_e){}},
+  removeItem:key=>{try{localStorage.removeItem(key)}catch(_e){}try{sessionStorage.removeItem(key)}catch(_e){}}
+};
+function syncRememberMeUi(){setRememberMePreference(rememberMeEnabled())}
 function cloudReady(){return !!(cloudClient&&cloudUser&&cloudProfile&&cloudProfile.active!==false)}
 function readOfflineEntitlement(){try{const raw=stpStorage.getItem(STP_OFFLINE_ENTITLEMENT_KEY);if(!raw)return null;const ent=JSON.parse(raw);if(!ent||!ent.user_id||!ent.verified_at||ent.active!==true)return null;if(Date.now()-Number(ent.verified_at)>STP_OFFLINE_GRACE_MS)return null;return ent}catch(_e){return null}}
 function cacheOfflineEntitlement(profile){if(!profile?.id||profile.active!==true)return;stpStorage.setItem(STP_OFFLINE_ENTITLEMENT_KEY,JSON.stringify({user_id:profile.id,display_name:profile.display_name||"User",role:profile.role||"technician",active:true,verified_at:Date.now()}));refreshOfflineButton()}
@@ -1420,8 +1436,8 @@ function cloudSetMessage(text,kind="neutral"){const el=$("cloudMessage");if(el){
 function setAuthGateState(text,kind="neutral"){if($("authGateCloudState"))$("authGateCloudState").textContent=text;const dot=$("authGateDot");if(dot){dot.classList.toggle("online",kind==="ok");dot.classList.toggle("warn",kind==="warn")}}
 function showAuthGate(force=false){if(authGateBypassed&&!force)return;const gate=$("authGate");if(gate)gate.classList.remove("hidden");document.body.classList.add("auth-locked")}
 function hideAuthGate(){const gate=$("authGate");if(gate)gate.classList.add("hidden");document.body.classList.remove("auth-locked")}
-function authInputs(source="settings"){const gate=source==="gate";return {email:$(gate?"authGateEmail":"cloudEmail")?.value.trim()||"",password:$(gate?"authGatePassword":"cloudPassword")?.value||"",display_name:$(gate?"authGateDisplayName":"cloudDisplayName")?.value.trim()||""}}
-async function ensureCloudClient(){if(cloudClient)return true;setAuthGateState("Connecting to Stack Test Pro Cloud…");const sdkOk=await loadSupabaseLibrary();if(!sdkOk||!globalThis.supabase?.createClient){setAuthGateState("Cloud unavailable — verified offline access may still be available.","warn");cloudSetMessage("Cloud connection unavailable. A recently verified active account can still work offline.","warn");refreshOfflineButton();return false;}cloudClient=globalThis.supabase.createClient(STP_SUPABASE_URL,STP_SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});return true}
+function authInputs(source="settings"){const gate=source==="gate";return {email:$(gate?"authGateEmail":"cloudEmail")?.value.trim()||"",password:$(gate?"authGatePassword":"cloudPassword")?.value||"",display_name:$(gate?"authGateDisplayName":"cloudDisplayName")?.value.trim()||"",remember_me:$(gate?"authGateRememberMe":"cloudRememberMe")?.checked!==false}}
+async function ensureCloudClient(){if(cloudClient)return true;setAuthGateState("Connecting to Stack Test Pro Cloud…");const sdkOk=await loadSupabaseLibrary();if(!sdkOk||!globalThis.supabase?.createClient){setAuthGateState("Cloud unavailable — verified offline access may still be available.","warn");cloudSetMessage("Cloud connection unavailable. A recently verified active account can still work offline.","warn");refreshOfflineButton();return false;}cloudClient=globalThis.supabase.createClient(STP_SUPABASE_URL,STP_SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:stpAuthStorage}});return true}
 function renderCloudUi(){
   const signed=cloudReady(),connected=!!state?.cloudJobId;
   $("cloudAuthForm")?.classList.toggle("hidden",signed);$("cloudSignInBtn")?.classList.toggle("hidden",signed);$("cloudSignUpBtn")?.classList.toggle("hidden",signed);$("cloudSignOutBtn")?.classList.toggle("hidden",!signed);$("cloudControls")?.classList.toggle("hidden",!signed);$("cloudUserAdmin")?.classList.toggle("hidden",!(signed&&cloudIsOwnerAdmin()));
@@ -1456,7 +1472,7 @@ async function cloudLoadProfile(user){
   if(!data||data.active===false){await invalidateCloudAccess();return;}
   cloudProfile=data;cacheOfflineEntitlement(data);startCloudAccessWatch();renderCloudUi();cloudSetMessage(`Signed in as ${data.display_name} · ${cloudRoleLabel(data.role)}.`,"ok");hideAuthGate();await cloudRefreshJobs();if(cloudIsOwnerAdmin())await cloudRefreshUsers();if(state?.cloudJobId)await cloudPullJob(state.cloudJobId,false);
 }
-async function cloudSignIn(source="settings"){const ready=await ensureCloudClient();if(!ready)return;const {email,password}=authInputs(source);if(!email||!password)return cloudSetMessage("Enter your email and password.","warn");cloudSetMessage("Signing in…");setAuthGateState("Signing in…");try{const {data,error}=await cloudClient.auth.signInWithPassword({email,password});if(error){setAuthGateState("Sign in failed.","warn");cloudSetMessage(error.message,"warn");return}if(data?.user){setAuthGateState("Login accepted. Loading profile…");setTimeout(()=>{if(!cloudReady()||cloudUser?.id!==data.user.id)cloudLoadProfile(data.user).catch(e=>{console.error("Direct post-login profile load failed",e);setAuthGateState("Signed in, but profile loading failed.","warn");cloudSetMessage(`Signed in, but profile loading failed: ${e?.message||e}`,"warn")})},0)}}catch(e){console.error(e);setAuthGateState("Sign in failed.","warn");cloudSetMessage(e?.message||"Sign in failed.","warn")}}
+async function cloudSignIn(source="settings"){const ready=await ensureCloudClient();if(!ready)return;const {email,password,remember_me}=authInputs(source);if(!email||!password)return cloudSetMessage("Enter your email and password.","warn");setRememberMePreference(remember_me);cloudSetMessage(remember_me?"Signing in and remembering this device…":"Signing in for this session…");setAuthGateState("Signing in…");try{const {data,error}=await cloudClient.auth.signInWithPassword({email,password});if(error){setAuthGateState("Sign in failed.","warn");cloudSetMessage(error.message,"warn");return}if(data?.user){setAuthGateState("Login accepted. Loading profile…");setTimeout(()=>{if(!cloudReady()||cloudUser?.id!==data.user.id)cloudLoadProfile(data.user).catch(e=>{console.error("Direct post-login profile load failed",e);setAuthGateState("Signed in, but profile loading failed.","warn");cloudSetMessage(`Signed in, but profile loading failed: ${e?.message||e}`,"warn")})},0)}}catch(e){console.error(e);setAuthGateState("Sign in failed.","warn");cloudSetMessage(e?.message||"Sign in failed.","warn")}}
 async function cloudSignUp(source="settings"){const ready=await ensureCloudClient();if(!ready)return;const {email,password,display_name:enteredName}=authInputs(source),display_name=enteredName||email?.split("@")[0]||"User";if(!email||password.length<6)return cloudSetMessage("Enter an email and a password of at least 6 characters.","warn");cloudSetMessage("Creating account…");setAuthGateState("Creating account…");const {data,error}=await cloudClient.auth.signUp({email,password,options:{data:{display_name},emailRedirectTo:location.origin&&location.origin!=="null"?location.origin+location.pathname:undefined}});if(error){setAuthGateState("Account creation failed.","warn");return cloudSetMessage(error.message,"warn")}if(data.session){cloudSetMessage("Account created and signed in.","ok")}else{setAuthGateState("Check your email to confirm the account.","ok");cloudSetMessage("Account created. Check your email to confirm it, then sign in.","ok")}}
 async function cloudSignOut(){authGateBypassed=false;clearInterval(cloudAccessTimer);cloudAccessTimer=null;clearOfflineEntitlement();if(cloudClient&&cloudJobChannel){try{await cloudClient.removeChannel(cloudJobChannel)}catch(_e){}cloudJobChannel=null;}if(cloudClient)await cloudClient.auth.signOut();showAuthGate(true);}
 function continueOffline(){const ent=readOfflineEntitlement();if(!ent){authGateBypassed=false;showAuthGate(true);setAuthGateState("Online verification required.","warn");cloudSetMessage("Offline access requires an active account verified online within the last 72 hours.","warn");refreshOfflineButton();return;}authGateBypassed=true;hideAuthGate();setAuthGateState(`Offline mode · ${ent.display_name||"Verified account"}`);cloudSetMessage(`Offline mode for ${ent.display_name||"verified account"}. Reconnect within 72 hours to renew access.`,"neutral");}
@@ -3158,7 +3174,7 @@ function methodPrelimHtml(code){
     </div>`;
   }
   if(code==="5" || code==="17" || code==="26A" || code==="29" || code==="201A" || code==="0010"){
-    return `<div class="status neutral" style="margin-top:12px"><strong>Nozzle planner:</strong> Uses the preliminary stack velocity, temperature, pressure, and moisture entered above to calculate the ideal isokinetic nozzle ID.</div>
+    return `<div class="status neutral" style="margin-top:12px"><strong>Method 5 nozzle planner:</strong> Uses preliminary stack velocity, temperature, absolute pressure, moisture, and your target dry-standard sample rate to estimate the ideal isokinetic nozzle ID, then compares it with the calibrated nozzles available on the truck.</div>
     <div class="prep-inputs">
       <label>Target dry std sample rate (DSCFM)<input data-prep-input="${code}:rate" type="number" step="any" min="0" placeholder="Ex: 0.75"></label>
       <label>Planned run time (min)<input data-prep-input="${code}:time" type="number" step="any" min="0" value="${$("requiredRunTime")?.value||""}"></label>
@@ -3202,7 +3218,7 @@ function renderPrepPage(){
   if(!container)return;
   container.innerHTML=selectedMethods.map(code=>{
     const prep=getPrepForMethod(code);
-    return `<details class="prep-method-card" ${(code==="1"||code==="19")?"open":""}>
+    return `<details class="prep-method-card" ${(code==="1"||code==="5"||code==="19")?"open":""}>
       <summary class="prep-method-summary">
         <div><div class="eyebrow">EPA METHOD ${code}</div><h3>${prep.title}</h3></div>
         <span class="badge ${METHOD_PREP[code]?"calc":"workspace"}">${METHOD_PREP[code]?"Detailed Prep":"Audited Loadout"}</span>
@@ -3389,7 +3405,7 @@ function calcJobPrep(){
         else{
           const delta=Math.abs(diff||0),direction=(diff||0)>=0?"above":"below";
           flag.className=delta<=10?"status ok":"status warn";
-          flag.textContent=`Planning recommendation: ideal ${dia.toFixed(3)} in → nearest available ${nearest.toFixed(4)} in. At the entered stack conditions that nozzle corresponds to about ${pred.toFixed(3)} DSCFM, ${delta.toFixed(1)}% ${direction} the target. Verify actual nozzle calibration, Method 5 requirements, and field isokinetic settings before sampling.`;
+          flag.textContent=`Planning recommendation: ideal ${dia.toFixed(3)} in → nearest calibrated available ${nearest.toFixed(4)} in. At the entered stack conditions that nozzle corresponds to about ${pred.toFixed(3)} DSCFM, ${delta.toFixed(1)}% ${direction} the target. EPA Method 5 requires selecting from the preliminary velocity-head range so the nozzle does not need to be changed during the run; confirm the actual nozzle calibration and field isokinetic settings before sampling.`;
         }
       }
     }
@@ -4056,6 +4072,9 @@ document.querySelectorAll(".step").forEach(btn=>btn.addEventListener("click",()=
 }));
 
 
+syncRememberMeUi();
+$("authGateRememberMe")?.addEventListener("change",e=>setRememberMePreference(e.target.checked));
+$("cloudRememberMe")?.addEventListener("change",e=>setRememberMePreference(e.target.checked));
 $("cloudSignInBtn")?.addEventListener("click",()=>cloudSignIn("settings"));
 $("cloudSignUpBtn")?.addEventListener("click",()=>cloudSignUp("settings"));
 $("cloudSignOutBtn")?.addEventListener("click",cloudSignOut);

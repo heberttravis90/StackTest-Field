@@ -1,6 +1,6 @@
 {
   "name": "stack-test-pro-android",
-  "version": "0.72.2",
+  "version": "0.73.0",
   "private": true,
   "description": "Stack Test Pro Android / Capacitor package",
   "scripts": {

@@ -1,12 +1,12 @@
 # Stack Test Pro — Android / Capacitor
 
-This package wraps Stack Test Pro v0.72 RC2 as a native Android app using Capacitor 8.
+This package wraps Stack Test Pro v0.73 RC1 as a native Android app using Capacitor 8.
 
 ## App identity
 
 - App name: **Stack Test Pro**
 - Android package ID: `com.gulfcoastcodeworks.stacktestpro`
-- Version name: `0.72.2-rc2`
+- Version name: `0.73.0-rc1`
 - Version code: `7202`
 - Approved launcher artwork: **original black / neon-green Stack Test Pro smokestack icon**
 - Web source: root `index.html`
@@ -31,8 +31,8 @@ The included `.github/workflows/build-android-apk.yml` builds an installable **d
 2. Open the repository's **Actions** tab.
 3. Open **Build Stack Test Pro APK**.
 4. Choose **Run workflow**.
-5. When it finishes, open the run and download the artifact named **Stack-Test-Pro-v0.72-RC2-APK**.
-6. Inside the downloaded artifact is `Stack-Test-Pro-v0.72-RC2-debug.apk`.
+5. When it finishes, open the run and download the artifact named **Stack-Test-Pro-v0.73-RC1-APK**.
+6. Inside the downloaded artifact is `Stack-Test-Pro-v0.73-RC1-debug.apk`.
 
 The debug APK is Android-signed automatically and is suitable for direct testing/installing. A permanent release signing key should be added before customer distribution or Play Store release.
 
