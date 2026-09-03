@@ -510,7 +510,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
     <div class="drawer-bottom">
       <button class="drawer-link utility" data-view="settings"><span>⚙</span><span>Settings</span></button>
       <button class="drawer-link utility" data-view="about"><span>ⓘ</span><span>About / Legal</span></button>
-      <div class="drawer-version">v0.69 RC1 · Evaluation Beta</div>
+      <div class="drawer-version">v0.70 RC1 · Evaluation Beta</div>
     </div>
   </aside>
 
@@ -1203,6 +1203,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
         <div id="cloudCrewEntry" class="hidden">
           <div class="status neutral">Assign existing Stack Test Pro accounts to this shared job. New accounts default to Technician until the Owner/Admin changes their company role.</div>
           <div class="crew-entry-grid top-gap">
+            <label class="wide">Search Available Crew<input id="cloudCrewSearch" type="search" placeholder="Search Team Leads, Technicians, or PMs by name…" autocomplete="off"></label>
             <label class="wide">Company User<select id="cloudCrewUserSelect"><option value="">Choose active user</option></select></label>
             <label class="wide">Assigned Team Lead (Technicians only)<select id="cloudCrewAssignLead"><option value="">None / assign later</option></select></label>
           </div>
@@ -1319,7 +1320,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
 
     <section id="about" class="view">
       <div class="card"><div class="eyebrow">ABOUT</div><h2>Stack Test Pro</h2><div class="about-mark">STP</div><p class="muted">Offline-first stack-testing job preparation, field calculation, results, and closeout workflow.</p>
-        <div class="summary-list"><div class="summary-row"><b>Version</b><span>0.69 RC1 — External Evaluation</span></div><div class="summary-row"><b>Status</b><span>Evaluation Beta</span></div><div class="summary-row"><b>Data</b><span>Verified-account offline storage + authenticated cloud sync</span></div></div>
+        <div class="summary-list"><div class="summary-row"><b>Version</b><span>0.70 RC1 — External Evaluation</span></div><div class="summary-row"><b>Status</b><span>Evaluation Beta</span></div><div class="summary-row"><b>Data</b><span>Verified-account offline storage + authenticated cloud sync</span></div></div>
       </div>
       <div class="card"><div class="eyebrow">EVALUATION</div><h2>Evaluation Beta</h2><p class="muted"><strong>This prerelease build is provided solely for evaluation and testing.</strong></p><p class="muted">It may not be redistributed, resold, copied for distribution, modified for redistribution, or represented as another party’s work. Evaluation access does not grant ownership of Stack Test Pro or its source code.</p></div><div class="card"><div class="eyebrow">DATA & PRIVACY</div><h2>Local Data Notice</h2><p class="muted">Job information is stored locally on this device for offline use. When cloud sync is enabled, supported shared job records are also stored in the Stack Test Pro cloud database. Photos and uploaded documents remain local in this build unless explicitly synced in a future storage update. Evaluators are responsible for following their company’s policies for client, facility, permit, test-plan, field, and other confidential information. Use non-confidential or test data when required by company policy.</p></div><div class="card"><div class="eyebrow">LEGAL</div><h2>Ownership & Use</h2><p class="muted"><strong>© 2026 Stack Test Pro. All rights reserved.</strong></p><p class="muted">This software, its original source code, interface, graphics, and original written content are proprietary. Unauthorized copying, redistribution, resale, modification for redistribution, or representation of this software as another party’s work is prohibited.</p><p class="muted">Stack Test Pro is a planning and field calculation aid. It is not a substitute for applicable regulatory requirements, approved test protocols, permits, calibrations, or company QA/QC procedures. The applicable EPA method, regulation, approved test plan, permit, calibrations, and company QA/QC requirements control.</p></div>
     </section>
@@ -1346,7 +1347,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
     </div>
   </div>
 
-  <footer>StackTest Pro v0.68 RC1 · External Evaluation Beta · Cloud + verified offline field workflow</footer>
+  <footer>StackTest Pro v0.70 RC1 · External Evaluation Beta · Cloud + verified offline field workflow</footer>
   <script>
 const $ = id => document.getElementById(id);
 
@@ -1517,11 +1518,23 @@ async function cloudManageUserAccess(id,action){
 }
 
 function renderCloudCrewPicker(){
-  const userSel=$("cloudCrewUserSelect"),leadSel=$("cloudCrewAssignLead");if(!userSel||!leadSel)return;
+  const userSel=$("cloudCrewUserSelect"),leadSel=$("cloudCrewAssignLead"),searchEl=$("cloudCrewSearch");if(!userSel||!leadSel)return;
   const assigned=new Set((state.crewRoster||[]).map(m=>m.id));
-  const choices=(cloudAssignableProfiles||[]).filter(p=>p.active!==false&&!assigned.has(p.id));
-  const current=userSel.value;userSel.innerHTML='<option value="">Choose active user</option>'+choices.map(p=>`<option value="${p.id}">${escapeHtml(p.display_name||'User')} — ${escapeHtml(cloudRoleLabel(p.role))}</option>`).join('');if(choices.some(p=>p.id===current))userSel.value=current;
-  leadSel.innerHTML='<option value="">None / assign later</option>'+(state.crewRoster||[]).filter(m=>m.role==="Team Lead"||m.role==="Project Manager").map(m=>`<option value="${m.id}">${escapeHtml(m.name)} — ${m.role}</option>`).join('');
+  const query=(searchEl?.value||"").trim().toLowerCase();
+  const roleRank={team_lead:0,technician:1,project_manager:2,owner_admin:3};
+  const choices=(cloudAssignableProfiles||[])
+    .filter(p=>p.active!==false&&!assigned.has(p.id))
+    .filter(p=>!query||`${p.display_name||''} ${cloudRoleLabel(p.role)}`.toLowerCase().includes(query))
+    .sort((a,b)=>(roleRank[a.role]??9)-(roleRank[b.role]??9)||String(a.display_name||'').localeCompare(String(b.display_name||'')));
+  const current=userSel.value;
+  const groups=[
+    ["Team Leads",choices.filter(p=>p.role==="team_lead")],
+    ["Technicians",choices.filter(p=>p.role==="technician")],
+    ["Management",choices.filter(p=>p.role==="project_manager"||p.role==="owner_admin")]
+  ];
+  userSel.innerHTML='<option value="">'+(choices.length?'Choose active user':'No matching active users')+'</option>'+groups.filter(([,items])=>items.length).map(([label,items])=>`<optgroup label="${label}">${items.map(p=>`<option value="${p.id}">${escapeHtml(p.display_name||'User')} — ${escapeHtml(cloudRoleLabel(p.role))}</option>`).join('')}</optgroup>`).join('');
+  if(choices.some(p=>p.id===current))userSel.value=current;
+  leadSel.innerHTML='<option value="">None / assign later</option>'+(state.crewRoster||[]).filter(m=>m.role==="Team Lead"||m.role==="Project Manager").sort((a,b)=>String(a.name||'').localeCompare(String(b.name||''))).map(m=>`<option value="${m.id}">${escapeHtml(m.name)} — ${m.role}</option>`).join('');
 }
 async function cloudRefreshCrew(showMessage=true){
   if(!cloudReady()||!state?.cloudJobId){renderCloudCrewPicker();return;}
@@ -3892,6 +3905,7 @@ $("clientCloudConnectBtn")?.addEventListener("click",cloudConnectActiveJob);
 $("clientOpenCrewBtn")?.addEventListener("click",()=>globalThis.navigateStackTest?.("crewtime"));
 $("cloudAddCrewBtn")?.addEventListener("click",cloudAddCrewMember);
 $("cloudRefreshCrewBtn")?.addEventListener("click",()=>cloudRefreshCrew(true));
+$("cloudCrewSearch")?.addEventListener("input",renderCloudCrewPicker);
 
 fields.forEach(id=>$(id)?.addEventListener("input",()=>{calcAll();save();}));
 const SHARED_JOB_FIELD_LABELS={jobId:"Job Number",client:"Client",facility:"Facility",unit:"Unit / Stack",testDate:"Test Date"};
