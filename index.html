@@ -510,7 +510,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
     <div class="drawer-bottom">
       <button class="drawer-link utility" data-view="settings"><span>⚙</span><span>Settings</span></button>
       <button class="drawer-link utility" data-view="about"><span>ⓘ</span><span>About / Legal</span></button>
-      <div class="drawer-version">v0.68 RC1 · Evaluation Beta</div>
+      <div class="drawer-version">v0.69 RC1 · Evaluation Beta</div>
     </div>
   </aside>
 
@@ -537,6 +537,13 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
           <label>Unit / Stack<input id="unit" placeholder="Unit or stack"></label>
           <label>Test Date<input id="testDate" type="date"></label>
         </div>
+        <div id="clientCloudJobPanel" class="top-gap">
+          <div id="clientCloudJobStatus" class="status neutral">Sign in to create or open a shared cloud job.</div>
+          <div class="auth-actions top-gap">
+            <button id="clientCloudConnectBtn" class="primary" type="button">Create Shared Cloud Job</button>
+            <button id="clientOpenCrewBtn" class="secondary" type="button">Crew Assignment</button>
+          </div>
+        </div>
       </section>
       <section class="card">
         <div class="eyebrow">SHARED JOB BOARD</div><h2>Job Notes & Documents</h2>
@@ -559,7 +566,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
       </section>
       <section class="card">
         <div class="card-title-row"><div><div class="eyebrow">AUDIT TRAIL</div><h2>Job Activity</h2></div><span id="jobActivityCount" class="pill">0 events</span></div>
-        <p class="muted">Important job updates stay with the saved project. This becomes the shared audit history when profile sync goes live.</p>
+        <p class="muted">Important job updates stay with the saved project. Cloud-connected jobs also keep server-side job and membership history.</p>
         <div id="jobActivityList" class="activity-list"></div>
       </section>
     </section>
@@ -1169,7 +1176,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
           <label>Viewing / Acting As<select id="crewActingProfile"><option value="">Local manager mode (no sign-in yet)</option></select></label>
           <label>Job Lead<select id="crewJobLead"><option value="">Not assigned</option></select></label>
         </div>
-        <div id="crewAccessNote" class="status neutral crew-access">Local-only prototype: profile permissions are previewed on this device. Cross-phone visibility will use the future sign-in/backend sync.</div>
+        <div id="crewAccessNote" class="status neutral crew-access">Local jobs can still preview roles on this device. Shared cloud jobs use the identity of the person actually signed in, so role permissions cannot be changed from this screen.</div>
       </div>
 
       <div class="card">
@@ -1185,12 +1192,26 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
 
       <div class="card" id="crewRosterCard">
         <div class="card-title-row"><div><div class="eyebrow">PROJECT CREW</div><h2>Crew Roster</h2></div><span id="crewCount" class="pill">0 people</span></div>
-        <div class="crew-entry-grid">
-          <label>Name<input id="crewName" placeholder="Crew member name"></label>
-          <label>Profile Role<select id="crewRole"><option>Technician</option><option>Team Lead</option><option>Project Manager</option></select></label>
-          <label class="wide">Assigned Team Lead<select id="crewReportsTo"><option value="">None / assign later</option></select></label>
+        <div id="localCrewEntry">
+          <div class="crew-entry-grid">
+            <label>Name<input id="crewName" placeholder="Crew member name"></label>
+            <label>Profile Role<select id="crewRole"><option>Technician</option><option>Team Lead</option><option>Project Manager</option></select></label>
+            <label class="wide">Assigned Team Lead<select id="crewReportsTo"><option value="">None / assign later</option></select></label>
+          </div>
+          <button id="addCrewMemberBtn" class="primary wide" type="button">+ Add Crew Member</button>
         </div>
-        <button id="addCrewMemberBtn" class="primary wide" type="button">+ Add Crew Member</button>
+        <div id="cloudCrewEntry" class="hidden">
+          <div class="status neutral">Assign existing Stack Test Pro accounts to this shared job. New accounts default to Technician until the Owner/Admin changes their company role.</div>
+          <div class="crew-entry-grid top-gap">
+            <label class="wide">Company User<select id="cloudCrewUserSelect"><option value="">Choose active user</option></select></label>
+            <label class="wide">Assigned Team Lead (Technicians only)<select id="cloudCrewAssignLead"><option value="">None / assign later</option></select></label>
+          </div>
+          <div class="auth-actions">
+            <button id="cloudAddCrewBtn" class="primary" type="button">+ Assign User to Job</button>
+            <button id="cloudRefreshCrewBtn" class="secondary" type="button">Refresh Crew</button>
+          </div>
+          <div id="cloudCrewStatus" class="status neutral top-gap">Connect this job to cloud to use real crew accounts.</div>
+        </div>
         <div id="crewRosterList" class="crew-roster-list"></div>
       </div>
 
@@ -1273,7 +1294,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
       <div class="card">
         <div class="eyebrow">STACK TEST PRO CLOUD</div><h2>Account & Shared Jobs</h2>
         <div class="cloud-status"><span id="cloudDot" class="cloud-dot"></span><strong id="cloudStatus">Not signed in</strong><span id="cloudProfileBadge" class="pill">Local mode</span></div>
-        <p class="muted">The opening sign-in screen connects this device to your Stack Test Pro profile. Offline/local saving stays available if you need to work without service.</p>
+        <p class="muted">The opening sign-in screen connects this device to your Stack Test Pro profile. Shared jobs and real crew assignments use the same cloud record across devices. Verified offline access stays available when field service drops.</p>
         <div id="cloudAuthForm" class="grid two">
           <label>Email<input id="cloudEmail" type="email" autocomplete="email" placeholder="you@company.com"></label>
           <label>Password<input id="cloudPassword" type="password" autocomplete="current-password" placeholder="Password"></label>
@@ -1298,7 +1319,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
 
     <section id="about" class="view">
       <div class="card"><div class="eyebrow">ABOUT</div><h2>Stack Test Pro</h2><div class="about-mark">STP</div><p class="muted">Offline-first stack-testing job preparation, field calculation, results, and closeout workflow.</p>
-        <div class="summary-list"><div class="summary-row"><b>Version</b><span>0.68 RC1 — External Evaluation</span></div><div class="summary-row"><b>Status</b><span>Evaluation Beta</span></div><div class="summary-row"><b>Data</b><span>Verified-account offline storage + authenticated cloud sync</span></div></div>
+        <div class="summary-list"><div class="summary-row"><b>Version</b><span>0.69 RC1 — External Evaluation</span></div><div class="summary-row"><b>Status</b><span>Evaluation Beta</span></div><div class="summary-row"><b>Data</b><span>Verified-account offline storage + authenticated cloud sync</span></div></div>
       </div>
       <div class="card"><div class="eyebrow">EVALUATION</div><h2>Evaluation Beta</h2><p class="muted"><strong>This prerelease build is provided solely for evaluation and testing.</strong></p><p class="muted">It may not be redistributed, resold, copied for distribution, modified for redistribution, or represented as another party’s work. Evaluation access does not grant ownership of Stack Test Pro or its source code.</p></div><div class="card"><div class="eyebrow">DATA & PRIVACY</div><h2>Local Data Notice</h2><p class="muted">Job information is stored locally on this device for offline use. When cloud sync is enabled, supported shared job records are also stored in the Stack Test Pro cloud database. Photos and uploaded documents remain local in this build unless explicitly synced in a future storage update. Evaluators are responsible for following their company’s policies for client, facility, permit, test-plan, field, and other confidential information. Use non-confidential or test data when required by company policy.</p></div><div class="card"><div class="eyebrow">LEGAL</div><h2>Ownership & Use</h2><p class="muted"><strong>© 2026 Stack Test Pro. All rights reserved.</strong></p><p class="muted">This software, its original source code, interface, graphics, and original written content are proprietary. Unauthorized copying, redistribution, resale, modification for redistribution, or representation of this software as another party’s work is prohibited.</p><p class="muted">Stack Test Pro is a planning and field calculation aid. It is not a substitute for applicable regulatory requirements, approved test protocols, permits, calibrations, or company QA/QC procedures. The applicable EPA method, regulation, approved test plan, permit, calibrations, and company QA/QC requirements control.</p></div>
     </section>
@@ -1378,7 +1399,7 @@ function loadSupabaseLibrary(){
 }
 const STP_SUPABASE_URL="https://sdtvdflyzncgakayvvak.supabase.co";
 const STP_SUPABASE_PUBLISHABLE_KEY="sb_publishable_FAUL6wQn3tuQX4rZAtRelg_8DVi2EZp";
-let cloudClient=null,cloudUser=null,cloudProfile=null,cloudSyncTimer=null,cloudSyncBusy=false,authGateBypassed=false,cloudAccessTimer=null;
+let cloudClient=null,cloudUser=null,cloudProfile=null,cloudSyncTimer=null,cloudSyncBusy=false,authGateBypassed=false,cloudAccessTimer=null,cloudAssignableProfiles=[];
 const STP_OFFLINE_ENTITLEMENT_KEY="stp_offline_entitlement_v1";
 const STP_OFFLINE_GRACE_MS=72*60*60*1000; // 72 hours after last verified active cloud profile
 function cloudReady(){return !!(cloudClient&&cloudUser&&cloudProfile&&cloudProfile.active!==false)}
@@ -1387,14 +1408,29 @@ function cacheOfflineEntitlement(profile){if(!profile?.id||profile.active!==true
 function clearOfflineEntitlement(){stpStorage.removeItem(STP_OFFLINE_ENTITLEMENT_KEY);refreshOfflineButton()}
 function refreshOfflineButton(){const btn=$("authGateOfflineBtn");if(!btn)return;const ent=readOfflineEntitlement();btn.disabled=!ent;btn.title=ent?`Verified for ${ent.display_name||"this account"} within the last 72 hours`:'Sign in online once to verify an active account before using offline mode';}
 function cloudRoleLabel(r){return ({owner_admin:"Owner / Admin",project_manager:"Project Manager",team_lead:"Team Lead",technician:"Technician"})[r]||r||"User"}
+function cloudRoleToCrewRole(r){return r==="team_lead"?"Team Lead":r==="technician"?"Technician":"Project Manager"}
+function cloudCurrentCrewActor(){return cloudReady()?{id:cloudUser.id,name:cloudProfile.display_name||"User",role:cloudRoleToCrewRole(cloudProfile.role),cloudRole:cloudProfile.role}:null}
 function cloudIsOwnerAdmin(){return cloudProfile?.role==="owner_admin"}
+function cloudCanCreateJob(){return !!cloudProfile&&["owner_admin","project_manager","team_lead"].includes(cloudProfile.role)}
+function cloudCanAssignJobLead(){return !!cloudProfile&&["owner_admin","project_manager"].includes(cloudProfile.role)}
+function cloudCanManageCurrentJob(){return !!cloudProfile&&(["owner_admin","project_manager"].includes(cloudProfile.role)||(cloudProfile.role==="team_lead"&&cloudUser?.id&&cloudUser.id===state?.jobLeadId))}
 function cloudSetMessage(text,kind="neutral"){const el=$("cloudMessage");if(el){el.className=`status ${kind}`;el.textContent=text}const gate=$("authGateMessage");if(gate){gate.className=`status ${kind} auth-gate-status`;gate.textContent=text}}
 function setAuthGateState(text,kind="neutral"){if($("authGateCloudState"))$("authGateCloudState").textContent=text;const dot=$("authGateDot");if(dot){dot.classList.toggle("online",kind==="ok");dot.classList.toggle("warn",kind==="warn")}}
 function showAuthGate(force=false){if(authGateBypassed&&!force)return;const gate=$("authGate");if(gate)gate.classList.remove("hidden");document.body.classList.add("auth-locked")}
 function hideAuthGate(){const gate=$("authGate");if(gate)gate.classList.add("hidden");document.body.classList.remove("auth-locked")}
 function authInputs(source="settings"){const gate=source==="gate";return {email:$(gate?"authGateEmail":"cloudEmail")?.value.trim()||"",password:$(gate?"authGatePassword":"cloudPassword")?.value||"",display_name:$(gate?"authGateDisplayName":"cloudDisplayName")?.value.trim()||""}}
 async function ensureCloudClient(){if(cloudClient)return true;setAuthGateState("Connecting to Stack Test Pro Cloud…");const sdkOk=await loadSupabaseLibrary();if(!sdkOk||!globalThis.supabase?.createClient){setAuthGateState("Cloud unavailable — verified offline access may still be available.","warn");cloudSetMessage("Cloud connection unavailable. A recently verified active account can still work offline.","warn");refreshOfflineButton();return false;}cloudClient=globalThis.supabase.createClient(STP_SUPABASE_URL,STP_SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});return true}
-function renderCloudUi(){const signed=cloudReady();$("cloudAuthForm")?.classList.toggle("hidden",signed);$("cloudSignInBtn")?.classList.toggle("hidden",signed);$("cloudSignUpBtn")?.classList.toggle("hidden",signed);$("cloudSignOutBtn")?.classList.toggle("hidden",!signed);$("cloudControls")?.classList.toggle("hidden",!signed);$("cloudUserAdmin")?.classList.toggle("hidden",!(signed&&cloudIsOwnerAdmin()));if($("cloudStatus"))$("cloudStatus").textContent=signed?`${cloudProfile.display_name}`:"Not signed in";if($("cloudProfileBadge"))$("cloudProfileBadge").textContent=signed?cloudRoleLabel(cloudProfile.role):"Local mode";$("cloudDot")?.classList.toggle("online",signed);if($("cloudJobIdText"))$("cloudJobIdText").textContent=state?.cloudJobId||"Not connected";if($("saveStatus"))$("saveStatus").textContent=state?.cloudJobId&&signed?"Saved locally + cloud":"Saved locally";if(signed){hideAuthGate();setAuthGateState(`Signed in as ${cloudProfile.display_name}.`,"ok")}refreshOfflineButton(); }
+function renderCloudUi(){
+  const signed=cloudReady(),connected=!!state?.cloudJobId;
+  $("cloudAuthForm")?.classList.toggle("hidden",signed);$("cloudSignInBtn")?.classList.toggle("hidden",signed);$("cloudSignUpBtn")?.classList.toggle("hidden",signed);$("cloudSignOutBtn")?.classList.toggle("hidden",!signed);$("cloudControls")?.classList.toggle("hidden",!signed);$("cloudUserAdmin")?.classList.toggle("hidden",!(signed&&cloudIsOwnerAdmin()));
+  if($("cloudStatus"))$("cloudStatus").textContent=signed?`${cloudProfile.display_name}`:"Not signed in";if($("cloudProfileBadge"))$("cloudProfileBadge").textContent=signed?cloudRoleLabel(cloudProfile.role):"Local mode";$("cloudDot")?.classList.toggle("online",signed);if($("cloudJobIdText"))$("cloudJobIdText").textContent=state?.cloudJobId||"Not connected";if($("saveStatus"))$("saveStatus").textContent=connected&&signed?"Saved locally + cloud":"Saved locally";
+  const cstat=$("clientCloudJobStatus"),cbtn=$("clientCloudConnectBtn");
+  if(cstat){cstat.className=`status ${connected&&signed?'ok':signed?'neutral':'neutral'}`;cstat.textContent=connected&&signed?`Shared cloud job connected · ${cloudProfile.display_name} (${cloudRoleLabel(cloudProfile.role)})`:signed?cloudCanCreateJob()?`Signed in as ${cloudProfile.display_name}. Create the shared job when the job details are ready.`:`Signed in as ${cloudProfile.display_name}. Technicians can open assigned jobs but cannot create a new shared job.`:"Sign in to create or open a shared cloud job.";}
+  if(cbtn){const canSync=connected&&cloudCanManageCurrentJob();cbtn.textContent=connected?(canSync?"Sync Shared Job":"Shared Job Read Only"):"Create Shared Cloud Job";cbtn.disabled=!signed||(!connected&&!cloudCanCreateJob())||(connected&&!canSync);}
+  if($("cloudSyncNowBtn"))$("cloudSyncNowBtn").disabled=!connected||!cloudCanManageCurrentJob();
+  if($("clientOpenCrewBtn"))$("clientOpenCrewBtn").disabled=!connected;
+  if(signed){hideAuthGate();setAuthGateState(`Signed in as ${cloudProfile.display_name}.`,"ok")}refreshOfflineButton();renderCrewTime();
+}
 async function initCloud(){try{authGateBypassed=false;showAuthGate(true);renderCloudUi();cloudSetMessage("Checking for an existing signed-in session…");const ready=await ensureCloudClient();if(!ready)return;const {data:{session},error}=await cloudClient.auth.getSession();if(error)throw error;if(session?.user){await cloudLoadProfile(session.user)}else{setAuthGateState("Ready to sign in.");cloudSetMessage("Sign in or create an account to enable shared jobs.")}cloudClient.auth.onAuthStateChange(async(_event,session)=>{if(session?.user){await cloudLoadProfile(session.user)}else{cloudUser=null;cloudProfile=null;renderCloudUi();showAuthGate();setAuthGateState("Ready to sign in.");cloudSetMessage("Signed out. Sign in again or continue offline.")}});renderCloudUi();}catch(e){console.error(e);setAuthGateState("Cloud initialization failed — verified offline access may be available.","warn");cloudSetMessage("Cloud initialization failed. A recently verified active account can still work offline.","warn");refreshOfflineButton()}}
 async function invalidateCloudAccess(message="This Stack Test Pro account has been disabled by the Owner/Admin."){
   clearInterval(cloudAccessTimer);cloudAccessTimer=null;cloudProfile=null;clearOfflineEntitlement();authGateBypassed=false;
@@ -1423,8 +1459,24 @@ async function cloudSignUp(source="settings"){const ready=await ensureCloudClien
 async function cloudSignOut(){authGateBypassed=false;clearInterval(cloudAccessTimer);cloudAccessTimer=null;clearOfflineEntitlement();if(cloudClient)await cloudClient.auth.signOut();showAuthGate(true);}
 function continueOffline(){const ent=readOfflineEntitlement();if(!ent){authGateBypassed=false;showAuthGate(true);setAuthGateState("Online verification required.","warn");cloudSetMessage("Offline access requires an active account verified online within the last 72 hours.","warn");refreshOfflineButton();return;}authGateBypassed=true;hideAuthGate();setAuthGateState(`Offline mode · ${ent.display_name||"Verified account"}`);cloudSetMessage(`Offline mode for ${ent.display_name||"verified account"}. Reconnect within 72 hours to renew access.`,"neutral");}
 function cloudJobPayload(){const c=collect(),f=c.fields||{};return {job_number:f.jobId||null,client:f.client||null,facility:f.facility||null,unit_stack:f.unit||null,test_date:f.testDate||null,status:c.completedAt?"archived":"active",job_data:{...c,cloudJobId:undefined}}}
-async function cloudConnectActiveJob(){if(!cloudReady())return cloudSetMessage("Sign in first.","warn");if(state.cloudJobId)return cloudSyncNow();const payload=cloudJobPayload();payload.created_by=cloudUser.id;payload.job_lead_user_id=cloudProfile.role==="technician"?null:cloudUser.id;const {data,error}=await cloudClient.from("jobs").insert(payload).select("id").single();if(error)return cloudSetMessage(`Could not create cloud job: ${error.message}`,"warn");state.cloudJobId=data.id;state=collect();state.cloudJobId=data.id;stpStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);if(cloudProfile.role!=="technician"){await cloudClient.from("job_members").upsert({job_id:data.id,user_id:cloudUser.id,added_by:cloudUser.id},{onConflict:"job_id,user_id"});}renderCloudUi();cloudSetMessage("Active job connected to cloud.","ok");await cloudPushSharedNotes();await cloudRefreshJobs();}
-async function cloudSyncNow(){if(!cloudReady()||!state?.cloudJobId)return cloudSetMessage("Connect the active job to cloud first.","warn");if(cloudSyncBusy)return;cloudSyncBusy=true;try{const payload=cloudJobPayload();const {error}=await cloudClient.from("jobs").update(payload).eq("id",state.cloudJobId);if(error)throw error;await cloudPushSharedNotes();cloudSetMessage(`Cloud synced ${new Date().toLocaleTimeString()}.`,"ok");renderCloudUi();}catch(e){cloudSetMessage(`Cloud sync failed: ${e.message||e}`,"warn")}finally{cloudSyncBusy=false}}
+async function cloudConnectActiveJob(){
+  if(!cloudReady())return cloudSetMessage("Sign in first.","warn");
+  if(state.cloudJobId)return cloudSyncNow();
+  if(!cloudCanCreateJob())return cloudSetMessage("Technician accounts cannot create shared jobs. Ask a Project Manager, Team Lead, or Owner/Admin to create and assign the job.","warn");
+  const payload=cloudJobPayload();payload.created_by=cloudUser.id;payload.job_lead_user_id=cloudUser.id;
+  const {data,error}=await cloudClient.from("jobs").insert(payload).select("id").single();if(error)return cloudSetMessage(`Could not create cloud job: ${error.message}`,"warn");
+  state.cloudJobId=data.id;state=collect();state.cloudJobId=data.id;stpStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);
+  renderCloudUi();addJobActivity("Shared cloud job created",jobDisplayName(state),cloudUser.id);save();await cloudPushSharedNotes();await cloudRefreshCrew(false);await cloudRefreshJobs();cloudSetMessage("Shared cloud job created. You are the initial Job Lead; assign the field crew next.","ok");
+}
+async function cloudSyncNow(){
+  if(!cloudReady()||!state?.cloudJobId)return cloudSetMessage("Connect the active job to cloud first.","warn");if(cloudSyncBusy)return;cloudSyncBusy=true;
+  try{
+    const canManageJob=cloudCanManageCurrentJob();
+    if(canManageJob){const payload=cloudJobPayload();const {error}=await cloudClient.from("jobs").update(payload).eq("id",state.cloudJobId);if(error)throw error;}
+    await cloudPushSharedNotes();
+    cloudSetMessage(canManageJob?`Cloud synced ${new Date().toLocaleTimeString()}.`:`Shared updates synced ${new Date().toLocaleTimeString()}.`,"ok");renderCloudUi();
+  }catch(e){cloudSetMessage(`Cloud sync failed: ${e.message||e}`,"warn")}finally{cloudSyncBusy=false}
+}
 function queueCloudSync(){if(!cloudReady()||!state?.cloudJobId)return;clearTimeout(cloudSyncTimer);cloudSyncTimer=setTimeout(()=>cloudSyncNow(),1200)}
 async function cloudPushSharedNotes(){if(!cloudReady()||!state?.cloudJobId)return;const notes=state.jobNotes||[];for(const n of notes){if(n.cloudSynced||!n.text)continue;const {data,error}=await cloudClient.from("job_notes").insert({job_id:state.cloudJobId,author_user_id:cloudUser.id,note:n.text}).select("id,created_at").single();if(!error&&data){n.id=data.id;n.createdAt=data.created_at;n.authorId=cloudUser.id;n.authorName=cloudProfile.display_name;n.cloudSynced=true;}}stpStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);await cloudPullNotes();}
 async function cloudPullNotes(){if(!cloudReady()||!state?.cloudJobId)return;const {data,error}=await cloudClient.from("job_notes").select("id,note,author_user_id,created_at,profiles:author_user_id(display_name)").eq("job_id",state.cloudJobId).order("created_at",{ascending:true});if(error)return;state.jobNotes=(data||[]).map(n=>({id:n.id,text:n.note,authorId:n.author_user_id,authorName:n.profiles?.display_name||"Crew Member",createdAt:n.created_at,cloudSynced:true}));stpStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);renderJobNotes();renderCrewJobBriefing();}
@@ -1464,8 +1516,50 @@ async function cloudManageUserAccess(id,action){
   cloudSetMessage(data?.message||`Account ${disabling?'disabled':'reactivated'}.`,'ok');await cloudRefreshUsers();
 }
 
+function renderCloudCrewPicker(){
+  const userSel=$("cloudCrewUserSelect"),leadSel=$("cloudCrewAssignLead");if(!userSel||!leadSel)return;
+  const assigned=new Set((state.crewRoster||[]).map(m=>m.id));
+  const choices=(cloudAssignableProfiles||[]).filter(p=>p.active!==false&&!assigned.has(p.id));
+  const current=userSel.value;userSel.innerHTML='<option value="">Choose active user</option>'+choices.map(p=>`<option value="${p.id}">${escapeHtml(p.display_name||'User')} — ${escapeHtml(cloudRoleLabel(p.role))}</option>`).join('');if(choices.some(p=>p.id===current))userSel.value=current;
+  leadSel.innerHTML='<option value="">None / assign later</option>'+(state.crewRoster||[]).filter(m=>m.role==="Team Lead"||m.role==="Project Manager").map(m=>`<option value="${m.id}">${escapeHtml(m.name)} — ${m.role}</option>`).join('');
+}
+async function cloudRefreshCrew(showMessage=true){
+  if(!cloudReady()||!state?.cloudJobId){renderCloudCrewPicker();return;}
+  if(showMessage&&$("cloudCrewStatus")){ $("cloudCrewStatus").className="status neutral";$("cloudCrewStatus").textContent="Refreshing shared crew…"; }
+  const [{data:job,error:jobError},{data:members,error:memberError},{data:profiles,error:profilesError}]=await Promise.all([
+    cloudClient.from("jobs").select("id,job_lead_user_id").eq("id",state.cloudJobId).single(),
+    cloudClient.from("job_members").select("user_id,assigned_team_lead_id").eq("job_id",state.cloudJobId),
+    cloudClient.from("profiles").select("id,display_name,role,active").eq("active",true).order("display_name",{ascending:true})
+  ]);
+  const error=jobError||memberError||profilesError;if(error){if($("cloudCrewStatus")){ $("cloudCrewStatus").className="status warn";$("cloudCrewStatus").textContent=`Crew refresh failed: ${error.message}`;}return;}
+  cloudAssignableProfiles=profiles||[];const byId=new Map((profiles||[]).map(p=>[p.id,p]));
+  state.crewRoster=(members||[]).map(m=>{const p=byId.get(m.user_id);return {id:m.user_id,name:p?.display_name||"Assigned User",role:cloudRoleToCrewRole(p?.role),cloudRole:p?.role||"technician",reportsTo:m.assigned_team_lead_id||"",cloudMember:true};});
+  state.jobLeadId=job?.job_lead_user_id||"";if(state.jobLeadId&&!state.crewRoster.some(m=>m.id===state.jobLeadId)){const p=byId.get(state.jobLeadId);if(p)state.crewRoster.push({id:p.id,name:p.display_name||"Job Lead",role:cloudRoleToCrewRole(p.role),cloudRole:p.role,reportsTo:"",cloudMember:true});}
+  state.crewActingId="";stpStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);renderCrewTime();renderCloudCrewPicker();renderCrewJobBriefing();
+  if(showMessage&&$("cloudCrewStatus")){ $("cloudCrewStatus").className="status ok";$("cloudCrewStatus").textContent=`Shared crew refreshed · ${state.crewRoster.length} assigned.`; }
+}
+async function cloudAddCrewMember(){
+  if(!cloudReady()||!state?.cloudJobId)return cloudSetMessage("Create or open a shared cloud job first.","warn");if(!crewCanManageRoster())return cloudSetMessage("Only a Project Manager or the current Job Lead can change this crew.","warn");
+  const id=$("cloudCrewUserSelect")?.value||"",reportsTo=$("cloudCrewAssignLead")?.value||"",p=(cloudAssignableProfiles||[]).find(x=>x.id===id);if(!p)return cloudSetMessage("Choose a company user to assign.","warn");
+  const assignedLead=p.role==="technician"?(reportsTo||null):null;const {error}=await cloudClient.from("job_members").upsert({job_id:state.cloudJobId,user_id:id,assigned_team_lead_id:assignedLead,added_by:cloudUser.id},{onConflict:"job_id,user_id"});if(error)return cloudSetMessage(`Crew assignment failed: ${error.message}`,"warn");
+  addJobActivity("Crew member assigned",`${p.display_name||'User'} — ${cloudRoleLabel(p.role)}`,cloudUser.id);save();await cloudRefreshCrew(false);await cloudSyncNow();cloudSetMessage(`${p.display_name||'User'} assigned to this shared job.`,"ok");
+}
+async function cloudSetJobLead(id){
+  if(!cloudReady()||!state?.cloudJobId)return;if(!cloudCanAssignJobLead())return cloudSetMessage("Only the Owner/Admin or a Project Manager can designate the Job Lead on a shared job.","warn");
+  if(id){const m=crewMember(id);if(!m||m.role==="Technician")return cloudSetMessage("Choose a Project Manager or Team Lead as Job Lead.","warn");}
+  const {error}=await cloudClient.from("jobs").update({job_lead_user_id:id||null}).eq("id",state.cloudJobId);if(error)return cloudSetMessage(`Job Lead update failed: ${error.message}`,"warn");state.jobLeadId=id||"";const lead=crewMember(state.jobLeadId);addJobActivity("Job Lead updated",lead?`${lead.name} — ${lead.role}`:"Job Lead cleared",cloudUser.id);save();await cloudRefreshCrew(false);cloudSetMessage(lead?`${lead.name} is now Job Lead.`:"Job Lead cleared.","ok");
+}
+async function cloudUpdateCrewAssignment(id,reportsTo){
+  if(!cloudReady()||!state?.cloudJobId||!crewCanManageRoster())return;const m=crewMember(id);if(!m||m.role!=="Technician")return;const {error}=await cloudClient.from("job_members").update({assigned_team_lead_id:reportsTo||null}).eq("job_id",state.cloudJobId).eq("user_id",id);if(error)return cloudSetMessage(`Team Lead assignment failed: ${error.message}`,"warn");addJobActivity("Crew assignment updated",`${m.name} → ${crewMember(reportsTo)?.name||'Unassigned'}`,cloudUser.id);save();await cloudRefreshCrew(false);cloudSetMessage("Technician assignment updated.","ok");
+}
+async function cloudRemoveCrewMember(id){
+  if(!cloudReady()||!state?.cloudJobId||!crewCanManageRoster())return;if(id===state.jobLeadId)return cloudSetMessage("Assign a different Job Lead before removing the current Job Lead.","warn");const m=crewMember(id);if(!m)return;if(id===cloudUser.id&&!cloudCanAssignJobLead())return cloudSetMessage("A Job Lead cannot remove their own cloud assignment. Ask a Project Manager to change the roster.","warn");if(!confirm(`Remove ${m.name} from this shared job? Their historical job records are preserved.`))return;
+  const {error}=await cloudClient.from("job_members").delete().eq("job_id",state.cloudJobId).eq("user_id",id);if(error)return cloudSetMessage(`Remove crew member failed: ${error.message}`,"warn");addJobActivity("Crew member removed",`${m.name} — ${m.role}`,cloudUser.id);save();await cloudRefreshCrew(false);await cloudSyncNow();cloudSetMessage(`${m.name} removed from the shared job.`,"ok");
+}
 async function cloudRefreshJobs(){if(!cloudReady())return;const {data,error}=await cloudClient.from("jobs").select("id,job_number,client,facility,unit_stack,test_date,status,updated_at").order("updated_at",{ascending:false}).limit(30);const box=$("cloudJobsList");if(!box)return;if(error){box.innerHTML=`<div class="status warn">${escapeHtml(error.message)}</div>`;return;}box.innerHTML=(data||[]).length?(data||[]).map(j=>`<div class="cloud-job-row"><b>${escapeHtml(j.job_number||[j.client,j.facility,j.unit_stack].filter(Boolean).join(" · ")||"Untitled Job")}</b><span class="cloud-small">${escapeHtml([j.client,j.facility,j.unit_stack].filter(Boolean).join(" • "))} · ${escapeHtml(j.status)}</span><div class="top-gap"><button class="secondary" type="button" data-cloud-open="${j.id}">Open Cloud Job</button></div></div>`).join(""):'<div class="status neutral">No cloud jobs assigned yet.</div>';box.querySelectorAll("[data-cloud-open]").forEach(b=>b.addEventListener("click",()=>cloudPullJob(b.dataset.cloudOpen,true)));}
-async function cloudPullJob(id,reload=true){if(!cloudReady())return;const {data,error}=await cloudClient.from("jobs").select("*").eq("id",id).single();if(error)return cloudSetMessage(error.message,"warn");const incoming=data.job_data&&typeof data.job_data==="object"?data.job_data:{};incoming.cloudJobId=data.id;incoming.fields={...(incoming.fields||{}),jobId:data.job_number||incoming.fields?.jobId||"",client:data.client||incoming.fields?.client||"",facility:data.facility||incoming.fields?.facility||"",unit:data.unit_stack||incoming.fields?.unit||"",testDate:data.test_date||incoming.fields?.testDate||""};incoming._jobKey=incoming._jobKey||makeJobKey();stpStorage.setItem(STORAGE,JSON.stringify(incoming));upsertJobLibrary(incoming);cloudSetMessage("Cloud job loaded.","ok");if(reload)location.reload();}
+async function cloudPullJob(id,reload=true){
+  if(!cloudReady())return;const {data,error}=await cloudClient.from("jobs").select("*").eq("id",id).single();if(error)return cloudSetMessage(error.message,"warn");const incoming=data.job_data&&typeof data.job_data==="object"?data.job_data:{};incoming.cloudJobId=data.id;incoming.fields={...(incoming.fields||{}),jobId:data.job_number||incoming.fields?.jobId||"",client:data.client||incoming.fields?.client||"",facility:data.facility||incoming.fields?.facility||"",unit:data.unit_stack||incoming.fields?.unit||"",testDate:data.test_date||incoming.fields?.testDate||""};incoming._jobKey=incoming._jobKey||makeJobKey();stpStorage.setItem(STORAGE,JSON.stringify(incoming));upsertJobLibrary(incoming);cloudSetMessage("Cloud job loaded.","ok");if(reload)location.reload();else{state=incoming;await cloudRefreshCrew(false);renderCloudUi();}
+}
 async function cloudDeleteNote(id){if(!cloudReady()||!state?.cloudJobId||!id)return false;const {error}=await cloudClient.from("job_notes").delete().eq("id",id);if(error){cloudSetMessage(error.message,"warn");return false;}return true;}
 
 
@@ -3628,7 +3722,7 @@ const CREW_TIME_CATEGORIES=["Mobilize","Travel","Onsite","Delay","Standby","Demo
 let crewTimeEditId=null;
 function crewId(){return globalThis.crypto?.randomUUID?.()||`crew_${Date.now()}_${Math.random().toString(36).slice(2)}`;}
 function crewMember(id){return (state.crewRoster||[]).find(x=>x.id===id)||null;}
-function crewActing(){return crewMember(state.crewActingId)||null;}
+function crewActing(){return cloudReady()?cloudCurrentCrewActor():(crewMember(state.crewActingId)||null);}
 function crewJobLead(){return crewMember(state.jobLeadId)||null;}
 function crewCanManageAll(){const a=crewActing();return !a || a.role==="Project Manager" || a.id===state.jobLeadId;}
 function crewCanManageMember(memberId){
@@ -3638,6 +3732,7 @@ function crewCanManageMember(memberId){
   return false;
 }
 function crewCanManageRoster(){return crewCanManageAll();}
+function crewCanAssignJobLead(){return cloudReady()?cloudCanAssignJobLead():crewCanManageRoster();}
 function renderSharedJobPermissions(){const a=crewActing(),canEdit=!a||crewCanManageAll();["jobId","client","facility","unit","testDate"].forEach(id=>{if($(id))$(id).disabled=!canEdit;});const card=$("clientplant")?.querySelector(".job-card");if(card)card.classList.toggle("crew-readonly",!canEdit);}
 function crewVisibleEntries(){
   const a=crewActing(),entries=state.crewTimeEntries||[];
@@ -3652,18 +3747,19 @@ function renderCrewTime(){
   if(!$("crewtime"))return;
   state.crewRoster||=[];state.crewTimeEntries||=[];state.crewActingId||="";state.jobLeadId||="";
   if(state.jobLeadId&&!crewMember(state.jobLeadId))state.jobLeadId="";
-  if(state.crewActingId&&!crewMember(state.crewActingId))state.crewActingId="";
-  const roster=state.crewRoster,acting=crewActing(),lead=crewJobLead(),manageAll=crewCanManageAll(),manageRoster=crewCanManageRoster();
+  if(!cloudReady()&&state.crewActingId&&!crewMember(state.crewActingId))state.crewActingId="";
+  const roster=state.crewRoster,acting=crewActing(),lead=crewJobLead(),manageAll=crewCanManageAll(),manageRoster=crewCanManageRoster(),sharedCloud=!!(cloudReady()&&state.cloudJobId);
   if($("crewCount"))$("crewCount").textContent=`${roster.length} ${roster.length===1?'person':'people'}`;
-  const actingSel=$("crewActingProfile");if(actingSel){actingSel.innerHTML='<option value="">Local manager mode (no sign-in yet)</option>'+roster.map(m=>`<option value="${m.id}" ${m.id===state.crewActingId?'selected':''}>${escapeHtml(m.name)} — ${m.role}</option>`).join('');}
-  const leadSel=$("crewJobLead");if(leadSel){leadSel.innerHTML='<option value="">Not assigned</option>'+roster.filter(m=>m.role!=="Technician").map(m=>`<option value="${m.id}" ${m.id===state.jobLeadId?'selected':''}>${escapeHtml(m.name)} — ${m.role}</option>`).join('');leadSel.disabled=!manageRoster;}
+  const actingSel=$("crewActingProfile");if(actingSel){if(cloudReady()){actingSel.innerHTML=`<option value="${cloudUser.id}">${escapeHtml(cloudProfile.display_name||'Signed-in user')} — ${escapeHtml(cloudRoleLabel(cloudProfile.role))}</option>`;actingSel.disabled=true;}else{actingSel.disabled=false;actingSel.innerHTML='<option value="">Local manager mode (no sign-in yet)</option>'+roster.map(m=>`<option value="${m.id}" ${m.id===state.crewActingId?'selected':''}>${escapeHtml(m.name)} — ${m.role}</option>`).join('');}}
+  const leadSel=$("crewJobLead");if(leadSel){leadSel.innerHTML='<option value="">Not assigned</option>'+roster.filter(m=>m.role!=="Technician").map(m=>`<option value="${m.id}" ${m.id===state.jobLeadId?'selected':''}>${escapeHtml(m.name)} — ${m.role}</option>`).join('');leadSel.disabled=!crewCanAssignJobLead();}
   const pill=$("crewAccessPill"),note=$("crewAccessNote");
-  if(pill)pill.textContent=!acting?'Local manager mode':acting.role==="Project Manager"?'PM oversight':acting.id===state.jobLeadId?'Job Lead control':acting.role==="Team Lead"?'Team Lead crew control':'Technician view';
-  if(note){note.className='status '+(!acting?'neutral':crewCanManageAll()?'ok':acting.role==="Team Lead"?'warn':'neutral');note.textContent=!acting?'Local-only prototype: all crew time can be managed on this device. Select a profile above to preview future permissions.':acting.role==="Project Manager"?'Project Manager access: can manage this job roster, Job Lead assignment, and all crew time.':acting.id===state.jobLeadId?`${acting.name} is the Job Lead for this project and can manage the entire crew and time record.`:acting.role==="Team Lead"?`${acting.name} can manage their own time and technicians assigned to them. ${lead?lead.name+' is the Job Lead.':'No Job Lead is assigned yet.'}`:`Technician view: ${acting.name} can see their own time record. Editing is controlled by the PM / Job Lead / assigned Team Lead.`;}
+  if(pill)pill.textContent=!acting?'Local manager mode':cloudReady()&&cloudProfile.role==="owner_admin"?'Owner / Admin':acting.role==="Project Manager"?'PM oversight':acting.id===state.jobLeadId?'Job Lead control':acting.role==="Team Lead"?'Team Lead crew control':'Technician view';
+  if(note){note.className='status '+(!acting?'neutral':crewCanManageAll()?'ok':acting.role==="Team Lead"?'warn':'neutral');note.textContent=!acting?'Local-only mode: choose a profile to preview role permissions on this device.':cloudReady()&&cloudProfile.role==="owner_admin"?'Owner/Admin access: real cloud identity is active. You can manage the job, crew, Job Lead, and all crew time.':acting.role==="Project Manager"?'Project Manager access: real cloud identity is active. You can manage this job roster, Job Lead assignment, and all crew time.':acting.id===state.jobLeadId?`${acting.name} is signed in as the Job Lead and can manage the project crew and time record.`:acting.role==="Team Lead"?`${acting.name} is signed in as a Team Lead and can manage their own time and technicians assigned to them. ${lead?lead.name+' is the Job Lead.':'No Job Lead is assigned yet.'}`:`Technician view: ${acting.name} is signed in and can view their own time record. Editing is controlled by the PM / Job Lead / assigned Team Lead.`;}
   const reports=$("crewReportsTo");if(reports){reports.innerHTML='<option value="">None / assign later</option>'+crewLeadOptions();reports.disabled=!manageRoster;}
   ["crewName","crewRole","addCrewMemberBtn"].forEach(id=>{if($(id))$(id).disabled=!manageRoster;});
+  $("localCrewEntry")?.classList.toggle("hidden",sharedCloud);$("cloudCrewEntry")?.classList.toggle("hidden",!sharedCloud||!manageRoster);if(sharedCloud)renderCloudCrewPicker();
   const techView=acting?.role==="Technician";if($("crewRosterCard"))$("crewRosterCard").classList.toggle("hidden",techView);if($("crewEntryCard"))$("crewEntryCard").classList.toggle("hidden",techView);
-  const rosterBox=$("crewRosterList");if(rosterBox){rosterBox.innerHTML=roster.length?roster.map(m=>{const boss=crewMember(m.reportsTo);const assign=manageRoster&&m.role==="Technician"?`<label style="margin-top:8px;display:block">Assigned Team Lead<select data-crew-assign="${m.id}"><option value="">None</option>${crewLeadOptions(m.reportsTo)}</select></label>`:"";return `<div class="crew-roster-card"><div class="crew-roster-top"><div><div class="crew-name">${escapeHtml(m.name)} ${m.id===state.jobLeadId?'<span class="chip">JOB LEAD</span>':''}</div><div class="crew-meta">${m.role}${boss?` · Assigned to ${escapeHtml(boss.name)}`:''}</div></div><div class="crew-actions">${manageRoster&&m.role!=="Technician"&&m.id!==state.jobLeadId?`<button class="secondary" type="button" data-crew-lead="${m.id}">Make Job Lead</button>`:''}${manageRoster?`<button class="danger" type="button" data-crew-remove="${m.id}">Remove</button>`:''}</div></div>${assign}</div>`}).join(''):'<div class="status neutral">No crew members added yet.</div>';}
+  const rosterBox=$("crewRosterList");if(rosterBox){rosterBox.innerHTML=roster.length?roster.map(m=>{const boss=crewMember(m.reportsTo);const assign=manageRoster&&m.role==="Technician"?`<label style="margin-top:8px;display:block">Assigned Team Lead<select data-crew-assign="${m.id}"><option value="">None</option>${crewLeadOptions(m.reportsTo)}</select></label>`:"";const canLead=crewCanAssignJobLead()&&m.role!=="Technician"&&m.id!==state.jobLeadId;return `<div class="crew-roster-card"><div class="crew-roster-top"><div><div class="crew-name">${escapeHtml(m.name)} ${m.id===state.jobLeadId?'<span class="chip">JOB LEAD</span>':''}</div><div class="crew-meta">${m.role}${m.cloudRole==="owner_admin"?' · Owner/Admin':''}${boss?` · Assigned to ${escapeHtml(boss.name)}`:''}</div></div><div class="crew-actions">${canLead?`<button class="secondary" type="button" data-crew-lead="${m.id}">Make Job Lead</button>`:''}${manageRoster?`<button class="danger" type="button" data-crew-remove="${m.id}">Remove</button>`:''}</div></div>${assign}</div>`}).join(''):'<div class="status neutral">No crew members assigned yet.</div>';}
   const allowedMembers=roster.filter(m=>crewCanManageMember(m.id));
   const memberSel=$("crewTimeMember");if(memberSel){const current=memberSel.value;memberSel.innerHTML='<option value="">Choose crew member</option>'+allowedMembers.map(m=>`<option value="${m.id}">${escapeHtml(m.name)} — ${m.role}</option>`).join('');if(allowedMembers.some(m=>m.id===current))memberSel.value=current;}
   const canEnter=allowedMembers.length>0;
@@ -3792,6 +3888,10 @@ $("cloudConnectJobBtn")?.addEventListener("click",cloudConnectActiveJob);
 $("cloudSyncNowBtn")?.addEventListener("click",cloudSyncNow);
 $("cloudRefreshJobsBtn")?.addEventListener("click",cloudRefreshJobs);
 $("cloudRefreshUsersBtn")?.addEventListener("click",cloudRefreshUsers);
+$("clientCloudConnectBtn")?.addEventListener("click",cloudConnectActiveJob);
+$("clientOpenCrewBtn")?.addEventListener("click",()=>globalThis.navigateStackTest?.("crewtime"));
+$("cloudAddCrewBtn")?.addEventListener("click",cloudAddCrewMember);
+$("cloudRefreshCrewBtn")?.addEventListener("click",()=>cloudRefreshCrew(true));
 
 fields.forEach(id=>$(id)?.addEventListener("input",()=>{calcAll();save();}));
 const SHARED_JOB_FIELD_LABELS={jobId:"Job Number",client:"Client",facility:"Facility",unit:"Unit / Stack",testDate:"Test Date"};
@@ -3856,12 +3956,12 @@ function syncJobInfo(){
 $("addCrewMemberBtn")?.addEventListener("click",addCrewMember);
 $("crewName")?.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();addCrewMember();}});
 $("crewSharedNoteInput")?.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key==="Enter"){e.preventDefault();addCrewSharedNote();}});
-$("crewActingProfile")?.addEventListener("change",e=>{state.crewActingId=e.target.value||"";crewTimeEditId=null;save();renderCrewTime();renderJobNotes();renderJobActivity();});
-$("crewJobLead")?.addEventListener("change",e=>{if(!crewCanManageRoster())return;state.jobLeadId=e.target.value||"";const lead=crewJobLead();addJobActivity("Job Lead updated",lead?`${lead.name} — ${lead.role}`:"Job Lead cleared");save();renderCrewTime();renderJobActivity();});
+$("crewActingProfile")?.addEventListener("change",e=>{if(cloudReady())return;state.crewActingId=e.target.value||"";crewTimeEditId=null;save();renderCrewTime();renderJobNotes();renderJobActivity();});
+$("crewJobLead")?.addEventListener("change",async e=>{if(!crewCanAssignJobLead())return;if(cloudReady()&&state.cloudJobId)return cloudSetJobLead(e.target.value||"");state.jobLeadId=e.target.value||"";const lead=crewJobLead();addJobActivity("Job Lead updated",lead?`${lead.name} — ${lead.role}`:"Job Lead cleared");save();renderCrewTime();renderJobActivity();});
 $("crewTimeStart")?.addEventListener("input",renderCrewTimePreview);$("crewTimeEnd")?.addEventListener("input",renderCrewTimePreview);
 $("saveCrewTimeBtn")?.addEventListener("click",saveCrewTimeEntry);$("cancelCrewTimeEditBtn")?.addEventListener("click",cancelCrewTimeEdit);
-$("crewRosterList")?.addEventListener("click",e=>{const lead=e.target.dataset.crewLead,remove=e.target.dataset.crewRemove;if(lead){state.jobLeadId=lead;const m=crewMember(lead);addJobActivity("Job Lead updated",m?`${m.name} — ${m.role}`:"Job Lead updated");save();renderCrewTime();renderJobActivity();}if(remove)removeCrewMember(remove);});
-$("crewRosterList")?.addEventListener("change",e=>{const id=e.target.dataset.crewAssign;if(!id||!crewCanManageRoster())return;const m=crewMember(id);if(!m)return;m.reportsTo=e.target.value||"";const lead=crewMember(m.reportsTo);addJobActivity("Crew assignment updated",`${m.name} → ${lead?.name||'Unassigned'}`);save();renderCrewTime();renderJobActivity();});
+$("crewRosterList")?.addEventListener("click",async e=>{const lead=e.target.dataset.crewLead,remove=e.target.dataset.crewRemove;if(lead){if(cloudReady()&&state.cloudJobId)await cloudSetJobLead(lead);else{state.jobLeadId=lead;const m=crewMember(lead);addJobActivity("Job Lead updated",m?`${m.name} — ${m.role}`:"Job Lead updated");save();renderCrewTime();renderJobActivity();}}if(remove){if(cloudReady()&&state.cloudJobId)await cloudRemoveCrewMember(remove);else removeCrewMember(remove);}});
+$("crewRosterList")?.addEventListener("change",async e=>{const id=e.target.dataset.crewAssign;if(!id||!crewCanManageRoster())return;if(cloudReady()&&state.cloudJobId)return cloudUpdateCrewAssignment(id,e.target.value||"");const m=crewMember(id);if(!m)return;m.reportsTo=e.target.value||"";const lead=crewMember(m.reportsTo);addJobActivity("Crew assignment updated",`${m.name} → ${lead?.name||'Unassigned'}`);save();renderCrewTime();renderJobActivity();});
 $("crewTimeList")?.addEventListener("click",e=>{const edit=e.target.dataset.crewTimeEdit,del=e.target.dataset.crewTimeDelete;if(edit)editCrewTimeEntry(edit);if(del)deleteCrewTimeEntry(del);});
 
 buildRataRows();
