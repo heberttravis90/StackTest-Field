@@ -510,7 +510,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
     <div class="drawer-bottom">
       <button class="drawer-link utility" data-view="settings"><span>⚙</span><span>Settings</span></button>
       <button class="drawer-link utility" data-view="about"><span>ⓘ</span><span>About / Legal</span></button>
-      <div class="drawer-version">v0.70 RC1 · Evaluation Beta</div>
+      <div class="drawer-version">v0.72 RC1 · Evaluation Beta</div>
     </div>
   </aside>
 
@@ -1320,9 +1320,9 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
 
     <section id="about" class="view">
       <div class="card"><div class="eyebrow">ABOUT</div><h2>Stack Test Pro</h2><div class="about-mark">STP</div><p class="muted">Offline-first stack-testing job preparation, field calculation, results, and closeout workflow.</p>
-        <div class="summary-list"><div class="summary-row"><b>Version</b><span>0.70 RC1 — External Evaluation</span></div><div class="summary-row"><b>Status</b><span>Evaluation Beta</span></div><div class="summary-row"><b>Data</b><span>Verified-account offline storage + authenticated cloud sync</span></div></div>
+        <div class="summary-list"><div class="summary-row"><b>Version</b><span>0.72 RC1 — External Evaluation</span></div><div class="summary-row"><b>Status</b><span>Evaluation Beta</span></div><div class="summary-row"><b>Data</b><span>Shared job/field/files sync + verified offline storage</span></div></div>
       </div>
-      <div class="card"><div class="eyebrow">EVALUATION</div><h2>Evaluation Beta</h2><p class="muted"><strong>This prerelease build is provided solely for evaluation and testing.</strong></p><p class="muted">It may not be redistributed, resold, copied for distribution, modified for redistribution, or represented as another party’s work. Evaluation access does not grant ownership of Stack Test Pro or its source code.</p></div><div class="card"><div class="eyebrow">DATA & PRIVACY</div><h2>Local Data Notice</h2><p class="muted">Job information is stored locally on this device for offline use. When cloud sync is enabled, supported shared job records are also stored in the Stack Test Pro cloud database. Photos and uploaded documents remain local in this build unless explicitly synced in a future storage update. Evaluators are responsible for following their company’s policies for client, facility, permit, test-plan, field, and other confidential information. Use non-confidential or test data when required by company policy.</p></div><div class="card"><div class="eyebrow">LEGAL</div><h2>Ownership & Use</h2><p class="muted"><strong>© 2026 Stack Test Pro. All rights reserved.</strong></p><p class="muted">This software, its original source code, interface, graphics, and original written content are proprietary. Unauthorized copying, redistribution, resale, modification for redistribution, or representation of this software as another party’s work is prohibited.</p><p class="muted">Stack Test Pro is a planning and field calculation aid. It is not a substitute for applicable regulatory requirements, approved test protocols, permits, calibrations, or company QA/QC procedures. The applicable EPA method, regulation, approved test plan, permit, calibrations, and company QA/QC requirements control.</p></div>
+      <div class="card"><div class="eyebrow">EVALUATION</div><h2>Evaluation Beta</h2><p class="muted"><strong>This prerelease build is provided solely for evaluation and testing.</strong></p><p class="muted">It may not be redistributed, resold, copied for distribution, modified for redistribution, or represented as another party’s work. Evaluation access does not grant ownership of Stack Test Pro or its source code.</p></div><div class="card"><div class="eyebrow">DATA & PRIVACY</div><h2>Local Data Notice</h2><p class="muted">Job information is stored locally on this device for offline use. When cloud sync is enabled, the active job workspace, field-method data, shared notes, crew assignments, and crew time are stored in the Stack Test Pro cloud database for assigned users. Photos and uploaded permits/test plans are stored locally for offline use and, when connected to a shared cloud job, are also stored in a private Stack Test Pro cloud file bucket restricted to assigned job members. Evaluators are responsible for following their company’s policies for client, facility, permit, test-plan, field, and other confidential information. Use non-confidential or test data when required by company policy.</p></div><div class="card"><div class="eyebrow">LEGAL</div><h2>Ownership & Use</h2><p class="muted"><strong>© 2026 Stack Test Pro. All rights reserved.</strong></p><p class="muted">This software, its original source code, interface, graphics, and original written content are proprietary. Unauthorized copying, redistribution, resale, modification for redistribution, or representation of this software as another party’s work is prohibited.</p><p class="muted">Stack Test Pro is a planning and field calculation aid. It is not a substitute for applicable regulatory requirements, approved test protocols, permits, calibrations, or company QA/QC procedures. The applicable EPA method, regulation, approved test plan, permit, calibrations, and company QA/QC requirements control.</p></div>
     </section>
   </main>
 
@@ -1347,7 +1347,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
     </div>
   </div>
 
-  <footer>StackTest Pro v0.70 RC1 · External Evaluation Beta · Cloud + verified offline field workflow</footer>
+  <footer>StackTest Pro v0.72 RC1 · External Evaluation Beta · Shared cloud files + field workflow</footer>
   <script>
 const $ = id => document.getElementById(id);
 
@@ -1400,7 +1400,7 @@ function loadSupabaseLibrary(){
 }
 const STP_SUPABASE_URL="https://sdtvdflyzncgakayvvak.supabase.co";
 const STP_SUPABASE_PUBLISHABLE_KEY="sb_publishable_FAUL6wQn3tuQX4rZAtRelg_8DVi2EZp";
-let cloudClient=null,cloudUser=null,cloudProfile=null,cloudSyncTimer=null,cloudSyncBusy=false,authGateBypassed=false,cloudAccessTimer=null,cloudAssignableProfiles=[];
+let cloudClient=null,cloudUser=null,cloudProfile=null,cloudSyncTimer=null,cloudSyncBusy=false,authGateBypassed=false,cloudAccessTimer=null,cloudAssignableProfiles=[],cloudJobChannel=null,cloudLastLocalEditAt=0,cloudApplyingRemote=false;
 const STP_OFFLINE_ENTITLEMENT_KEY="stp_offline_entitlement_v1";
 const STP_OFFLINE_GRACE_MS=72*60*60*1000; // 72 hours after last verified active cloud profile
 function cloudReady(){return !!(cloudClient&&cloudUser&&cloudProfile&&cloudProfile.active!==false)}
@@ -1415,6 +1415,7 @@ function cloudIsOwnerAdmin(){return cloudProfile?.role==="owner_admin"}
 function cloudCanCreateJob(){return !!cloudProfile&&["owner_admin","project_manager","team_lead"].includes(cloudProfile.role)}
 function cloudCanAssignJobLead(){return !!cloudProfile&&["owner_admin","project_manager"].includes(cloudProfile.role)}
 function cloudCanManageCurrentJob(){return !!cloudProfile&&(["owner_admin","project_manager"].includes(cloudProfile.role)||(cloudProfile.role==="team_lead"&&cloudUser?.id&&cloudUser.id===state?.jobLeadId))}
+function cloudCanSyncWorkspace(){return !!(cloudReady()&&state?.cloudJobId)}
 function cloudSetMessage(text,kind="neutral"){const el=$("cloudMessage");if(el){el.className=`status ${kind}`;el.textContent=text}const gate=$("authGateMessage");if(gate){gate.className=`status ${kind} auth-gate-status`;gate.textContent=text}}
 function setAuthGateState(text,kind="neutral"){if($("authGateCloudState"))$("authGateCloudState").textContent=text;const dot=$("authGateDot");if(dot){dot.classList.toggle("online",kind==="ok");dot.classList.toggle("warn",kind==="warn")}}
 function showAuthGate(force=false){if(authGateBypassed&&!force)return;const gate=$("authGate");if(gate)gate.classList.remove("hidden");document.body.classList.add("auth-locked")}
@@ -1427,8 +1428,8 @@ function renderCloudUi(){
   if($("cloudStatus"))$("cloudStatus").textContent=signed?`${cloudProfile.display_name}`:"Not signed in";if($("cloudProfileBadge"))$("cloudProfileBadge").textContent=signed?cloudRoleLabel(cloudProfile.role):"Local mode";$("cloudDot")?.classList.toggle("online",signed);if($("cloudJobIdText"))$("cloudJobIdText").textContent=state?.cloudJobId||"Not connected";if($("saveStatus"))$("saveStatus").textContent=connected&&signed?"Saved locally + cloud":"Saved locally";
   const cstat=$("clientCloudJobStatus"),cbtn=$("clientCloudConnectBtn");
   if(cstat){cstat.className=`status ${connected&&signed?'ok':signed?'neutral':'neutral'}`;cstat.textContent=connected&&signed?`Shared cloud job connected · ${cloudProfile.display_name} (${cloudRoleLabel(cloudProfile.role)})`:signed?cloudCanCreateJob()?`Signed in as ${cloudProfile.display_name}. Create the shared job when the job details are ready.`:`Signed in as ${cloudProfile.display_name}. Technicians can open assigned jobs but cannot create a new shared job.`:"Sign in to create or open a shared cloud job.";}
-  if(cbtn){const canSync=connected&&cloudCanManageCurrentJob();cbtn.textContent=connected?(canSync?"Sync Shared Job":"Shared Job Read Only"):"Create Shared Cloud Job";cbtn.disabled=!signed||(!connected&&!cloudCanCreateJob())||(connected&&!canSync);}
-  if($("cloudSyncNowBtn"))$("cloudSyncNowBtn").disabled=!connected||!cloudCanManageCurrentJob();
+  if(cbtn){cbtn.textContent=connected?"Sync Shared Job":"Create Shared Cloud Job";cbtn.disabled=!signed||(!connected&&!cloudCanCreateJob());}
+  if($("cloudSyncNowBtn"))$("cloudSyncNowBtn").disabled=!connected;
   if($("clientOpenCrewBtn"))$("clientOpenCrewBtn").disabled=!connected;
   if(signed){hideAuthGate();setAuthGateState(`Signed in as ${cloudProfile.display_name}.`,"ok")}refreshOfflineButton();renderCrewTime();
 }
@@ -1457,9 +1458,10 @@ async function cloudLoadProfile(user){
 }
 async function cloudSignIn(source="settings"){const ready=await ensureCloudClient();if(!ready)return;const {email,password}=authInputs(source);if(!email||!password)return cloudSetMessage("Enter your email and password.","warn");cloudSetMessage("Signing in…");setAuthGateState("Signing in…");const {error}=await cloudClient.auth.signInWithPassword({email,password});if(error){setAuthGateState("Sign in failed.","warn");cloudSetMessage(error.message,"warn")}}
 async function cloudSignUp(source="settings"){const ready=await ensureCloudClient();if(!ready)return;const {email,password,display_name:enteredName}=authInputs(source),display_name=enteredName||email?.split("@")[0]||"User";if(!email||password.length<6)return cloudSetMessage("Enter an email and a password of at least 6 characters.","warn");cloudSetMessage("Creating account…");setAuthGateState("Creating account…");const {data,error}=await cloudClient.auth.signUp({email,password,options:{data:{display_name},emailRedirectTo:location.origin&&location.origin!=="null"?location.origin+location.pathname:undefined}});if(error){setAuthGateState("Account creation failed.","warn");return cloudSetMessage(error.message,"warn")}if(data.session){cloudSetMessage("Account created and signed in.","ok")}else{setAuthGateState("Check your email to confirm the account.","ok");cloudSetMessage("Account created. Check your email to confirm it, then sign in.","ok")}}
-async function cloudSignOut(){authGateBypassed=false;clearInterval(cloudAccessTimer);cloudAccessTimer=null;clearOfflineEntitlement();if(cloudClient)await cloudClient.auth.signOut();showAuthGate(true);}
+async function cloudSignOut(){authGateBypassed=false;clearInterval(cloudAccessTimer);cloudAccessTimer=null;clearOfflineEntitlement();if(cloudClient&&cloudJobChannel){try{await cloudClient.removeChannel(cloudJobChannel)}catch(_e){}cloudJobChannel=null;}if(cloudClient)await cloudClient.auth.signOut();showAuthGate(true);}
 function continueOffline(){const ent=readOfflineEntitlement();if(!ent){authGateBypassed=false;showAuthGate(true);setAuthGateState("Online verification required.","warn");cloudSetMessage("Offline access requires an active account verified online within the last 72 hours.","warn");refreshOfflineButton();return;}authGateBypassed=true;hideAuthGate();setAuthGateState(`Offline mode · ${ent.display_name||"Verified account"}`);cloudSetMessage(`Offline mode for ${ent.display_name||"verified account"}. Reconnect within 72 hours to renew access.`,"neutral");}
-function cloudJobPayload(){const c=collect(),f=c.fields||{};return {job_number:f.jobId||null,client:f.client||null,facility:f.facility||null,unit_stack:f.unit||null,test_date:f.testDate||null,status:c.completedAt?"archived":"active",job_data:{...c,cloudJobId:undefined}}}
+function cloudWorkspaceSnapshot(source=collect()){const d=JSON.parse(JSON.stringify(source||{}));["cloudJobId","cloudUpdatedAt","crewRoster","crewTimeEntries","jobNotes","jobLeadId","crewActingId"].forEach(k=>delete d[k]);return d;}
+function cloudJobPayload(){const c=collect(),f=c.fields||{};return {job_number:f.jobId||null,client:f.client||null,facility:f.facility||null,unit_stack:f.unit||null,test_date:f.testDate||null,status:c.completedAt?"archived":"active",job_data:cloudWorkspaceSnapshot(c)}}
 async function cloudConnectActiveJob(){
   if(!cloudReady())return cloudSetMessage("Sign in first.","warn");
   if(state.cloudJobId)return cloudSyncNow();
@@ -1467,20 +1469,59 @@ async function cloudConnectActiveJob(){
   const payload=cloudJobPayload();payload.created_by=cloudUser.id;payload.job_lead_user_id=cloudUser.id;
   const {data,error}=await cloudClient.from("jobs").insert(payload).select("id").single();if(error)return cloudSetMessage(`Could not create cloud job: ${error.message}`,"warn");
   state.cloudJobId=data.id;state=collect();state.cloudJobId=data.id;stpStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);
-  renderCloudUi();addJobActivity("Shared cloud job created",jobDisplayName(state),cloudUser.id);save();await cloudPushSharedNotes();await cloudRefreshCrew(false);await cloudRefreshJobs();cloudSetMessage("Shared cloud job created. You are the initial Job Lead; assign the field crew next.","ok");
+  renderCloudUi();addJobActivity("Shared cloud job created",jobDisplayName(state),cloudUser.id);save();await cloudPushSharedNotes();await cloudRefreshCrew(false);await cloudPushCrewTime();await cloudSubscribeCurrentJob();await cloudRefreshJobs();cloudSetMessage("Shared cloud job created. Shared field data is now connected; assign the field crew next.","ok");
 }
 async function cloudSyncNow(){
-  if(!cloudReady()||!state?.cloudJobId)return cloudSetMessage("Connect the active job to cloud first.","warn");if(cloudSyncBusy)return;cloudSyncBusy=true;
+  if(!cloudReady()||!state?.cloudJobId)return cloudSetMessage("Connect the active job to cloud first.","warn");
+  if(cloudSyncBusy||cloudApplyingRemote)return;
+  cloudSyncBusy=true;
   try{
+    const snapshot=collect();
+    state=snapshot;
+    const workspace=cloudWorkspaceSnapshot(snapshot);
     const canManageJob=cloudCanManageCurrentJob();
-    if(canManageJob){const payload=cloudJobPayload();const {error}=await cloudClient.from("jobs").update(payload).eq("id",state.cloudJobId);if(error)throw error;}
+    if(canManageJob){
+      const header=cloudJobPayload();delete header.job_data;
+      const {error}=await cloudClient.from("jobs").update(header).eq("id",state.cloudJobId);
+      if(error)throw error;
+    }
+    const {data:syncData,error:syncError}=await cloudClient.functions.invoke("sync-job-state",{body:{job_id:state.cloudJobId,job_data:workspace}});
+    if(syncError||syncData?.error)throw new Error(syncData?.error||syncError?.message||String(syncError));
+    state.cloudUpdatedAt=syncData?.updated_at||state.cloudUpdatedAt||null;
     await cloudPushSharedNotes();
-    cloudSetMessage(canManageJob?`Cloud synced ${new Date().toLocaleTimeString()}.`:`Shared updates synced ${new Date().toLocaleTimeString()}.`,"ok");renderCloudUi();
+    await cloudPushCrewTime();
+    stpStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);
+    cloudSetMessage(`Shared field data synced ${new Date().toLocaleTimeString()}.`,"ok");renderCloudUi();
   }catch(e){cloudSetMessage(`Cloud sync failed: ${e.message||e}`,"warn")}finally{cloudSyncBusy=false}
 }
-function queueCloudSync(){if(!cloudReady()||!state?.cloudJobId)return;clearTimeout(cloudSyncTimer);cloudSyncTimer=setTimeout(()=>cloudSyncNow(),1200)}
+function queueCloudSync(){if(!cloudReady()||!state?.cloudJobId||cloudApplyingRemote)return;clearTimeout(cloudSyncTimer);cloudSyncTimer=setTimeout(()=>cloudSyncNow(),1400)}
 async function cloudPushSharedNotes(){if(!cloudReady()||!state?.cloudJobId)return;const notes=state.jobNotes||[];for(const n of notes){if(n.cloudSynced||!n.text)continue;const {data,error}=await cloudClient.from("job_notes").insert({job_id:state.cloudJobId,author_user_id:cloudUser.id,note:n.text}).select("id,created_at").single();if(!error&&data){n.id=data.id;n.createdAt=data.created_at;n.authorId=cloudUser.id;n.authorName=cloudProfile.display_name;n.cloudSynced=true;}}stpStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);await cloudPullNotes();}
 async function cloudPullNotes(){if(!cloudReady()||!state?.cloudJobId)return;const {data,error}=await cloudClient.from("job_notes").select("id,note,author_user_id,created_at,profiles:author_user_id(display_name)").eq("job_id",state.cloudJobId).order("created_at",{ascending:true});if(error)return;state.jobNotes=(data||[]).map(n=>({id:n.id,text:n.note,authorId:n.author_user_id,authorName:n.profiles?.display_name||"Crew Member",createdAt:n.created_at,cloudSynced:true}));stpStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);renderJobNotes();renderCrewJobBriefing();}
+function cloudIsoToLocalInput(v){if(!v)return "";const d=new Date(v);if(!Number.isFinite(d.getTime()))return "";const z=n=>String(n).padStart(2,"0");return `${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}T${z(d.getHours())}:${z(d.getMinutes())}`;}
+async function cloudPushCrewTime(){
+  if(!cloudReady()||!state?.cloudJobId)return;
+  state.crewTimeEntries||=[];
+  for(const e of state.crewTimeEntries){
+    if(e.cloudSynced||!e.memberId||!e.start||!e.end)continue;
+    const payload={job_id:state.cloudJobId,user_id:e.memberId,category:e.category||"Onsite",start_time:new Date(e.start).toISOString(),end_time:new Date(e.end).toISOString(),notes:e.notes||null};
+    let data,error;
+    if(e.cloudExisting){({data,error}=await cloudClient.from("crew_time").update(payload).eq("id",e.id).select("id,created_at,updated_at,hours").single());}
+    else{payload.id=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(e.id||""))?e.id:crypto.randomUUID();payload.created_by=cloudUser.id;({data,error}=await cloudClient.from("crew_time").insert(payload).select("id,created_at,updated_at,hours").single());}
+    if(error){cloudSetMessage(`Crew time sync failed: ${error.message}`,"warn");continue;}
+    e.id=data.id;e.hours=Number(data.hours??e.hours??0);e.createdAt=data.created_at||e.createdAt;e.updatedAt=data.updated_at||e.updatedAt;e.cloudSynced=true;e.cloudExisting=true;
+  }
+  stpStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);
+  await cloudPullCrewTime();
+}
+async function cloudPullCrewTime(){
+  if(!cloudReady()||!state?.cloudJobId)return;
+  const {data,error}=await cloudClient.from("crew_time").select("id,user_id,category,start_time,end_time,hours,notes,created_by,created_at,updated_at").eq("job_id",state.cloudJobId).order("start_time",{ascending:true});
+  if(error)return;
+  state.crewTimeEntries=(data||[]).map(e=>({id:e.id,memberId:e.user_id,category:e.category,start:cloudIsoToLocalInput(e.start_time),end:cloudIsoToLocalInput(e.end_time),hours:Number(e.hours||0),notes:e.notes||"",updatedAt:e.updated_at,updatedBy:e.created_by,createdAt:e.created_at,cloudSynced:true,cloudExisting:true}));
+  stpStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);renderCrewTime();
+}
+async function cloudDeleteCrewTime(id){if(!cloudReady()||!state?.cloudJobId||!id)return true;const {error}=await cloudClient.from("crew_time").delete().eq("id",id);if(error){cloudSetMessage(`Crew time delete failed: ${error.message}`,"warn");return false;}return true;}
+
 async function cloudRefreshUsers(){
   if(!cloudReady()||!cloudIsOwnerAdmin())return;
   const box=$("cloudUsersList");if(!box)return;
@@ -1569,9 +1610,44 @@ async function cloudRemoveCrewMember(id){
   if(!cloudReady()||!state?.cloudJobId||!crewCanManageRoster())return;if(id===state.jobLeadId)return cloudSetMessage("Assign a different Job Lead before removing the current Job Lead.","warn");const m=crewMember(id);if(!m)return;if(id===cloudUser.id&&!cloudCanAssignJobLead())return cloudSetMessage("A Job Lead cannot remove their own cloud assignment. Ask a Project Manager to change the roster.","warn");if(!confirm(`Remove ${m.name} from this shared job? Their historical job records are preserved.`))return;
   const {error}=await cloudClient.from("job_members").delete().eq("job_id",state.cloudJobId).eq("user_id",id);if(error)return cloudSetMessage(`Remove crew member failed: ${error.message}`,"warn");addJobActivity("Crew member removed",`${m.name} — ${m.role}`,cloudUser.id);save();await cloudRefreshCrew(false);await cloudSyncNow();cloudSetMessage(`${m.name} removed from the shared job.`,"ok");
 }
+async function cloudSubscribeCurrentJob(){
+  if(!cloudClient||!state?.cloudJobId)return;
+  if(cloudJobChannel){try{await cloudClient.removeChannel(cloudJobChannel)}catch(_e){}cloudJobChannel=null;}
+  const jobId=state.cloudJobId;
+  cloudJobChannel=cloudClient.channel(`stp-job-${jobId}`)
+    .on("postgres_changes",{event:"*",schema:"public",table:"job_notes",filter:`job_id=eq.${jobId}`},()=>{if(!cloudApplyingRemote)cloudPullNotes();})
+    .on("postgres_changes",{event:"*",schema:"public",table:"crew_time",filter:`job_id=eq.${jobId}`},()=>{if(!cloudApplyingRemote)cloudPullCrewTime();})
+    .on("postgres_changes",{event:"*",schema:"public",table:"job_files",filter:`job_id=eq.${jobId}`},()=>{if(!cloudApplyingRemote){renderJobPhotos();renderJobDocuments();}})
+    .on("postgres_changes",{event:"*",schema:"public",table:"job_members",filter:`job_id=eq.${jobId}`},()=>{if(!cloudApplyingRemote)cloudRefreshCrew(false);})
+    .on("postgres_changes",{event:"UPDATE",schema:"public",table:"jobs",filter:`id=eq.${jobId}`},payload=>{
+      if(cloudApplyingRemote||cloudSyncBusy||Date.now()-cloudLastLocalEditAt<3500)return;
+      const remoteUpdated=payload?.new?.updated_at||null;if(remoteUpdated&&remoteUpdated===state.cloudUpdatedAt)return;
+      setTimeout(()=>{if(!cloudSyncBusy&&Date.now()-cloudLastLocalEditAt>=3500)cloudPullJob(jobId,false);},450);
+    }).subscribe();
+}
+
 async function cloudRefreshJobs(){if(!cloudReady())return;const {data,error}=await cloudClient.from("jobs").select("id,job_number,client,facility,unit_stack,test_date,status,updated_at").order("updated_at",{ascending:false}).limit(30);const box=$("cloudJobsList");if(!box)return;if(error){box.innerHTML=`<div class="status warn">${escapeHtml(error.message)}</div>`;return;}box.innerHTML=(data||[]).length?(data||[]).map(j=>`<div class="cloud-job-row"><b>${escapeHtml(j.job_number||[j.client,j.facility,j.unit_stack].filter(Boolean).join(" · ")||"Untitled Job")}</b><span class="cloud-small">${escapeHtml([j.client,j.facility,j.unit_stack].filter(Boolean).join(" • "))} · ${escapeHtml(j.status)}</span><div class="top-gap"><button class="secondary" type="button" data-cloud-open="${j.id}">Open Cloud Job</button></div></div>`).join(""):'<div class="status neutral">No cloud jobs assigned yet.</div>';box.querySelectorAll("[data-cloud-open]").forEach(b=>b.addEventListener("click",()=>cloudPullJob(b.dataset.cloudOpen,true)));}
 async function cloudPullJob(id,reload=true){
-  if(!cloudReady())return;const {data,error}=await cloudClient.from("jobs").select("*").eq("id",id).single();if(error)return cloudSetMessage(error.message,"warn");const incoming=data.job_data&&typeof data.job_data==="object"?data.job_data:{};incoming.cloudJobId=data.id;incoming.fields={...(incoming.fields||{}),jobId:data.job_number||incoming.fields?.jobId||"",client:data.client||incoming.fields?.client||"",facility:data.facility||incoming.fields?.facility||"",unit:data.unit_stack||incoming.fields?.unit||"",testDate:data.test_date||incoming.fields?.testDate||""};incoming._jobKey=incoming._jobKey||makeJobKey();stpStorage.setItem(STORAGE,JSON.stringify(incoming));upsertJobLibrary(incoming);cloudSetMessage("Cloud job loaded.","ok");if(reload)location.reload();else{state=incoming;await cloudRefreshCrew(false);renderCloudUi();}
+  if(!cloudReady())return;
+  const {data,error}=await cloudClient.from("jobs").select("*").eq("id",id).single();
+  if(error)return cloudSetMessage(error.message,"warn");
+  const incoming=data.job_data&&typeof data.job_data==="object"?data.job_data:{};
+  incoming.cloudJobId=data.id;incoming.cloudUpdatedAt=data.updated_at||null;
+  incoming.fields={...(incoming.fields||{}),jobId:data.job_number||incoming.fields?.jobId||"",client:data.client||incoming.fields?.client||"",facility:data.facility||incoming.fields?.facility||"",unit:data.unit_stack||incoming.fields?.unit||"",testDate:data.test_date||incoming.fields?.testDate||""};
+  incoming._jobKey=incoming._jobKey||makeJobKey();
+  cloudApplyingRemote=true;
+  try{
+    state=incoming;normalizeState();
+    await cloudRefreshCrew(false);
+    await cloudPullNotes();
+    await cloudPullCrewTime();
+    await cloudSyncPendingJobFiles();
+    persistStateLocal();
+    if(reload){location.reload();return;}
+    renderStateToUi(false);renderCloudUi();
+    cloudSetMessage(`Shared job refreshed ${new Date().toLocaleTimeString()}.`,"ok");
+    await cloudSubscribeCurrentJob();
+  }finally{cloudApplyingRemote=false;}
 }
 async function cloudDeleteNote(id){if(!cloudReady()||!state?.cloudJobId||!id)return false;const {error}=await cloudClient.from("job_notes").delete().eq("id",id);if(error){cloudSetMessage(error.message,"warn");return false;}return true;}
 
@@ -2282,16 +2358,11 @@ let state={equipment:{},post:{},runs:[],jobRuns:[]};
 const STORAGE="stacktestpro_v01_job";
 const JOB_LIBRARY_STORAGE="stacktestpro_jobs_v1";
 function makeJobKey(){return (globalThis.crypto?.randomUUID?.()||(`job_${Date.now()}_${Math.random().toString(36).slice(2,10)}`));}
-async function renderJobPhotos(){const wrap=$("jobPhotoGrid");if(!wrap)return;jobPhotoUrls.forEach(URL.revokeObjectURL);jobPhotoUrls=[];try{const photos=await photosForJob(state._jobKey);wrap.innerHTML=photos.length?photos.map(p=>{const url=URL.createObjectURL(p.blob);jobPhotoUrls.push(url);return `<div class="job-photo"><img src="${url}" alt="${escapeHtml(p.caption||"Job photo")}"><div class="job-photo-head"><div><div class="job-photo-caption">${escapeHtml(p.caption||"Job photo")}</div><small>${escapeHtml(formatSavedAt(p.createdAt))}</small></div><button type="button" data-delete-photo="${p.id}">Delete</button></div></div>`}).join(""):'<div class="status neutral">No photos saved for this job yet.</div>';wrap.querySelectorAll("[data-delete-photo]").forEach(btn=>btn.addEventListener("click",async()=>{await removeJobPhotoRecord(btn.dataset.deletePhoto);renderJobPhotos()}))}catch{if($("jobPhotoStatus")){ $("jobPhotoStatus").className="status bad";$("jobPhotoStatus").textContent="Photos could not be opened on this device.";}}}
-async function addJobPhoto(file){if(!file)return;const status=$("jobPhotoStatus");if(status){status.className="status warn";status.textContent="Saving photo…";}try{const blob=await resizeJobPhoto(file);await putJobPhoto({id:crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random(),jobKey:state._jobKey,caption:$("jobPhotoCaption")?.value.trim()||"",createdAt:new Date().toISOString(),blob});if($("jobPhotoCaption"))$("jobPhotoCaption").value="";if($("jobPhotoInput"))$("jobPhotoInput").value="";if(status){status.className="status ok";status.textContent="Photo saved with this job on this device.";}await renderJobPhotos()}catch{if(status){status.className="status bad";status.textContent="That photo could not be saved. Try a different image.";}}}
-function formatFileSize(bytes){if(!Number.isFinite(bytes))return "";if(bytes<1024)return `${bytes} B`;if(bytes<1048576)return `${(bytes/1024).toFixed(1)} KB`;return `${(bytes/1048576).toFixed(1)} MB`}
-async function renderJobDocuments(){const wrap=$("jobDocumentList");if(!wrap)return;try{const docs=await documentsForJob(state._jobKey);wrap.innerHTML=docs.length?docs.map(d=>`<div class="job-document"><div class="job-document-info"><div class="job-document-name">${escapeHtml(d.caption||d.name)}</div><small>${escapeHtml(d.name)} • ${escapeHtml(formatFileSize(d.size))} • ${escapeHtml(formatSavedAt(d.createdAt))}</small></div><div class="job-document-actions"><button type="button" data-open-document="${d.id}">Open</button><button type="button" data-delete-document="${d.id}">Delete</button></div></div>`).join(""):'<div class="status neutral">No permits or test plans saved for this job yet.</div>';wrap.querySelectorAll("[data-open-document]").forEach(btn=>btn.addEventListener("click",async()=>{const doc=(await documentsForJob(state._jobKey)).find(d=>d.id===btn.dataset.openDocument);if(!doc)return;const url=URL.createObjectURL(doc.blob);const a=document.createElement("a");a.href=url;a.target="_blank";a.rel="noopener";a.download=doc.name;a.click();setTimeout(()=>URL.revokeObjectURL(url),3000)}));wrap.querySelectorAll("[data-delete-document]").forEach(btn=>btn.addEventListener("click",async()=>{await removeJobDocumentRecord(btn.dataset.deleteDocument);renderJobDocuments()}))}catch{if($("jobDocumentStatus")){ $("jobDocumentStatus").className="status bad";$("jobDocumentStatus").textContent="Documents could not be opened on this device.";}}}
-async function addJobDocument(file){if(!file)return;const status=$("jobDocumentStatus");if(status){status.className="status warn";status.textContent="Saving document…";}try{await putJobDocument({id:crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random(),jobKey:state._jobKey,name:file.name,caption:$("jobDocumentCaption")?.value.trim()||"",type:file.type||"application/octet-stream",size:file.size,createdAt:new Date().toISOString(),blob:file});if($("jobDocumentCaption"))$("jobDocumentCaption").value="";if($("jobDocumentInput"))$("jobDocumentInput").value="";if(status){status.className="status ok";status.textContent="Document saved with this job on this device.";}await renderJobDocuments()}catch{if(status){status.className="status bad";status.textContent="That document could not be saved. Check available device storage and try again.";}}}
-function getJobLibrary(){try{const x=JSON.parse(stpStorage.getItem(JOB_LIBRARY_STORAGE)||"{}");return x&&typeof x==="object"&&!Array.isArray(x)?x:{}}catch{return {}}}
-function setJobLibrary(lib){try{stpStorage.setItem(JOB_LIBRARY_STORAGE,JSON.stringify(lib||{}));}catch(_e){}}
+const STP_JOB_FILES_BUCKET="job-files";
 const PHOTO_DB="stacktestpro_job_photos_v1",PHOTO_STORE="photos";
 const DOCUMENT_DB="stacktestpro_job_documents_v1",DOCUMENT_STORE="documents";
 let jobPhotoUrls=[];
+
 function photoDb(){return new Promise((resolve,reject)=>{const req=indexedDB.open(PHOTO_DB,1);req.onupgradeneeded=()=>{const db=req.result;if(!db.objectStoreNames.contains(PHOTO_STORE)){const store=db.createObjectStore(PHOTO_STORE,{keyPath:"id"});store.createIndex("jobKey","jobKey")}};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)})}
 async function photosForJob(jobKey){const db=await photoDb();return new Promise((resolve,reject)=>{const tx=db.transaction(PHOTO_STORE,"readonly"),req=tx.objectStore(PHOTO_STORE).index("jobKey").getAll(jobKey);req.onsuccess=()=>resolve(req.result.sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt))));req.onerror=()=>reject(req.error);tx.oncomplete=()=>db.close()})}
 async function putJobPhoto(photo){const db=await photoDb();return new Promise((resolve,reject)=>{const tx=db.transaction(PHOTO_STORE,"readwrite");tx.objectStore(PHOTO_STORE).put(photo);tx.oncomplete=()=>{db.close();resolve()};tx.onerror=()=>reject(tx.error)})}
@@ -2302,6 +2373,92 @@ async function documentsForJob(jobKey){const db=await documentDb();return new Pr
 async function putJobDocument(doc){const db=await documentDb();return new Promise((resolve,reject)=>{const tx=db.transaction(DOCUMENT_STORE,"readwrite");tx.objectStore(DOCUMENT_STORE).put(doc);tx.oncomplete=()=>{db.close();resolve()};tx.onerror=()=>reject(tx.error)})}
 async function removeJobDocumentRecord(id){const db=await documentDb();return new Promise((resolve,reject)=>{const tx=db.transaction(DOCUMENT_STORE,"readwrite");tx.objectStore(DOCUMENT_STORE).delete(id);tx.oncomplete=()=>{db.close();resolve()};tx.onerror=()=>reject(tx.error)})}
 async function removeDocumentsForJob(jobKey){const docs=await documentsForJob(jobKey);await Promise.all(docs.map(d=>removeJobDocumentRecord(d.id)))}
+
+function cloudFileCanDelete(rec){return !!(cloudReady()&&rec&&(rec.uploaded_by===cloudUser?.id||cloudCanManageCurrentJob()))}
+function storageFileExt(name,type,kind){if(kind==="photo")return "jpg";const raw=String(name||"").split(".").pop().toLowerCase().replace(/[^a-z0-9]/g,"");if(raw&&raw.length<=10)return raw;if(type==="application/pdf")return "pdf";return "bin";}
+function storagePathForFile(kind,id,name,type){return `${state.cloudJobId}/${kind}s/${id}.${storageFileExt(name,type,kind)}`;}
+async function cloudListJobFiles(kind){if(!cloudReady()||!state?.cloudJobId)return [];let q=cloudClient.from("job_files").select("id,job_id,uploaded_by,file_kind,storage_path,original_name,caption,mime_type,size_bytes,created_at,updated_at").eq("job_id",state.cloudJobId).order("created_at",{ascending:false});if(kind)q=q.eq("file_kind",kind);const {data,error}=await q;if(error)throw error;return data||[];}
+async function cloudFileSignedUrl(path,seconds=3600){const {data,error}=await cloudClient.storage.from(STP_JOB_FILES_BUCKET).createSignedUrl(path,seconds);if(error)throw error;return data?.signedUrl||"";}
+async function cloudUploadLocalFile(kind,rec){
+  if(!cloudReady()||!state?.cloudJobId||!rec?.blob)return null;
+  const id=rec.id||crypto.randomUUID();
+  const existing=await cloudClient.from("job_files").select("id,storage_path,created_at").eq("id",id).maybeSingle();
+  if(existing.data){return {...rec,id,cloudSynced:true,cloudJobId:state.cloudJobId,cloudStoragePath:existing.data.storage_path,createdAt:existing.data.created_at||rec.createdAt};}
+  const name=rec.name||(kind==="photo"?"job-photo.jpg":"job-file.bin"),type=rec.type||rec.blob.type||"application/octet-stream",path=storagePathForFile(kind,id,name,type);
+  const {error:uploadError}=await cloudClient.storage.from(STP_JOB_FILES_BUCKET).upload(path,rec.blob,{contentType:type,cacheControl:"3600",upsert:false});
+  if(uploadError)throw uploadError;
+  const metadata={id,job_id:state.cloudJobId,uploaded_by:cloudUser.id,file_kind:kind,storage_path:path,original_name:name,caption:rec.caption||null,mime_type:type,size_bytes:Number(rec.size||rec.blob.size||0)};
+  const {data,error}=await cloudClient.from("job_files").insert(metadata).select("id,storage_path,created_at").single();
+  if(error){try{await cloudClient.storage.from(STP_JOB_FILES_BUCKET).remove([path])}catch(_e){}throw error;}
+  addJobActivity(kind==="photo"?"Job photo uploaded":"Job document uploaded",rec.caption||name,cloudUser.id);
+  return {...rec,id:data.id,cloudSynced:true,cloudJobId:state.cloudJobId,cloudStoragePath:data.storage_path,createdAt:data.created_at||rec.createdAt};
+}
+async function cloudSyncPendingJobFiles(){
+  if(!cloudReady()||!state?.cloudJobId||!state?._jobKey)return;
+  try{
+    const photos=await photosForJob(state._jobKey);for(const rec of photos.filter(x=>!x.cloudSynced&&(x.cloudJobId===state.cloudJobId||!x.cloudJobId))){try{await putJobPhoto(await cloudUploadLocalFile("photo",{...rec,cloudJobId:state.cloudJobId}))}catch(_e){}}
+    const docs=await documentsForJob(state._jobKey);for(const rec of docs.filter(x=>!x.cloudSynced&&(x.cloudJobId===state.cloudJobId||!x.cloudJobId))){try{await putJobDocument(await cloudUploadLocalFile("document",{...rec,cloudJobId:state.cloudJobId}))}catch(_e){}}
+  }catch(_e){}
+}
+async function cloudDeleteJobFile(rec){
+  if(!cloudFileCanDelete(rec))return false;
+  const {error:storageError}=await cloudClient.storage.from(STP_JOB_FILES_BUCKET).remove([rec.storage_path]);
+  if(storageError){cloudSetMessage(`File delete failed: ${storageError.message}`,"warn");return false;}
+  const {error}=await cloudClient.from("job_files").delete().eq("id",rec.id);
+  if(error){cloudSetMessage(`File record cleanup failed: ${error.message}`,"warn");return false;}
+  addJobActivity(rec.file_kind==="photo"?"Job photo deleted":"Job document deleted",rec.caption||rec.original_name||"Shared file",cloudUser.id);save();return true;
+}
+async function cloudDownloadAndCacheDocument(rec){
+  const local=(await documentsForJob(state._jobKey)).find(x=>x.id===rec.id&&x.blob);if(local)return local;
+  const {data,error}=await cloudClient.storage.from(STP_JOB_FILES_BUCKET).download(rec.storage_path);if(error)throw error;
+  const doc={id:rec.id,jobKey:state._jobKey,cloudJobId:state.cloudJobId,cloudSynced:true,cloudStoragePath:rec.storage_path,name:rec.original_name,caption:rec.caption||"",type:rec.mime_type||data.type||"application/octet-stream",size:Number(rec.size_bytes||data.size||0),createdAt:rec.created_at,blob:data};
+  await putJobDocument(doc);return doc;
+}
+
+async function renderJobPhotos(){
+  const wrap=$("jobPhotoGrid");if(!wrap)return;jobPhotoUrls.forEach(URL.revokeObjectURL);jobPhotoUrls=[];
+  try{
+    const local=await photosForJob(state._jobKey),localById=new Map(local.map(x=>[x.id,x]));let cloud=[];
+    if(cloudReady()&&state?.cloudJobId){await cloudSyncPendingJobFiles();cloud=await cloudListJobFiles("photo");}
+    const cloudIds=new Set(cloud.map(x=>x.id)),items=[];
+    for(const rec of cloud){const cached=localById.get(rec.id);let url="";if(cached?.blob){url=URL.createObjectURL(cached.blob);jobPhotoUrls.push(url);}else{try{url=await cloudFileSignedUrl(rec.storage_path)}catch(_e){}}
+      items.push({id:rec.id,caption:rec.caption||"Job photo",createdAt:rec.created_at,url,cloud:true,rec});}
+    for(const rec of local.filter(x=>!cloudIds.has(x.id))){const url=URL.createObjectURL(rec.blob);jobPhotoUrls.push(url);items.push({id:rec.id,caption:rec.caption||"Job photo",createdAt:rec.createdAt,url,cloud:false,rec});}
+    items.sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt)));
+    wrap.innerHTML=items.length?items.map(p=>`<div class="job-photo">${p.url?`<img src="${escapeHtml(p.url)}" alt="${escapeHtml(p.caption)}">`:'<div class="status warn">Photo preview unavailable.</div>'}<div class="job-photo-head"><div><div class="job-photo-caption">${escapeHtml(p.caption)}</div><small>${escapeHtml(formatSavedAt(p.createdAt))} · ${p.cloud?'Cloud shared':'Local / pending cloud'}</small></div>${p.cloud?(cloudFileCanDelete(p.rec)?`<button type="button" data-delete-cloud-photo="${p.id}">Delete</button>`:''):`<button type="button" data-delete-photo="${p.id}">Delete</button>`}</div></div>`).join(""):'<div class="status neutral">No photos saved for this job yet.</div>';
+    wrap.querySelectorAll("[data-delete-cloud-photo]").forEach(btn=>btn.addEventListener("click",async()=>{const rec=cloud.find(x=>x.id===btn.dataset.deleteCloudPhoto);if(!rec||!confirm("Delete this shared job photo?"))return;if(await cloudDeleteJobFile(rec)){try{await removeJobPhotoRecord(rec.id)}catch(_e){}await renderJobPhotos();}}));
+    wrap.querySelectorAll("[data-delete-photo]").forEach(btn=>btn.addEventListener("click",async()=>{await removeJobPhotoRecord(btn.dataset.deletePhoto);renderJobPhotos()}));
+    if($("jobPhotoStatus")){ $("jobPhotoStatus").className="status neutral";$("jobPhotoStatus").textContent=cloudReady()&&state?.cloudJobId?"Photos are shared with assigned job members and cached locally when available.":"Photos are saved locally until this job reconnects to cloud.";}
+  }catch(e){console.warn(e);if($("jobPhotoStatus")){ $("jobPhotoStatus").className="status bad";$("jobPhotoStatus").textContent="Photos could not be opened. Local copies remain on this device when available.";}}
+}
+async function addJobPhoto(file){
+  if(!file)return;const status=$("jobPhotoStatus");if(status){status.className="status warn";status.textContent="Saving photo locally…";}
+  try{const blob=await resizeJobPhoto(file),id=crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random();let rec={id,jobKey:state._jobKey,cloudJobId:state.cloudJobId||"",cloudSynced:false,name:file.name||"job-photo.jpg",caption:$("jobPhotoCaption")?.value.trim()||"",type:"image/jpeg",size:blob.size,createdAt:new Date().toISOString(),blob};await putJobPhoto(rec);
+    if(cloudReady()&&state?.cloudJobId){try{rec=await cloudUploadLocalFile("photo",rec);await putJobPhoto(rec);if(status){status.className="status ok";status.textContent="Photo saved locally + shared to cloud.";}}catch(e){console.warn(e);if(status){status.className="status warn";status.textContent="Photo saved locally. Cloud upload is pending and will retry when connected.";}}}else if(status){status.className="status ok";status.textContent="Photo saved locally. It will sync when this shared job reconnects.";}
+    if(cloudReady()&&state?.cloudJobId&&rec.cloudSynced)save();if($("jobPhotoCaption"))$("jobPhotoCaption").value="";if($("jobPhotoInput"))$("jobPhotoInput").value="";await renderJobPhotos();
+  }catch(e){console.warn(e);if(status){status.className="status bad";status.textContent="That photo could not be saved. Try a different image.";}}
+}
+function formatFileSize(bytes){if(!Number.isFinite(bytes))return "";if(bytes<1024)return `${bytes} B`;if(bytes<1048576)return `${(bytes/1024).toFixed(1)} KB`;return `${(bytes/1048576).toFixed(1)} MB`}
+async function renderJobDocuments(){
+  const wrap=$("jobDocumentList");if(!wrap)return;
+  try{const local=await documentsForJob(state._jobKey),localById=new Map(local.map(x=>[x.id,x]));let cloud=[];if(cloudReady()&&state?.cloudJobId){await cloudSyncPendingJobFiles();cloud=await cloudListJobFiles("document");}const cloudIds=new Set(cloud.map(x=>x.id)),items=[];
+    for(const rec of cloud)items.push({id:rec.id,name:rec.original_name,caption:rec.caption||"",size:Number(rec.size_bytes||0),createdAt:rec.created_at,cloud:true,rec,cached:localById.has(rec.id)});
+    for(const rec of local.filter(x=>!cloudIds.has(x.id)))items.push({id:rec.id,name:rec.name,caption:rec.caption||"",size:Number(rec.size||0),createdAt:rec.createdAt,cloud:false,rec,cached:true});items.sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt)));
+    wrap.innerHTML=items.length?items.map(d=>`<div class="job-document"><div class="job-document-info"><div class="job-document-name">${escapeHtml(d.caption||d.name)}</div><small>${escapeHtml(d.name)} • ${escapeHtml(formatFileSize(d.size))} • ${escapeHtml(formatSavedAt(d.createdAt))} · ${d.cloud?(d.cached?'Cloud shared · cached':'Cloud shared'):'Local / pending cloud'}</small></div><div class="job-document-actions"><button type="button" data-open-document="${d.id}">Open</button>${d.cloud?(cloudFileCanDelete(d.rec)?`<button type="button" data-delete-cloud-document="${d.id}">Delete</button>`:''):`<button type="button" data-delete-document="${d.id}">Delete</button>`}</div></div>`).join(""):'<div class="status neutral">No permits or test plans saved for this job yet.</div>';
+    wrap.querySelectorAll("[data-open-document]").forEach(btn=>btn.addEventListener("click",async()=>{const item=items.find(x=>x.id===btn.dataset.openDocument);if(!item)return;try{let doc;if(item.cloud)doc=await cloudDownloadAndCacheDocument(item.rec);else doc=item.rec;if(!doc?.blob)return;const url=URL.createObjectURL(doc.blob),a=document.createElement("a");a.href=url;a.target="_blank";a.rel="noopener";a.download=doc.name;a.click();setTimeout(()=>URL.revokeObjectURL(url),3000);renderJobDocuments();}catch(e){console.warn(e);if($("jobDocumentStatus")){ $("jobDocumentStatus").className="status warn";$("jobDocumentStatus").textContent="That cloud document could not be downloaded. Reconnect and try again.";}}}));
+    wrap.querySelectorAll("[data-delete-cloud-document]").forEach(btn=>btn.addEventListener("click",async()=>{const rec=cloud.find(x=>x.id===btn.dataset.deleteCloudDocument);if(!rec||!confirm("Delete this shared job document?"))return;if(await cloudDeleteJobFile(rec)){try{await removeJobDocumentRecord(rec.id)}catch(_e){}await renderJobDocuments();}}));
+    wrap.querySelectorAll("[data-delete-document]").forEach(btn=>btn.addEventListener("click",async()=>{await removeJobDocumentRecord(btn.dataset.deleteDocument);renderJobDocuments()}));
+    if($("jobDocumentStatus")){ $("jobDocumentStatus").className="status neutral";$("jobDocumentStatus").textContent=cloudReady()&&state?.cloudJobId?"Documents are private to assigned job members. Opened files are cached on this device.":"Documents are saved locally until this job reconnects to cloud.";}
+  }catch(e){console.warn(e);if($("jobDocumentStatus")){ $("jobDocumentStatus").className="status bad";$("jobDocumentStatus").textContent="Documents could not be opened. Local copies remain on this device when available.";}}
+}
+async function addJobDocument(file){
+  if(!file)return;const status=$("jobDocumentStatus");if(status){status.className="status warn";status.textContent="Saving document locally…";}
+  if(file.size>20*1024*1024){if(status){status.className="status bad";status.textContent="File is larger than the 20 MB job-file limit.";}return;}
+  try{const id=crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random();let rec={id,jobKey:state._jobKey,cloudJobId:state.cloudJobId||"",cloudSynced:false,name:file.name,caption:$("jobDocumentCaption")?.value.trim()||"",type:file.type||"application/octet-stream",size:file.size,createdAt:new Date().toISOString(),blob:file};await putJobDocument(rec);
+    if(cloudReady()&&state?.cloudJobId){try{rec=await cloudUploadLocalFile("document",rec);await putJobDocument(rec);if(status){status.className="status ok";status.textContent="Document saved locally + shared to cloud.";}}catch(e){console.warn(e);if(status){status.className="status warn";status.textContent="Document saved locally. Cloud upload is pending and will retry when connected.";}}}else if(status){status.className="status ok";status.textContent="Document saved locally. It will sync when this shared job reconnects.";}
+    if(cloudReady()&&state?.cloudJobId&&rec.cloudSynced)save();if($("jobDocumentCaption"))$("jobDocumentCaption").value="";if($("jobDocumentInput"))$("jobDocumentInput").value="";await renderJobDocuments();
+  }catch(e){console.warn(e);if(status){status.className="status bad";status.textContent="That document could not be saved. Check device storage and try again.";}}
+}
 async function resizeJobPhoto(file){const bitmap=await createImageBitmap(file),max=1600,scale=Math.min(1,max/Math.max(bitmap.width,bitmap.height)),canvas=document.createElement("canvas");canvas.width=Math.round(bitmap.width*scale);canvas.height=Math.round(bitmap.height*scale);canvas.getContext("2d").drawImage(bitmap,0,0,canvas.width,canvas.height);bitmap.close();return new Promise(resolve=>canvas.toBlob(resolve,"image/jpeg",.82))}
 function renderSpecialEquipment(){const wrap=$("specialEquipmentList");if(!wrap)return;const items=state.specialEquipment||[];wrap.innerHTML=items.length?items.map((item,i)=>`<div class="custom-item"><span>${escapeHtml(item)}</span><button type="button" data-remove-special="${i}">Remove</button></div>`).join(""):'<div class="status neutral">No unit-specific equipment added yet.</div>';wrap.querySelectorAll("[data-remove-special]").forEach(btn=>btn.addEventListener("click",()=>{const item=state.specialEquipment[Number(btn.dataset.removeSpecial)];state.specialEquipment.splice(Number(btn.dataset.removeSpecial),1);if(item){delete state.equipment[item];delete state.prepEquipment?.[item]}save();renderSpecialEquipment();buildEquipment();renderMasterEquipment()}))}
 function addSpecialEquipment(){const input=$("specialEquipmentInput"),item=input?.value.trim();if(!item)return;state.specialEquipment||=[];if(!state.specialEquipment.some(x=>x.toLowerCase()===item.toLowerCase()))state.specialEquipment.push(item);input.value="";save();renderSpecialEquipment();buildEquipment();renderMasterEquipment()}
@@ -2311,10 +2468,10 @@ function renderMonorails(){const card=$("monorailCard"),wrap=$("monorailList");i
 function addMonorail(){const style=$("monorailStyle")?.value,length=$("monorailLength")?.value,quantity=Math.max(1,Math.floor(Number($("monorailQuantity")?.value)||1));if(!style||!length)return;state.monorails||=[];const existing=state.monorails.find(m=>m.style===style&&m.length===length);if(existing)existing.quantity+=quantity;else state.monorails.push({style,length,quantity});if($("monorailQuantity"))$("monorailQuantity").value="1";save();renderMonorails();buildEquipment();renderMasterEquipment()}
 function jobActor(){const a=crewActing?.();return a||null;}
 function jobActorName(id){if(!id||id==="local-manager")return "Local Manager";return crewMember?.(id)?.name||"Crew Member";}
-function addJobActivity(action,detail="",actorId=null){state.jobActivity||=[];const id=actorId??state.crewActingId??"local-manager";state.jobActivity.push({id:globalThis.crypto?.randomUUID?.()||`act_${Date.now()}_${Math.random().toString(36).slice(2)}`,action,detail,actorId:id,actorName:jobActorName(id),createdAt:new Date().toISOString()});if(state.jobActivity.length>250)state.jobActivity=state.jobActivity.slice(-250);}
+function addJobActivity(action,detail="",actorId=null){state.jobActivity||=[];const id=actorId||(cloudReady()?cloudUser.id:(state.crewActingId||"local-manager"));const actorName=cloudReady()&&id===cloudUser?.id?(cloudProfile?.display_name||"Signed-in User"):jobActorName(id);state.jobActivity.push({id:globalThis.crypto?.randomUUID?.()||`act_${Date.now()}_${Math.random().toString(36).slice(2)}`,action,detail,actorId:id,actorName,createdAt:new Date().toISOString()});if(state.jobActivity.length>250)state.jobActivity=state.jobActivity.slice(-250);}
 function renderJobActivity(){const wrap=$("jobActivityList"),items=(state.jobActivity||[]).slice().reverse();if($("jobActivityCount"))$("jobActivityCount").textContent=`${items.length} ${items.length===1?'event':'events'}`;if(!wrap)return;wrap.innerHTML=items.length?items.slice(0,60).map(x=>`<div class="activity-row"><b>${escapeHtml(x.action)}</b><small>${escapeHtml(x.actorName||jobActorName(x.actorId))} · ${escapeHtml(formatSavedAt(x.createdAt))}${x.detail?`<br>${escapeHtml(x.detail)}`:''}</small></div>`).join(""):'<div class="status neutral">No shared job activity recorded yet.</div>';}
 function canDeleteJobNote(n){const a=jobActor();if(!a)return true;if(a.role==="Project Manager"||a.id===state.jobLeadId)return true;return !!n.authorId&&n.authorId===a.id;}
-function renderJobNotes(){const wrap=$("jobNoteList");if(!wrap)return;const notes=state.jobNotes||[];wrap.innerHTML=notes.length?notes.slice().reverse().map(n=>`<div class="job-note"><div class="job-note-head"><small><span class="shared-note-author">${escapeHtml(n.authorName||(n.authorId?jobActorName(n.authorId):'Saved before profiles'))}</span> · ${escapeHtml(formatSavedAt(n.createdAt))}</small>${canDeleteJobNote(n)?`<button type="button" data-delete-note="${n.id}">Delete</button>`:''}</div><p>${escapeHtml(n.text)}</p></div>`).join(""):'<div class="status neutral">No shared job notes yet.</div>';wrap.querySelectorAll("[data-delete-note]").forEach(btn=>btn.addEventListener("click",()=>{const n=state.jobNotes.find(x=>x.id===btn.dataset.deleteNote);if(!n||!canDeleteJobNote(n))return;state.jobNotes=state.jobNotes.filter(x=>x.id!==btn.dataset.deleteNote);addJobActivity("Shared note deleted",n.text.slice(0,120));save();renderJobNotes();renderJobActivity();renderCrewJobBriefing();}))}
+function renderJobNotes(){const wrap=$("jobNoteList");if(!wrap)return;const notes=state.jobNotes||[];wrap.innerHTML=notes.length?notes.slice().reverse().map(n=>`<div class="job-note"><div class="job-note-head"><small><span class="shared-note-author">${escapeHtml(n.authorName||(n.authorId?jobActorName(n.authorId):'Saved before profiles'))}</span> · ${escapeHtml(formatSavedAt(n.createdAt))}</small>${canDeleteJobNote(n)?`<button type="button" data-delete-note="${n.id}">Delete</button>`:''}</div><p>${escapeHtml(n.text)}</p></div>`).join(""):'<div class="status neutral">No shared job notes yet.</div>';wrap.querySelectorAll("[data-delete-note]").forEach(btn=>btn.addEventListener("click",async()=>{const n=state.jobNotes.find(x=>x.id===btn.dataset.deleteNote);if(!n||!canDeleteJobNote(n))return;if(cloudReady()&&state.cloudJobId&&n.cloudSynced){const ok=await cloudDeleteNote(n.id);if(!ok)return;}state.jobNotes=state.jobNotes.filter(x=>x.id!==btn.dataset.deleteNote);addJobActivity("Shared note deleted",n.text.slice(0,120));save();renderJobNotes();renderJobActivity();renderCrewJobBriefing();}))}
 function saveSharedJobNoteText(text){text=String(text||"").trim();if(!text)return false;const a=jobActor(),authorId=a?.id||"local-manager",authorName=a?.name||"Local Manager";state.jobNotes||=[];state.jobNotes.push({id:globalThis.crypto?.randomUUID?.()||String(Date.now())+Math.random(),text,createdAt:new Date().toISOString(),authorId,authorName});addJobActivity("Shared note added",text.slice(0,120),authorId);save();renderJobNotes();renderJobActivity();renderCrewJobBriefing();return true;}
 function addJobNote(){const input=$("jobNoteInput");if(saveSharedJobNoteText(input?.value))input.value="";}
 function addCrewSharedNote(){const input=$("crewSharedNoteInput");if(saveSharedJobNoteText(input?.value))input.value="";}
@@ -3800,14 +3957,14 @@ function saveCrewTimeEntry(){
   const start=$("crewTimeStart")?.value||"",end=$("crewTimeEnd")?.value||"",hours=crewHoursBetween(start,end),category=$("crewTimeCategory")?.value||"Onsite",notes=String($("crewTimeNotes")?.value||"").trim();
   if(hours==null){if($("crewTimeEntryStatus")){$("crewTimeEntryStatus").className="status warn";$("crewTimeEntryStatus").textContent="End time must be after start time.";}return;}
   state.crewTimeEntries||=[];const existing=crewTimeEditId&&state.crewTimeEntries.find(e=>e.id===crewTimeEditId);
-  const payload={memberId,category,start,end,hours,notes,updatedAt:new Date().toISOString(),updatedBy:state.crewActingId||"local-manager"};
-  if(existing)Object.assign(existing,payload);else state.crewTimeEntries.push({id:crewId(),...payload,createdAt:new Date().toISOString()});
+  const payload={memberId,category,start,end,hours,notes,updatedAt:new Date().toISOString(),updatedBy:cloudReady()?cloudUser.id:(state.crewActingId||"local-manager"),cloudSynced:false};
+  if(existing)Object.assign(existing,payload);else state.crewTimeEntries.push({id:crewId(),...payload,createdAt:new Date().toISOString(),cloudExisting:false});
   const member=crewMember(memberId);addJobActivity(existing?"Crew time updated":"Crew time added",`${member?.name||'Crew member'} · ${category} · ${hours.toFixed(2)} hr`);
   crewTimeEditId=null;$("crewTimeStart").value="";$("crewTimeEnd").value="";$("crewTimeNotes").value="";$("saveCrewTimeBtn").textContent="Add Time Entry";$("cancelCrewTimeEditBtn")?.classList.add("hidden");if($("crewTimeEntryStatus")){$("crewTimeEntryStatus").className="status ok";$("crewTimeEntryStatus").textContent="Crew time saved to this job.";}save();renderCrewTime();renderJobActivity();
 }
 function editCrewTimeEntry(id){const e=(state.crewTimeEntries||[]).find(x=>x.id===id);if(!e||!crewCanManageMember(e.memberId))return;crewTimeEditId=id;$("crewTimeMember").value=e.memberId;$("crewTimeCategory").value=e.category;$("crewTimeStart").value=e.start;$("crewTimeEnd").value=e.end;$("crewTimeNotes").value=e.notes||"";$("saveCrewTimeBtn").textContent="Save Changes";$("cancelCrewTimeEditBtn")?.classList.remove("hidden");renderCrewTimePreview();$("crewEntryCard")?.scrollIntoView({behavior:"smooth",block:"start"});}
 function cancelCrewTimeEdit(){crewTimeEditId=null;["crewTimeStart","crewTimeEnd","crewTimeNotes"].forEach(id=>{if($(id))$(id).value=""});if($("saveCrewTimeBtn"))$("saveCrewTimeBtn").textContent="Add Time Entry";$("cancelCrewTimeEditBtn")?.classList.add("hidden");renderCrewTimePreview();}
-function deleteCrewTimeEntry(id){const e=(state.crewTimeEntries||[]).find(x=>x.id===id);if(!e||!crewCanManageMember(e.memberId))return;if(!confirm("Delete this crew time entry?"))return;const m=crewMember(e.memberId);addJobActivity("Crew time deleted",`${m?.name||'Crew member'} · ${e.category} · ${Number(e.hours||0).toFixed(2)} hr`);state.crewTimeEntries=state.crewTimeEntries.filter(x=>x.id!==id);save();renderCrewTime();renderJobActivity();}
+async function deleteCrewTimeEntry(id){const e=(state.crewTimeEntries||[]).find(x=>x.id===id);if(!e||!crewCanManageMember(e.memberId))return;if(!confirm("Delete this crew time entry?"))return;if(cloudReady()&&state.cloudJobId&&e.cloudExisting){const ok=await cloudDeleteCrewTime(e.id);if(!ok)return;}const m=crewMember(e.memberId);addJobActivity("Crew time deleted",`${m?.name||'Crew member'} · ${e.category} · ${Number(e.hours||0).toFixed(2)} hr`);state.crewTimeEntries=state.crewTimeEntries.filter(x=>x.id!==id);save();renderCrewTime();renderJobActivity();}
 function renderCrewSummary(){
   const entries=crewVisibleEntries(),roster=state.crewRoster||[],visibleIds=new Set(entries.map(e=>e.memberId));const a=crewActing();if(a)visibleIds.add(a.id);const visibleRoster=!a||crewCanManageAll()?roster:roster.filter(m=>visibleIds.has(m.id)|| (a.role==="Team Lead"&&(m.id===a.id||m.reportsTo===a.id)));
   const total=entries.reduce((s,e)=>s+(Number(e.hours)||0),0);if($("crewLaborTotal"))$("crewLaborTotal").textContent=`${total.toFixed(2)} hr`;
@@ -3853,29 +4010,42 @@ function collect(){
 }
 function save(){
   state=collect();
+  if(!cloudApplyingRemote&&cloudReady()&&state?.cloudJobId)cloudLastLocalEditAt=Date.now();
   stpStorage.setItem(STORAGE,JSON.stringify(state));
   upsertJobLibrary(state);
   renderSavedJobs();
-  if($("saveStatus")) $("saveStatus").textContent="Saved locally";
+  if($("saveStatus")) $("saveStatus").textContent=cloudReady()&&state?.cloudJobId?"Saved locally · syncing":"Saved locally";
   const title=[state.fields.client,state.fields.facility,state.fields.unit].filter(Boolean).join(" · ");
   if($("jobTitle")) $("jobTitle").textContent=title||"New Stack Test";
-  queueCloudSync();
+  if(!cloudApplyingRemote)queueCloudSync();
+}
+function normalizeState(){
+  state=state&&typeof state==="object"?state:{};
+  state._jobKey ||= makeJobKey();
+  state.equipment ||= {};state.post ||= {};state.runs ||= [];state.jobRuns ||= [];state.fieldProgress ||= {};
+  state.cgaAudits ||= [];state.specialEquipment ||= [];state.monorails ||= [];state.jobNotes ||= [];state.jobActivity ||= [];
+  state.crewRoster ||= [];state.crewTimeEntries ||= [];state.jobLeadId ||= "";state.crewActingId ||= "";
+  state.selectedMethods ||= [];state.genericMethods ||= {};state.prepInputs ||= {};state.prepEquipment ||= {};state.fields ||= {};state.checks ||= {};state.rata ||= {};state.rata60 ||= {};
+}
+function persistStateLocal(){stpStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);renderSavedJobs();}
+function renderStateToUi(saveAfter=false){
+  normalizeState();selectedMethods=[...state.selectedMethods];
+  fields.forEach(id=>{if($(id))$(id).value=state.fields[id]??"";});
+  ["m320Bg","m320SampleFile","m320CtsFile"].forEach(id=>{if($(id))$(id).checked=!!state.checks[id];});
+  if($("rata75UseCorrection"))$("rata75UseCorrection").checked=!!state.rata.useCorrection;
+  for(let i=1;i<=12;i++){
+    if($("rataRef"+i))$("rataRef"+i).value=state.rata["ref"+i]||"";if($("rataCems"+i))$("rataCems"+i).value=state.rata["cems"+i]||"";if($("rataBias"+i))$("rataBias"+i).checked=!!state.rata["bias"+i];if($("rataInclude"+i))$("rataInclude"+i).checked=state.rata["include"+i]!==false;
+    ["PreLow","PostLow","PreUp","PostUp"].forEach(k=>{const el=$("rata"+k+i),key=k.charAt(0).toLowerCase()+k.slice(1)+i;if(el)el.value=state.rata[key]||"";});
+    if($("rata60Ref"+i))$("rata60Ref"+i).value=state.rata60["ref"+i]||"";if($("rata60Cems"+i))$("rata60Cems"+i).value=state.rata60["cems"+i]||"";if($("rata60Complete"+i))$("rata60Complete"+i).checked=!!state.rata60["complete"+i];if($("rata60Include"+i))$("rata60Include"+i).checked=state.rata60["include"+i]!==false;
+  }
+  document.querySelectorAll("[data-post]").forEach(cb=>cb.checked=!!state.post[cb.dataset.post]);
+  buildEquipment();renderSpecialEquipment();renderMonorails();renderJobNotes();renderJobActivity();renderJobPhotos();renderJobDocuments();renderSelectedMethods();renderHomeMethodChips();renderQuickMethods();renderFieldMethods();renderRunManager();renderCrewTime();calcAll();renderSavedRuns();updateRunAverages();updateRunSummary();renderCloseoutCenter(false);if(selectedMethods.length)renderPrepPage();
+  if(saveAfter)save();else persistStateLocal();
 }
 function load(){
   try{state=JSON.parse(stpStorage.getItem(STORAGE))||{equipment:{},post:{},runs:[]};}
   catch{state={equipment:{},post:{},runs:[]}}
-  state._jobKey ||= makeJobKey();
-  state.equipment ||= {}; state.post ||= {}; state.runs ||= []; state.jobRuns ||= []; state.fieldProgress ||= {};
-  state.cgaAudits ||= [];
-  state.specialEquipment ||= []; state.monorails ||= []; state.jobNotes ||= []; state.jobActivity ||= [];
-  state.crewRoster ||= []; state.crewTimeEntries ||= []; state.jobLeadId ||= ""; state.crewActingId ||= "";
-  state.selectedMethods ||= []; state.genericMethods ||= {}; state.prepInputs ||= {}; state.prepEquipment ||= {}; selectedMethods=[...state.selectedMethods];
-  if(state.fields) fields.forEach(id=>{if($(id)&&state.fields[id]!=null)$(id).value=state.fields[id];});
-  if(state.checks) ["m320Bg","m320SampleFile","m320CtsFile"].forEach(id=>{if($(id))$(id).checked=!!state.checks[id];});
-  if(state.rata){if($("rata75UseCorrection"))$("rata75UseCorrection").checked=!!state.rata.useCorrection;for(let i=1;i<=12;i++){if($("rataRef"+i))$("rataRef"+i).value=state.rata["ref"+i]||"";if($("rataCems"+i))$("rataCems"+i).value=state.rata["cems"+i]||"";if($("rataBias"+i))$("rataBias"+i).checked=!!state.rata["bias"+i];if($("rataInclude"+i))$("rataInclude"+i).checked=state.rata["include"+i]!==false;["PreLow","PostLow","PreUp","PostUp"].forEach(k=>{const el=$("rata"+k+i),key=k.charAt(0).toLowerCase()+k.slice(1)+i;if(el)el.value=state.rata[key]||"";});}}
-  if(state.rata60) for(let i=1;i<=12;i++){if($("rata60Ref"+i))$("rata60Ref"+i).value=state.rata60["ref"+i]||"";if($("rata60Cems"+i))$("rata60Cems"+i).value=state.rata60["cems"+i]||"";if($("rata60Complete"+i))$("rata60Complete"+i).checked=!!state.rata60["complete"+i];if($("rata60Include"+i))$("rata60Include"+i).checked=state.rata60["include"+i]!==false;}
-  document.querySelectorAll("[data-post]").forEach(cb=>cb.checked=!!state.post[cb.dataset.post]);
-  buildEquipment();renderSpecialEquipment();renderMonorails();renderJobNotes();renderJobActivity();renderJobPhotos();renderJobDocuments();renderSelectedMethods();renderHomeMethodChips();renderQuickMethods();renderFieldMethods();renderRunManager();renderCrewTime();calcAll();renderSavedRuns();updateRunAverages();updateRunSummary();renderCloseoutCenter(false);if(selectedMethods.length)renderPrepPage();save();
+  renderStateToUi(true);
 }
 
 document.querySelectorAll(".step").forEach(btn=>btn.addEventListener("click",()=>{
