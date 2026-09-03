@@ -1,0 +1,30 @@
+{
+  "name": "stack-test-pro-android",
+  "version": "0.72.2",
+  "private": true,
+  "description": "Stack Test Pro Android / Capacitor package",
+  "scripts": {
+    "web:prepare": "node scripts/sync-web.mjs && npm run native:bundle",
+    "native:bundle": "esbuild src/native-runtime.js --bundle --minify --format=iife --platform=browser --target=chrome60 --outfile=www/native-runtime.js",
+    "android:init": "npm run web:prepare && cap add android && node scripts/patch-android.mjs && cap sync android",
+    "android:sync": "npm run web:prepare && cap sync android && node scripts/patch-android.mjs",
+    "android:open": "npm run android:sync && cap open android",
+    "android:debug": "npm run android:sync && node scripts/build-android.mjs debug",
+    "android:release": "npm run android:sync && node scripts/build-android.mjs release",
+    "check": "node scripts/check-project.mjs"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.5.1",
+    "@capacitor/app": "8.1.1",
+    "@capacitor/core": "8.5.1",
+    "@capacitor/network": "8.0.1",
+    "@supabase/supabase-js": "2.112.4"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.1",
+    "esbuild": "0.28.2"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

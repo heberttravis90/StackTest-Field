@@ -1,0 +1,9 @@
+node_modules/
+android/.gradle/
+android/local.properties
+android/app/build/
+www/vendor/supabase.min.js
+www/native-runtime.js
+*.jks
+*.keystore
+.DS_Store

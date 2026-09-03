@@ -1,70 +1,67 @@
-# StackTest Pro v0.6 — Job Prep Workflow
+# Stack Test Pro — Android / Capacitor
 
-StackTest Pro is now organized around the way a stack test is actually prepared.
+This package wraps Stack Test Pro v0.72 RC2 as a native Android app using Capacitor 8.
 
-## Main workflow
+## App identity
 
-1. Enter the job/client/source information.
-2. Type the EPA methods being performed, for example:
+- App name: **Stack Test Pro**
+- Android package ID: `com.gulfcoastcodeworks.stacktestpro`
+- Version name: `0.72.2-rc2`
+- Version code: `7202`
+- Approved launcher artwork: **original black / neon-green Stack Test Pro smokestack icon**
+- Web source: root `index.html`
+- Android web bundle: generated into `www/`
 
-   `1, 2, 3A, 4, 5, 7E, 10, 25A, 320`
+## What the APK keeps local
 
-3. Press **Add Methods** or browse the EPA method list.
-4. Press **Build Job Prep**.
-5. StackTest Pro generates a preparation package for every selected method.
-6. Use the generated master mobilization checklist before leaving.
-7. Carry the same selected methods into Field Test, Compare, and Post-Job.
+The Stack Test Pro HTML/CSS/JavaScript is bundled inside the APK. The build also copies the pinned Supabase UMD SDK into `www/vendor/`, so the sign-in/offline gate can initialize without depending on jsDelivr/Unpkg. Actual cloud sign-in/sync still requires internet. Verified offline access continues to follow Stack Test Pro's existing 72-hour entitlement rule.
 
-## Generated method prep
+## Native behavior included
 
-Each selected method gets a prep card containing:
+- Android back button closes the Method modal/drawer first, then walks backward through the Stack Test Pro workflow, then minimizes the app.
+- Native Android network changes are bridged into the app's existing `online` / `offline` handling.
+- Existing photo input uses Android's camera/file chooser from inside the Capacitor WebView.
+- Existing document input uses Android's document picker/file chooser.
 
-- Preliminary information needed
-- Method-specific equipment and supplies
-- Setup / before-testing requirements
-- Field / post-run reminders
-- Preliminary calculations where currently supported
+## Easiest build: GitHub Actions
 
-Examples include:
+The included `.github/workflows/build-android-apk.yml` builds an installable **debug APK** on GitHub whenever you manually run the workflow (and on relevant pushes to `main`).
 
-- Method 1 geometry / site information
-- Method 2 flow inputs
-- Method 4 moisture setup
-- Method 5 isokinetic train, ice chest, nozzle planning, run volume
-- Method 7E NOx analyzer setup / calibration gas planning
-- Method 19 NOx lb/MMBtu prelim comparison
-- Method 25A FID setup
-- Method 26A isokinetic halide train
-- Method 29 metals train
-- Method 202 condensable PM setup
-- Method 320 FTIR setup, dew-point / heated-line planning
-- RATA coordination and paired-run planning
+1. Put these files in the StackTest-Field GitHub repository.
+2. Open the repository's **Actions** tab.
+3. Open **Build Stack Test Pro APK**.
+4. Choose **Run workflow**.
+5. When it finishes, open the run and download the artifact named **Stack-Test-Pro-v0.72-RC2-APK**.
+6. Inside the downloaded artifact is `Stack-Test-Pro-v0.72-RC2-debug.apk`.
 
-## Master mobilization
+The debug APK is Android-signed automatically and is suitable for direct testing/installing. A permanent release signing key should be added before customer distribution or Play Store release.
 
-Equipment from every selected method is automatically combined into one checklist. Duplicate items are removed.
+## Local Android Studio build
 
-This is intended to answer one practical question before the crew leaves:
+Requirements for Capacitor 8: Node.js 22+, Android Studio 2025.2.1+, and Android SDK API 24+.
 
-**Do we have everything needed to perform the methods on this job?**
+```bash
+npm install
+npm run android:init
+npm run android:open
+```
 
-## Preliminary calculations
+After `android/` exists, future Stack Test Pro updates use:
 
-The Job Prep page retains the original preliminary data workflow, including:
+```bash
+npm run android:sync
+```
 
-- Stack geometry
-- Expected velocity and flow
-- ACFM / DSCFM planning
-- Moisture
-- O₂ / CO₂
-- Molecular weight
-- Preliminary isokinetic nozzle size
-- Target dry standard sample volume
-- Analyzer concentration vs span
-- Method 19 NOx lb/MMBtu
-- Permit margin
-- FTIR heated-line temperature margin
+Then build/run from Android Studio, or:
 
-## Important
+```bash
+npm run android:debug
+```
 
-StackTest Pro remains a beta planning and calculation aid. The promulgated EPA method, applicable subpart, approved test protocol, permit, and company QA/QC requirements always control. Method-specific calculations require validation against known datasets before compliance reliance.
+## Updating Stack Test Pro later
+
+Replace only the root `index.html` with the newest working Stack Test Pro build, then run `npm run android:sync` or let GitHub Actions rebuild the APK. The `scripts/sync-web.mjs` script copies it into the Android web bundle and injects the local Supabase SDK + native runtime.
+
+## Release signing
+
+Do **not** commit a release `.jks` / keystore or its passwords to GitHub. The project `.gitignore` excludes common key formats. For customer distribution, configure a persistent signing key using GitHub Actions secrets or Android Studio's signed bundle/APK flow.
