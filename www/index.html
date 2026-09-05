@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#07110b" />
   <title>StackTest Pro</title>
-  <link rel="manifest" href="manifest.webmanifest?v=059rc1" />
+  <link rel="manifest" href="manifest.webmanifest?v=073rc2" />
   <style>
 :root{
   --navy:#0e2a3d; --navy2:#163f59; --blue:#2d78a8; --sky:#e8f3fa;
@@ -423,6 +423,20 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
 .drawer-link.drawer-sub{width:calc(100% - 18px);margin-left:18px;padding-top:10px;padding-bottom:10px;color:var(--muted)}
 .drawer-link.drawer-sub.active{color:var(--accent)}
 .workflow-nav{display:flex;justify-content:space-between;gap:12px;margin:18px 0 6px}.workflow-nav button{min-width:120px}.workflow-nav .next-step{margin-left:auto}.cga-audit-card{border:1px solid var(--accent-line);border-radius:14px;padding:14px;margin:12px 0;background:var(--input)}.cga-card-head{display:flex;justify-content:space-between;gap:10px;align-items:center}.cga-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.cga-range-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.cga-range{border:1px solid var(--line);border-radius:12px;padding:12px}.cga-response-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.cga-results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:10px}.cga-results div{background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:9px;padding:8px}.cga-results span{display:block;font-size:10px;text-transform:uppercase;color:var(--muted)}.cga-results strong{font-size:16px}.share-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.monorail-entry{display:grid;grid-template-columns:1.4fr 1fr .8fr auto;gap:10px;align-items:end}.monorail-list{display:grid;gap:8px;margin-top:12px}.monorail-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 12px;border:1px solid var(--accent-line);border-radius:11px;background:var(--input)}.monorail-item strong{color:var(--accent-text)}.monorail-item button{flex:0 0 auto}@media(max-width:700px){.cga-grid,.cga-range-grid,.monorail-entry{grid-template-columns:1fr}.workflow-nav button{min-width:0;flex:1}.monorail-entry button{width:100%}}
+
+/* v0.62 RC1 — Crew Time / job-level leadership */
+.crew-head-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.crew-roster-list,.crew-time-list{display:grid;gap:9px;margin-top:12px}.crew-roster-card,.crew-time-row{border:1px solid var(--accent-line);border-radius:12px;padding:12px;background:var(--input)}.crew-roster-top,.crew-time-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}.crew-name{font-weight:900;font-size:15px}.crew-meta{color:var(--muted);font-size:12px;margin-top:3px}.crew-actions{display:flex;gap:7px;flex-wrap:wrap}.crew-actions button{padding:7px 9px;font-size:11px}.crew-entry-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.crew-entry-grid .wide{grid-column:1/-1}.crew-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}.crew-kpis>div{border:1px solid var(--accent-line);border-radius:10px;padding:10px;background:var(--accent-soft)}.crew-kpis span{display:block;font-size:10px;color:var(--muted);text-transform:uppercase;font-weight:800}.crew-kpis strong{display:block;font-size:20px;margin-top:3px}.crew-member-summary{border:1px solid var(--accent-line);border-radius:12px;padding:12px;background:rgba(255,255,255,.02)}.crew-member-summary-head{display:flex;justify-content:space-between;gap:10px;align-items:center}.crew-category-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.crew-category-chips span{border:1px solid var(--accent-line);border-radius:999px;padding:5px 8px;font-size:11px;color:var(--muted)}.crew-access{margin-top:10px}.crew-readonly{opacity:.65}.crew-time-row .crew-time-detail{margin-top:6px;color:var(--muted);font-size:12px;line-height:1.45}.crew-time-hours{font-size:20px;font-weight:950;color:var(--accent-text)}
+@media(max-width:700px){.crew-head-grid,.crew-entry-grid{grid-template-columns:1fr}.crew-entry-grid .wide{grid-column:auto}.crew-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* v0.62 RC1 — shared job board / collaborative notes / activity trail */
+/* v0.63 RC1 — preliminary stack conditions + Method 5 nozzle planner */
+/* v0.68 RC1 — Supabase authentication + shared cloud job foundation */
+.job-brief-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:10px}.job-brief-item{border:1px solid var(--accent-line);border-radius:11px;padding:10px;background:var(--accent-soft)}.job-brief-item span{display:block;font-size:10px;text-transform:uppercase;font-weight:850;color:var(--muted)}.job-brief-item strong{display:block;margin-top:3px;font-size:15px}.shared-note-author{font-weight:850;color:var(--accent-text)}.activity-list{display:grid;gap:8px;margin-top:10px}.activity-row{border-left:3px solid var(--accent);padding:9px 11px;background:var(--accent-soft);border-radius:0 10px 10px 0}.activity-row b{display:block;font-size:13px}.activity-row small{display:block;color:var(--muted);margin-top:3px;line-height:1.4}.crew-shared-note{border:1px solid var(--accent-line);border-radius:10px;padding:10px;margin-top:8px;background:var(--input)}
+@media(max-width:700px){.job-brief-grid{grid-template-columns:1fr}}
+
+
+.cloud-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}.cloud-status{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.cloud-dot{width:10px;height:10px;border-radius:50%;background:#777;display:inline-block}.cloud-dot.online{background:var(--ok)}.cloud-dot.warn{background:var(--warn)}.cloud-job-list{display:grid;gap:8px;margin-top:10px}.cloud-job-row{border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--input)}.cloud-job-row b{display:block}.auth-actions{display:flex;gap:8px;flex-wrap:wrap}.cloud-small{font-size:12px;color:var(--muted)}
+.auth-gate{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:22px;background:linear-gradient(160deg,#06100a 0%,#0a1710 55%,#07110b 100%);overflow:auto}.auth-gate.hidden{display:none}body.auth-locked{overflow:hidden}.auth-gate-card{width:min(520px,100%);border:1px solid var(--accent-line);border-radius:22px;padding:24px;background:rgba(10,20,14,.98);box-shadow:0 24px 80px rgba(0,0,0,.48)}.auth-gate-logo{width:62px;height:62px;border-radius:18px;display:grid;place-items:center;margin-bottom:16px;background:var(--accent-soft);border:1px solid var(--accent-line);color:var(--accent-text);font-weight:950;font-size:22px;letter-spacing:-1px}.auth-gate h1{margin:0 0 8px;font-size:30px}.auth-gate .auth-sub{margin:0 0 18px;color:var(--muted);line-height:1.45}.auth-gate-fields{display:grid;gap:11px}.auth-gate-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}.auth-gate-actions .offline{grid-column:1/-1}.auth-gate-status{margin-top:12px}.auth-gate-foot{font-size:11px;color:var(--muted);line-height:1.45;margin-top:14px;text-align:center}.auth-gate-loading{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-bottom:12px}.auth-gate-loading .cloud-dot{flex:0 0 auto}.auth-remember{display:flex!important;align-items:center;gap:9px;font-weight:800!important;margin-top:2px}.auth-remember input{width:19px!important;height:19px!important;margin:0!important;accent-color:var(--accent)}.auth-remember span{display:flex;flex-direction:column;gap:1px}.auth-remember small{font-weight:500;color:var(--muted);font-size:11px}@media(max-width:520px){.auth-gate{align-items:flex-start;padding:16px}.auth-gate-card{margin-top:24px;padding:19px}.auth-gate-actions{grid-template-columns:1fr}.auth-gate-actions .offline{grid-column:auto}}
+
 </style>
 
   <script>
@@ -431,13 +445,13 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
   (async function(){
     if (!("serviceWorker" in navigator)) return;
     try {
-      const reg = await navigator.serviceWorker.register("./sw.js?v=059rc1", { updateViaCache: "none" });
+      const reg = await navigator.serviceWorker.register("./sw.js?v=073rc1", { updateViaCache: "none" });
       await reg.update();
-      let reloaded = sessionStorage.getItem("stp_059rc1_controller_reload");
+      let reloaded = sessionStorage.getItem("stp_073rc1_controller_reload");
       navigator.serviceWorker.addEventListener("controllerchange", ()=>{
         if (!reloaded) {
-          sessionStorage.setItem("stp_059rc1_controller_reload","1");
-          location.replace("./?v=059rc1&t=" + Date.now());
+          sessionStorage.setItem("stp_073rc1_controller_reload","1");
+          location.replace("./?v=073rc1&t=" + Date.now());
         }
       });
     } catch(e) { console.log("STP worker bootstrap:", e); }
@@ -447,6 +461,30 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
   <link rel="apple-touch-icon" href="icon-192.png">
 </head>
 <body>
+
+  <div id="authGate" class="auth-gate" role="dialog" aria-modal="true" aria-labelledby="authGateTitle">
+    <div class="auth-gate-card">
+      <div class="auth-gate-logo">STP</div>
+      <div class="eyebrow">STACK TEST PRO CLOUD</div>
+      <h1 id="authGateTitle">Sign in to Stack Test Pro</h1>
+      <p class="auth-sub">Use your Stack Test Pro account to access assigned jobs, shared crew notes, job information, and crew time across devices.</p>
+      <div class="auth-gate-loading"><span id="authGateDot" class="cloud-dot"></span><span id="authGateCloudState">Connecting securely…</span></div>
+      <div class="auth-gate-fields">
+        <label>Email<input id="authGateEmail" type="email" autocomplete="email" placeholder="you@company.com"></label>
+        <label>Password<input id="authGatePassword" type="password" autocomplete="current-password" placeholder="Password"></label>
+        <label class="auth-remember"><input id="authGateRememberMe" type="checkbox" checked><span>Remember me<small>Keep me signed in on this device. Your password is never saved.</small></span></label>
+        <label>Display Name <span class="muted">(only needed to create an account)</span><input id="authGateDisplayName" autocomplete="name" placeholder="Your name"></label>
+      </div>
+      <div class="auth-gate-actions">
+        <button id="authGateSignInBtn" class="primary" type="button">Sign In</button>
+        <button id="authGateSignUpBtn" class="secondary" type="button">Create Account</button>
+        <button id="authGateOfflineBtn" class="secondary offline" type="button">Work Offline (Verified Account)</button>
+      </div>
+      <div id="authGateMessage" class="status neutral auth-gate-status">Checking for an existing signed-in session…</div>
+      <div class="auth-gate-foot">Offline work is available only to a recently verified active Stack Test Pro account. Disabled accounts cannot use cloud data and cannot renew offline access.</div>
+    </div>
+  </div>
+
 
   <header class="topbar">
     <button id="menuBtn" class="menu-btn" aria-label="Open navigation" aria-expanded="false">☰</button>
@@ -465,14 +503,15 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
       <button class="drawer-link" data-view="prejob"><span class="drawer-num">2</span><span>Mobilize</span><span class="drawer-state">•</span></button>
       <button class="drawer-link" data-view="prelims"><span class="drawer-num">3</span><span>Setup / Prelims</span><span class="drawer-state">•</span></button>
       <button class="drawer-link" data-view="field"><span class="drawer-num">4</span><span>Field Testing</span><span class="drawer-state">•</span></button>
-      <button class="drawer-link" data-view="compare"><span class="drawer-num">5</span><span>Results</span><span class="drawer-state">•</span></button>
-      <button class="drawer-link" data-view="postjob"><span class="drawer-num">6</span><span>Complete</span><span class="drawer-state">•</span></button>
+      <button class="drawer-link" data-view="crewtime"><span class="drawer-num">5</span><span>Crew Time</span><span class="drawer-state">•</span></button>
+      <button class="drawer-link" data-view="compare"><span class="drawer-num">6</span><span>Results</span><span class="drawer-state">•</span></button>
+      <button class="drawer-link" data-view="postjob"><span class="drawer-num">7</span><span>Complete</span><span class="drawer-state">•</span></button>
       <button class="drawer-link drawer-sub" data-view="savedjobs"><span class="drawer-num">★</span><span>Saved Jobs</span><span class="drawer-state">•</span></button>
     </nav>
     <div class="drawer-bottom">
       <button class="drawer-link utility" data-view="settings"><span>⚙</span><span>Settings</span></button>
       <button class="drawer-link utility" data-view="about"><span>ⓘ</span><span>About / Legal</span></button>
-      <div class="drawer-version">v0.60 RC1 · Evaluation Beta</div>
+      <div class="drawer-version">v0.73 RC1 · Evaluation Beta</div>
     </div>
   </aside>
 
@@ -499,12 +538,19 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
           <label>Unit / Stack<input id="unit" placeholder="Unit or stack"></label>
           <label>Test Date<input id="testDate" type="date"></label>
         </div>
+        <div id="clientCloudJobPanel" class="top-gap">
+          <div id="clientCloudJobStatus" class="status neutral">Sign in to create or open a shared cloud job.</div>
+          <div class="auth-actions top-gap">
+            <button id="clientCloudConnectBtn" class="primary" type="button">Create Shared Cloud Job</button>
+            <button id="clientOpenCrewBtn" class="secondary" type="button">Crew Assignment</button>
+          </div>
+        </div>
       </section>
       <section class="card">
-        <div class="eyebrow">JOB MEMORY</div><h2>Job Notes & Documents</h2>
-        <p class="muted">Keep client instructions, unit access details, hazards, special setup information, permits, test plans, and site photos with this saved job on this device.</p>
+        <div class="eyebrow">SHARED JOB BOARD</div><h2>Job Notes & Documents</h2>
+        <p class="muted">Shared job information for the assigned crew: client instructions, unit access details, hazards, special setup information, permits, test plans, and site photos. When live sync is enabled, everyone assigned to this job will see the same record.</p>
         <label>New job note<textarea id="jobNoteInput" rows="4" placeholder="Ex: Port 4 needs the temporary stand and two 10-ft tubing sections."></textarea></label>
-        <div class="note-entry-actions"><span class="muted">Each note receives a date and time.</span><button id="addJobNoteBtn" class="primary" type="button">Save Note</button></div>
+        <div class="note-entry-actions"><span class="muted">Shared with the job crew · author and timestamp are recorded.</span><button id="addJobNoteBtn" class="primary" type="button">Add Shared Note</button></div>
         <div id="jobNoteList" class="job-note-list"></div>
         <div class="top-gap">
           <label>Photo caption (optional)<input id="jobPhotoCaption" placeholder="Ex: Port 4 access and stand location"></label>
@@ -518,6 +564,11 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
           <div id="jobDocumentStatus" class="status neutral">No document selected.</div>
           <div id="jobDocumentList" class="job-document-list"></div>
         </div>
+      </section>
+      <section class="card">
+        <div class="card-title-row"><div><div class="eyebrow">AUDIT TRAIL</div><h2>Job Activity</h2></div><span id="jobActivityCount" class="pill">0 events</span></div>
+        <p class="muted">Important job updates stay with the saved project. Cloud-connected jobs also keep server-side job and membership history.</p>
+        <div id="jobActivityList" class="activity-list"></div>
       </section>
     </section>
 
@@ -535,8 +586,9 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
       <button class="step" data-view="prejob">2 Mobilize</button>
       <button class="step" data-view="prelims">3 Prelims & Setup</button>
       <button class="step" data-view="field">4 Field Testing</button>
-      <button class="step" data-view="compare">5 Results</button>
-      <button class="step" data-view="postjob">6 Closeout</button>
+      <button class="step" data-view="crewtime">5 Crew Time</button>
+      <button class="step" data-view="compare">6 Results</button>
+      <button class="step" data-view="postjob">7 Closeout</button>
     </nav>
 
     <section id="prejob" class="view">
@@ -610,6 +662,37 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
         <div id="prepMethodChips" class="chips"></div>
       </div>
 
+      <div class="card">
+        <div class="card-title-row">
+          <div><div class="eyebrow">SOURCE CONDITIONS</div><h2>Preliminary Stack Conditions</h2></div>
+          <span class="pill">Used by Method 5 nozzle planning</span>
+        </div>
+        <p class="muted">Enter the best preliminary values available. These are planning values only and should be replaced with measured field data when testing begins.</p>
+        <div class="grid two">
+          <label>Source preset<select id="jpSourcePreset"><option value="custom">Custom / enter values</option><option value="grain_dust">Grain handling dust collector / baghouse</option><option value="ambient_air">Ambient / non-combustion process air</option></select></label>
+          <label>Stack shape<select id="jpStackShape"><option>Circular</option><option>Rectangular</option></select></label>
+          <label>Diameter (ft) — circular<input id="jpDiameter" type="number" step="any" min="0" inputmode="decimal"></label>
+          <label>Width (ft) — rectangular<input id="jpWidth" type="number" step="any" min="0" inputmode="decimal"></label>
+          <label>Depth (ft) — rectangular<input id="jpDepth" type="number" step="any" min="0" inputmode="decimal"></label>
+          <label>Estimated stack velocity (ft/s)<input id="jpVelocity" type="number" step="any" min="0" inputmode="decimal" placeholder="Ex: 35"></label>
+          <label>Estimated stack temperature (°F)<input id="jpTemp" type="number" step="any" inputmode="decimal" placeholder="Ex: 95"></label>
+          <label>Barometric / absolute pressure (in. Hg)<input id="jpBaro" type="number" step="any" min="0" inputmode="decimal" value="29.92"></label>
+          <label>Moisture Bws (decimal)<input id="jpBws" type="number" step="0.001" min="0" max="0.99" inputmode="decimal" placeholder="0.02 = 2%"></label>
+          <label>O₂ dry (%)<input id="jpO2" type="number" step="any" min="0" max="25" inputmode="decimal"></label>
+          <label>CO₂ dry (%)<input id="jpCo2" type="number" step="any" min="0" max="100" inputmode="decimal"></label>
+          <label>Known ACFM (optional)<input id="jpAcfm" type="number" step="any" min="0" inputmode="decimal"></label>
+          <label>Known DSCFM (optional)<input id="jpDscfm" type="number" step="any" min="0" inputmode="decimal"></label>
+          <label class="wide">Available calibrated nozzle IDs (in.)<input id="jpNozzleSet" value="0.1875, 0.25, 0.3125, 0.375, 0.4375, 0.5" placeholder="Comma-separated nozzle IDs"></label>
+        </div>
+        <div class="method-prelim-results">
+          <div><span>Stack Area</span><strong id="jpAreaOut">—</strong><small>ft²</small></div>
+          <div><span>Calculated ACFM</span><strong id="jpAcfmOut">—</strong><small>acfm</small></div>
+          <div><span>Calculated DSCFM</span><strong id="jpDscfmOut">—</strong><small>dscfm</small></div>
+          <div><span>Dry MW</span><strong id="jpDryMwOut">—</strong></div>
+        </div>
+        <div id="jpPresetNote" class="status neutral">Custom source conditions. Enter the best available planning values.</div>
+      </div>
+
       <div id="m19PrepHint" class="status neutral">Method 19 setup information appears below. Actual O₂/Fd or CO₂/Fc calculations are under Field Testing → Method 19.</div>
       <div id="generatedPrepSections"></div>
 
@@ -679,7 +762,7 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
         <button id="addCgaBtn" class="primary wide" type="button">+ Add Another CGA</button>
       </div>
 
-      <div id="m1" class="field-module card">
+      <div id="m1" class="field-module card hidden" aria-hidden="true">
         <div class="eyebrow">EPA METHOD 1</div><h2>Stack Parameters & Traverse Planner</h2>
         <p class="muted">Field entry follows the same order as the Method 1 sheet: stack/duct setup first, then A & B disturbance distances, then the traverse-point and probe-mark plan.</p>
 
@@ -695,13 +778,21 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
             <label id="m1FarWallLabel">Distance from Far Wall to Outside of Port (in.)
               <input id="m1FarWall" type="number" step="any" min="0" inputmode="decimal" placeholder="Ex: 150.00">
             </label>
-            <label>Port / Nipple Length (in.)
+            <label id="m1NippleLabel">Port / Nipple Length (in.)
               <input id="m1Nipple" type="number" step="any" min="0" inputmode="decimal" placeholder="Ex: 6.00">
               <small class="muted">Measured from the outside stack/duct wall to the outside end of the test port.</small>
             </label>
-            <label>Actual Inside Depth / Diameter (in.) — Auto
+            <label id="m1DiameterAutoLabel">Actual Inside Diameter (in.) — Auto
               <input id="m1DuctDepthIn" class="m1-auto" type="number" step="any" min="0" inputmode="decimal" placeholder="Far wall − nipple" readonly>
               <small class="muted">Auto: far-wall-to-outside-port measurement − nipple length.</small>
+            </label>
+            <label id="m1RectWidthLabel" hidden>Duct Width (in.)
+              <input id="m1WidthIn" type="number" step="any" min="0" inputmode="decimal" placeholder="Ex: 48.00">
+              <small class="muted">Inside width of the rectangular duct.</small>
+            </label>
+            <label id="m1RectDepthLabel" hidden>Duct Depth (in.)
+              <input id="m1DepthIn" type="number" step="any" min="0" inputmode="decimal" placeholder="Ex: 36.00">
+              <small class="muted">Inside depth of the rectangular duct.</small>
             </label>
             <label>Cross-Sectional Area (ft²) — Auto
               <input id="m1AreaInput" class="m1-auto" type="text" readonly placeholder="Calculated">
@@ -1078,6 +1169,81 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
     </section>
 
 
+    <section id="crewtime" class="view">
+      <div class="card">
+        <div class="card-title-row"><div><div class="eyebrow">JOB CONTROL</div><h2>Crew Time</h2></div><span id="crewAccessPill" class="pill">Local manager mode</span></div>
+        <p class="muted">Build the crew for this project, designate the Job Lead, and track labor by work status. Project Managers have broad oversight. A Team Lead designated as Job Lead controls the whole job. Other Team Leads can manage technicians assigned to them. Technicians can view their own recorded time.</p>
+        <div class="crew-head-grid">
+          <label>Viewing / Acting As<select id="crewActingProfile"><option value="">Local manager mode (no sign-in yet)</option></select></label>
+          <label>Job Lead<select id="crewJobLead"><option value="">Not assigned</option></select></label>
+        </div>
+        <div id="crewAccessNote" class="status neutral crew-access">Local jobs can still preview roles on this device. Shared cloud jobs use the identity of the person actually signed in, so role permissions cannot be changed from this screen.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title-row"><div><div class="eyebrow">CREW JOB BRIEFING</div><h2>Job Information & Shared Notes</h2></div><span class="pill">Crew visible</span></div>
+        <p class="muted">Read-only job details for everyone assigned to this project. Shared notes added by the crew appear below.</p>
+        <div id="crewJobBriefing" class="job-brief-grid"></div>
+        <div class="top-gap">
+          <label>Add shared job note<textarea id="crewSharedNoteInput" rows="3" placeholder="Add a field note, access detail, setup note, delay explanation, or crew update..."></textarea></label>
+          <button id="crewSharedNoteBtn" class="primary wide" type="button">Add Shared Note</button>
+        </div>
+        <div id="crewSharedNotes"></div>
+      </div>
+
+      <div class="card" id="crewRosterCard">
+        <div class="card-title-row"><div><div class="eyebrow">PROJECT CREW</div><h2>Crew Roster</h2></div><span id="crewCount" class="pill">0 people</span></div>
+        <div id="localCrewEntry">
+          <div class="crew-entry-grid">
+            <label>Name<input id="crewName" placeholder="Crew member name"></label>
+            <label>Profile Role<select id="crewRole"><option>Technician</option><option>Team Lead</option><option>Project Manager</option></select></label>
+            <label class="wide">Assigned Team Lead<select id="crewReportsTo"><option value="">None / assign later</option></select></label>
+          </div>
+          <button id="addCrewMemberBtn" class="primary wide" type="button">+ Add Crew Member</button>
+        </div>
+        <div id="cloudCrewEntry" class="hidden">
+          <div class="status neutral">Assign existing Stack Test Pro accounts to this shared job. New accounts default to Technician until the Owner/Admin changes their company role.</div>
+          <div class="crew-entry-grid top-gap">
+            <label class="wide">Search Available Crew<input id="cloudCrewSearch" type="search" placeholder="Search Team Leads, Technicians, or PMs by name…" autocomplete="off"></label>
+            <label class="wide">Company User<select id="cloudCrewUserSelect"><option value="">Choose active user</option></select></label>
+            <label class="wide">Assigned Team Lead (Technicians only)<select id="cloudCrewAssignLead"><option value="">None / assign later</option></select></label>
+          </div>
+          <div class="auth-actions">
+            <button id="cloudAddCrewBtn" class="primary" type="button">+ Assign User to Job</button>
+            <button id="cloudRefreshCrewBtn" class="secondary" type="button">Refresh Crew</button>
+          </div>
+          <div id="cloudCrewStatus" class="status neutral top-gap">Connect this job to cloud to use real crew accounts.</div>
+        </div>
+        <div id="crewRosterList" class="crew-roster-list"></div>
+      </div>
+
+      <div class="card" id="crewEntryCard">
+        <div class="card-title-row"><div><div class="eyebrow">LABOR ENTRY</div><h2>Add Crew Time</h2></div><span id="crewTimePreview" class="pill">0.00 hr</span></div>
+        <div class="crew-entry-grid">
+          <label>Crew Member<select id="crewTimeMember"><option value="">Choose crew member</option></select></label>
+          <label>Work Status<select id="crewTimeCategory"><option>Mobilize</option><option>Travel</option><option>Onsite</option><option>Delay</option><option>Standby</option><option>Demobilize</option></select></label>
+          <label>Start<input id="crewTimeStart" type="datetime-local"></label>
+          <label>End<input id="crewTimeEnd" type="datetime-local"></label>
+          <label class="wide">Notes / Delay or Standby Reason<textarea id="crewTimeNotes" rows="3" placeholder="Optional — reason for delay, standby details, travel note, etc."></textarea></label>
+        </div>
+        <button id="saveCrewTimeBtn" class="primary wide" type="button">Add Time Entry</button>
+        <button id="cancelCrewTimeEditBtn" class="secondary wide hidden" type="button">Cancel Edit</button>
+        <div id="crewTimeEntryStatus" class="status neutral">Choose a crew member and enter start/end time.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title-row"><div><div class="eyebrow">LABOR SUMMARY</div><h2>Project Crew Hours</h2></div><span id="crewLaborTotal" class="pill">0.00 hr</span></div>
+        <div id="crewTimeKpis" class="crew-kpis"></div>
+        <div id="crewTimeSummary" class="crew-roster-list"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title-row"><div><div class="eyebrow">TIME RECORD</div><h2>Time Entries</h2></div><span id="crewEntryCount" class="pill">0 entries</span></div>
+        <div id="crewTimeList" class="crew-time-list"></div>
+      </div>
+    </section>
+
+
     <section id="compare" class="view">
       <div class="card">
         <div class="eyebrow">RESULTS</div><h2>Field Results</h2>
@@ -1127,13 +1293,38 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
         <div class="accent-presets"><button data-accent="#27d65f">Green</button><button data-accent="#2f8cff">Blue</button><button data-accent="#ff9f1c">Orange</button><button data-accent="#b26cff">Purple</button><button data-accent="#ff4fa3">Pink</button><button data-accent="#e74c3c">Red</button></div>
         <button id="resetAppearanceBtn" class="secondary wide">Reset Appearance</button>
       </div>
+      <div class="card">
+        <div class="eyebrow">STACK TEST PRO CLOUD</div><h2>Account & Shared Jobs</h2>
+        <div class="cloud-status"><span id="cloudDot" class="cloud-dot"></span><strong id="cloudStatus">Not signed in</strong><span id="cloudProfileBadge" class="pill">Local mode</span></div>
+        <p class="muted">The opening sign-in screen connects this device to your Stack Test Pro profile. Shared jobs and real crew assignments use the same cloud record across devices. Verified offline access stays available when field service drops.</p>
+        <div id="cloudAuthForm" class="grid two">
+          <label>Email<input id="cloudEmail" type="email" autocomplete="email" placeholder="you@company.com"></label>
+          <label>Password<input id="cloudPassword" type="password" autocomplete="current-password" placeholder="Password"></label>
+          <label class="auth-remember wide"><input id="cloudRememberMe" type="checkbox" checked><span>Remember me<small>Keep me signed in on this device. Your password is never saved.</small></span></label>
+          <label class="wide">Display Name<input id="cloudDisplayName" placeholder="Your name (used when creating an account)"></label>
+        </div>
+        <div class="auth-actions top-gap"><button id="cloudSignInBtn" class="primary" type="button">Sign In</button><button id="cloudSignUpBtn" class="secondary" type="button">Create Account</button><button id="cloudSignOutBtn" class="secondary hidden" type="button">Sign Out</button></div>
+        <div id="cloudMessage" class="status neutral top-gap">Sign in to enable shared jobs.</div>
+        <div id="cloudControls" class="hidden top-gap">
+          <div class="auth-actions"><button id="cloudConnectJobBtn" class="primary" type="button">Connect Active Job to Cloud</button><button id="cloudSyncNowBtn" class="secondary" type="button">Sync Now</button><button id="cloudRefreshJobsBtn" class="secondary" type="button">Refresh Cloud Jobs</button></div>
+          <div class="cloud-small top-gap">Cloud Job ID: <span id="cloudJobIdText">Not connected</span></div>
+          <div id="cloudJobsList" class="cloud-job-list"></div>
+          <div id="cloudUserAdmin" class="hidden top-gap">
+            <div class="eyebrow">OWNER / ADMIN</div>
+            <h3>User Management</h3>
+            <p class="muted">New accounts start as Technicians. Only the Owner/Admin can change company roles or deactivate another account. Project Managers retain full job operations without owner-level account control.</p>
+            <div class="auth-actions"><button id="cloudRefreshUsersBtn" class="secondary" type="button">Refresh Users</button></div>
+            <div id="cloudUsersList" class="cloud-job-list top-gap"></div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="about" class="view">
       <div class="card"><div class="eyebrow">ABOUT</div><h2>Stack Test Pro</h2><div class="about-mark">STP</div><p class="muted">Offline-first stack-testing job preparation, field calculation, results, and closeout workflow.</p>
-        <div class="summary-list"><div class="summary-row"><b>Version</b><span>0.58 RC1 — External Evaluation</span></div><div class="summary-row"><b>Status</b><span>Evaluation Beta</span></div><div class="summary-row"><b>Data</b><span>Saved locally on this device</span></div></div>
+        <div class="summary-list"><div class="summary-row"><b>Version</b><span>0.73 RC1 — External Evaluation</span></div><div class="summary-row"><b>Status</b><span>Evaluation Beta</span></div><div class="summary-row"><b>Data</b><span>Shared job/field/files sync + verified offline storage</span></div></div>
       </div>
-      <div class="card"><div class="eyebrow">EVALUATION</div><h2>Evaluation Beta</h2><p class="muted"><strong>This prerelease build is provided solely for evaluation and testing.</strong></p><p class="muted">It may not be redistributed, resold, copied for distribution, modified for redistribution, or represented as another party’s work. Evaluation access does not grant ownership of Stack Test Pro or its source code.</p></div><div class="card"><div class="eyebrow">DATA & PRIVACY</div><h2>Local Data Notice</h2><p class="muted">Job information and saved-job data are stored locally on this device. Photos and uploaded documents may also be stored locally on the device. Evaluators are responsible for following their company’s policies for client, facility, permit, test-plan, field, and other confidential information. Use non-confidential or test data when required by company policy.</p></div><div class="card"><div class="eyebrow">LEGAL</div><h2>Ownership & Use</h2><p class="muted"><strong>© 2026 Stack Test Pro. All rights reserved.</strong></p><p class="muted">This software, its original source code, interface, graphics, and original written content are proprietary. Unauthorized copying, redistribution, resale, modification for redistribution, or representation of this software as another party’s work is prohibited.</p><p class="muted">Stack Test Pro is a planning and field calculation aid. It is not a substitute for applicable regulatory requirements, approved test protocols, permits, calibrations, or company QA/QC procedures. The applicable EPA method, regulation, approved test plan, permit, calibrations, and company QA/QC requirements control.</p></div>
+      <div class="card"><div class="eyebrow">EVALUATION</div><h2>Evaluation Beta</h2><p class="muted"><strong>This prerelease build is provided solely for evaluation and testing.</strong></p><p class="muted">It may not be redistributed, resold, copied for distribution, modified for redistribution, or represented as another party’s work. Evaluation access does not grant ownership of Stack Test Pro or its source code.</p></div><div class="card"><div class="eyebrow">DATA & PRIVACY</div><h2>Local Data Notice</h2><p class="muted">Job information is stored locally on this device for offline use. When cloud sync is enabled, the active job workspace, field-method data, shared notes, crew assignments, and crew time are stored in the Stack Test Pro cloud database for assigned users. Photos and uploaded permits/test plans are stored locally for offline use and, when connected to a shared cloud job, are also stored in a private Stack Test Pro cloud file bucket restricted to assigned job members. Evaluators are responsible for following their company’s policies for client, facility, permit, test-plan, field, and other confidential information. Use non-confidential or test data when required by company policy.</p></div><div class="card"><div class="eyebrow">LEGAL</div><h2>Ownership & Use</h2><p class="muted"><strong>© 2026 Stack Test Pro. All rights reserved.</strong></p><p class="muted">This software, its original source code, interface, graphics, and original written content are proprietary. Unauthorized copying, redistribution, resale, modification for redistribution, or representation of this software as another party’s work is prohibited.</p><p class="muted">Stack Test Pro is a planning and field calculation aid. It is not a substitute for applicable regulatory requirements, approved test protocols, permits, calibrations, or company QA/QC procedures. The applicable EPA method, regulation, approved test plan, permit, calibrations, and company QA/QC requirements control.</p></div>
     </section>
   </main>
 
@@ -1158,9 +1349,324 @@ body.theme-light .drawer-close,body.theme-light .secondary,body.theme-light .sel
     </div>
   </div>
 
-  <footer>StackTest Pro v0.58 RC1 · External Evaluation Beta · Local/offline-first field workflow</footer>
+  <footer>StackTest Pro v0.73 RC2 · External Evaluation Beta · Crew Assignment Sync Fix + Remember Me + Method 5 nozzle planning</footer>
   <script>
 const $ = id => document.getElementById(id);
+
+// Storage wrapper: localStorage can be unavailable in file/preview contexts.
+// Fall back to in-memory storage so navigation and calculations never die.
+const stpStorage=(()=>{
+  try{
+    const s=window.localStorage;
+    const k="__stp_storage_test__";
+    s.setItem(k,"1");s.removeItem(k);
+    return s;
+  }catch(_e){
+    const mem=new Map();
+    return {
+      getItem:k=>mem.has(k)?mem.get(k):null,
+      setItem:(k,v)=>{mem.set(k,String(v));},
+      removeItem:k=>{mem.delete(k);},
+      clear:()=>mem.clear()
+    };
+  }
+})();
+
+// Stack Test Pro Cloud — Supabase authenticated shared-job foundation.
+// IMPORTANT: Cloud SDK loads asynchronously so cloud/network trouble can never block the field app UI.
+const STP_SUPABASE_SDK_URLS=[
+  "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4/dist/umd/supabase.min.js",
+  "https://unpkg.com/@supabase/supabase-js@2.112.4/dist/umd/supabase.min.js"
+];
+let cloudSdkPromise=null;
+function loadSupabaseLibrary(){
+  if(globalThis.supabase?.createClient)return Promise.resolve(true);
+  if(cloudSdkPromise)return cloudSdkPromise;
+  cloudSdkPromise=(async()=>{
+    for(const src of STP_SUPABASE_SDK_URLS){
+      const ok=await new Promise(resolve=>{
+        const tag=document.createElement("script");
+        let done=false;
+        const finish=value=>{if(done)return;done=true;clearTimeout(timer);tag.onload=null;tag.onerror=null;resolve(value);};
+        const timer=setTimeout(()=>{try{tag.remove()}catch{}finish(false);},7000);
+        tag.src=src;tag.async=true;tag.crossOrigin="anonymous";
+        tag.onload=()=>finish(!!globalThis.supabase?.createClient);
+        tag.onerror=()=>finish(false);
+        document.head.appendChild(tag);
+      });
+      if(ok)return true;
+    }
+    return false;
+  })();
+  return cloudSdkPromise;
+}
+const STP_SUPABASE_URL="https://sdtvdflyzncgakayvvak.supabase.co";
+const STP_SUPABASE_PUBLISHABLE_KEY="sb_publishable_FAUL6wQn3tuQX4rZAtRelg_8DVi2EZp";
+let cloudClient=null,cloudUser=null,cloudProfile=null,cloudSyncTimer=null,cloudSyncBusy=false,authGateBypassed=false,cloudAccessTimer=null,cloudAssignableProfiles=[],cloudJobChannel=null,cloudLastLocalEditAt=0,cloudApplyingRemote=false;
+const STP_OFFLINE_ENTITLEMENT_KEY="stp_offline_entitlement_v1";
+const STP_OFFLINE_GRACE_MS=72*60*60*1000; // 72 hours after last verified active cloud profile
+const STP_REMEMBER_ME_KEY="stp_remember_me_v1";
+function rememberMeEnabled(){try{const raw=localStorage.getItem(STP_REMEMBER_ME_KEY);return raw==null?true:raw==="1"}catch(_e){return true}}
+function setRememberMePreference(enabled){
+  const on=enabled!==false;
+  try{localStorage.setItem(STP_REMEMBER_ME_KEY,on?"1":"0")}catch(_e){}
+  ["authGateRememberMe","cloudRememberMe"].forEach(id=>{const el=$(id);if(el)el.checked=on});
+  return on;
+}
+const stpAuthStorage={
+  getItem:key=>{try{return rememberMeEnabled()?localStorage.getItem(key):sessionStorage.getItem(key)}catch(_e){return null}},
+  setItem:(key,value)=>{try{if(rememberMeEnabled()){localStorage.setItem(key,value);sessionStorage.removeItem(key)}else{sessionStorage.setItem(key,value);localStorage.removeItem(key)}}catch(_e){}},
+  removeItem:key=>{try{localStorage.removeItem(key)}catch(_e){}try{sessionStorage.removeItem(key)}catch(_e){}}
+};
+function syncRememberMeUi(){setRememberMePreference(rememberMeEnabled())}
+function cloudReady(){return !!(cloudClient&&cloudUser&&cloudProfile&&cloudProfile.active!==false)}
+function readOfflineEntitlement(){try{const raw=stpStorage.getItem(STP_OFFLINE_ENTITLEMENT_KEY);if(!raw)return null;const ent=JSON.parse(raw);if(!ent||!ent.user_id||!ent.verified_at||ent.active!==true)return null;if(Date.now()-Number(ent.verified_at)>STP_OFFLINE_GRACE_MS)return null;return ent}catch(_e){return null}}
+function cacheOfflineEntitlement(profile){if(!profile?.id||profile.active!==true)return;stpStorage.setItem(STP_OFFLINE_ENTITLEMENT_KEY,JSON.stringify({user_id:profile.id,display_name:profile.display_name||"User",role:profile.role||"technician",active:true,verified_at:Date.now()}));refreshOfflineButton()}
+function clearOfflineEntitlement(){stpStorage.removeItem(STP_OFFLINE_ENTITLEMENT_KEY);refreshOfflineButton()}
+function refreshOfflineButton(){const btn=$("authGateOfflineBtn");if(!btn)return;const ent=readOfflineEntitlement();btn.disabled=!ent;btn.title=ent?`Verified for ${ent.display_name||"this account"} within the last 72 hours`:'Sign in online once to verify an active account before using offline mode';}
+function cloudRoleLabel(r){return ({owner_admin:"Owner / Admin",project_manager:"Project Manager",team_lead:"Team Lead",technician:"Technician"})[r]||r||"User"}
+function cloudRoleToCrewRole(r){return r==="team_lead"?"Team Lead":r==="technician"?"Technician":"Project Manager"}
+function cloudCurrentCrewActor(){return cloudReady()?{id:cloudUser.id,name:cloudProfile.display_name||"User",role:cloudRoleToCrewRole(cloudProfile.role),cloudRole:cloudProfile.role}:null}
+function cloudIsOwnerAdmin(){return cloudProfile?.role==="owner_admin"}
+function cloudCanCreateJob(){return !!cloudProfile&&["owner_admin","project_manager","team_lead"].includes(cloudProfile.role)}
+function cloudCanAssignJobLead(){return !!cloudProfile&&["owner_admin","project_manager"].includes(cloudProfile.role)}
+function cloudCanManageCurrentJob(){return !!cloudProfile&&(["owner_admin","project_manager"].includes(cloudProfile.role)||(cloudProfile.role==="team_lead"&&cloudUser?.id&&cloudUser.id===state?.jobLeadId))}
+function cloudCanSyncWorkspace(){return !!(cloudReady()&&state?.cloudJobId)}
+function cloudSetMessage(text,kind="neutral"){const el=$("cloudMessage");if(el){el.className=`status ${kind}`;el.textContent=text}const gate=$("authGateMessage");if(gate){gate.className=`status ${kind} auth-gate-status`;gate.textContent=text}}
+function setAuthGateState(text,kind="neutral"){if($("authGateCloudState"))$("authGateCloudState").textContent=text;const dot=$("authGateDot");if(dot){dot.classList.toggle("online",kind==="ok");dot.classList.toggle("warn",kind==="warn")}}
+function showAuthGate(force=false){if(authGateBypassed&&!force)return;const gate=$("authGate");if(gate)gate.classList.remove("hidden");document.body.classList.add("auth-locked")}
+function hideAuthGate(){const gate=$("authGate");if(gate)gate.classList.add("hidden");document.body.classList.remove("auth-locked")}
+function authInputs(source="settings"){const gate=source==="gate";return {email:$(gate?"authGateEmail":"cloudEmail")?.value.trim()||"",password:$(gate?"authGatePassword":"cloudPassword")?.value||"",display_name:$(gate?"authGateDisplayName":"cloudDisplayName")?.value.trim()||"",remember_me:$(gate?"authGateRememberMe":"cloudRememberMe")?.checked!==false}}
+async function ensureCloudClient(){if(cloudClient)return true;setAuthGateState("Connecting to Stack Test Pro Cloud…");const sdkOk=await loadSupabaseLibrary();if(!sdkOk||!globalThis.supabase?.createClient){setAuthGateState("Cloud unavailable — verified offline access may still be available.","warn");cloudSetMessage("Cloud connection unavailable. A recently verified active account can still work offline.","warn");refreshOfflineButton();return false;}cloudClient=globalThis.supabase.createClient(STP_SUPABASE_URL,STP_SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:stpAuthStorage}});return true}
+function renderCloudUi(){
+  const signed=cloudReady(),connected=!!state?.cloudJobId;
+  $("cloudAuthForm")?.classList.toggle("hidden",signed);$("cloudSignInBtn")?.classList.toggle("hidden",signed);$("cloudSignUpBtn")?.classList.toggle("hidden",signed);$("cloudSignOutBtn")?.classList.toggle("hidden",!signed);$("cloudControls")?.classList.toggle("hidden",!signed);$("cloudUserAdmin")?.classList.toggle("hidden",!(signed&&cloudIsOwnerAdmin()));
+  if($("cloudStatus"))$("cloudStatus").textContent=signed?`${cloudProfile.display_name}`:"Not signed in";if($("cloudProfileBadge"))$("cloudProfileBadge").textContent=signed?cloudRoleLabel(cloudProfile.role):"Local mode";$("cloudDot")?.classList.toggle("online",signed);if($("cloudJobIdText"))$("cloudJobIdText").textContent=state?.cloudJobId||"Not connected";if($("saveStatus"))$("saveStatus").textContent=connected&&signed?"Saved locally + cloud":"Saved locally";
+  const cstat=$("clientCloudJobStatus"),cbtn=$("clientCloudConnectBtn");
+  if(cstat){cstat.className=`status ${connected&&signed?'ok':signed?'neutral':'neutral'}`;cstat.textContent=connected&&signed?`Shared cloud job connected · ${cloudProfile.display_name} (${cloudRoleLabel(cloudProfile.role)})`:signed?cloudCanCreateJob()?`Signed in as ${cloudProfile.display_name}. Create the shared job when the job details are ready.`:`Signed in as ${cloudProfile.display_name}. Technicians can open assigned jobs but cannot create a new shared job.`:"Sign in to create or open a shared cloud job.";}
+  if(cbtn){cbtn.textContent=connected?"Sync Shared Job":"Create Shared Cloud Job";cbtn.disabled=!signed||(!connected&&!cloudCanCreateJob());}
+  if($("cloudSyncNowBtn"))$("cloudSyncNowBtn").disabled=!connected;
+  if($("clientOpenCrewBtn"))$("clientOpenCrewBtn").disabled=!connected;
+  if(signed){hideAuthGate();setAuthGateState(`Signed in as ${cloudProfile.display_name}.`,"ok")}refreshOfflineButton();renderCrewTime();
+}
+async function initCloud(){try{authGateBypassed=false;showAuthGate(true);renderCloudUi();cloudSetMessage("Checking for an existing signed-in session…");const ready=await ensureCloudClient();if(!ready)return;const {data:{session},error}=await cloudClient.auth.getSession();if(error)throw error;if(session?.user){await cloudLoadProfile(session.user)}else{setAuthGateState("Ready to sign in.");cloudSetMessage("Sign in or create an account to enable shared jobs.")}cloudClient.auth.onAuthStateChange((_event,session)=>{setTimeout(()=>{if(session?.user){cloudLoadProfile(session.user).catch(e=>{console.error("Cloud profile load after auth change failed",e);setAuthGateState("Signed in, but profile loading failed.","warn");cloudSetMessage(`Signed in, but profile loading failed: ${e?.message||e}`,"warn")})}else{cloudUser=null;cloudProfile=null;renderCloudUi();showAuthGate();setAuthGateState("Ready to sign in.");cloudSetMessage("Signed out. Sign in again or continue offline.")}},0)});renderCloudUi();}catch(e){console.error(e);setAuthGateState("Cloud initialization failed — verified offline access may be available.","warn");cloudSetMessage("Cloud initialization failed. A recently verified active account can still work offline.","warn");refreshOfflineButton()}}
+async function invalidateCloudAccess(message="This Stack Test Pro account has been disabled by the Owner/Admin."){
+  clearInterval(cloudAccessTimer);cloudAccessTimer=null;cloudProfile=null;clearOfflineEntitlement();authGateBypassed=false;
+  try{if(cloudClient)await cloudClient.auth.signOut({scope:"local"})}catch(_e){}
+  cloudUser=null;renderCloudUi();showAuthGate(true);setAuthGateState("Account disabled.","warn");cloudSetMessage(message,"warn");
+}
+async function cloudValidateAccess(){
+  if(!cloudClient||!cloudUser)return false;
+  try{
+    const {data,error}=await cloudClient.from("profiles").select("id,display_name,role,active").eq("id",cloudUser.id).maybeSingle();
+    if(error){return false;} // Network trouble should not erase a valid offline entitlement.
+    if(!data||data.active===false){await invalidateCloudAccess();return false;}
+    cloudProfile=data;cacheOfflineEntitlement(data);renderCloudUi();return true;
+  }catch(_e){return false;}
+}
+function startCloudAccessWatch(){clearInterval(cloudAccessTimer);cloudAccessTimer=setInterval(()=>cloudValidateAccess(),5*60*1000);}
+async function cloudLoadProfile(user){
+  cloudUser=user;
+  const {data,error}=await cloudClient.from("profiles").select("id,display_name,role,active").eq("id",user.id).maybeSingle();
+  if(error){cloudProfile=null;cloudSetMessage(`Profile check unavailable: ${error.message}`,"warn");showAuthGate();renderCloudUi();refreshOfflineButton();return;}
+  if(!data||data.active===false){await invalidateCloudAccess();return;}
+  cloudProfile=data;cacheOfflineEntitlement(data);startCloudAccessWatch();renderCloudUi();cloudSetMessage(`Signed in as ${data.display_name} · ${cloudRoleLabel(data.role)}.`,"ok");hideAuthGate();await cloudRefreshJobs();if(cloudIsOwnerAdmin())await cloudRefreshUsers();if(state?.cloudJobId)await cloudPullJob(state.cloudJobId,false);
+}
+async function cloudSignIn(source="settings"){const ready=await ensureCloudClient();if(!ready)return;const {email,password,remember_me}=authInputs(source);if(!email||!password)return cloudSetMessage("Enter your email and password.","warn");setRememberMePreference(remember_me);cloudSetMessage(remember_me?"Signing in and remembering this device…":"Signing in for this session…");setAuthGateState("Signing in…");try{const {data,error}=await cloudClient.auth.signInWithPassword({email,password});if(error){setAuthGateState("Sign in failed.","warn");cloudSetMessage(error.message,"warn");return}if(data?.user){setAuthGateState("Login accepted. Loading profile…");setTimeout(()=>{if(!cloudReady()||cloudUser?.id!==data.user.id)cloudLoadProfile(data.user).catch(e=>{console.error("Direct post-login profile load failed",e);setAuthGateState("Signed in, but profile loading failed.","warn");cloudSetMessage(`Signed in, but profile loading failed: ${e?.message||e}`,"warn")})},0)}}catch(e){console.error(e);setAuthGateState("Sign in failed.","warn");cloudSetMessage(e?.message||"Sign in failed.","warn")}}
+async function cloudSignUp(source="settings"){const ready=await ensureCloudClient();if(!ready)return;const {email,password,display_name:enteredName}=authInputs(source),display_name=enteredName||email?.split("@")[0]||"User";if(!email||password.length<6)return cloudSetMessage("Enter an email and a password of at least 6 characters.","warn");cloudSetMessage("Creating account…");setAuthGateState("Creating account…");const {data,error}=await cloudClient.auth.signUp({email,password,options:{data:{display_name},emailRedirectTo:location.origin&&location.origin!=="null"?location.origin+location.pathname:undefined}});if(error){setAuthGateState("Account creation failed.","warn");return cloudSetMessage(error.message,"warn")}if(data.session){cloudSetMessage("Account created and signed in.","ok")}else{setAuthGateState("Check your email to confirm the account.","ok");cloudSetMessage("Account created. Check your email to confirm it, then sign in.","ok")}}
+async function cloudSignOut(){authGateBypassed=false;clearInterval(cloudAccessTimer);cloudAccessTimer=null;clearOfflineEntitlement();if(cloudClient&&cloudJobChannel){try{await cloudClient.removeChannel(cloudJobChannel)}catch(_e){}cloudJobChannel=null;}if(cloudClient)await cloudClient.auth.signOut();showAuthGate(true);}
+function continueOffline(){const ent=readOfflineEntitlement();if(!ent){authGateBypassed=false;showAuthGate(true);setAuthGateState("Online verification required.","warn");cloudSetMessage("Offline access requires an active account verified online within the last 72 hours.","warn");refreshOfflineButton();return;}authGateBypassed=true;hideAuthGate();setAuthGateState(`Offline mode · ${ent.display_name||"Verified account"}`);cloudSetMessage(`Offline mode for ${ent.display_name||"verified account"}. Reconnect within 72 hours to renew access.`,"neutral");}
+function cloudWorkspaceSnapshot(source=collect()){const d=JSON.parse(JSON.stringify(source||{}));["cloudJobId","cloudUpdatedAt","crewRoster","crewTimeEntries","jobNotes","jobLeadId","crewActingId"].forEach(k=>delete d[k]);return d;}
+function cloudJobPayload(){const c=collect(),f=c.fields||{};return {job_number:f.jobId||null,client:f.client||null,facility:f.facility||null,unit_stack:f.unit||null,test_date:f.testDate||null,status:c.completedAt?"archived":"active",job_data:cloudWorkspaceSnapshot(c)}}
+async function cloudConnectActiveJob(){
+  if(!cloudReady())return cloudSetMessage("Sign in first.","warn");
+  if(state.cloudJobId)return cloudSyncNow();
+  if(!cloudCanCreateJob())return cloudSetMessage("Technician accounts cannot create shared jobs. Ask a Project Manager, Team Lead, or Owner/Admin to create and assign the job.","warn");
+  const payload=cloudJobPayload();payload.created_by=cloudUser.id;payload.job_lead_user_id=cloudUser.id;
+  const {data,error}=await cloudClient.from("jobs").insert(payload).select("id").single();if(error)return cloudSetMessage(`Could not create cloud job: ${error.message}`,"warn");
+  state.cloudJobId=data.id;state=collect();state.cloudJobId=data.id;stpStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);
+  renderCloudUi();addJobActivity("Shared cloud job created",jobDisplayName(state),cloudUser.id);save();await cloudPushSharedNotes();await cloudRefreshCrew(false);await cloudPushCrewTime();await cloudSubscribeCurrentJob();await cloudRefreshJobs();cloudSetMessage("Shared cloud job created. Shared field data is now connected; assign the field crew next.","ok");
+}
+async function cloudSyncNow(){
+  if(!cloudReady()||!state?.cloudJobId)return cloudSetMessage("Connect the active job to cloud first.","warn");
+  if(cloudSyncBusy||cloudApplyingRemote)return;
+  cloudSyncBusy=true;
+  try{
+    const snapshot=collect();
+    state=snapshot;
+    const workspace=cloudWorkspaceSnapshot(snapshot);
+    const canManageJob=cloudCanManageCurrentJob();
+    if(canManageJob){
+      const header=cloudJobPayload();delete header.job_data;
+      const {error}=await cloudClient.from("jobs").update(header).eq("id",state.cloudJobId);
+      if(error)throw error;
+    }
+    const {data:syncData,error:syncError}=await cloudClient.functions.invoke("sync-job-state",{body:{job_id:state.cloudJobId,job_data:workspace}});
+    if(syncError||syncData?.error)throw new Error(syncData?.error||syncError?.message||String(syncError));
+    state.cloudUpdatedAt=syncData?.updated_at||state.cloudUpdatedAt||null;
+    await cloudPushSharedNotes();
+    await cloudPushCrewTime();
+    stpStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);
+    cloudSetMessage(`Shared field data synced ${new Date().toLocaleTimeString()}.`,"ok");renderCloudUi();
+  }catch(e){cloudSetMessage(`Cloud sync failed: ${e.message||e}`,"warn")}finally{cloudSyncBusy=false}
+}
+function queueCloudSync(){if(!cloudReady()||!state?.cloudJobId||cloudApplyingRemote)return;clearTimeout(cloudSyncTimer);cloudSyncTimer=setTimeout(()=>cloudSyncNow(),1400)}
+async function cloudPushSharedNotes(){if(!cloudReady()||!state?.cloudJobId)return;const notes=state.jobNotes||[];for(const n of notes){if(n.cloudSynced||!n.text)continue;const {data,error}=await cloudClient.from("job_notes").insert({job_id:state.cloudJobId,author_user_id:cloudUser.id,note:n.text}).select("id,created_at").single();if(!error&&data){n.id=data.id;n.createdAt=data.created_at;n.authorId=cloudUser.id;n.authorName=cloudProfile.display_name;n.cloudSynced=true;}}stpStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);await cloudPullNotes();}
+async function cloudPullNotes(){if(!cloudReady()||!state?.cloudJobId)return;const {data,error}=await cloudClient.from("job_notes").select("id,note,author_user_id,created_at,profiles:author_user_id(display_name)").eq("job_id",state.cloudJobId).order("created_at",{ascending:true});if(error)return;state.jobNotes=(data||[]).map(n=>({id:n.id,text:n.note,authorId:n.author_user_id,authorName:n.profiles?.display_name||"Crew Member",createdAt:n.created_at,cloudSynced:true}));stpStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);renderJobNotes();renderCrewJobBriefing();}
+function cloudIsoToLocalInput(v){if(!v)return "";const d=new Date(v);if(!Number.isFinite(d.getTime()))return "";const z=n=>String(n).padStart(2,"0");return `${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}T${z(d.getHours())}:${z(d.getMinutes())}`;}
+async function cloudPushCrewTime(){
+  if(!cloudReady()||!state?.cloudJobId)return;
+  state.crewTimeEntries||=[];
+  for(const e of state.crewTimeEntries){
+    if(e.cloudSynced||!e.memberId||!e.start||!e.end)continue;
+    const payload={job_id:state.cloudJobId,user_id:e.memberId,category:e.category||"Onsite",start_time:new Date(e.start).toISOString(),end_time:new Date(e.end).toISOString(),notes:e.notes||null};
+    let data,error;
+    if(e.cloudExisting){({data,error}=await cloudClient.from("crew_time").update(payload).eq("id",e.id).select("id,created_at,updated_at,hours").single());}
+    else{payload.id=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(e.id||""))?e.id:crypto.randomUUID();payload.created_by=cloudUser.id;({data,error}=await cloudClient.from("crew_time").insert(payload).select("id,created_at,updated_at,hours").single());}
+    if(error){cloudSetMessage(`Crew time sync failed: ${error.message}`,"warn");continue;}
+    e.id=data.id;e.hours=Number(data.hours??e.hours??0);e.createdAt=data.created_at||e.createdAt;e.updatedAt=data.updated_at||e.updatedAt;e.cloudSynced=true;e.cloudExisting=true;
+  }
+  stpStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);
+  await cloudPullCrewTime();
+}
+async function cloudPullCrewTime(){
+  if(!cloudReady()||!state?.cloudJobId)return;
+  const {data,error}=await cloudClient.from("crew_time").select("id,user_id,category,start_time,end_time,hours,notes,created_by,created_at,updated_at").eq("job_id",state.cloudJobId).order("start_time",{ascending:true});
+  if(error)return;
+  state.crewTimeEntries=(data||[]).map(e=>({id:e.id,memberId:e.user_id,category:e.category,start:cloudIsoToLocalInput(e.start_time),end:cloudIsoToLocalInput(e.end_time),hours:Number(e.hours||0),notes:e.notes||"",updatedAt:e.updated_at,updatedBy:e.created_by,createdAt:e.created_at,cloudSynced:true,cloudExisting:true}));
+  stpStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);renderCrewTime();
+}
+async function cloudDeleteCrewTime(id){if(!cloudReady()||!state?.cloudJobId||!id)return true;const {error}=await cloudClient.from("crew_time").delete().eq("id",id);if(error){cloudSetMessage(`Crew time delete failed: ${error.message}`,"warn");return false;}return true;}
+
+async function cloudRefreshUsers(){
+  if(!cloudReady()||!cloudIsOwnerAdmin())return;
+  const box=$("cloudUsersList");if(!box)return;
+  box.innerHTML='<div class="status neutral">Loading users…</div>';
+  const {data,error}=await cloudClient.from("profiles").select("id,display_name,role,active,created_at").order("created_at",{ascending:true});
+  if(error){box.innerHTML=`<div class="status warn">${escapeHtml(error.message)}</div>`;return;}
+  box.innerHTML=(data||[]).map(u=>{
+    const isOwner=u.role==="owner_admin";
+    const roleControl=isOwner?'<span class="pill">Owner / Admin</span>':`<select data-cloud-role="${u.id}" ${u.active?'':'disabled'}><option value="technician" ${u.role==="technician"?'selected':''}>Technician</option><option value="team_lead" ${u.role==="team_lead"?'selected':''}>Team Lead</option><option value="project_manager" ${u.role==="project_manager"?'selected':''}>Project Manager</option></select>`;
+    const accessControl=isOwner?'<span class="cloud-small">Protected owner account</span>':u.active?`<button class="secondary" type="button" data-cloud-disable="${u.id}">Disable Account</button>`:`<button class="primary" type="button" data-cloud-reactivate="${u.id}">Reactivate Account</button>`;
+    const status=u.active?'ACCESS ENABLED':'ACCOUNT DISABLED';
+    return `<div class="cloud-job-row"><b>${escapeHtml(u.display_name||'User')}</b><span class="cloud-small">${escapeHtml(cloudRoleLabel(u.role))} · ${status}</span><div class="grid two top-gap"><label>Role${roleControl}</label><div><div class="cloud-small" style="margin-bottom:6px">${u.active?'Can sign in and use assigned cloud data.':'Sign-in and cloud access are blocked; history is preserved.'}</div>${accessControl}</div></div></div>`;
+  }).join('')||'<div class="status neutral">No user profiles found.</div>';
+  box.querySelectorAll('[data-cloud-role]').forEach(sel=>sel.addEventListener('change',()=>cloudUpdateUser(sel.dataset.cloudRole,{role:sel.value})));
+  box.querySelectorAll('[data-cloud-disable]').forEach(btn=>btn.addEventListener('click',()=>cloudManageUserAccess(btn.dataset.cloudDisable,'disable')));
+  box.querySelectorAll('[data-cloud-reactivate]').forEach(btn=>btn.addEventListener('click',()=>cloudManageUserAccess(btn.dataset.cloudReactivate,'reactivate')));
+}
+async function cloudUpdateUser(id,patch){
+  if(!cloudReady()||!cloudIsOwnerAdmin())return cloudSetMessage('Owner/Admin access required.', 'warn');
+  if(id===cloudUser.id&&('role' in patch||patch.active===false)){await cloudRefreshUsers();return cloudSetMessage('Your Owner/Admin account is protected from this control.', 'warn');}
+  const {error}=await cloudClient.from('profiles').update(patch).eq('id',id);
+  if(error){cloudSetMessage(`User update failed: ${error.message}`,'warn');await cloudRefreshUsers();return;}
+  cloudSetMessage('User role updated.','ok');await cloudRefreshUsers();
+}
+async function cloudManageUserAccess(id,action){
+  if(!cloudReady()||!cloudIsOwnerAdmin())return cloudSetMessage('Owner/Admin access required.','warn');
+  if(id===cloudUser.id)return cloudSetMessage('Your Owner/Admin account is protected.','warn');
+  const disabling=action==='disable';
+  const prompt=disabling?'Disable this account? They will lose cloud access and will not be able to renew offline access. Their historical job/time/note records will be kept.':'Reactivate this account? They will be allowed to sign in and use assigned jobs again.';
+  if(!confirm(prompt))return;
+  cloudSetMessage(disabling?'Disabling account…':'Reactivating account…');
+  const {data,error}=await cloudClient.functions.invoke('manage-user-access',{body:{target_user_id:id,action}});
+  if(error||data?.error){cloudSetMessage(`Account access update failed: ${data?.error||error?.message||error}`,'warn');await cloudRefreshUsers();return;}
+  cloudSetMessage(data?.message||`Account ${disabling?'disabled':'reactivated'}.`,'ok');await cloudRefreshUsers();
+}
+
+function renderCloudCrewPicker(){
+  const userSel=$("cloudCrewUserSelect"),leadSel=$("cloudCrewAssignLead"),searchEl=$("cloudCrewSearch");if(!userSel||!leadSel)return;
+  const assigned=new Set((state.crewRoster||[]).map(m=>m.id));
+  const query=(searchEl?.value||"").trim().toLowerCase();
+  const roleRank={team_lead:0,technician:1,project_manager:2,owner_admin:3};
+  const choices=(cloudAssignableProfiles||[])
+    .filter(p=>p.active!==false&&!assigned.has(p.id))
+    .filter(p=>!query||`${p.display_name||''} ${cloudRoleLabel(p.role)}`.toLowerCase().includes(query))
+    .sort((a,b)=>(roleRank[a.role]??9)-(roleRank[b.role]??9)||String(a.display_name||'').localeCompare(String(b.display_name||'')));
+  const current=userSel.value;
+  const groups=[
+    ["Team Leads",choices.filter(p=>p.role==="team_lead")],
+    ["Technicians",choices.filter(p=>p.role==="technician")],
+    ["Management",choices.filter(p=>p.role==="project_manager"||p.role==="owner_admin")]
+  ];
+  userSel.innerHTML='<option value="">'+(choices.length?'Choose active user':'No matching active users')+'</option>'+groups.filter(([,items])=>items.length).map(([label,items])=>`<optgroup label="${label}">${items.map(p=>`<option value="${p.id}">${escapeHtml(p.display_name||'User')} — ${escapeHtml(cloudRoleLabel(p.role))}</option>`).join('')}</optgroup>`).join('');
+  if(choices.some(p=>p.id===current))userSel.value=current;
+  leadSel.innerHTML='<option value="">None / assign later</option>'+(state.crewRoster||[]).filter(m=>m.role==="Team Lead"||m.role==="Project Manager").sort((a,b)=>String(a.name||'').localeCompare(String(b.name||''))).map(m=>`<option value="${m.id}">${escapeHtml(m.name)} — ${m.role}</option>`).join('');
+}
+async function cloudRefreshCrew(showMessage=true){
+  if(!cloudReady()||!state?.cloudJobId){renderCloudCrewPicker();return;}
+  if(showMessage&&$("cloudCrewStatus")){ $("cloudCrewStatus").className="status neutral";$("cloudCrewStatus").textContent="Refreshing shared crew…"; }
+  const [{data:job,error:jobError},{data:members,error:memberError},{data:profiles,error:profilesError}]=await Promise.all([
+    cloudClient.from("jobs").select("id,job_lead_user_id").eq("id",state.cloudJobId).single(),
+    cloudClient.from("job_members").select("user_id,assigned_team_lead_id").eq("job_id",state.cloudJobId),
+    cloudClient.from("profiles").select("id,display_name,role,active").eq("active",true).order("display_name",{ascending:true})
+  ]);
+  const error=jobError||memberError||profilesError;if(error){if($("cloudCrewStatus")){ $("cloudCrewStatus").className="status warn";$("cloudCrewStatus").textContent=`Crew refresh failed: ${error.message}`;}return;}
+  cloudAssignableProfiles=profiles||[];const byId=new Map((profiles||[]).map(p=>[p.id,p]));
+  state.crewRoster=(members||[]).map(m=>{const p=byId.get(m.user_id);return {id:m.user_id,name:p?.display_name||"Assigned User",role:cloudRoleToCrewRole(p?.role),cloudRole:p?.role||"technician",reportsTo:m.assigned_team_lead_id||"",cloudMember:true};});
+  state.jobLeadId=job?.job_lead_user_id||"";if(state.jobLeadId&&!state.crewRoster.some(m=>m.id===state.jobLeadId)){const p=byId.get(state.jobLeadId);if(p)state.crewRoster.push({id:p.id,name:p.display_name||"Job Lead",role:cloudRoleToCrewRole(p.role),cloudRole:p.role,reportsTo:"",cloudMember:true});}
+  state.crewActingId="";stpStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);renderCrewTime();renderCloudCrewPicker();renderCrewJobBriefing();
+  if(showMessage&&$("cloudCrewStatus")){ $("cloudCrewStatus").className="status ok";$("cloudCrewStatus").textContent=`Shared crew refreshed · ${state.crewRoster.length} assigned.`; }
+}
+async function cloudAddCrewMember(){
+  if(!cloudReady()||!state?.cloudJobId)return cloudSetMessage("Create or open a shared cloud job first.","warn");if(!crewCanManageRoster())return cloudSetMessage("Only a Project Manager or the current Job Lead can change this crew.","warn");
+  const id=$("cloudCrewUserSelect")?.value||"",reportsTo=$("cloudCrewAssignLead")?.value||"",p=(cloudAssignableProfiles||[]).find(x=>x.id===id);if(!p)return cloudSetMessage("Choose a company user to assign.","warn");
+  const assignedLead=p.role==="technician"?(reportsTo||null):null;const {error}=await cloudClient.from("job_members").upsert({job_id:state.cloudJobId,user_id:id,assigned_team_lead_id:assignedLead,added_by:cloudUser.id},{onConflict:"job_id,user_id"});if(error)return cloudSetMessage(`Crew assignment failed: ${error.message}`,"warn");
+  addJobActivity("Crew member assigned",`${p.display_name||'User'} — ${cloudRoleLabel(p.role)}`,cloudUser.id);await cloudRefreshCrew(false);cloudSetMessage(`${p.display_name||'User'} assigned to this shared job.`,"ok");
+}
+async function cloudSetJobLead(id){
+  if(!cloudReady()||!state?.cloudJobId)return;if(!cloudCanAssignJobLead())return cloudSetMessage("Only the Owner/Admin or a Project Manager can designate the Job Lead on a shared job.","warn");
+  if(id){const m=crewMember(id);if(!m||m.role==="Technician")return cloudSetMessage("Choose a Project Manager or Team Lead as Job Lead.","warn");}
+  const {error}=await cloudClient.from("jobs").update({job_lead_user_id:id||null}).eq("id",state.cloudJobId);if(error)return cloudSetMessage(`Job Lead update failed: ${error.message}`,"warn");state.jobLeadId=id||"";const lead=crewMember(state.jobLeadId);addJobActivity("Job Lead updated",lead?`${lead.name} — ${lead.role}`:"Job Lead cleared",cloudUser.id);await cloudRefreshCrew(false);cloudSetMessage(lead?`${lead.name} is now Job Lead.`:"Job Lead cleared.","ok");
+}
+async function cloudUpdateCrewAssignment(id,reportsTo){
+  if(!cloudReady()||!state?.cloudJobId||!crewCanManageRoster())return;const m=crewMember(id);if(!m||m.role!=="Technician")return;const {error}=await cloudClient.from("job_members").update({assigned_team_lead_id:reportsTo||null}).eq("job_id",state.cloudJobId).eq("user_id",id);if(error)return cloudSetMessage(`Team Lead assignment failed: ${error.message}`,"warn");addJobActivity("Crew assignment updated",`${m.name} → ${crewMember(reportsTo)?.name||'Unassigned'}`,cloudUser.id);await cloudRefreshCrew(false);cloudSetMessage("Technician assignment updated.","ok");
+}
+async function cloudRemoveCrewMember(id){
+  if(!cloudReady()||!state?.cloudJobId||!crewCanManageRoster())return;if(id===state.jobLeadId)return cloudSetMessage("Assign a different Job Lead before removing the current Job Lead.","warn");const m=crewMember(id);if(!m)return;if(id===cloudUser.id&&!cloudCanAssignJobLead())return cloudSetMessage("A Job Lead cannot remove their own cloud assignment. Ask a Project Manager to change the roster.","warn");if(!confirm(`Remove ${m.name} from this shared job? Their historical job records are preserved.`))return;
+  const {error}=await cloudClient.from("job_members").delete().eq("job_id",state.cloudJobId).eq("user_id",id);if(error)return cloudSetMessage(`Remove crew member failed: ${error.message}`,"warn");addJobActivity("Crew member removed",`${m.name} — ${m.role}`,cloudUser.id);await cloudRefreshCrew(false);cloudSetMessage(`${m.name} removed from the shared job.`,"ok");
+}
+async function cloudSubscribeCurrentJob(){
+  if(!cloudClient||!state?.cloudJobId)return;
+  if(cloudJobChannel){try{await cloudClient.removeChannel(cloudJobChannel)}catch(_e){}cloudJobChannel=null;}
+  const jobId=state.cloudJobId;
+  cloudJobChannel=cloudClient.channel(`stp-job-${jobId}`)
+    .on("postgres_changes",{event:"*",schema:"public",table:"job_notes",filter:`job_id=eq.${jobId}`},()=>{if(!cloudApplyingRemote)cloudPullNotes();})
+    .on("postgres_changes",{event:"*",schema:"public",table:"crew_time",filter:`job_id=eq.${jobId}`},()=>{if(!cloudApplyingRemote)cloudPullCrewTime();})
+    .on("postgres_changes",{event:"*",schema:"public",table:"job_files",filter:`job_id=eq.${jobId}`},()=>{if(!cloudApplyingRemote){renderJobPhotos();renderJobDocuments();}})
+    .on("postgres_changes",{event:"*",schema:"public",table:"job_members",filter:`job_id=eq.${jobId}`},()=>{if(!cloudApplyingRemote)cloudRefreshCrew(false);})
+    .on("postgres_changes",{event:"UPDATE",schema:"public",table:"jobs",filter:`id=eq.${jobId}`},payload=>{
+      if(cloudApplyingRemote||cloudSyncBusy||Date.now()-cloudLastLocalEditAt<3500)return;
+      const remoteUpdated=payload?.new?.updated_at||null;if(remoteUpdated&&remoteUpdated===state.cloudUpdatedAt)return;
+      setTimeout(()=>{if(!cloudSyncBusy&&Date.now()-cloudLastLocalEditAt>=3500)cloudPullJob(jobId,false);},450);
+    }).subscribe();
+}
+
+async function cloudRefreshJobs(){if(!cloudReady())return;const {data,error}=await cloudClient.from("jobs").select("id,job_number,client,facility,unit_stack,test_date,status,updated_at").order("updated_at",{ascending:false}).limit(30);const box=$("cloudJobsList");if(!box)return;if(error){box.innerHTML=`<div class="status warn">${escapeHtml(error.message)}</div>`;return;}box.innerHTML=(data||[]).length?(data||[]).map(j=>`<div class="cloud-job-row"><b>${escapeHtml(j.job_number||[j.client,j.facility,j.unit_stack].filter(Boolean).join(" · ")||"Untitled Job")}</b><span class="cloud-small">${escapeHtml([j.client,j.facility,j.unit_stack].filter(Boolean).join(" • "))} · ${escapeHtml(j.status)}</span><div class="top-gap"><button class="secondary" type="button" data-cloud-open="${j.id}">Open Cloud Job</button></div></div>`).join(""):'<div class="status neutral">No cloud jobs assigned yet.</div>';box.querySelectorAll("[data-cloud-open]").forEach(b=>b.addEventListener("click",()=>cloudPullJob(b.dataset.cloudOpen,true)));}
+async function cloudPullJob(id,reload=true){
+  if(!cloudReady())return;
+  const {data,error}=await cloudClient.from("jobs").select("*").eq("id",id).single();
+  if(error)return cloudSetMessage(error.message,"warn");
+  const incoming=data.job_data&&typeof data.job_data==="object"?data.job_data:{};
+  incoming.cloudJobId=data.id;incoming.cloudUpdatedAt=data.updated_at||null;
+  incoming.fields={...(incoming.fields||{}),jobId:data.job_number||incoming.fields?.jobId||"",client:data.client||incoming.fields?.client||"",facility:data.facility||incoming.fields?.facility||"",unit:data.unit_stack||incoming.fields?.unit||"",testDate:data.test_date||incoming.fields?.testDate||""};
+  incoming._jobKey=incoming._jobKey||makeJobKey();
+  cloudApplyingRemote=true;
+  try{
+    state=incoming;normalizeState();
+    await cloudRefreshCrew(false);
+    await cloudPullNotes();
+    await cloudPullCrewTime();
+    await cloudSyncPendingJobFiles();
+    persistStateLocal();
+    if(reload){location.reload();return;}
+    renderStateToUi(false);renderCloudUi();
+    cloudSetMessage(`Shared job refreshed ${new Date().toLocaleTimeString()}.`,"ok");
+    await cloudSubscribeCurrentJob();
+  }finally{cloudApplyingRemote=false;}
+}
+async function cloudDeleteNote(id){if(!cloudReady()||!state?.cloudJobId||!id)return false;const {error}=await cloudClient.from("job_notes").delete().eq("id",id);if(error){cloudSetMessage(error.message,"warn");return false;}return true;}
+
 
 const METHOD_CATALOG = [
   ["1","Sample and Velocity Traverses","calc","m1"],
@@ -1496,7 +2002,8 @@ function renderMethodWorkspace(){
 }
 function renderQuickMethods(){
   const bar=$("fieldQuickBar");if(!bar)return;
-  const buttons=selectedMethods.map(code=>{
+  const fieldCodes=selectedMethods.filter(c=>c!=="1");
+  const buttons=fieldCodes.map(code=>{
     const info=methodInfo(code);if(!info)return "";
     const [c,,,target]=info;
     return `<button class="quick" data-method-code="${c}" data-quick-target="${target}">${c==="RATA"?"P75 RATA":c==="RATA60"?"P60 RATA":c==="CGA"?"CGA":"M"+c}</button>`;
@@ -1510,7 +2017,14 @@ function fieldProgressState(code){
   state.fieldProgress[code] ||= {data:false,qa:false,review:false,attention:false};
   return state.fieldProgress[code];
 }
+function method1SetupComplete(){
+  const shape=prepText("1:shape")||"Circular", A=prepVal("1:A"), B=prepVal("1:B");
+  if(A==null||B==null) return false;
+  if(shape==="Rectangular") return prepVal("1:width")>0 && prepVal("1:depth")>0;
+  return prepVal("1:diameter")>0 || (prepVal("1:farwall")!=null && prepVal("1:nipple")!=null && prepVal("1:farwall")>=prepVal("1:nipple"));
+}
 function fieldMethodStatus(code){
+  if(code==="1") return method1SetupComplete()?{key:"complete",label:"Setup Complete"}:{key:"ready",label:"Setup / Prelims"};
   const p=fieldProgressState(code);
   if(p.attention) return {key:"attention",label:"Needs Attention"};
   const done=[p.data,p.qa,p.review].filter(Boolean).length;
@@ -1520,13 +2034,14 @@ function fieldMethodStatus(code){
 }
 function renderFieldProgress(){
   const wrap=$("fieldProgressBoard"); if(!wrap)return;
-  if(!selectedMethods.length){
-    wrap.innerHTML='<div class="status neutral">Select methods in Mobilize to begin field progress tracking.</div>';
+  const fieldCodes=selectedMethods.filter(c=>c!=="1");
+  if(!fieldCodes.length){
+    wrap.innerHTML=selectedMethods.includes("1")?'<div class="status neutral">Method 1 measurements are completed in Setup / Prelims. No run-data methods are selected for Field Testing.</div>':'<div class="status neutral">Select methods in Mobilize to begin field progress tracking.</div>';
     if($("fieldJobStatus")){ $("fieldJobStatus").className="pill"; $("fieldJobStatus").textContent="Ready"; }
-    if($("fieldStatus")) $("fieldStatus").textContent="0 methods selected";
+    if($("fieldStatus")) $("fieldStatus").textContent="0 field-test methods selected";
     return;
   }
-  wrap.innerHTML=selectedMethods.map(code=>{
+  wrap.innerHTML=fieldCodes.map(code=>{
     const info=methodInfo(code), title=info?info[1]:`Method ${code}`;
     const p=fieldProgressState(code), st=fieldMethodStatus(code);
     return `<div class="field-progress-row" data-progress-row="${code}">
@@ -1544,13 +2059,13 @@ function renderFieldProgress(){
     fieldProgressState(code)[key]=e.target.checked;
     save(); renderFieldProgress(); renderFieldMethods(false);
   }));
-  const statuses=selectedMethods.map(fieldMethodStatus);
+  const statuses=fieldCodes.map(fieldMethodStatus);
   const complete=statuses.filter(x=>x.key==="complete").length;
   const attention=statuses.filter(x=>x.key==="attention").length;
   const progress=statuses.filter(x=>x.key==="progress").length;
-  let job=attention?{key:"attention",label:"Needs Attention"}:complete===selectedMethods.length?{key:"complete",label:"Complete"}:progress||complete?{key:"progress",label:"In Progress"}:{key:"ready",label:"Ready"};
+  let job=attention?{key:"attention",label:"Needs Attention"}:complete===fieldCodes.length?{key:"complete",label:"Complete"}:progress||complete?{key:"progress",label:"In Progress"}:{key:"ready",label:"Ready"};
   if($("fieldJobStatus")){ $("fieldJobStatus").className=`pill status-${job.key}`; $("fieldJobStatus").textContent=job.label; }
-  if($("fieldStatus")) $("fieldStatus").textContent=`${complete} / ${selectedMethods.length} methods complete`;
+  if($("fieldStatus")) $("fieldStatus").textContent=`${complete} / ${fieldCodes.length} field-test methods complete`;
 }
 function markFieldProgressByTarget(target,key=true){
   const code=selectedMethods.find(c=>methodInfo(c)?.[3]===target);
@@ -1564,12 +2079,14 @@ function renderFieldMethods(openFirst=false){
   if(m19Btn) m19Btn.style.display=selectedMethods.includes("19")?"":"none";
   if($("m19PrepHint")) $("m19PrepHint").style.display=selectedMethods.includes("19")?"":"none";
   if(!tabs)return;
-  if(!selectedMethods.length){
-    tabs.innerHTML='<span class="muted">Select methods in Mobilize to build Field Testing.</span>';
+  const fieldCodes=selectedMethods.filter(c=>c!=="1");
+  if(!fieldCodes.length){
+    tabs.innerHTML=selectedMethods.includes("1")?'<span class="muted">Method 1 stack measurements are under Setup / Prelims. Field Testing is reserved for run data.</span>':'<span class="muted">Select methods in Mobilize to build Field Testing.</span>';
     document.querySelectorAll(".field-module").forEach(x=>x.classList.remove("active"));
+    renderFieldProgress();
     return;
   }
-  tabs.innerHTML=selectedMethods.map(code=>{
+  tabs.innerHTML=fieldCodes.map(code=>{
     const info=methodInfo(code); if(!info)return "";
     const [c,title,status]=info;
     const st=fieldMethodStatus(c);
@@ -1583,14 +2100,18 @@ function renderFieldMethods(openFirst=false){
   renderFieldProgress();
   if(openFirst){
     const active=document.querySelector(".field-module.active");
-    const activeCode=active && selectedMethods.find(c=>methodInfo(c)?.[3]===active.id);
-    const firstCode=activeCode||selectedMethods[0];
+    const activeCode=active && fieldCodes.find(c=>methodInfo(c)?.[3]===active.id);
+    const firstCode=activeCode||fieldCodes[0];
     const first=tabs.querySelector(`[data-field-method="${firstCode}"]`)||tabs.querySelector("[data-field-method]");
     if(first){first.classList.add("active");openSelectedMethod(first.dataset.fieldMethod);}
   }
 }
 
 function openSelectedMethod(code){
+  if(code==="1"){
+    if(typeof navigateStackTest==="function") navigateStackTest("prelims");
+    return;
+  }
   const info=methodInfo(code);if(!info)return;
   const [c,title,status,target]=info;
   document.querySelectorAll(".field-module").forEach(x=>x.classList.remove("active"));
@@ -1655,7 +2176,7 @@ function applyMode(){
 }
 function setMode(mode){
   appMode=mode;
-  localStorage.setItem("stacktestpro_mode",mode);
+  stpStorage.setItem("stacktestpro_mode",mode);
   applyMode();
 }
 function activateFieldModule(id){
@@ -1846,15 +2367,18 @@ const fields=["jobId","client","facility","unit","testDate","methods","stackShap
 "m25Span","m25Cert","m25Resp","m25PreZero","m25PostZero","m25PreUp","m25PostUp","m25Sample",
 "m320RunId","m320CellTemp","m320LineTemp","m320Dew","m320CtsExp","m320CtsMeas","m320SpikeExp","m320SpikeMeas",
 "actualDscfm","actualBws","actualVelocity","actualTemp","m19Basis","testerM19Basis","clientM19Basis","testerM19Moisture","clientM19Moisture","testerNox","clientNox","testerO2","clientO2","testerCo2M19","clientCo2M19","fuel","customFd","fcFactor",
-"permitLimit","clientReported","testerLbHr","heatInput","m1TraverseType","m1Orientation","m1Shape","m1FarWall","m1DuctDepthIn","m1ReadingsPerPoint","m1Diameter","m1Width","m1Depth","m1Upstream","m1Downstream","m1Ports","m1Nipple","m3aO2","m3aCo2","m3aBws","prepJobId","prepClient","prepFacility","prepUnit","prepDate","prepPm","permitRef","operatingCondition","prepFuel","requiredRuns","requiredRunTime","permitRequirement","protocolNotes","jpStackShape","jpDiameter","jpWidth","jpDepth","jpTemp","jpVelocity","jpAcfm","jpDscfm","jpBws","jpO2","jpCo2","jpBaro"];
+"permitLimit","clientReported","testerLbHr","heatInput","m1TraverseType","m1Orientation","m1Shape","m1FarWall","m1DuctDepthIn","m1ReadingsPerPoint","m1Diameter","m1Width","m1Depth","m1WidthIn","m1DepthIn","m1Upstream","m1Downstream","m1Ports","m1Nipple","m3aO2","m3aCo2","m3aBws","prepJobId","prepClient","prepFacility","prepUnit","prepDate","prepPm","permitRef","operatingCondition","prepFuel","requiredRuns","requiredRunTime","permitRequirement","protocolNotes","jpSourcePreset","jpStackShape","jpDiameter","jpWidth","jpDepth","jpTemp","jpVelocity","jpAcfm","jpDscfm","jpBws","jpO2","jpCo2","jpBaro","jpNozzleSet"];
 
 fields.push("rata75Monitor","rata75RaLimit","rata75AbsLimit","rata75RmSpan","rata75LowType","rata75LowCert","rata75LowDirect","rata75UpCert","rata75UpDirect","rata60Ps","rata60Standard","rata60CustomRa","rata60CustomAbs");
 let state={equipment:{},post:{},runs:[],jobRuns:[]};
 const STORAGE="stacktestpro_v01_job";
 const JOB_LIBRARY_STORAGE="stacktestpro_jobs_v1";
+function makeJobKey(){return (globalThis.crypto?.randomUUID?.()||(`job_${Date.now()}_${Math.random().toString(36).slice(2,10)}`));}
+const STP_JOB_FILES_BUCKET="job-files";
 const PHOTO_DB="stacktestpro_job_photos_v1",PHOTO_STORE="photos";
 const DOCUMENT_DB="stacktestpro_job_documents_v1",DOCUMENT_STORE="documents";
 let jobPhotoUrls=[];
+
 function photoDb(){return new Promise((resolve,reject)=>{const req=indexedDB.open(PHOTO_DB,1);req.onupgradeneeded=()=>{const db=req.result;if(!db.objectStoreNames.contains(PHOTO_STORE)){const store=db.createObjectStore(PHOTO_STORE,{keyPath:"id"});store.createIndex("jobKey","jobKey")}};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)})}
 async function photosForJob(jobKey){const db=await photoDb();return new Promise((resolve,reject)=>{const tx=db.transaction(PHOTO_STORE,"readonly"),req=tx.objectStore(PHOTO_STORE).index("jobKey").getAll(jobKey);req.onsuccess=()=>resolve(req.result.sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt))));req.onerror=()=>reject(req.error);tx.oncomplete=()=>db.close()})}
 async function putJobPhoto(photo){const db=await photoDb();return new Promise((resolve,reject)=>{const tx=db.transaction(PHOTO_STORE,"readwrite");tx.objectStore(PHOTO_STORE).put(photo);tx.oncomplete=()=>{db.close();resolve()};tx.onerror=()=>reject(tx.error)})}
@@ -1865,6 +2389,92 @@ async function documentsForJob(jobKey){const db=await documentDb();return new Pr
 async function putJobDocument(doc){const db=await documentDb();return new Promise((resolve,reject)=>{const tx=db.transaction(DOCUMENT_STORE,"readwrite");tx.objectStore(DOCUMENT_STORE).put(doc);tx.oncomplete=()=>{db.close();resolve()};tx.onerror=()=>reject(tx.error)})}
 async function removeJobDocumentRecord(id){const db=await documentDb();return new Promise((resolve,reject)=>{const tx=db.transaction(DOCUMENT_STORE,"readwrite");tx.objectStore(DOCUMENT_STORE).delete(id);tx.oncomplete=()=>{db.close();resolve()};tx.onerror=()=>reject(tx.error)})}
 async function removeDocumentsForJob(jobKey){const docs=await documentsForJob(jobKey);await Promise.all(docs.map(d=>removeJobDocumentRecord(d.id)))}
+
+function cloudFileCanDelete(rec){return !!(cloudReady()&&rec&&(rec.uploaded_by===cloudUser?.id||cloudCanManageCurrentJob()))}
+function storageFileExt(name,type,kind){if(kind==="photo")return "jpg";const raw=String(name||"").split(".").pop().toLowerCase().replace(/[^a-z0-9]/g,"");if(raw&&raw.length<=10)return raw;if(type==="application/pdf")return "pdf";return "bin";}
+function storagePathForFile(kind,id,name,type){return `${state.cloudJobId}/${kind}s/${id}.${storageFileExt(name,type,kind)}`;}
+async function cloudListJobFiles(kind){if(!cloudReady()||!state?.cloudJobId)return [];let q=cloudClient.from("job_files").select("id,job_id,uploaded_by,file_kind,storage_path,original_name,caption,mime_type,size_bytes,created_at,updated_at").eq("job_id",state.cloudJobId).order("created_at",{ascending:false});if(kind)q=q.eq("file_kind",kind);const {data,error}=await q;if(error)throw error;return data||[];}
+async function cloudFileSignedUrl(path,seconds=3600){const {data,error}=await cloudClient.storage.from(STP_JOB_FILES_BUCKET).createSignedUrl(path,seconds);if(error)throw error;return data?.signedUrl||"";}
+async function cloudUploadLocalFile(kind,rec){
+  if(!cloudReady()||!state?.cloudJobId||!rec?.blob)return null;
+  const id=rec.id||crypto.randomUUID();
+  const existing=await cloudClient.from("job_files").select("id,storage_path,created_at").eq("id",id).maybeSingle();
+  if(existing.data){return {...rec,id,cloudSynced:true,cloudJobId:state.cloudJobId,cloudStoragePath:existing.data.storage_path,createdAt:existing.data.created_at||rec.createdAt};}
+  const name=rec.name||(kind==="photo"?"job-photo.jpg":"job-file.bin"),type=rec.type||rec.blob.type||"application/octet-stream",path=storagePathForFile(kind,id,name,type);
+  const {error:uploadError}=await cloudClient.storage.from(STP_JOB_FILES_BUCKET).upload(path,rec.blob,{contentType:type,cacheControl:"3600",upsert:false});
+  if(uploadError)throw uploadError;
+  const metadata={id,job_id:state.cloudJobId,uploaded_by:cloudUser.id,file_kind:kind,storage_path:path,original_name:name,caption:rec.caption||null,mime_type:type,size_bytes:Number(rec.size||rec.blob.size||0)};
+  const {data,error}=await cloudClient.from("job_files").insert(metadata).select("id,storage_path,created_at").single();
+  if(error){try{await cloudClient.storage.from(STP_JOB_FILES_BUCKET).remove([path])}catch(_e){}throw error;}
+  addJobActivity(kind==="photo"?"Job photo uploaded":"Job document uploaded",rec.caption||name,cloudUser.id);
+  return {...rec,id:data.id,cloudSynced:true,cloudJobId:state.cloudJobId,cloudStoragePath:data.storage_path,createdAt:data.created_at||rec.createdAt};
+}
+async function cloudSyncPendingJobFiles(){
+  if(!cloudReady()||!state?.cloudJobId||!state?._jobKey)return;
+  try{
+    const photos=await photosForJob(state._jobKey);for(const rec of photos.filter(x=>!x.cloudSynced&&(x.cloudJobId===state.cloudJobId||!x.cloudJobId))){try{await putJobPhoto(await cloudUploadLocalFile("photo",{...rec,cloudJobId:state.cloudJobId}))}catch(_e){}}
+    const docs=await documentsForJob(state._jobKey);for(const rec of docs.filter(x=>!x.cloudSynced&&(x.cloudJobId===state.cloudJobId||!x.cloudJobId))){try{await putJobDocument(await cloudUploadLocalFile("document",{...rec,cloudJobId:state.cloudJobId}))}catch(_e){}}
+  }catch(_e){}
+}
+async function cloudDeleteJobFile(rec){
+  if(!cloudFileCanDelete(rec))return false;
+  const {error:storageError}=await cloudClient.storage.from(STP_JOB_FILES_BUCKET).remove([rec.storage_path]);
+  if(storageError){cloudSetMessage(`File delete failed: ${storageError.message}`,"warn");return false;}
+  const {error}=await cloudClient.from("job_files").delete().eq("id",rec.id);
+  if(error){cloudSetMessage(`File record cleanup failed: ${error.message}`,"warn");return false;}
+  addJobActivity(rec.file_kind==="photo"?"Job photo deleted":"Job document deleted",rec.caption||rec.original_name||"Shared file",cloudUser.id);save();return true;
+}
+async function cloudDownloadAndCacheDocument(rec){
+  const local=(await documentsForJob(state._jobKey)).find(x=>x.id===rec.id&&x.blob);if(local)return local;
+  const {data,error}=await cloudClient.storage.from(STP_JOB_FILES_BUCKET).download(rec.storage_path);if(error)throw error;
+  const doc={id:rec.id,jobKey:state._jobKey,cloudJobId:state.cloudJobId,cloudSynced:true,cloudStoragePath:rec.storage_path,name:rec.original_name,caption:rec.caption||"",type:rec.mime_type||data.type||"application/octet-stream",size:Number(rec.size_bytes||data.size||0),createdAt:rec.created_at,blob:data};
+  await putJobDocument(doc);return doc;
+}
+
+async function renderJobPhotos(){
+  const wrap=$("jobPhotoGrid");if(!wrap)return;jobPhotoUrls.forEach(URL.revokeObjectURL);jobPhotoUrls=[];
+  try{
+    const local=await photosForJob(state._jobKey),localById=new Map(local.map(x=>[x.id,x]));let cloud=[];
+    if(cloudReady()&&state?.cloudJobId){await cloudSyncPendingJobFiles();cloud=await cloudListJobFiles("photo");}
+    const cloudIds=new Set(cloud.map(x=>x.id)),items=[];
+    for(const rec of cloud){const cached=localById.get(rec.id);let url="";if(cached?.blob){url=URL.createObjectURL(cached.blob);jobPhotoUrls.push(url);}else{try{url=await cloudFileSignedUrl(rec.storage_path)}catch(_e){}}
+      items.push({id:rec.id,caption:rec.caption||"Job photo",createdAt:rec.created_at,url,cloud:true,rec});}
+    for(const rec of local.filter(x=>!cloudIds.has(x.id))){const url=URL.createObjectURL(rec.blob);jobPhotoUrls.push(url);items.push({id:rec.id,caption:rec.caption||"Job photo",createdAt:rec.createdAt,url,cloud:false,rec});}
+    items.sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt)));
+    wrap.innerHTML=items.length?items.map(p=>`<div class="job-photo">${p.url?`<img src="${escapeHtml(p.url)}" alt="${escapeHtml(p.caption)}">`:'<div class="status warn">Photo preview unavailable.</div>'}<div class="job-photo-head"><div><div class="job-photo-caption">${escapeHtml(p.caption)}</div><small>${escapeHtml(formatSavedAt(p.createdAt))} · ${p.cloud?'Cloud shared':'Local / pending cloud'}</small></div>${p.cloud?(cloudFileCanDelete(p.rec)?`<button type="button" data-delete-cloud-photo="${p.id}">Delete</button>`:''):`<button type="button" data-delete-photo="${p.id}">Delete</button>`}</div></div>`).join(""):'<div class="status neutral">No photos saved for this job yet.</div>';
+    wrap.querySelectorAll("[data-delete-cloud-photo]").forEach(btn=>btn.addEventListener("click",async()=>{const rec=cloud.find(x=>x.id===btn.dataset.deleteCloudPhoto);if(!rec||!confirm("Delete this shared job photo?"))return;if(await cloudDeleteJobFile(rec)){try{await removeJobPhotoRecord(rec.id)}catch(_e){}await renderJobPhotos();}}));
+    wrap.querySelectorAll("[data-delete-photo]").forEach(btn=>btn.addEventListener("click",async()=>{await removeJobPhotoRecord(btn.dataset.deletePhoto);renderJobPhotos()}));
+    if($("jobPhotoStatus")){ $("jobPhotoStatus").className="status neutral";$("jobPhotoStatus").textContent=cloudReady()&&state?.cloudJobId?"Photos are shared with assigned job members and cached locally when available.":"Photos are saved locally until this job reconnects to cloud.";}
+  }catch(e){console.warn(e);if($("jobPhotoStatus")){ $("jobPhotoStatus").className="status bad";$("jobPhotoStatus").textContent="Photos could not be opened. Local copies remain on this device when available.";}}
+}
+async function addJobPhoto(file){
+  if(!file)return;const status=$("jobPhotoStatus");if(status){status.className="status warn";status.textContent="Saving photo locally…";}
+  try{const blob=await resizeJobPhoto(file),id=crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random();let rec={id,jobKey:state._jobKey,cloudJobId:state.cloudJobId||"",cloudSynced:false,name:file.name||"job-photo.jpg",caption:$("jobPhotoCaption")?.value.trim()||"",type:"image/jpeg",size:blob.size,createdAt:new Date().toISOString(),blob};await putJobPhoto(rec);
+    if(cloudReady()&&state?.cloudJobId){try{rec=await cloudUploadLocalFile("photo",rec);await putJobPhoto(rec);if(status){status.className="status ok";status.textContent="Photo saved locally + shared to cloud.";}}catch(e){console.warn(e);if(status){status.className="status warn";status.textContent="Photo saved locally. Cloud upload is pending and will retry when connected.";}}}else if(status){status.className="status ok";status.textContent="Photo saved locally. It will sync when this shared job reconnects.";}
+    if(cloudReady()&&state?.cloudJobId&&rec.cloudSynced)save();if($("jobPhotoCaption"))$("jobPhotoCaption").value="";if($("jobPhotoInput"))$("jobPhotoInput").value="";await renderJobPhotos();
+  }catch(e){console.warn(e);if(status){status.className="status bad";status.textContent="That photo could not be saved. Try a different image.";}}
+}
+function formatFileSize(bytes){if(!Number.isFinite(bytes))return "";if(bytes<1024)return `${bytes} B`;if(bytes<1048576)return `${(bytes/1024).toFixed(1)} KB`;return `${(bytes/1048576).toFixed(1)} MB`}
+async function renderJobDocuments(){
+  const wrap=$("jobDocumentList");if(!wrap)return;
+  try{const local=await documentsForJob(state._jobKey),localById=new Map(local.map(x=>[x.id,x]));let cloud=[];if(cloudReady()&&state?.cloudJobId){await cloudSyncPendingJobFiles();cloud=await cloudListJobFiles("document");}const cloudIds=new Set(cloud.map(x=>x.id)),items=[];
+    for(const rec of cloud)items.push({id:rec.id,name:rec.original_name,caption:rec.caption||"",size:Number(rec.size_bytes||0),createdAt:rec.created_at,cloud:true,rec,cached:localById.has(rec.id)});
+    for(const rec of local.filter(x=>!cloudIds.has(x.id)))items.push({id:rec.id,name:rec.name,caption:rec.caption||"",size:Number(rec.size||0),createdAt:rec.createdAt,cloud:false,rec,cached:true});items.sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt)));
+    wrap.innerHTML=items.length?items.map(d=>`<div class="job-document"><div class="job-document-info"><div class="job-document-name">${escapeHtml(d.caption||d.name)}</div><small>${escapeHtml(d.name)} • ${escapeHtml(formatFileSize(d.size))} • ${escapeHtml(formatSavedAt(d.createdAt))} · ${d.cloud?(d.cached?'Cloud shared · cached':'Cloud shared'):'Local / pending cloud'}</small></div><div class="job-document-actions"><button type="button" data-open-document="${d.id}">Open</button>${d.cloud?(cloudFileCanDelete(d.rec)?`<button type="button" data-delete-cloud-document="${d.id}">Delete</button>`:''):`<button type="button" data-delete-document="${d.id}">Delete</button>`}</div></div>`).join(""):'<div class="status neutral">No permits or test plans saved for this job yet.</div>';
+    wrap.querySelectorAll("[data-open-document]").forEach(btn=>btn.addEventListener("click",async()=>{const item=items.find(x=>x.id===btn.dataset.openDocument);if(!item)return;try{let doc;if(item.cloud)doc=await cloudDownloadAndCacheDocument(item.rec);else doc=item.rec;if(!doc?.blob)return;const url=URL.createObjectURL(doc.blob),a=document.createElement("a");a.href=url;a.target="_blank";a.rel="noopener";a.download=doc.name;a.click();setTimeout(()=>URL.revokeObjectURL(url),3000);renderJobDocuments();}catch(e){console.warn(e);if($("jobDocumentStatus")){ $("jobDocumentStatus").className="status warn";$("jobDocumentStatus").textContent="That cloud document could not be downloaded. Reconnect and try again.";}}}));
+    wrap.querySelectorAll("[data-delete-cloud-document]").forEach(btn=>btn.addEventListener("click",async()=>{const rec=cloud.find(x=>x.id===btn.dataset.deleteCloudDocument);if(!rec||!confirm("Delete this shared job document?"))return;if(await cloudDeleteJobFile(rec)){try{await removeJobDocumentRecord(rec.id)}catch(_e){}await renderJobDocuments();}}));
+    wrap.querySelectorAll("[data-delete-document]").forEach(btn=>btn.addEventListener("click",async()=>{await removeJobDocumentRecord(btn.dataset.deleteDocument);renderJobDocuments()}));
+    if($("jobDocumentStatus")){ $("jobDocumentStatus").className="status neutral";$("jobDocumentStatus").textContent=cloudReady()&&state?.cloudJobId?"Documents are private to assigned job members. Opened files are cached on this device.":"Documents are saved locally until this job reconnects to cloud.";}
+  }catch(e){console.warn(e);if($("jobDocumentStatus")){ $("jobDocumentStatus").className="status bad";$("jobDocumentStatus").textContent="Documents could not be opened. Local copies remain on this device when available.";}}
+}
+async function addJobDocument(file){
+  if(!file)return;const status=$("jobDocumentStatus");if(status){status.className="status warn";status.textContent="Saving document locally…";}
+  if(file.size>20*1024*1024){if(status){status.className="status bad";status.textContent="File is larger than the 20 MB job-file limit.";}return;}
+  try{const id=crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random();let rec={id,jobKey:state._jobKey,cloudJobId:state.cloudJobId||"",cloudSynced:false,name:file.name,caption:$("jobDocumentCaption")?.value.trim()||"",type:file.type||"application/octet-stream",size:file.size,createdAt:new Date().toISOString(),blob:file};await putJobDocument(rec);
+    if(cloudReady()&&state?.cloudJobId){try{rec=await cloudUploadLocalFile("document",rec);await putJobDocument(rec);if(status){status.className="status ok";status.textContent="Document saved locally + shared to cloud.";}}catch(e){console.warn(e);if(status){status.className="status warn";status.textContent="Document saved locally. Cloud upload is pending and will retry when connected.";}}}else if(status){status.className="status ok";status.textContent="Document saved locally. It will sync when this shared job reconnects.";}
+    if(cloudReady()&&state?.cloudJobId&&rec.cloudSynced)save();if($("jobDocumentCaption"))$("jobDocumentCaption").value="";if($("jobDocumentInput"))$("jobDocumentInput").value="";await renderJobDocuments();
+  }catch(e){console.warn(e);if(status){status.className="status bad";status.textContent="That document could not be saved. Check device storage and try again.";}}
+}
 async function resizeJobPhoto(file){const bitmap=await createImageBitmap(file),max=1600,scale=Math.min(1,max/Math.max(bitmap.width,bitmap.height)),canvas=document.createElement("canvas");canvas.width=Math.round(bitmap.width*scale);canvas.height=Math.round(bitmap.height*scale);canvas.getContext("2d").drawImage(bitmap,0,0,canvas.width,canvas.height);bitmap.close();return new Promise(resolve=>canvas.toBlob(resolve,"image/jpeg",.82))}
 function renderSpecialEquipment(){const wrap=$("specialEquipmentList");if(!wrap)return;const items=state.specialEquipment||[];wrap.innerHTML=items.length?items.map((item,i)=>`<div class="custom-item"><span>${escapeHtml(item)}</span><button type="button" data-remove-special="${i}">Remove</button></div>`).join(""):'<div class="status neutral">No unit-specific equipment added yet.</div>';wrap.querySelectorAll("[data-remove-special]").forEach(btn=>btn.addEventListener("click",()=>{const item=state.specialEquipment[Number(btn.dataset.removeSpecial)];state.specialEquipment.splice(Number(btn.dataset.removeSpecial),1);if(item){delete state.equipment[item];delete state.prepEquipment?.[item]}save();renderSpecialEquipment();buildEquipment();renderMasterEquipment()}))}
 function addSpecialEquipment(){const input=$("specialEquipmentInput"),item=input?.value.trim();if(!item)return;state.specialEquipment||=[];if(!state.specialEquipment.some(x=>x.toLowerCase()===item.toLowerCase()))state.specialEquipment.push(item);input.value="";save();renderSpecialEquipment();buildEquipment();renderMasterEquipment()}
@@ -1872,29 +2482,29 @@ function monorailEquipmentText(m){const length=m.length==="Verify"?"Length: Veri
 function hasIsokineticJob(){return selectedMethods.some(code=>ISOKINETIC_METHOD_CODES.has(code))}
 function renderMonorails(){const card=$("monorailCard"),wrap=$("monorailList");if(!card||!wrap)return;card.classList.toggle("hidden",!hasIsokineticJob());const items=state.monorails||[];wrap.innerHTML=items.length?items.map((m,i)=>`<div class="monorail-item"><span><strong>${escapeHtml(String(m.quantity))} × ${escapeHtml(m.style)}</strong> — ${escapeHtml(m.length==="Verify"?"Length: Verify at Shop":`${m.length} ft`)}</span><button class="danger" type="button" data-remove-monorail="${i}">Remove</button></div>`).join(""):'<div class="status neutral">Monorails are required for this isokinetic job. Add the style, length, and quantity, or select Verify at Shop.</div>';wrap.querySelectorAll("[data-remove-monorail]").forEach(btn=>btn.addEventListener("click",()=>{const m=state.monorails[Number(btn.dataset.removeMonorail)];if(m){const item=monorailEquipmentText(m);delete state.equipment[item];delete state.prepEquipment?.[item]}state.monorails.splice(Number(btn.dataset.removeMonorail),1);save();renderMonorails();buildEquipment();renderMasterEquipment()}))}
 function addMonorail(){const style=$("monorailStyle")?.value,length=$("monorailLength")?.value,quantity=Math.max(1,Math.floor(Number($("monorailQuantity")?.value)||1));if(!style||!length)return;state.monorails||=[];const existing=state.monorails.find(m=>m.style===style&&m.length===length);if(existing)existing.quantity+=quantity;else state.monorails.push({style,length,quantity});if($("monorailQuantity"))$("monorailQuantity").value="1";save();renderMonorails();buildEquipment();renderMasterEquipment()}
-function renderJobNotes(){const wrap=$("jobNoteList");if(!wrap)return;const notes=state.jobNotes||[];wrap.innerHTML=notes.length?notes.slice().reverse().map(n=>`<div class="job-note"><div class="job-note-head"><small>${escapeHtml(formatSavedAt(n.createdAt))}</small><button type="button" data-delete-note="${n.id}">Delete</button></div><p>${escapeHtml(n.text)}</p></div>`).join(""):'<div class="status neutral">No job notes saved yet.</div>';wrap.querySelectorAll("[data-delete-note]").forEach(btn=>btn.addEventListener("click",()=>{state.jobNotes=state.jobNotes.filter(n=>n.id!==btn.dataset.deleteNote);save();renderJobNotes()}))}
-function addJobNote(){const input=$("jobNoteInput"),text=input?.value.trim();if(!text)return;state.jobNotes||=[];state.jobNotes.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random(),text,createdAt:new Date().toISOString()});input.value="";save();renderJobNotes()}
-async function renderJobPhotos(){const wrap=$("jobPhotoGrid");if(!wrap)return;jobPhotoUrls.forEach(URL.revokeObjectURL);jobPhotoUrls=[];try{const photos=await photosForJob(state._jobKey);wrap.innerHTML=photos.length?photos.map(p=>{const url=URL.createObjectURL(p.blob);jobPhotoUrls.push(url);return `<div class="job-photo"><img src="${url}" alt="${escapeHtml(p.caption||"Job photo")}"><div class="job-photo-head"><div><div class="job-photo-caption">${escapeHtml(p.caption||"Job photo")}</div><small>${escapeHtml(formatSavedAt(p.createdAt))}</small></div><button type="button" data-delete-photo="${p.id}">Delete</button></div></div>`}).join(""):'<div class="status neutral">No photos saved for this job yet.</div>';wrap.querySelectorAll("[data-delete-photo]").forEach(btn=>btn.addEventListener("click",async()=>{await removeJobPhotoRecord(btn.dataset.deletePhoto);renderJobPhotos()}))}catch{$("jobPhotoStatus").className="status bad";$("jobPhotoStatus").textContent="Photos could not be opened on this device."}}
-async function addJobPhoto(file){if(!file)return;const status=$("jobPhotoStatus");status.className="status warn";status.textContent="Saving photo…";try{const blob=await resizeJobPhoto(file);await putJobPhoto({id:crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random(),jobKey:state._jobKey,caption:$("jobPhotoCaption")?.value.trim()||"",createdAt:new Date().toISOString(),blob});if($("jobPhotoCaption"))$("jobPhotoCaption").value="";if($("jobPhotoInput"))$("jobPhotoInput").value="";status.className="status ok";status.textContent="Photo saved with this job on this device.";await renderJobPhotos()}catch{status.className="status bad";status.textContent="That photo could not be saved. Try a different image."}}
-function formatFileSize(bytes){if(!Number.isFinite(bytes))return "";if(bytes<1024)return `${bytes} B`;if(bytes<1048576)return `${(bytes/1024).toFixed(1)} KB`;return `${(bytes/1048576).toFixed(1)} MB`}
-async function renderJobDocuments(){const wrap=$("jobDocumentList");if(!wrap)return;try{const docs=await documentsForJob(state._jobKey);wrap.innerHTML=docs.length?docs.map(d=>`<div class="job-document"><div class="job-document-info"><div class="job-document-name">${escapeHtml(d.caption||d.name)}</div><small>${escapeHtml(d.name)} • ${escapeHtml(formatFileSize(d.size))} • ${escapeHtml(formatSavedAt(d.createdAt))}</small></div><div class="job-document-actions"><button type="button" data-open-document="${d.id}">Open</button><button type="button" data-delete-document="${d.id}">Delete</button></div></div>`).join(""):'<div class="status neutral">No permits or test plans saved for this job yet.</div>';wrap.querySelectorAll("[data-open-document]").forEach(btn=>btn.addEventListener("click",async()=>{const doc=(await documentsForJob(state._jobKey)).find(d=>d.id===btn.dataset.openDocument);if(!doc)return;const url=URL.createObjectURL(doc.blob);const a=document.createElement("a");a.href=url;a.target="_blank";a.rel="noopener";a.download=doc.name;a.click();setTimeout(()=>URL.revokeObjectURL(url),3000)}));wrap.querySelectorAll("[data-delete-document]").forEach(btn=>btn.addEventListener("click",async()=>{await removeJobDocumentRecord(btn.dataset.deleteDocument);renderJobDocuments()}))}catch{$("jobDocumentStatus").className="status bad";$("jobDocumentStatus").textContent="Documents could not be opened on this device."}}
-async function addJobDocument(file){if(!file)return;const status=$("jobDocumentStatus");status.className="status warn";status.textContent="Saving document…";try{await putJobDocument({id:crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random(),jobKey:state._jobKey,name:file.name,caption:$("jobDocumentCaption")?.value.trim()||"",type:file.type||"application/octet-stream",size:file.size,createdAt:new Date().toISOString(),blob:file});if($("jobDocumentCaption"))$("jobDocumentCaption").value="";if($("jobDocumentInput"))$("jobDocumentInput").value="";status.className="status ok";status.textContent="Document saved with this job on this device.";await renderJobDocuments()}catch{status.className="status bad";status.textContent="That document could not be saved. Check available device storage and try again."}}
-function makeJobKey(){return (globalThis.crypto?.randomUUID?.()||(`job_${Date.now()}_${Math.random().toString(36).slice(2,10)}`));}
-function getJobLibrary(){try{const x=JSON.parse(localStorage.getItem(JOB_LIBRARY_STORAGE)||"{}");return x&&typeof x==="object"&&!Array.isArray(x)?x:{}}catch{return {}}}
-function setJobLibrary(lib){localStorage.setItem(JOB_LIBRARY_STORAGE,JSON.stringify(lib));}
-function hasMeaningfulJob(data){const f=data?.fields||{};return !!([f.jobId,f.client,f.facility,f.unit,f.testDate].some(v=>String(v||"").trim()) || (data?.selectedMethods||[]).length || (data?.jobRuns||[]).length || (data?.runs||[]).length || (data?.monorails||[]).length || (data?.specialEquipment||[]).length || (data?.jobNotes||[]).length);}
+function jobActor(){const a=crewActing?.();return a||null;}
+function jobActorName(id){if(!id||id==="local-manager")return "Local Manager";return crewMember?.(id)?.name||"Crew Member";}
+function addJobActivity(action,detail="",actorId=null){state.jobActivity||=[];const id=actorId||(cloudReady()?cloudUser.id:(state.crewActingId||"local-manager"));const actorName=cloudReady()&&id===cloudUser?.id?(cloudProfile?.display_name||"Signed-in User"):jobActorName(id);state.jobActivity.push({id:globalThis.crypto?.randomUUID?.()||`act_${Date.now()}_${Math.random().toString(36).slice(2)}`,action,detail,actorId:id,actorName,createdAt:new Date().toISOString()});if(state.jobActivity.length>250)state.jobActivity=state.jobActivity.slice(-250);}
+function renderJobActivity(){const wrap=$("jobActivityList"),items=(state.jobActivity||[]).slice().reverse();if($("jobActivityCount"))$("jobActivityCount").textContent=`${items.length} ${items.length===1?'event':'events'}`;if(!wrap)return;wrap.innerHTML=items.length?items.slice(0,60).map(x=>`<div class="activity-row"><b>${escapeHtml(x.action)}</b><small>${escapeHtml(x.actorName||jobActorName(x.actorId))} · ${escapeHtml(formatSavedAt(x.createdAt))}${x.detail?`<br>${escapeHtml(x.detail)}`:''}</small></div>`).join(""):'<div class="status neutral">No shared job activity recorded yet.</div>';}
+function canDeleteJobNote(n){const a=jobActor();if(!a)return true;if(a.role==="Project Manager"||a.id===state.jobLeadId)return true;return !!n.authorId&&n.authorId===a.id;}
+function renderJobNotes(){const wrap=$("jobNoteList");if(!wrap)return;const notes=state.jobNotes||[];wrap.innerHTML=notes.length?notes.slice().reverse().map(n=>`<div class="job-note"><div class="job-note-head"><small><span class="shared-note-author">${escapeHtml(n.authorName||(n.authorId?jobActorName(n.authorId):'Saved before profiles'))}</span> · ${escapeHtml(formatSavedAt(n.createdAt))}</small>${canDeleteJobNote(n)?`<button type="button" data-delete-note="${n.id}">Delete</button>`:''}</div><p>${escapeHtml(n.text)}</p></div>`).join(""):'<div class="status neutral">No shared job notes yet.</div>';wrap.querySelectorAll("[data-delete-note]").forEach(btn=>btn.addEventListener("click",async()=>{const n=state.jobNotes.find(x=>x.id===btn.dataset.deleteNote);if(!n||!canDeleteJobNote(n))return;if(cloudReady()&&state.cloudJobId&&n.cloudSynced){const ok=await cloudDeleteNote(n.id);if(!ok)return;}state.jobNotes=state.jobNotes.filter(x=>x.id!==btn.dataset.deleteNote);addJobActivity("Shared note deleted",n.text.slice(0,120));save();renderJobNotes();renderJobActivity();renderCrewJobBriefing();}))}
+function saveSharedJobNoteText(text){text=String(text||"").trim();if(!text)return false;const a=jobActor(),authorId=a?.id||"local-manager",authorName=a?.name||"Local Manager";state.jobNotes||=[];state.jobNotes.push({id:globalThis.crypto?.randomUUID?.()||String(Date.now())+Math.random(),text,createdAt:new Date().toISOString(),authorId,authorName});addJobActivity("Shared note added",text.slice(0,120),authorId);save();renderJobNotes();renderJobActivity();renderCrewJobBriefing();return true;}
+function addJobNote(){const input=$("jobNoteInput");if(saveSharedJobNoteText(input?.value))input.value="";}
+function addCrewSharedNote(){const input=$("crewSharedNoteInput");if(saveSharedJobNoteText(input?.value))input.value="";}
+function renderCrewJobBriefing(){const box=$("crewJobBriefing"),notesBox=$("crewSharedNotes");if(box){const f=state.fields||{},lead=crewJobLead?.();const rows=[["Job Number",f.jobId||"Not entered"],["Client",f.client||"Not entered"],["Facility",f.facility||"Not entered"],["Unit / Stack",f.unit||"Not entered"],["Test Date",f.testDate||"Not entered"],["Job Lead",lead?`${lead.name} — ${lead.role}`:"Not assigned"]];box.innerHTML=rows.map(([a,b])=>`<div class="job-brief-item"><span>${escapeHtml(a)}</span><strong>${escapeHtml(b)}</strong></div>`).join("");}if(notesBox){const notes=(state.jobNotes||[]).slice().reverse();notesBox.innerHTML=notes.length?`<div class="top-gap"><div class="eyebrow">SHARED CREW NOTES</div>${notes.slice(0,12).map(n=>`<div class="crew-shared-note"><div class="crew-meta"><span class="shared-note-author">${escapeHtml(n.authorName||(n.authorId?jobActorName(n.authorId):'Saved before profiles'))}</span> · ${escapeHtml(formatSavedAt(n.createdAt))}</div><div style="margin-top:5px">${escapeHtml(n.text)}</div></div>`).join("")}</div>`:'<div class="status neutral top-gap">No shared notes have been added to this job yet.</div>';}}
+function hasMeaningfulJob(data){const f=data?.fields||{};return !!([f.jobId,f.client,f.facility,f.unit,f.testDate].some(v=>String(v||"").trim()) || (data?.selectedMethods||[]).length || (data?.jobRuns||[]).length || (data?.runs||[]).length || (data?.monorails||[]).length || (data?.specialEquipment||[]).length || (data?.jobNotes||[]).length || (data?.crewRoster||[]).length || (data?.crewTimeEntries||[]).length);}
 function jobDisplayName(data){const f=data?.fields||{};return String(f.jobId||"").trim() || [f.client,f.facility,f.unit].filter(Boolean).join(" · ") || "Untitled Job";}
 function upsertJobLibrary(data){if(!data||!hasMeaningfulJob(data))return;data._jobKey ||= makeJobKey();const lib=getJobLibrary();lib[data._jobKey]=JSON.parse(JSON.stringify(data));setJobLibrary(lib);}
 function formatSavedAt(v){if(!v)return "Not dated";try{return new Date(v).toLocaleString()}catch{return v}}
 function renderSavedJobs(){const box=$("savedJobsList");if(!box)return;const lib=getJobLibrary();const jobs=Object.values(lib).filter(hasMeaningfulJob).sort((a,b)=>String(b.savedAt||"").localeCompare(String(a.savedAt||"")));if($("savedJobCount"))$("savedJobCount").textContent=`${jobs.length} job${jobs.length===1?"":"s"}`;if(!jobs.length){box.innerHTML='<div class="saved-job-empty"><strong>No saved jobs yet.</strong><br>Your current job will appear here automatically after you enter job information or select a method.</div>';return;}box.innerHTML=jobs.map(j=>{const f=j.fields||{},active=j._jobKey&&j._jobKey===state?._jobKey;return `<div class="saved-job-card ${active?'active-job':''}"><div class="saved-job-head"><div><div class="saved-job-title">${escapeHtml(jobDisplayName(j))}</div><div class="saved-job-meta">${escapeHtml([f.client,f.facility,f.unit].filter(Boolean).join(' • ')||'No client/facility details')}<br>${escapeHtml(f.testDate?`Test date: ${f.testDate}`:'No test date')} • Last saved: ${escapeHtml(formatSavedAt(j.savedAt))}</div></div>${active?'<span class="pill">Active</span>':''}</div><div class="saved-job-actions"><button class="primary" type="button" onclick="openSavedJob('${j._jobKey}')">Open</button><button class="secondary" type="button" onclick="duplicateSavedJob('${j._jobKey}')">Duplicate</button><button class="secondary" type="button" onclick="exportSavedJob('${j._jobKey}')">Export</button><button class="danger" type="button" onclick="deleteSavedJob('${j._jobKey}')">Delete</button></div></div>`}).join('');}
-function openSavedJob(key){save();const j=getJobLibrary()[key];if(!j)return alert("That saved job could not be found.");localStorage.setItem(STORAGE,JSON.stringify(j));location.reload();}
+function openSavedJob(key){save();const j=getJobLibrary()[key];if(!j)return alert("That saved job could not be found.");stpStorage.setItem(STORAGE,JSON.stringify(j));location.reload();}
 async function duplicateSavedJob(key){const src=getJobLibrary()[key];if(!src)return;const copy=JSON.parse(JSON.stringify(src));copy._jobKey=makeJobKey();copy.savedAt=new Date().toISOString();copy.fields=copy.fields||{};if(copy.fields.jobId)copy.fields.jobId=`${copy.fields.jobId} - Copy`;const lib=getJobLibrary();lib[copy._jobKey]=copy;setJobLibrary(lib);try{const photos=await photosForJob(key);for(const p of photos)await putJobPhoto({...p,id:crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random(),jobKey:copy._jobKey});const docs=await documentsForJob(key);for(const d of docs)await putJobDocument({...d,id:crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random(),jobKey:copy._jobKey})}catch{}renderSavedJobs();}
 function exportSavedJob(key){const j=getJobLibrary()[key];if(!j)return;downloadBlob(`StackTestPro_${(j.fields?.jobId||'job').replace(/[^a-z0-9_-]+/gi,'_')}_${new Date().toISOString().slice(0,10)}.json`,"application/json",JSON.stringify(j,null,2));}
-async function deleteSavedJob(key){const lib=getJobLibrary(),j=lib[key];if(!j)return;if(!confirm(`Delete saved job "${jobDisplayName(j)}" and its photos/documents from this device?`))return;delete lib[key];setJobLibrary(lib);try{await removePhotosForJob(key);await removeDocumentsForJob(key)}catch{}if(state?._jobKey===key){localStorage.removeItem(STORAGE);location.reload();return;}renderSavedJobs();}
+async function deleteSavedJob(key){const lib=getJobLibrary(),j=lib[key];if(!j)return;if(!confirm(`Delete saved job "${jobDisplayName(j)}" and its photos/documents from this device?`))return;delete lib[key];setJobLibrary(lib);try{await removePhotosForJob(key);await removeDocumentsForJob(key)}catch{}if(state?._jobKey===key){stpStorage.removeItem(STORAGE);location.reload();return;}renderSavedJobs();}
 globalThis.openSavedJob=openSavedJob;globalThis.duplicateSavedJob=duplicateSavedJob;globalThis.exportSavedJob=exportSavedJob;globalThis.deleteSavedJob=deleteSavedJob;
 
 function buildEquipment(){
-  const wrap=$("masterEquipmentList"); if(!wrap)return;
+  const wrap=$("equipmentList"); if(!wrap)return;
   renderMonorails();
   wrap.innerHTML="";
   const items=allEquipment();
@@ -2527,7 +3137,8 @@ function methodPrelimHtml(code){
   if(code==="1"){
     return `<div class="m1-prep-card">
       <div class="eyebrow">METHOD 1 DISTURBANCE / TRAVERSE PLANNER</div>
-      <h4>Distance A & B → Minimum Traverse Points</h4>
+      <h4>Stack Measurements, Disturbances & Traverse Plan</h4>
+      <div class="status neutral" style="margin-bottom:12px"><strong>Single source of truth:</strong> Enter Method 1 stack measurements here during setup. Field Testing will use this setup and will not ask for the measurements again.</div>
       <div class="grid two">
         <label>Traverse purpose
           <select data-prep-input="1:type">
@@ -2563,14 +3174,19 @@ function methodPrelimHtml(code){
     </div>`;
   }
   if(code==="5" || code==="17" || code==="26A" || code==="29" || code==="201A" || code==="0010"){
-    return `<div class="prep-inputs">
-      <label>Target dry std sample rate (DSCFM)<input data-prep-input="${code}:rate" type="number" step="any"></label>
-      <label>Planned run time (min)<input data-prep-input="${code}:time" type="number" step="any" value="${$("requiredRunTime")?.value||""}"></label>
+    return `<div class="status neutral" style="margin-top:12px"><strong>Method 5 nozzle planner:</strong> Uses preliminary stack velocity, temperature, absolute pressure, moisture, and your target dry-standard sample rate to estimate the ideal isokinetic nozzle ID, then compares it with the calibrated nozzles available on the truck.</div>
+    <div class="prep-inputs">
+      <label>Target dry std sample rate (DSCFM)<input data-prep-input="${code}:rate" type="number" step="any" min="0" placeholder="Ex: 0.75"></label>
+      <label>Planned run time (min)<input data-prep-input="${code}:time" type="number" step="any" min="0" value="${$("requiredRunTime")?.value||""}"></label>
     </div>
     <div class="method-prelim-results">
-      <div><span>Suggested nozzle</span><strong data-prep-result="${code}:nozzle">—</strong></div>
-      <div><span>Target volume</span><strong data-prep-result="${code}:volume">—</strong></div>
-    </div>`;
+      <div><span>Ideal Nozzle ID</span><strong data-prep-result="${code}:nozzle">—</strong></div>
+      <div><span>Nearest Available</span><strong data-prep-result="${code}:nearestNozzle">—</strong></div>
+      <div><span>Predicted Rate</span><strong data-prep-result="${code}:predRate">—</strong><small>dscfm</small></div>
+      <div><span>Rate Difference</span><strong data-prep-result="${code}:rateDiff">—</strong><small>%</small></div>
+      <div><span>Target Volume</span><strong data-prep-result="${code}:volume">—</strong></div>
+    </div>
+    <div data-prep-result="${code}:nozzleFlag" class="status neutral">Enter preliminary stack conditions and a target sample rate.</div>`;
   }
   if(["6C","7E","10","25A"].includes(code)){
     return `<div class="prep-inputs">
@@ -2602,7 +3218,7 @@ function renderPrepPage(){
   if(!container)return;
   container.innerHTML=selectedMethods.map(code=>{
     const prep=getPrepForMethod(code);
-    return `<details class="prep-method-card" ${(code==="1"||code==="19")?"open":""}>
+    return `<details class="prep-method-card" ${(code==="1"||code==="5"||code==="19")?"open":""}>
       <summary class="prep-method-summary">
         <div><div class="eyebrow">EPA METHOD ${code}</div><h3>${prep.title}</h3></div>
         <span class="badge ${METHOD_PREP[code]?"calc":"workspace"}">${METHOD_PREP[code]?"Detailed Prep":"Audited Loadout"}</span>
@@ -2689,6 +3305,31 @@ function updatePrepM19UI(){
   const note=card.querySelector("[data-m19-prep-note]");if(note)note.innerHTML=co2?`<strong>CO₂ / Fc:</strong> E = 1.194×10⁻⁷ × NOx × Fc × 100 ÷ %CO₂. Natural-gas Fc defaults to 1040. NOx and CO₂ must be on the same ${wet?"wet":"dry"} basis.`:`<strong>O₂ / Fd:</strong> E = 1.194×10⁻⁷ × NOx × Fd × 20.9 ÷ (20.9 − %O₂). Natural-gas Fd defaults to 8710.`;
 }
 function setPrepResult(key,val,d=2,suffix=""){const el=document.querySelector(`[data-prep-result="${key}"]`);if(el)el.textContent=Number.isFinite(val)?fmt(val,d)+suffix:"—";}
+function parseNozzleSet(){
+  const raw=$("jpNozzleSet")?.value||"";
+  return [...new Set(raw.split(/[,;\s]+/).map(Number).filter(n=>Number.isFinite(n)&&n>0))].sort((a,b)=>a-b);
+}
+function nearestNozzle(ideal){
+  const sizes=parseNozzleSet(); if(!(ideal>0)||!sizes.length)return null;
+  return sizes.reduce((best,n)=>Math.abs(n-ideal)<Math.abs(best-ideal)?n:best,sizes[0]);
+}
+function nozzlePredictedDscfm(nozzleIn,velocity,tempF,pressureInHg,bws){
+  if(!(nozzleIn>0)||!(velocity>0)||tempF==null||!(pressureInHg>0)||bws==null||bws<0||bws>=1)return null;
+  const areaFt2=Math.PI*Math.pow(nozzleIn/12,2)/4;
+  const qWetActual=velocity*areaFt2*60;
+  return qWetActual*(528/(tempF+459.67))*(pressureInHg/29.92)*(1-bws);
+}
+function applySourcePreset(saveAfter=true){
+  const preset=$("jpSourcePreset")?.value||"custom",note=$("jpPresetNote");
+  if(preset==="grain_dust"){
+    if($("jpBws"))$("jpBws").value="0.02"; if($("jpO2"))$("jpO2").value="20.9"; if($("jpCo2"))$("jpCo2").value="0.04";
+    if(note){note.className="status ok";note.textContent="Grain dust collector planning preset: 2.0% moisture, 20.9% O₂, 0.04% CO₂. Enter actual stack velocity and temperature from prior data or field measurements.";}
+  } else if(preset==="ambient_air"){
+    if($("jpBws"))$("jpBws").value="0.01"; if($("jpO2"))$("jpO2").value="20.9"; if($("jpCo2"))$("jpCo2").value="0.04";
+    if(note){note.className="status neutral";note.textContent="Ambient / non-combustion planning preset: 1.0% moisture, 20.9% O₂, 0.04% CO₂. Adjust moisture for actual site conditions.";}
+  } else if(note){note.className="status neutral";note.textContent="Custom source conditions. Enter the best available planning values.";}
+  calcJobPrep(); if(saveAfter)save();
+}
 function calcJobPrep(){
   calcCommonJobPrep();
   const v=num("jpVelocity"),t=num("jpTemp"),p=num("jpBaro")||29.92,b=num("jpBws");
@@ -2743,12 +3384,30 @@ function calcJobPrep(){
     if(["5","17","26A","29","201A","0010"].includes(code)){
       const rate=prepVal(`${code}:rate`),mins=prepVal(`${code}:time`);
       let dia=null;
-      if(v>0&&t!=null&&p>0&&b!=null&&b<1&&rate>0){
+      if(v>0&&t!=null&&p>0&&b!=null&&b>=0&&b<1&&rate>0){
         const wetRate=rate/(1-b)*((t+459.67)/528)*(29.92/p);
         dia=Math.sqrt(4*(wetRate/(v*60))/Math.PI)*12;
       }
+      const nearest=nearestNozzle(dia);
+      const pred=nozzlePredictedDscfm(nearest,v,t,p,b);
+      const diff=(pred!=null&&rate>0)?(pred-rate)/rate*100:null;
       setPrepResult(`${code}:nozzle`,dia,3," in");
+      setPrepResult(`${code}:nearestNozzle`,nearest,4," in");
+      setPrepResult(`${code}:predRate`,pred,3);
+      setPrepResult(`${code}:rateDiff`,diff,1);
       setPrepResult(`${code}:volume`,rate!=null&&mins!=null?rate*mins:null,2," dscf");
+      const flag=document.querySelector(`[data-prep-result="${code}:nozzleFlag"]`);
+      if(flag){
+        if(!(rate>0)){flag.className="status neutral";flag.textContent="Enter the target dry-standard sample rate.";}
+        else if(!(v>0)||t==null||!(p>0)||b==null){flag.className="status neutral";flag.textContent="Enter stack velocity, temperature, pressure, and moisture in Preliminary Stack Conditions above.";}
+        else if(!(dia>0)){flag.className="status warn";flag.textContent="Unable to calculate a nozzle from the current planning values.";}
+        else if(!nearest){flag.className="status warn";flag.textContent=`Ideal nozzle is ${dia.toFixed(3)} in. Enter the calibrated nozzle sizes available on the truck to get a recommendation.`;}
+        else{
+          const delta=Math.abs(diff||0),direction=(diff||0)>=0?"above":"below";
+          flag.className=delta<=10?"status ok":"status warn";
+          flag.textContent=`Planning recommendation: ideal ${dia.toFixed(3)} in → nearest calibrated available ${nearest.toFixed(4)} in. At the entered stack conditions that nozzle corresponds to about ${pred.toFixed(3)} DSCFM, ${delta.toFixed(1)}% ${direction} the target. EPA Method 5 requires selecting from the preliminary velocity-head range so the nozzle does not need to be changed during the run; confirm the actual nozzle calibration and field isokinetic settings before sampling.`;
+        }
+      }
     }
     if(["6C","7E","10","25A"].includes(code)){
       const c=prepVal(`${code}:conc`),s=prepVal(`${code}:span`);
@@ -2913,6 +3572,11 @@ function finalSummaryRows(){
   rows.push(["Client NOx M19",$("clientM19")?.textContent==="—"?"Not entered":($("clientM19")?.textContent||"Not entered")+" lb/MMBtu"]);
   rows.push(["Saved Runs",`${state.runs.filter(r=>r.status==="valid").length} valid / ${state.runs.filter(r=>r.status==="invalid").length} invalid`]);
   const jr=state.jobRuns||[]; rows.push(["Job Run Manager",`${jr.filter(r=>r.status==="closed"&&r.disposition==="complete").length} complete / ${jr.filter(r=>r.status==="open").length} open / ${jr.filter(r=>r.status==="closed"&&r.disposition!=="complete").length} flagged`]);
+  const crewHours=(state.crewTimeEntries||[]).reduce((sum,e)=>sum+(Number(e.hours)||0),0);
+  if((state.crewRoster||[]).length) rows.push(["Crew Labor",`${crewHours.toFixed(2)} hr · ${(state.crewRoster||[]).length} crew member${(state.crewRoster||[]).length===1?'':'s'}`]);
+  if((state.jobNotes||[]).length) rows.push(["Shared Job Notes",`${state.jobNotes.length} note${state.jobNotes.length===1?'':'s'}`]);
+  if((state.jobActivity||[]).length) rows.push(["Job Activity",`${state.jobActivity.length} recorded event${state.jobActivity.length===1?'':'s'}`]);
+  if(state.completedAt) rows.push(["Job Archive",`Saved / closed ${formatSavedAt(state.completedAt)}`]);
   return rows;
 }
 
@@ -3072,17 +3736,40 @@ function method1PointPlan(shape,eq,aDia,bDia,type="particulate"){
   return {pointsA,pointsB,required,alternative};
 }
 
+function updateMethod1GeometryUI(shape){
+  const circular=shape!=="Rectangular";
+  ["m1FarWallLabel","m1NippleLabel","m1DiameterAutoLabel"].forEach(id=>{const el=$(id);if(el)el.hidden=!circular;});
+  ["m1RectWidthLabel","m1RectDepthLabel"].forEach(id=>{const el=$(id);if(el)el.hidden=circular;});
+}
+
 function method1Field(){
   const type=$("m1TraverseType")?.value||"particulate";
-  const shape=$("m1Shape")?.value,far=num("m1FarWall"),nipple=num("m1Nipple"),depthIn=num("m1DuctDepthIn"),up=num("m1Upstream"),down=num("m1Downstream"),ports=num("m1Ports");
+  const shape=$("m1Shape")?.value||"Circular";
+  const far=num("m1FarWall"),nipple=num("m1Nipple"),up=num("m1Upstream"),down=num("m1Downstream"),ports=num("m1Ports");
+  updateMethod1GeometryUI(shape);
   let d=null,w=null,dep=null;
   if(shape==="Circular"){
     const calcIn=(far!=null&&nipple!=null&&far>=nipple)?far-nipple:null;
     if($("m1DuctDepthIn")) $("m1DuctDepthIn").value=calcIn!=null?calcIn.toFixed(2):"";
-    if(calcIn>0){d=calcIn/12;if($("m1Diameter")) $("m1Diameter").value=d;}
+    if(calcIn>0){
+      d=calcIn/12;
+      if($("m1Diameter")) $("m1Diameter").value=d.toFixed(6);
+    }else if($("m1Diameter")){
+      $("m1Diameter").value="";
+    }
   } else {
-    // Rectangular jobs can use the legacy width/depth values if already saved; field depth remains available for one dimension.
-    w=num("m1Width"); dep=num("m1Depth") || (depthIn>0?depthIn/12:null);
+    // v0.59 RC2: rectangular measurements are entered in inches on the field screen,
+    // then converted to feet for the existing Method 1 area/equivalent-diameter math.
+    let widthIn=num("m1WidthIn"),rectDepthIn=num("m1DepthIn");
+    const legacyW=num("m1Width"),legacyD=num("m1Depth");
+    if(!(widthIn>0)&&legacyW>0){widthIn=legacyW*12;if($("m1WidthIn"))$("m1WidthIn").value=widthIn.toFixed(2);}
+    if(!(rectDepthIn>0)&&legacyD>0){rectDepthIn=legacyD*12;if($("m1DepthIn"))$("m1DepthIn").value=rectDepthIn.toFixed(2);}
+    w=widthIn>0?widthIn/12:null;
+    dep=rectDepthIn>0?rectDepthIn/12:null;
+    if($("m1Width")) $("m1Width").value=w!=null?w.toFixed(6):"";
+    if($("m1Depth")) $("m1Depth").value=dep!=null?dep.toFixed(6):"";
+    if($("m1DuctDepthIn")) $("m1DuctDepthIn").value="";
+    if($("m1Diameter")) $("m1Diameter").value="";
   }
   let area=null,eq=null;
   if(shape==="Circular"&&d>0){area=Math.PI*d*d/4;eq=d;}
@@ -3168,7 +3855,7 @@ function valuePresent(id){const el=$(id);return !!(el && String(el.value||'').tr
 function selectedGenericComplete(code){const g=state.genericMethods?.[code];return !!(g && [g.prelim,g.equipment,g.field,g.qa].some(v=>String(v||'').trim()));}
 function methodDataCheck(code){
   if(code==='CGA') return !!(state.cgaAudits||[]).some(a=>['low','mid'].some(k=>Array.isArray(a[k]?.responses)&&a[k].responses.some(r=>String(r.time||'').trim()&&String(r.value||'').trim())));
-  if(code==='1') return (valuePresent('m1Upstream')&&valuePresent('m1Downstream')&&(valuePresent('m1Diameter')||(valuePresent('m1Width')&&valuePresent('m1Depth'))));
+  if(code==='1') return method1SetupComplete();
   if(code==='2') return ['m2Cp','m2Pb','m2Ps','m2Md','m2Bws','m2Dp','m2Ts'].every(valuePresent);
   if(code==='3A') return valuePresent('m3aO2')&&valuePresent('m3aCo2');
   if(code==='4') return valuePresent('m4Vm')&&valuePresent('m4WaterMl');
@@ -3188,6 +3875,10 @@ function collectValidationIssues(){
   if(!selectedMethods.length)issues.push({level:'bad',text:'No test methods are selected.'});
   selectedMethods.forEach(code=>{
     const st=fieldMethodStatus(code), p=fieldProgressState(code);
+    if(code==='1'){
+      if(!methodDataCheck(code))issues.push({level:'warn',text:'Method 1 setup measurements are incomplete under Setup / Prelims.'});
+      return;
+    }
     if(p.attention)issues.push({level:'bad',text:`${methodDisplayLabel(code)} is flagged Needs Attention.`});
     if(!methodDataCheck(code) && !p.data)issues.push({level:'warn',text:`${methodDisplayLabel(code)} does not appear to have complete field data.`});
     if(!p.qa)issues.push({level:'warn',text:`${methodDisplayLabel(code)} QA/QC is not marked complete.`});
@@ -3212,14 +3903,106 @@ function renderCloseoutCenter(runValidation=false){
   return issues;
 }
 function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+// v0.62 RC1 — Crew Time and job-level authority
+const CREW_TIME_CATEGORIES=["Mobilize","Travel","Onsite","Delay","Standby","Demobilize"];
+let crewTimeEditId=null;
+function crewId(){return globalThis.crypto?.randomUUID?.()||`crew_${Date.now()}_${Math.random().toString(36).slice(2)}`;}
+function crewMember(id){return (state.crewRoster||[]).find(x=>x.id===id)||null;}
+function crewActing(){return cloudReady()?cloudCurrentCrewActor():(crewMember(state.crewActingId)||null);}
+function crewJobLead(){return crewMember(state.jobLeadId)||null;}
+function crewCanManageAll(){const a=crewActing();return !a || a.role==="Project Manager" || a.id===state.jobLeadId;}
+function crewCanManageMember(memberId){
+  const a=crewActing(); if(!a)return true;
+  if(a.role==="Project Manager"||a.id===state.jobLeadId)return true;
+  if(a.role==="Team Lead")return memberId===a.id || crewMember(memberId)?.reportsTo===a.id;
+  return false;
+}
+function crewCanManageRoster(){return crewCanManageAll();}
+function crewCanAssignJobLead(){return cloudReady()?cloudCanAssignJobLead():crewCanManageRoster();}
+function renderSharedJobPermissions(){const a=crewActing(),canEdit=!a||crewCanManageAll();["jobId","client","facility","unit","testDate"].forEach(id=>{if($(id))$(id).disabled=!canEdit;});const card=$("clientplant")?.querySelector(".job-card");if(card)card.classList.toggle("crew-readonly",!canEdit);}
+function crewVisibleEntries(){
+  const a=crewActing(),entries=state.crewTimeEntries||[];
+  if(!a||a.role==="Project Manager"||a.id===state.jobLeadId)return entries;
+  if(a.role==="Team Lead")return entries.filter(e=>e.memberId===a.id||crewMember(e.memberId)?.reportsTo===a.id);
+  return entries.filter(e=>e.memberId===a.id);
+}
+function crewHoursBetween(start,end){const a=new Date(start),b=new Date(end);const h=(b-a)/36e5;return Number.isFinite(h)&&h>0?h:null;}
+function crewFormatDateTime(v){if(!v)return "";try{return new Date(v).toLocaleString([], {month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})}catch{return v}}
+function crewLeadOptions(selected=""){return (state.crewRoster||[]).filter(m=>m.role==="Team Lead"||m.role==="Project Manager").map(m=>`<option value="${m.id}" ${m.id===selected?'selected':''}>${escapeHtml(m.name)} — ${m.role}</option>`).join("");}
+function renderCrewTime(){
+  if(!$("crewtime"))return;
+  state.crewRoster||=[];state.crewTimeEntries||=[];state.crewActingId||="";state.jobLeadId||="";
+  if(state.jobLeadId&&!crewMember(state.jobLeadId))state.jobLeadId="";
+  if(!cloudReady()&&state.crewActingId&&!crewMember(state.crewActingId))state.crewActingId="";
+  const roster=state.crewRoster,acting=crewActing(),lead=crewJobLead(),manageAll=crewCanManageAll(),manageRoster=crewCanManageRoster(),sharedCloud=!!(cloudReady()&&state.cloudJobId);
+  if($("crewCount"))$("crewCount").textContent=`${roster.length} ${roster.length===1?'person':'people'}`;
+  const actingSel=$("crewActingProfile");if(actingSel){if(cloudReady()){actingSel.innerHTML=`<option value="${cloudUser.id}">${escapeHtml(cloudProfile.display_name||'Signed-in user')} — ${escapeHtml(cloudRoleLabel(cloudProfile.role))}</option>`;actingSel.disabled=true;}else{actingSel.disabled=false;actingSel.innerHTML='<option value="">Local manager mode (no sign-in yet)</option>'+roster.map(m=>`<option value="${m.id}" ${m.id===state.crewActingId?'selected':''}>${escapeHtml(m.name)} — ${m.role}</option>`).join('');}}
+  const leadSel=$("crewJobLead");if(leadSel){leadSel.innerHTML='<option value="">Not assigned</option>'+roster.filter(m=>m.role!=="Technician").map(m=>`<option value="${m.id}" ${m.id===state.jobLeadId?'selected':''}>${escapeHtml(m.name)} — ${m.role}</option>`).join('');leadSel.disabled=!crewCanAssignJobLead();}
+  const pill=$("crewAccessPill"),note=$("crewAccessNote");
+  if(pill)pill.textContent=!acting?'Local manager mode':cloudReady()&&cloudProfile.role==="owner_admin"?'Owner / Admin':acting.role==="Project Manager"?'PM oversight':acting.id===state.jobLeadId?'Job Lead control':acting.role==="Team Lead"?'Team Lead crew control':'Technician view';
+  if(note){note.className='status '+(!acting?'neutral':crewCanManageAll()?'ok':acting.role==="Team Lead"?'warn':'neutral');note.textContent=!acting?'Local-only mode: choose a profile to preview role permissions on this device.':cloudReady()&&cloudProfile.role==="owner_admin"?'Owner/Admin access: real cloud identity is active. You can manage the job, crew, Job Lead, and all crew time.':acting.role==="Project Manager"?'Project Manager access: real cloud identity is active. You can manage this job roster, Job Lead assignment, and all crew time.':acting.id===state.jobLeadId?`${acting.name} is signed in as the Job Lead and can manage the project crew and time record.`:acting.role==="Team Lead"?`${acting.name} is signed in as a Team Lead and can manage their own time and technicians assigned to them. ${lead?lead.name+' is the Job Lead.':'No Job Lead is assigned yet.'}`:`Technician view: ${acting.name} is signed in and can view their own time record. Editing is controlled by the PM / Job Lead / assigned Team Lead.`;}
+  const reports=$("crewReportsTo");if(reports){reports.innerHTML='<option value="">None / assign later</option>'+crewLeadOptions();reports.disabled=!manageRoster;}
+  ["crewName","crewRole","addCrewMemberBtn"].forEach(id=>{if($(id))$(id).disabled=!manageRoster;});
+  $("localCrewEntry")?.classList.toggle("hidden",sharedCloud);$("cloudCrewEntry")?.classList.toggle("hidden",!sharedCloud||!manageRoster);if(sharedCloud)renderCloudCrewPicker();
+  const techView=acting?.role==="Technician";if($("crewRosterCard"))$("crewRosterCard").classList.toggle("hidden",techView);if($("crewEntryCard"))$("crewEntryCard").classList.toggle("hidden",techView);
+  const rosterBox=$("crewRosterList");if(rosterBox){rosterBox.innerHTML=roster.length?roster.map(m=>{const boss=crewMember(m.reportsTo);const assign=manageRoster&&m.role==="Technician"?`<label style="margin-top:8px;display:block">Assigned Team Lead<select data-crew-assign="${m.id}"><option value="">None</option>${crewLeadOptions(m.reportsTo)}</select></label>`:"";const canLead=crewCanAssignJobLead()&&m.role!=="Technician"&&m.id!==state.jobLeadId;return `<div class="crew-roster-card"><div class="crew-roster-top"><div><div class="crew-name">${escapeHtml(m.name)} ${m.id===state.jobLeadId?'<span class="chip">JOB LEAD</span>':''}</div><div class="crew-meta">${m.role}${m.cloudRole==="owner_admin"?' · Owner/Admin':''}${boss?` · Assigned to ${escapeHtml(boss.name)}`:''}</div></div><div class="crew-actions">${canLead?`<button class="secondary" type="button" data-crew-lead="${m.id}">Make Job Lead</button>`:''}${manageRoster?`<button class="danger" type="button" data-crew-remove="${m.id}">Remove</button>`:''}</div></div>${assign}</div>`}).join(''):'<div class="status neutral">No crew members assigned yet.</div>';}
+  const allowedMembers=roster.filter(m=>crewCanManageMember(m.id));
+  const memberSel=$("crewTimeMember");if(memberSel){const current=memberSel.value;memberSel.innerHTML='<option value="">Choose crew member</option>'+allowedMembers.map(m=>`<option value="${m.id}">${escapeHtml(m.name)} — ${m.role}</option>`).join('');if(allowedMembers.some(m=>m.id===current))memberSel.value=current;}
+  const canEnter=allowedMembers.length>0;
+  ["crewTimeMember","crewTimeCategory","crewTimeStart","crewTimeEnd","crewTimeNotes","saveCrewTimeBtn"].forEach(id=>{if($(id))$(id).disabled=!canEnter;});
+  if($("crewEntryCard"))$("crewEntryCard").classList.toggle('crew-readonly',!canEnter);
+  renderCrewTimePreview();renderCrewSummary();renderCrewTimeList();renderCrewJobBriefing();renderSharedJobPermissions();
+}
+function addCrewMember(){
+  if(!crewCanManageRoster())return alert("Only the Project Manager or current Job Lead can change the project roster.");
+  const name=String($("crewName")?.value||"").trim(),role=$("crewRole")?.value||"Technician",reportsTo=$("crewReportsTo")?.value||"";
+  if(!name)return alert("Enter the crew member's name.");
+  const m={id:crewId(),name,role,reportsTo:role==="Technician"?reportsTo:""};state.crewRoster||=[];state.crewRoster.push(m);
+  if(!state.jobLeadId&&(role==="Project Manager"||role==="Team Lead"))state.jobLeadId=m.id;
+  addJobActivity("Crew member added",`${name} — ${role}`);
+  $("crewName").value="";save();renderCrewTime();renderJobActivity();
+}
+function removeCrewMember(id){
+  if(!crewCanManageRoster())return;
+  const m=crewMember(id);if(!m)return;if(!confirm(`Remove ${m.name} from this project crew? Their existing time entries will also be removed.`))return;
+  addJobActivity("Crew member removed",`${m.name} — ${m.role}`);state.crewRoster=state.crewRoster.filter(x=>x.id!==id);state.crewTimeEntries=(state.crewTimeEntries||[]).filter(e=>e.memberId!==id);state.crewRoster.forEach(x=>{if(x.reportsTo===id)x.reportsTo=""});if(state.jobLeadId===id)state.jobLeadId="";if(state.crewActingId===id)state.crewActingId="";save();renderCrewTime();renderJobActivity();
+}
+function renderCrewTimePreview(){const h=crewHoursBetween($("crewTimeStart")?.value,$("crewTimeEnd")?.value);if($("crewTimePreview"))$("crewTimePreview").textContent=h==null?'0.00 hr':`${h.toFixed(2)} hr`;}
+function saveCrewTimeEntry(){
+  const memberId=$("crewTimeMember")?.value||"";if(!memberId||!crewCanManageMember(memberId))return alert("Choose a crew member you are allowed to manage.");
+  const start=$("crewTimeStart")?.value||"",end=$("crewTimeEnd")?.value||"",hours=crewHoursBetween(start,end),category=$("crewTimeCategory")?.value||"Onsite",notes=String($("crewTimeNotes")?.value||"").trim();
+  if(hours==null){if($("crewTimeEntryStatus")){$("crewTimeEntryStatus").className="status warn";$("crewTimeEntryStatus").textContent="End time must be after start time.";}return;}
+  state.crewTimeEntries||=[];const existing=crewTimeEditId&&state.crewTimeEntries.find(e=>e.id===crewTimeEditId);
+  const payload={memberId,category,start,end,hours,notes,updatedAt:new Date().toISOString(),updatedBy:cloudReady()?cloudUser.id:(state.crewActingId||"local-manager"),cloudSynced:false};
+  if(existing)Object.assign(existing,payload);else state.crewTimeEntries.push({id:crewId(),...payload,createdAt:new Date().toISOString(),cloudExisting:false});
+  const member=crewMember(memberId);addJobActivity(existing?"Crew time updated":"Crew time added",`${member?.name||'Crew member'} · ${category} · ${hours.toFixed(2)} hr`);
+  crewTimeEditId=null;$("crewTimeStart").value="";$("crewTimeEnd").value="";$("crewTimeNotes").value="";$("saveCrewTimeBtn").textContent="Add Time Entry";$("cancelCrewTimeEditBtn")?.classList.add("hidden");if($("crewTimeEntryStatus")){$("crewTimeEntryStatus").className="status ok";$("crewTimeEntryStatus").textContent="Crew time saved to this job.";}save();renderCrewTime();renderJobActivity();
+}
+function editCrewTimeEntry(id){const e=(state.crewTimeEntries||[]).find(x=>x.id===id);if(!e||!crewCanManageMember(e.memberId))return;crewTimeEditId=id;$("crewTimeMember").value=e.memberId;$("crewTimeCategory").value=e.category;$("crewTimeStart").value=e.start;$("crewTimeEnd").value=e.end;$("crewTimeNotes").value=e.notes||"";$("saveCrewTimeBtn").textContent="Save Changes";$("cancelCrewTimeEditBtn")?.classList.remove("hidden");renderCrewTimePreview();$("crewEntryCard")?.scrollIntoView({behavior:"smooth",block:"start"});}
+function cancelCrewTimeEdit(){crewTimeEditId=null;["crewTimeStart","crewTimeEnd","crewTimeNotes"].forEach(id=>{if($(id))$(id).value=""});if($("saveCrewTimeBtn"))$("saveCrewTimeBtn").textContent="Add Time Entry";$("cancelCrewTimeEditBtn")?.classList.add("hidden");renderCrewTimePreview();}
+async function deleteCrewTimeEntry(id){const e=(state.crewTimeEntries||[]).find(x=>x.id===id);if(!e||!crewCanManageMember(e.memberId))return;if(!confirm("Delete this crew time entry?"))return;if(cloudReady()&&state.cloudJobId&&e.cloudExisting){const ok=await cloudDeleteCrewTime(e.id);if(!ok)return;}const m=crewMember(e.memberId);addJobActivity("Crew time deleted",`${m?.name||'Crew member'} · ${e.category} · ${Number(e.hours||0).toFixed(2)} hr`);state.crewTimeEntries=state.crewTimeEntries.filter(x=>x.id!==id);save();renderCrewTime();renderJobActivity();}
+function renderCrewSummary(){
+  const entries=crewVisibleEntries(),roster=state.crewRoster||[],visibleIds=new Set(entries.map(e=>e.memberId));const a=crewActing();if(a)visibleIds.add(a.id);const visibleRoster=!a||crewCanManageAll()?roster:roster.filter(m=>visibleIds.has(m.id)|| (a.role==="Team Lead"&&(m.id===a.id||m.reportsTo===a.id)));
+  const total=entries.reduce((s,e)=>s+(Number(e.hours)||0),0);if($("crewLaborTotal"))$("crewLaborTotal").textContent=`${total.toFixed(2)} hr`;
+  const k=$("crewTimeKpis");if(k){k.innerHTML=CREW_TIME_CATEGORIES.map(c=>{const h=entries.filter(e=>e.category===c).reduce((s,e)=>s+(Number(e.hours)||0),0);return `<div><span>${c}</span><strong>${h.toFixed(2)}</strong></div>`}).join('');}
+  const box=$("crewTimeSummary");if(box){box.innerHTML=visibleRoster.length?visibleRoster.map(m=>{const own=entries.filter(e=>e.memberId===m.id),h=own.reduce((s,e)=>s+(Number(e.hours)||0),0);const cats=CREW_TIME_CATEGORIES.map(c=>[c,own.filter(e=>e.category===c).reduce((x,e)=>x+(Number(e.hours)||0),0)]).filter(([,v])=>v>0);return `<div class="crew-member-summary"><div class="crew-member-summary-head"><div><div class="crew-name">${escapeHtml(m.name)}</div><div class="crew-meta">${m.role}${m.id===state.jobLeadId?' · Job Lead':''}</div></div><div class="crew-time-hours">${h.toFixed(2)} hr</div></div><div class="crew-category-chips">${cats.length?cats.map(([c,v])=>`<span>${c}: ${v.toFixed(2)}</span>`).join(''):'<span>No time entered</span>'}</div></div>`}).join(''):'<div class="status neutral">Add crew and time entries to build the labor summary.</div>';}
+}
+function renderCrewTimeList(){
+  const entries=crewVisibleEntries().slice().sort((a,b)=>String(b.start).localeCompare(String(a.start)));if($("crewEntryCount"))$("crewEntryCount").textContent=`${entries.length} ${entries.length===1?'entry':'entries'}`;const box=$("crewTimeList");if(!box)return;
+  box.innerHTML=entries.length?entries.map(e=>{const m=crewMember(e.memberId);return `<div class="crew-time-row"><div class="crew-time-top"><div><div class="crew-name">${escapeHtml(m?.name||'Removed crew member')} · ${escapeHtml(e.category)}</div><div class="crew-time-detail">${escapeHtml(crewFormatDateTime(e.start))} → ${escapeHtml(crewFormatDateTime(e.end))}${e.notes?`<br>${escapeHtml(e.notes)}`:''}</div></div><div><div class="crew-time-hours">${Number(e.hours||0).toFixed(2)} hr</div>${crewCanManageMember(e.memberId)?`<div class="crew-actions"><button class="secondary" type="button" data-crew-time-edit="${e.id}">Edit</button><button class="danger" type="button" data-crew-time-delete="${e.id}">Delete</button></div>`:''}</div></div></div>`}).join(''):'<div class="status neutral">No crew time entries yet.</div>';
+}
+
 function downloadBlob(name,type,text){const blob=new Blob([text],{type});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
 function buildFieldSummaryHtml(){
   const data=collect(),issues=collectValidationIssues(),rows=finalSummaryRows(),jobRuns=state.jobRuns||[];
   const methodRows=selectedMethods.map(c=>`<tr><td>${escapeHtml(methodDisplayLabel(c))}</td><td>${escapeHtml(fieldMethodStatus(c).label)}</td><td>${escapeHtml(linkedRunResult(c))}</td></tr>`).join('');
   const runRows=jobRuns.map(r=>`<tr><td>${escapeHtml(r.name)}</td><td>${escapeHtml(jobRunStatus(r).label)}</td><td>${escapeHtml(r.notes||'')}</td><td>${escapeHtml(r.startedAt?new Date(r.startedAt).toLocaleString():'')}</td></tr>`).join('');
+  const crewRows=(state.crewTimeEntries||[]).slice().sort((a,b)=>String(a.start).localeCompare(String(b.start))).map(e=>{const m=crewMember(e.memberId);return `<tr><td>${escapeHtml(m?.name||'Crew member')}</td><td>${escapeHtml(e.category)}</td><td>${escapeHtml(crewFormatDateTime(e.start))}</td><td>${escapeHtml(crewFormatDateTime(e.end))}</td><td>${Number(e.hours||0).toFixed(2)}</td><td>${escapeHtml(e.notes||'')}</td></tr>`}).join('');
+  const noteRows=(state.jobNotes||[]).map(n=>`<tr><td>${escapeHtml(n.authorName||(n.authorId?jobActorName(n.authorId):'Saved before profiles'))}</td><td>${escapeHtml(formatSavedAt(n.createdAt))}</td><td>${escapeHtml(n.text)}</td></tr>`).join('');
+  const activityRows=(state.jobActivity||[]).slice(-100).map(a=>`<tr><td>${escapeHtml(a.action)}</td><td>${escapeHtml(a.actorName||jobActorName(a.actorId))}</td><td>${escapeHtml(formatSavedAt(a.createdAt))}</td><td>${escapeHtml(a.detail||'')}</td></tr>`).join('');
   return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>StackTest Pro Field Summary</title><style>body{font-family:Arial,sans-serif;margin:32px;color:#17212b}h1{margin-bottom:4px}small{color:#66727e}table{border-collapse:collapse;width:100%;margin:14px 0 24px}th,td{border:1px solid #d7e0e7;padding:8px;text-align:left;vertical-align:top}th{background:#eef3f6}.bad{color:#a83131}.warn{color:#8a5a00}@media print{body{margin:12mm}}</style>  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
   <link rel="apple-touch-icon" href="icon-192.png">
-</head><body><h1>StackTest Pro — Field Summary</h1><small>Generated ${escapeHtml(new Date().toLocaleString())}</small><h2>Job</h2><table>${rows.map(([a,b])=>`<tr><th>${escapeHtml(a)}</th><td>${escapeHtml(b)}</td></tr>`).join('')}</table><h2>Selected Method Status</h2><table><tr><th>Method</th><th>Status</th><th>Latest Saved Result</th></tr>${methodRows}</table><h2>Job Runs</h2><table><tr><th>Run</th><th>Status</th><th>Notes</th><th>Started</th></tr>${runRows||'<tr><td colspan="4">No job runs saved.</td></tr>'}</table><h2>Closeout Validation</h2>${issues.length?`<ul>${issues.map(i=>`<li class="${i.level}">${escapeHtml(i.text)}</li>`).join('')}</ul>`:'<p>No unresolved items found by the app validation check.</p>'}<p><small>Calculation aid only. The promulgated method, applicable rule/subpart, approved test protocol, calibrated equipment, and company QA/QC requirements control.</small></p></body></html>`;
+</head><body><h1>StackTest Pro — Field Summary</h1><small>Generated ${escapeHtml(new Date().toLocaleString())}</small><h2>Job</h2><table>${rows.map(([a,b])=>`<tr><th>${escapeHtml(a)}</th><td>${escapeHtml(b)}</td></tr>`).join('')}</table><h2>Selected Method Status</h2><table><tr><th>Method</th><th>Status</th><th>Latest Saved Result</th></tr>${methodRows}</table><h2>Job Runs</h2><table><tr><th>Run</th><th>Status</th><th>Notes</th><th>Started</th></tr>${runRows||'<tr><td colspan="4">No job runs saved.</td></tr>'}</table><h2>Shared Job Notes</h2><table><tr><th>Author</th><th>Time</th><th>Note</th></tr>${noteRows||'<tr><td colspan="3">No shared notes.</td></tr>'}</table><h2>Crew Time</h2><table><tr><th>Crew Member</th><th>Status</th><th>Start</th><th>End</th><th>Hours</th><th>Notes</th></tr>${crewRows||'<tr><td colspan="6">No crew time entered.</td></tr>'}</table><h2>Job Activity</h2><table><tr><th>Action</th><th>By</th><th>Time</th><th>Detail</th></tr>${activityRows||'<tr><td colspan="4">No activity recorded.</td></tr>'}</table><h2>Closeout Validation</h2>${issues.length?`<ul>${issues.map(i=>`<li class="${i.level}">${escapeHtml(i.text)}</li>`).join('')}</ul>`:'<p>No unresolved items found by the app validation check.</p>'}<p><small>Calculation aid only. The promulgated method, applicable rule/subpart, approved test protocol, calibrated equipment, and company QA/QC requirements control.</small></p></body></html>`;
 }
 
 function calcFieldAll(){
@@ -3243,27 +4026,42 @@ function collect(){
 }
 function save(){
   state=collect();
-  localStorage.setItem(STORAGE,JSON.stringify(state));
+  if(!cloudApplyingRemote&&cloudReady()&&state?.cloudJobId)cloudLastLocalEditAt=Date.now();
+  stpStorage.setItem(STORAGE,JSON.stringify(state));
   upsertJobLibrary(state);
   renderSavedJobs();
-  if($("saveStatus")) $("saveStatus").textContent="Saved locally";
+  if($("saveStatus")) $("saveStatus").textContent=cloudReady()&&state?.cloudJobId?"Saved locally · syncing":"Saved locally";
   const title=[state.fields.client,state.fields.facility,state.fields.unit].filter(Boolean).join(" · ");
   if($("jobTitle")) $("jobTitle").textContent=title||"New Stack Test";
+  if(!cloudApplyingRemote)queueCloudSync();
+}
+function normalizeState(){
+  state=state&&typeof state==="object"?state:{};
+  state._jobKey ||= makeJobKey();
+  state.equipment ||= {};state.post ||= {};state.runs ||= [];state.jobRuns ||= [];state.fieldProgress ||= {};
+  state.cgaAudits ||= [];state.specialEquipment ||= [];state.monorails ||= [];state.jobNotes ||= [];state.jobActivity ||= [];
+  state.crewRoster ||= [];state.crewTimeEntries ||= [];state.jobLeadId ||= "";state.crewActingId ||= "";
+  state.selectedMethods ||= [];state.genericMethods ||= {};state.prepInputs ||= {};state.prepEquipment ||= {};state.fields ||= {};state.checks ||= {};state.rata ||= {};state.rata60 ||= {};
+}
+function persistStateLocal(){stpStorage.setItem(STORAGE,JSON.stringify(state));upsertJobLibrary(state);renderSavedJobs();}
+function renderStateToUi(saveAfter=false){
+  normalizeState();selectedMethods=[...state.selectedMethods];
+  fields.forEach(id=>{if($(id))$(id).value=state.fields[id]??"";});
+  ["m320Bg","m320SampleFile","m320CtsFile"].forEach(id=>{if($(id))$(id).checked=!!state.checks[id];});
+  if($("rata75UseCorrection"))$("rata75UseCorrection").checked=!!state.rata.useCorrection;
+  for(let i=1;i<=12;i++){
+    if($("rataRef"+i))$("rataRef"+i).value=state.rata["ref"+i]||"";if($("rataCems"+i))$("rataCems"+i).value=state.rata["cems"+i]||"";if($("rataBias"+i))$("rataBias"+i).checked=!!state.rata["bias"+i];if($("rataInclude"+i))$("rataInclude"+i).checked=state.rata["include"+i]!==false;
+    ["PreLow","PostLow","PreUp","PostUp"].forEach(k=>{const el=$("rata"+k+i),key=k.charAt(0).toLowerCase()+k.slice(1)+i;if(el)el.value=state.rata[key]||"";});
+    if($("rata60Ref"+i))$("rata60Ref"+i).value=state.rata60["ref"+i]||"";if($("rata60Cems"+i))$("rata60Cems"+i).value=state.rata60["cems"+i]||"";if($("rata60Complete"+i))$("rata60Complete"+i).checked=!!state.rata60["complete"+i];if($("rata60Include"+i))$("rata60Include"+i).checked=state.rata60["include"+i]!==false;
+  }
+  document.querySelectorAll("[data-post]").forEach(cb=>cb.checked=!!state.post[cb.dataset.post]);
+  buildEquipment();renderSpecialEquipment();renderMonorails();renderJobNotes();renderJobActivity();renderJobPhotos();renderJobDocuments();renderSelectedMethods();renderHomeMethodChips();renderQuickMethods();renderFieldMethods();renderRunManager();renderCrewTime();calcAll();renderSavedRuns();updateRunAverages();updateRunSummary();renderCloseoutCenter(false);if(selectedMethods.length)renderPrepPage();
+  if(saveAfter)save();else persistStateLocal();
 }
 function load(){
-  try{state=JSON.parse(localStorage.getItem(STORAGE))||{equipment:{},post:{},runs:[]};}
+  try{state=JSON.parse(stpStorage.getItem(STORAGE))||{equipment:{},post:{},runs:[]};}
   catch{state={equipment:{},post:{},runs:[]}}
-  state._jobKey ||= makeJobKey();
-  state.equipment ||= {}; state.post ||= {}; state.runs ||= []; state.jobRuns ||= []; state.fieldProgress ||= {};
-  state.cgaAudits ||= [];
-  state.specialEquipment ||= []; state.monorails ||= []; state.jobNotes ||= [];
-  state.selectedMethods ||= []; state.genericMethods ||= {}; state.prepInputs ||= {}; state.prepEquipment ||= {}; selectedMethods=[...state.selectedMethods];
-  if(state.fields) fields.forEach(id=>{if($(id)&&state.fields[id]!=null)$(id).value=state.fields[id];});
-  if(state.checks) ["m320Bg","m320SampleFile","m320CtsFile"].forEach(id=>{if($(id))$(id).checked=!!state.checks[id];});
-  if(state.rata){if($("rata75UseCorrection"))$("rata75UseCorrection").checked=!!state.rata.useCorrection;for(let i=1;i<=12;i++){if($("rataRef"+i))$("rataRef"+i).value=state.rata["ref"+i]||"";if($("rataCems"+i))$("rataCems"+i).value=state.rata["cems"+i]||"";if($("rataBias"+i))$("rataBias"+i).checked=!!state.rata["bias"+i];if($("rataInclude"+i))$("rataInclude"+i).checked=state.rata["include"+i]!==false;["PreLow","PostLow","PreUp","PostUp"].forEach(k=>{const el=$("rata"+k+i),key=k.charAt(0).toLowerCase()+k.slice(1)+i;if(el)el.value=state.rata[key]||"";});}}
-  if(state.rata60) for(let i=1;i<=12;i++){if($("rata60Ref"+i))$("rata60Ref"+i).value=state.rata60["ref"+i]||"";if($("rata60Cems"+i))$("rata60Cems"+i).value=state.rata60["cems"+i]||"";if($("rata60Complete"+i))$("rata60Complete"+i).checked=!!state.rata60["complete"+i];if($("rata60Include"+i))$("rata60Include"+i).checked=state.rata60["include"+i]!==false;}
-  document.querySelectorAll("[data-post]").forEach(cb=>cb.checked=!!state.post[cb.dataset.post]);
-  buildEquipment();renderSpecialEquipment();renderMonorails();renderJobNotes();renderJobPhotos();renderJobDocuments();renderSelectedMethods();renderHomeMethodChips();renderQuickMethods();renderFieldMethods();renderRunManager();calcAll();renderSavedRuns();updateRunAverages();updateRunSummary();renderCloseoutCenter(false);if(selectedMethods.length)renderPrepPage();save();
+  renderStateToUi(true);
 }
 
 document.querySelectorAll(".step").forEach(btn=>btn.addEventListener("click",()=>{
@@ -3273,7 +4071,35 @@ document.querySelectorAll(".step").forEach(btn=>btn.addEventListener("click",()=
   window.scrollTo({top:60,behavior:"smooth"});
 }));
 
+
+syncRememberMeUi();
+$("authGateRememberMe")?.addEventListener("change",e=>setRememberMePreference(e.target.checked));
+$("cloudRememberMe")?.addEventListener("change",e=>setRememberMePreference(e.target.checked));
+$("cloudSignInBtn")?.addEventListener("click",()=>cloudSignIn("settings"));
+$("cloudSignUpBtn")?.addEventListener("click",()=>cloudSignUp("settings"));
+$("cloudSignOutBtn")?.addEventListener("click",cloudSignOut);
+$("authGateSignInBtn")?.addEventListener("click",()=>cloudSignIn("gate"));
+$("authGateSignUpBtn")?.addEventListener("click",()=>cloudSignUp("gate"));
+$("authGateOfflineBtn")?.addEventListener("click",continueOffline);
+refreshOfflineButton();
+window.addEventListener("online",()=>{if(cloudUser)cloudValidateAccess()});
+document.addEventListener("visibilitychange",()=>{if(!document.hidden){if(cloudUser)cloudValidateAccess();if(authGateBypassed&&!readOfflineEntitlement()){authGateBypassed=false;showAuthGate(true);setAuthGateState("Offline verification expired.","warn");cloudSetMessage("Reconnect and sign in to renew offline access.","warn");}}});
+setInterval(()=>{if(authGateBypassed&&!readOfflineEntitlement()){authGateBypassed=false;showAuthGate(true);setAuthGateState("Offline verification expired.","warn");cloudSetMessage("Reconnect and sign in to renew offline access.","warn");}},60000);
+$("authGatePassword")?.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();cloudSignIn("gate")}});
+$("cloudConnectJobBtn")?.addEventListener("click",cloudConnectActiveJob);
+$("cloudSyncNowBtn")?.addEventListener("click",cloudSyncNow);
+$("cloudRefreshJobsBtn")?.addEventListener("click",cloudRefreshJobs);
+$("cloudRefreshUsersBtn")?.addEventListener("click",cloudRefreshUsers);
+$("clientCloudConnectBtn")?.addEventListener("click",cloudConnectActiveJob);
+$("clientOpenCrewBtn")?.addEventListener("click",()=>globalThis.navigateStackTest?.("crewtime"));
+$("cloudAddCrewBtn")?.addEventListener("click",cloudAddCrewMember);
+$("cloudRefreshCrewBtn")?.addEventListener("click",()=>cloudRefreshCrew(true));
+$("cloudCrewSearch")?.addEventListener("input",renderCloudCrewPicker);
+
 fields.forEach(id=>$(id)?.addEventListener("input",()=>{calcAll();save();}));
+const SHARED_JOB_FIELD_LABELS={jobId:"Job Number",client:"Client",facility:"Facility",unit:"Unit / Stack",testDate:"Test Date"};
+Object.entries(SHARED_JOB_FIELD_LABELS).forEach(([id,label])=>$(id)?.addEventListener("change",()=>{const value=String($(id)?.value||"").trim();addJobActivity(`${label} updated`,value||"Cleared");save();renderJobActivity();renderCrewJobBriefing();}));
+["m1Shape","m1TraverseType","m1Orientation"].forEach(id=>$(id)?.addEventListener("change",()=>{calcAll();save();}));
 $("rata75Monitor")?.addEventListener("change",()=>{updatePart75Ui();rataField();save();});
 $("rata75UseCorrection")?.addEventListener("change",()=>{updateRata75CorrectionUi();rataField();save();});
 document.querySelectorAll("[data-post]").forEach(cb=>cb.addEventListener("change",()=>{save();renderCloseoutCenter(false);}));
@@ -3289,14 +4115,14 @@ $("validateJobBtn")?.addEventListener("click",()=>{renderCloseoutCenter(true);sa
 $("importBtn")?.addEventListener("click",()=>$("importFile")?.click());
 $("importFile")?.addEventListener("change",async e=>{
   const file=e.target.files?.[0];if(!file)return;
-  try{const incoming=JSON.parse(await file.text());incoming._jobKey ||= makeJobKey();incoming.savedAt=new Date().toISOString();localStorage.setItem(STORAGE,JSON.stringify(incoming));upsertJobLibrary(incoming);location.reload();}
+  try{const incoming=JSON.parse(await file.text());incoming._jobKey ||= makeJobKey();incoming.savedAt=new Date().toISOString();stpStorage.setItem(STORAGE,JSON.stringify(incoming));upsertJobLibrary(incoming);location.reload();}
   catch(err){alert("That file is not a valid StackTest Pro JSON backup.");}
 });
 
 function resetCurrentJob(){
   if(confirm("Start a new job?\n\nYour current job will stay in Saved Jobs on this device. App settings stay intact.")){
     save();
-    localStorage.removeItem(STORAGE);
+    stpStorage.removeItem(STORAGE);
     location.reload();
   }
 }
@@ -3310,9 +4136,10 @@ $("browseMethodsBtn")?.addEventListener("click",openMethodModal);
 $("buildPrepBtn")?.addEventListener("click",buildJobPrep);
 $("editPrepMethodsBtn")?.addEventListener("click",openMethodModal);
 
-["jpStackShape","jpDiameter","jpWidth","jpDepth","jpTemp","jpVelocity","jpAcfm","jpDscfm","jpBws","jpO2","jpCo2","jpBaro"].forEach(id=>
+["jpStackShape","jpDiameter","jpWidth","jpDepth","jpTemp","jpVelocity","jpAcfm","jpDscfm","jpBws","jpO2","jpCo2","jpBaro","jpNozzleSet"].forEach(id=>
   $(id)?.addEventListener("input",()=>{calcJobPrep();save();})
 );
+$("jpSourcePreset")?.addEventListener("change",()=>applySourcePreset(true));
 
 $("chooseMethodsBtn")?.addEventListener("click",openMethodModal);
 $("editMethodsBtn")?.addEventListener("click",openMethodModal);
@@ -3328,6 +4155,17 @@ function syncJobInfo(){
   pairs.forEach(([a,b])=>{if($(a)&&$(b))$(b).value=$(a).value;});
 }
 ["prepJobId","prepClient","prepFacility","prepUnit","prepDate"].forEach(id=>$(id)?.addEventListener("input",()=>{syncJobInfo();save();}));
+
+$("addCrewMemberBtn")?.addEventListener("click",addCrewMember);
+$("crewName")?.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();addCrewMember();}});
+$("crewSharedNoteInput")?.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key==="Enter"){e.preventDefault();addCrewSharedNote();}});
+$("crewActingProfile")?.addEventListener("change",e=>{if(cloudReady())return;state.crewActingId=e.target.value||"";crewTimeEditId=null;save();renderCrewTime();renderJobNotes();renderJobActivity();});
+$("crewJobLead")?.addEventListener("change",async e=>{if(!crewCanAssignJobLead())return;if(cloudReady()&&state.cloudJobId)return cloudSetJobLead(e.target.value||"");state.jobLeadId=e.target.value||"";const lead=crewJobLead();addJobActivity("Job Lead updated",lead?`${lead.name} — ${lead.role}`:"Job Lead cleared");save();renderCrewTime();renderJobActivity();});
+$("crewTimeStart")?.addEventListener("input",renderCrewTimePreview);$("crewTimeEnd")?.addEventListener("input",renderCrewTimePreview);
+$("saveCrewTimeBtn")?.addEventListener("click",saveCrewTimeEntry);$("cancelCrewTimeEditBtn")?.addEventListener("click",cancelCrewTimeEdit);
+$("crewRosterList")?.addEventListener("click",async e=>{const lead=e.target.dataset.crewLead,remove=e.target.dataset.crewRemove;if(lead){if(cloudReady()&&state.cloudJobId)await cloudSetJobLead(lead);else{state.jobLeadId=lead;const m=crewMember(lead);addJobActivity("Job Lead updated",m?`${m.name} — ${m.role}`:"Job Lead updated");save();renderCrewTime();renderJobActivity();}}if(remove){if(cloudReady()&&state.cloudJobId)await cloudRemoveCrewMember(remove);else removeCrewMember(remove);}});
+$("crewRosterList")?.addEventListener("change",async e=>{const id=e.target.dataset.crewAssign;if(!id||!crewCanManageRoster())return;if(cloudReady()&&state.cloudJobId)return cloudUpdateCrewAssignment(id,e.target.value||"");const m=crewMember(id);if(!m)return;m.reportsTo=e.target.value||"";const lead=crewMember(m.reportsTo);addJobActivity("Crew assignment updated",`${m.name} → ${lead?.name||'Unassigned'}`);save();renderCrewTime();renderJobActivity();});
+$("crewTimeList")?.addEventListener("click",e=>{const edit=e.target.dataset.crewTimeEdit,del=e.target.dataset.crewTimeDelete;if(edit)editCrewTimeEntry(edit);if(del)deleteCrewTimeEntry(del);});
 
 buildRataRows();
 updatePart75Ui();
@@ -3346,6 +4184,7 @@ $("addSpecialEquipmentBtn")?.addEventListener("click",addSpecialEquipment);
 $("specialEquipmentInput")?.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();addSpecialEquipment()}});
 $("addMonorailBtn")?.addEventListener("click",addMonorail);
 $("addJobNoteBtn")?.addEventListener("click",addJobNote);
+$("crewSharedNoteBtn")?.addEventListener("click",addCrewSharedNote);
 $("jobPhotoInput")?.addEventListener("change",e=>addJobPhoto(e.target.files?.[0]));
 $("jobDocumentInput")?.addEventListener("change",e=>addJobDocument(e.target.files?.[0]));
 
@@ -3377,9 +4216,10 @@ document.querySelectorAll(".module-tab").forEach(btn=>btn.addEventListener("clic
   el.addEventListener("change",()=>{noxCalc();save();});
 });
 
-appMode=localStorage.getItem("stacktestpro_mode")||"full";
+appMode=stpStorage.getItem("stacktestpro_mode")||"full";
 applyMode();
 load();
+initCloud();
 noxCalc();
 
 let installPrompt=null;
@@ -3406,10 +4246,10 @@ $("installBtn")?.addEventListener("click",async()=>{
   const byId=id=>document.getElementById(id);
   function closeDrawer(){byId('sideDrawer')?.classList.remove('open');byId('drawerScrim')?.classList.add('hidden');byId('sideDrawer')?.setAttribute('aria-hidden','true');byId('menuBtn')?.setAttribute('aria-expanded','false');}
   function openDrawer(){byId('sideDrawer')?.classList.add('open');byId('drawerScrim')?.classList.remove('hidden');byId('sideDrawer')?.setAttribute('aria-hidden','false');byId('menuBtn')?.setAttribute('aria-expanded','true');}
-  function navigate(view){if(typeof save==='function')save();document.querySelectorAll('.view').forEach(v=>v.classList.remove('active','quick-open'));const target=byId(view);if(target)target.classList.add('active');if(view==='field'&&typeof renderFieldMethods==='function')renderFieldMethods(true);document.querySelectorAll('.drawer-link[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));document.querySelectorAll('.step[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));closeDrawer();window.scrollTo({top:0,behavior:'smooth'});}
+  function navigate(view){try{if(typeof save==='function')save();}catch(e){console.warn('Stack Test Pro save skipped during navigation:',e);}document.querySelectorAll('.view').forEach(v=>v.classList.remove('active','quick-open'));const target=byId(view);if(target)target.classList.add('active');if(view==='field'&&typeof renderFieldMethods==='function')renderFieldMethods(true);document.querySelectorAll('.drawer-link[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));document.querySelectorAll('.step[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));closeDrawer();window.scrollTo({top:0,behavior:'smooth'});}
   globalThis.navigateStackTest=navigate;
-  const flow=[['clientplant','Client / Plant'],['prejob','Mobilize'],['prelims','Setup / Prelims'],['field','Field Testing'],['compare','Results'],['postjob','Complete']];
-  flow.forEach(([id,label],i)=>{const view=byId(id);if(!view||view.querySelector('.workflow-nav'))return;const nav=document.createElement('nav');nav.className='workflow-nav';nav.setAttribute('aria-label',`${label} navigation`);if(i>0){const back=document.createElement('button');back.className='secondary';back.type='button';back.textContent=`← Back: ${flow[i-1][1]}`;back.addEventListener('click',()=>navigate(flow[i-1][0]));nav.appendChild(back);}const next=document.createElement('button');next.className='primary next-step';next.type='button';if(i<flow.length-1){next.textContent=`Next: ${flow[i+1][1]} →`;next.addEventListener('click',()=>navigate(flow[i+1][0]));}else{next.textContent='Finish / Save Job';next.addEventListener('click',()=>{if(typeof save==='function')save();navigate('savedjobs');});}nav.appendChild(next);view.appendChild(nav);});
+  const flow=[['clientplant','Client / Plant'],['prejob','Mobilize'],['prelims','Setup / Prelims'],['field','Field Testing'],['crewtime','Crew Time'],['compare','Results'],['postjob','Complete']];
+  flow.forEach(([id,label],i)=>{const view=byId(id);if(!view||view.querySelector('.workflow-nav'))return;const nav=document.createElement('nav');nav.className='workflow-nav';nav.setAttribute('aria-label',`${label} navigation`);if(i>0){const back=document.createElement('button');back.className='secondary';back.type='button';back.textContent=`← Back: ${flow[i-1][1]}`;back.addEventListener('click',()=>navigate(flow[i-1][0]));nav.appendChild(back);}const next=document.createElement('button');next.className='primary next-step';next.type='button';if(i<flow.length-1){next.textContent=`Next: ${flow[i+1][1]} →`;next.addEventListener('click',()=>navigate(flow[i+1][0]));}else{next.textContent='Finish / Save Job';next.addEventListener('click',()=>{if(typeof addJobActivity==='function'){state.completedAt=state.completedAt||new Date().toISOString();addJobActivity('Job saved / closeout archived','All current shared notes, crew time, job information, field data, and activity remain attached to this saved job.');}if(typeof save==='function')save();if(typeof renderJobActivity==='function')renderJobActivity();navigate('savedjobs');});}nav.appendChild(next);view.appendChild(nav);});
   document.querySelectorAll('.workflow-nav').forEach(nav=>{
     const buttons=nav.querySelectorAll('button');
     buttons.forEach(button=>{
@@ -3419,10 +4259,10 @@ $("installBtn")?.addEventListener("click",async()=>{
   });
   byId('menuBtn')?.addEventListener('click',openDrawer);byId('drawerClose')?.addEventListener('click',closeDrawer);byId('drawerScrim')?.addEventListener('click',closeDrawer);document.querySelectorAll('.drawer-link[data-view]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.view)));
   const KEY='stacktestpro_appearance_v1';
-  function getAppearance(){let a={theme:'dark',accent:'#27d65f'};try{a={...a,...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){}return a;}
+  function getAppearance(){let a={theme:'dark',accent:'#27d65f'};try{a={...a,...JSON.parse(stpStorage.getItem(KEY)||'{}')}}catch(e){}return a;}
   function applyAppearance(){const a=getAppearance();let resolved=a.theme;if(resolved==='system')resolved=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches)?'light':'dark';document.body.classList.toggle('theme-light',resolved==='light');document.documentElement.style.setProperty('--accent',a.accent);document.documentElement.style.setProperty('--blue',a.accent);const t=byId('themeSetting'),c=byId('accentSetting');if(t)t.value=a.theme;if(c)c.value=a.accent;document.querySelector('meta[name="theme-color"]')?.setAttribute('content',resolved==='light'?'#ffffff':'#07110b');}
-  function saveAppearance(){const a={theme:byId('themeSetting')?.value||'dark',accent:byId('accentSetting')?.value||'#27d65f'};localStorage.setItem(KEY,JSON.stringify(a));applyAppearance();}
-  byId('themeSetting')?.addEventListener('change',saveAppearance);byId('accentSetting')?.addEventListener('input',saveAppearance);document.querySelectorAll('[data-accent]').forEach(b=>b.addEventListener('click',()=>{const c=byId('accentSetting');if(c)c.value=b.dataset.accent;saveAppearance();}));byId('resetAppearanceBtn')?.addEventListener('click',()=>{localStorage.removeItem(KEY);applyAppearance();});applyAppearance();
+  function saveAppearance(){const a={theme:byId('themeSetting')?.value||'dark',accent:byId('accentSetting')?.value||'#27d65f'};stpStorage.setItem(KEY,JSON.stringify(a));applyAppearance();}
+  byId('themeSetting')?.addEventListener('change',saveAppearance);byId('accentSetting')?.addEventListener('input',saveAppearance);document.querySelectorAll('[data-accent]').forEach(b=>b.addEventListener('click',()=>{const c=byId('accentSetting');if(c)c.value=b.dataset.accent;saveAppearance();}));byId('resetAppearanceBtn')?.addEventListener('click',()=>{stpStorage.removeItem(KEY);applyAppearance();});applyAppearance();
 })();
 </script>
 </body>
