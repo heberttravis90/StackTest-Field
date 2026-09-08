@@ -18,6 +18,13 @@ const sdkNeedle = 'const STP_SUPABASE_SDK_URLS=[';
 if (html.includes(sdkNeedle) && !html.includes('"./vendor/supabase.min.js"')) {
   html = html.replace(sdkNeedle, `${sdkNeedle}\n  "./vendor/supabase.min.js",`);
 }
+
+if (!html.includes('rata-standards-patch.js')) {
+  const closeBody = html.toLowerCase().lastIndexOf('</body>');
+  if (closeBody < 0) throw new Error('Could not find final </body> in Stack Test Pro index.html');
+  html = html.slice(0, closeBody) + '  <script src="./rata-standards-patch.js?v=20260908rata1"></script>\n' + html.slice(closeBody);
+}
+
 if (!html.includes('native-runtime.js')) {
   const closeBody = html.toLowerCase().lastIndexOf('</body>');
   if (closeBody < 0) throw new Error('Could not find final </body> in Stack Test Pro index.html');
@@ -25,7 +32,7 @@ if (!html.includes('native-runtime.js')) {
 }
 fs.writeFileSync(path.join(www, 'index.html'), html);
 
-for (const name of ['manifest.webmanifest', 'sw.js', 'icon-192.png', 'icon-512.png']) {
+for (const name of ['manifest.webmanifest', 'sw.js', 'icon-192.png', 'icon-512.png', 'rata-standards-patch.js']) {
   const src = path.join(root, name);
   if (fs.existsSync(src)) fs.copyFileSync(src, path.join(www, name));
 }
