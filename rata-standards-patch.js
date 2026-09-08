@@ -54,7 +54,7 @@
     unitsWrap.style.display=show?"":"none";
     note.style.display=show?"":"none";
     if(show){
-      note.textContent="PS 2 automatically selects the governing RM-mean or applicable-standard denominator. For SO₂, choose lb/MMBtu or ng/J so the low-standard 15% / 20% provisions can be applied when applicable.";
+      note.textContent="PS 2 automatically selects the governing RM-mean or applicable-standard basis. The displayed Relative Accuracy value uses that same governing denominator.";
     }
   }
 
@@ -64,20 +64,24 @@
     const standard=num("rata60Standard"),customRa=num("rata60CustomRa"),customAbs=num("rata60CustomAbs");
     const tests=[];
     const numerator=(s.ad!=null&&s.cc!=null)?Math.abs(s.ad)+Math.abs(s.cc):null;
+    let displayRa=null,basis=null,ratio=null,limitPct=null;
 
     if(ps==="PS2"){
-      const ready=standard!=null&&standard!==0&&s.ar!=null&&numerator!=null;
+      const ready=standard!=null&&standard!==0&&s.ar!=null&&s.ar!==0&&numerator!=null;
       if(!ready){
-        tests.push({name:"PS 2 needs the applicable emission standard to select the correct RA basis",pass:false,ready:false});
+        tests.push({name:"PS 2 needs the applicable emission standard and paired-run statistics to select the correct RA basis",pass:false,ready:false});
       }else{
-        const ratio=Math.abs(s.ar)/Math.abs(standard);
+        ratio=Math.abs(s.ar)/Math.abs(standard);
         const pollutant=$("rata60Pollutant")?.value||state.rata60Pollutant||"NOx";
         const units=$("rata60StdUnits")?.value||state.rata60StdUnits||"other";
 
         if(ratio>=0.5){
-          const limit=Math.abs(s.ar)*0.20;
+          limitPct=20;
+          basis="RM mean";
+          displayRa=numerator/Math.abs(s.ar)*100;
+          const limit=Math.abs(s.ar)*limitPct/100;
           tests.push({
-            name:`PS 2 RM-mean basis: RM mean ${fmt(ratio*100,1)}% of standard; RA ≤ 20% of RM mean (allowable numerator ${fmt(limit,4)})`,
+            name:`PS 2 RM-mean basis: RA ${fmt(displayRa,2)}% ≤ ${fmt(limitPct,1)}%; RM mean is ${fmt(ratio*100,1)}% of the applicable standard`,
             pass:numerator<=limit,
             ready:true
           });
@@ -92,9 +96,12 @@
             if(v<86){pct=20;special=" — SO₂ standard below 86 ng/J";}
             else if(v<=130){pct=15;special=" — SO₂ standard 86–130 ng/J";}
           }
+          limitPct=pct;
+          basis="applicable emission standard";
+          displayRa=numerator/Math.abs(standard)*100;
           const limit=Math.abs(standard)*pct/100;
           tests.push({
-            name:`PS 2 applicable-standard basis: RM mean ${fmt(ratio*100,1)}% of standard; RA ≤ ${pct}% of standard${special} (allowable numerator ${fmt(limit,4)})`,
+            name:`PS 2 applicable-standard basis: RA ${fmt(displayRa,2)}% ≤ ${fmt(pct,1)}%; RM mean is ${fmt(ratio*100,1)}% of the applicable standard${special}`,
             pass:numerator<=limit,
             ready:true
           });
@@ -125,10 +132,35 @@
       }
     }
 
-    return {ps,tests,passing:tests.filter(x=>x.ready&&x.pass),ready:tests.some(x=>x.ready)};
+    return {ps,tests,passing:tests.filter(x=>x.ready&&x.pass),ready:tests.some(x=>x.ready),displayRa,basis,ratio,limitPct};
+  }
+
+  let baseRata60Field=null;
+  try{baseRata60Field=rata60Field;}catch(_e){baseRata60Field=window.rata60Field;}
+
+  function correctedRata60Field(){
+    const result=baseRata60Field?baseRata60Field():null;
+    if(!result)return result;
+
+    const evaluation=result.evaluation;
+    if(evaluation?.ps==="PS2"&&evaluation.displayRa!=null){
+      const raEl=$("rata60RelDiff");
+      if(raEl)raEl.textContent=fmt(evaluation.displayRa,2);
+      result.rel=evaluation.displayRa;
+      result.raBasis=evaluation.basis;
+
+      const note=$("rata60StandardBasisNote");
+      if(note){
+        const ratioText=evaluation.ratio==null?"—":`${fmt(evaluation.ratio*100,1)}%`;
+        note.className="status neutral";
+        note.textContent=`PS 2 calculation basis: ${evaluation.basis}. RM mean is ${ratioText} of the applicable emission standard, so the displayed RA is ${fmt(evaluation.displayRa,2)}% using the governing denominator.`;
+      }
+    }
+    return result;
   }
 
   try{evaluatePart60=correctedEvaluatePart60;}catch(_e){window.evaluatePart60=correctedEvaluatePart60;}
+  try{rata60Field=correctedRata60Field;}catch(_e){window.rata60Field=correctedRata60Field;}
   window.ensureRata60StandardUi=ensureRata60StandardUi;
 
   try{ensureRata60StandardUi();rata60Field();}catch(e){console.warn("Stack Test Pro RATA standards patch:",e);}
