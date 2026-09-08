@@ -6,6 +6,7 @@ on:
     branches: [ main ]
     paths:
       - 'index.html'
+      - 'rata-standards-patch.js'
       - 'manifest.webmanifest'
       - 'sw.js'
       - 'package.json'
@@ -16,7 +17,7 @@ on:
       - '.github/workflows/build-android-apk.yml'
 
 jobs:
-  build-debug-apk:
+  build-release-apk:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -46,25 +47,45 @@ jobs:
       - name: Generate Android project
         run: npx cap add android
 
+      - name: Restore permanent release signing key
+        env:
+          STP_KEYSTORE_BASE64: ${{ secrets.STP_KEYSTORE_BASE64 }}
+        run: |
+          if [ -z "$STP_KEYSTORE_BASE64" ]; then
+            echo "::error::Missing repository secret STP_KEYSTORE_BASE64"
+            exit 1
+          fi
+          echo "$STP_KEYSTORE_BASE64" | base64 --decode > "$GITHUB_WORKSPACE/stacktestpro-release.jks"
+
       - name: Sync Capacitor
         run: npx cap sync android
 
       - name: Apply Stack Test Pro Android settings
+        env:
+          GITHUB_RUN_NUMBER: ${{ github.run_number }}
         run: node scripts/patch-android.mjs
 
-      - name: Build debug APK
+      - name: Build signed release APK
+        env:
+          STP_KEYSTORE_FILE: ${{ github.workspace }}/stacktestpro-release.jks
+          STP_KEYSTORE_PASSWORD: ${{ secrets.STP_KEYSTORE_PASSWORD }}
+          STP_KEY_ALIAS: ${{ secrets.STP_KEY_ALIAS }}
+          STP_KEY_PASSWORD: ${{ secrets.STP_KEY_PASSWORD }}
         working-directory: android
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug
+          ./gradlew assembleRelease
 
-      - name: Rename APK
-        run: cp android/app/build/outputs/apk/debug/app-debug.apk Stack-Test-Pro-v0.73-RC1-debug.apk
+      - name: Verify signed APK exists
+        run: |
+          test -f android/app/build/outputs/apk/release/app-release.apk
+          mkdir -p release-output
+          cp android/app/build/outputs/apk/release/app-release.apk "release-output/Stack-Test-Pro-0.74.${{ github.run_number }}.apk"
 
-      - name: Upload APK
+      - name: Upload signed APK
         uses: actions/upload-artifact@v4
         with:
-          name: Stack-Test-Pro-v0.73-RC1-APK
-          path: Stack-Test-Pro-v0.73-RC1-debug.apk
+          name: Stack-Test-Pro-0.74.${{ github.run_number }}-APK
+          path: release-output/Stack-Test-Pro-0.74.${{ github.run_number }}.apk
           if-no-files-found: error
           retention-days: 30
