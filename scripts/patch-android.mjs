@@ -10,11 +10,34 @@ if (!fs.existsSync(android)) {
   process.exit(1);
 }
 
+const parsedRun = Number.parseInt(process.env.GITHUB_RUN_NUMBER || process.env.STP_BUILD_NUMBER || '1', 10);
+const buildNumber = Number.isFinite(parsedRun) && parsedRun > 0 ? parsedRun : 1;
+const versionCode = 740000 + buildNumber;
+const versionName = `0.74.${buildNumber}`;
+
 const gradle = path.join(android, 'app', 'build.gradle');
 if (fs.existsSync(gradle)) {
   let text = fs.readFileSync(gradle, 'utf8');
-  text = text.replace(/versionCode\s+\d+/, 'versionCode 7301');
-  text = text.replace(/versionName\s+"[^"]+"/, 'versionName "0.73.0-rc1"');
+  text = text.replace(/versionCode\s+\d+/, `versionCode ${versionCode}`);
+  text = text.replace(/versionName\s+"[^"]+"/, `versionName "${versionName}"`);
+
+  if (!text.includes('STP_KEYSTORE_FILE')) {
+    const signingBlock = `\n    signingConfigs {\n        release {\n            def stpKeystore = System.getenv("STP_KEYSTORE_FILE")\n            if (stpKeystore) {\n                storeFile file(stpKeystore)\n                storePassword System.getenv("STP_KEYSTORE_PASSWORD")\n                keyAlias System.getenv("STP_KEY_ALIAS") ?: "stacktestpro"\n                keyPassword System.getenv("STP_KEY_PASSWORD")\n            }\n        }\n    }\n`;
+    if (text.includes('    buildTypes {')) {
+      text = text.replace('    buildTypes {', `${signingBlock}\n    buildTypes {`);
+    } else {
+      throw new Error('Could not find buildTypes block in android/app/build.gradle');
+    }
+  }
+
+  if (!text.includes('signingConfig signingConfigs.release')) {
+    const buildTypesPos = text.indexOf('    buildTypes {');
+    const releasePos = buildTypesPos >= 0 ? text.indexOf('release {', buildTypesPos) : -1;
+    if (releasePos < 0) throw new Error('Could not find release buildType in android/app/build.gradle');
+    const insertPos = releasePos + 'release {'.length;
+    text = text.slice(0, insertPos) + `\n            if (System.getenv("STP_KEYSTORE_FILE")) {\n                signingConfig signingConfigs.release\n            }` + text.slice(insertPos);
+  }
+
   fs.writeFileSync(gradle, text);
 }
 
@@ -61,4 +84,4 @@ for (const dir of ['mipmap-anydpi-v26']) {
   }
 }
 
-console.log('Patched Android app name, version, cleartext policy, and launcher icons.');
+console.log(`Patched Android app: versionCode ${versionCode}, versionName ${versionName}, permanent release signing, cleartext policy, and launcher icons.`);
