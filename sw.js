@@ -1,6 +1,7 @@
-const CACHE = 'stack-test-pro-rata-standard-20260908-web2';
-const CORE = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './rata-standards-patch.js'];
-const RATA_PATCH_TAG = '<script src="./rata-standards-patch.js?v=20260908rata2"></script>';
+const CACHE = 'stack-test-pro-mobilization-20260910-web3';
+const PATCH_URL = './rata-standards-patch.js?v=20260910mobilize1';
+const CORE = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', PATCH_URL];
+const RATA_PATCH_TAG = `<script src="${PATCH_URL}"></script>`;
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(CORE)).then(() => self.skipWaiting()));

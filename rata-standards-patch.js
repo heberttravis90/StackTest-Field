@@ -165,3 +165,207 @@
 
   try{ensureRata60StandardUi();rata60Field();}catch(e){console.warn("Stack Test Pro RATA standards patch:",e);}
 })();
+/* Stack Test Pro — Mobilization hotfix 2026-09-10
+   Fixes Method 16C availability, monorail style/length population/migration,
+   and duplicate Method 4 + Method 5 load-out items without removing required gear. */
+(function(){
+  'use strict';
+
+  const logPrefix='Stack Test Pro mobilization hotfix:';
+
+  function safeRun(fn){
+    try{return fn();}catch(e){console.warn(logPrefix,e);return null;}
+  }
+
+  function ensureMethod16C(){
+    if(typeof METHOD_CATALOG!=='undefined' && Array.isArray(METHOD_CATALOG) && !METHOD_CATALOG.some(m=>m?.[0]==='16C')){
+      const entry=['16C','Total Reduced Sulfur — Real Time Data','workspace','genericMethod'];
+      const after=METHOD_CATALOG.findIndex(m=>m?.[0]==='16B');
+      METHOD_CATALOG.splice(after>=0?after+1:METHOD_CATALOG.length,0,entry);
+    }
+
+    if(typeof ANALYZER_METHOD_CODES!=='undefined' && ANALYZER_METHOD_CODES?.add){
+      ANALYZER_METHOD_CODES.add('16C');
+    }
+
+    if(typeof METHOD_PREP!=='undefined' && METHOD_PREP && !METHOD_PREP['16C']){
+      METHOD_PREP['16C']={
+        title:'Total Reduced Sulfur — Real Time Data',
+        equipment:[
+          'Method 16C TRS analyzer system',
+          'SO₂ analyzer / instrumental analyzer',
+          'Thermal oxidizer / converter',
+          'Citrate buffer SO₂ scrubber / conditioning system',
+          'Sample probe / sample line',
+          'Sample pump / flow control',
+          'Zero gas',
+          'Calibration / span gas standards',
+          'Gas cylinder certificates',
+          'Regulators / calibration manifold',
+          'DAS / laptop',
+          'Communication cable',
+          'Spare tubing / fittings',
+          'Calibration / bias / drift field sheets'
+        ],
+        setup:[
+          'Confirm Method 16C applicability and reporting basis',
+          'Prepare citrate buffer scrubber and thermal oxidizer / converter',
+          'Select analyzer span and verify calibration gas certificates',
+          'Prepare system calibration, bias, and response-time checks'
+        ],
+        prelims:[
+          'Expected TRS concentration',
+          'Expected SO₂ concentration / interference',
+          'Applicable limit and averaging basis',
+          'Required run duration / data averaging period'
+        ]
+      };
+    }
+
+    if(typeof renderMethodCatalog==='function') renderMethodCatalog(document.getElementById('methodSearch')?.value||'');
+    if(typeof renderMethodWorkspace==='function') renderMethodWorkspace();
+    if(typeof renderSelectedMethods==='function') renderSelectedMethods();
+    if(typeof renderHomeMethodChips==='function') renderHomeMethodChips();
+  }
+
+  const MONORAIL_STYLES=['Bolt-on Plate','Pin Style','Verify at Shop'];
+  const MONORAIL_LENGTHS=[
+    ['5','5 ft'],['8','8 ft'],['10','10 ft'],['12','12 ft'],['15','15 ft'],['Verify','Verify at Shop']
+  ];
+
+  function normalizeMonorail(m){
+    const raw=(m&&typeof m==='object')?m:{};
+    const style=String(raw.style||raw.type||'').trim()||'Verify at Shop';
+    const rawLength=raw.length??raw.size??'Verify';
+    const length=String(rawLength).replace(/\s*ft\.?$/i,'').trim()||'Verify';
+    const quantity=Math.max(1,Math.floor(Number(raw.quantity??raw.qty??1)||1));
+    return {style,length,quantity};
+  }
+
+  function populateMonorailControls(){
+    const style=document.getElementById('monorailStyle');
+    const length=document.getElementById('monorailLength');
+    if(style){
+      const current=style.value;
+      style.innerHTML=MONORAIL_STYLES.map(x=>`<option value="${x}">${x}</option>`).join('');
+      style.value=MONORAIL_STYLES.includes(current)?current:MONORAIL_STYLES[0];
+    }
+    if(length){
+      const current=length.value;
+      length.innerHTML=MONORAIL_LENGTHS.map(([value,label])=>`<option value="${value}">${label}</option>`).join('');
+      length.value=MONORAIL_LENGTHS.some(([value])=>value===current)?current:MONORAIL_LENGTHS[0][0];
+    }
+  }
+
+  const baseMonorailText=(typeof monorailEquipmentText==='function')?monorailEquipmentText:null;
+  function fixedMonorailEquipmentText(m){
+    const n=normalizeMonorail(m);
+    const length=n.length==='Verify'?'Length: Verify at Shop':`${n.length} ft`;
+    return `${n.quantity} × ${n.style} Monorail${n.quantity===1?'':'s'} — ${length}`;
+  }
+
+  const baseRenderMonorails=(typeof renderMonorails==='function')?renderMonorails:null;
+  function fixedRenderMonorails(){
+    populateMonorailControls();
+    if(typeof state!=='undefined' && state){
+      state.monorails=Array.isArray(state.monorails)?state.monorails.map(normalizeMonorail):[];
+    }
+    return baseRenderMonorails?baseRenderMonorails():undefined;
+  }
+
+  const baseAddMonorail=(typeof addMonorail==='function')?addMonorail:null;
+  function fixedAddMonorail(){
+    populateMonorailControls();
+    if(baseAddMonorail) baseAddMonorail();
+    if(typeof state!=='undefined' && state){
+      state.monorails=Array.isArray(state.monorails)?state.monorails.map(normalizeMonorail):[];
+      if(typeof save==='function') save();
+    }
+    fixedRenderMonorails();
+    if(typeof buildEquipment==='function') buildEquipment();
+    if(typeof renderMasterEquipment==='function') renderMasterEquipment();
+  }
+
+  // Extend the app's semantic dedupe rules so common Method 4 / Method 5 support gear
+  // is represented once even when the same physical item has slightly different wording.
+  const baseCanonical=(typeof canonicalEquipmentItem==='function')?canonicalEquipmentItem:null;
+  function fixedCanonicalEquipmentItem(item){
+    const raw=String(item||'').replace(/\s+/g,' ').trim();
+    const key=raw.toLowerCase().replace(/[–—]/g,'-').replace(/\s*\/\s*/g,' / ');
+    const aliases=new Map([
+      ['umbilical','Umbilical / vacuum line'],
+      ['umbilical / vacuum line','Umbilical / vacuum line'],
+      ['silica gel holder','Silica gel container / holder'],
+      ['silica gel container / holder','Silica gel container / holder'],
+      ['impingers clamps / connectors','Impinger clamps / connectors'],
+      ['impingers clamps / glass connectors','Impinger clamps / connectors'],
+      ['impingers connectors / clamps','Impinger clamps / connectors'],
+      ['dgm','DGM / meter console'],
+      ['dgm / meter console','DGM / meter console'],
+      ['ice chest / ice','Ice chest'],
+      ['ice chest / cooling supplies as applicable','Ice chest'],
+      ['ice chest if required by approved train','Ice chest']
+    ]);
+    return aliases.get(key)||(baseCanonical?baseCanonical(raw):raw);
+  }
+
+  const baseAllEquipment=(typeof allEquipment==='function')?allEquipment:null;
+  function fixedAllEquipment(){
+    let items=baseAllEquipment?baseAllEquipment():[];
+    items=Array.isArray(items)?items.map(fixedCanonicalEquipmentItem):[];
+
+    // These combined descriptions duplicate items already guaranteed by the base mobilization list.
+    const baseCovered=new Set([
+      'Extension cords / power strip',
+      'Toolbox / spare fittings',
+      'Field sheets / sample labels'
+    ]);
+    items=items.filter(item=>!baseCovered.has(item));
+
+    // Method 5 already lists the actual stack/probe/filter-box thermocouples; don't also show a generic Thermocouples row.
+    if(items.some(x=>['Stack thermocouple','Probe thermocouple','Filter-box thermocouple'].includes(x))){
+      items=items.filter(x=>x!=='Thermocouples');
+    }
+
+    // On a Method 5 job the meter console is the load-out item; don't repeat the same metering package as DGM / meter console.
+    if(items.includes('Method 5 meter console')){
+      items=items.filter(x=>x!=='DGM / meter console');
+    }
+
+    const seen=new Set();
+    const out=[];
+    for(const item of items){
+      const display=fixedCanonicalEquipmentItem(item);
+      const key=display.toLowerCase().replace(/[^a-z0-9]+/g,' ').replace(/\s+/g,' ').trim();
+      if(!key||seen.has(key)) continue;
+      seen.add(key);
+      out.push(display);
+    }
+    return out.sort((a,b)=>a.localeCompare(b));
+  }
+
+  safeRun(()=>{try{monorailEquipmentText=fixedMonorailEquipmentText;}catch(_e){window.monorailEquipmentText=fixedMonorailEquipmentText;}});
+  safeRun(()=>{try{renderMonorails=fixedRenderMonorails;}catch(_e){window.renderMonorails=fixedRenderMonorails;}});
+  safeRun(()=>{try{addMonorail=fixedAddMonorail;}catch(_e){window.addMonorail=fixedAddMonorail;}});
+  safeRun(()=>{try{canonicalEquipmentItem=fixedCanonicalEquipmentItem;}catch(_e){window.canonicalEquipmentItem=fixedCanonicalEquipmentItem;}});
+  safeRun(()=>{try{allEquipment=fixedAllEquipment;}catch(_e){window.allEquipment=fixedAllEquipment;}});
+
+  // Rebind the existing add button because its original listener captured the pre-hotfix function.
+  safeRun(()=>{
+    const oldBtn=document.getElementById('addMonorailBtn');
+    if(oldBtn && !oldBtn.dataset.hotfixBound){
+      const fresh=oldBtn.cloneNode(true);
+      fresh.dataset.hotfixBound='1';
+      oldBtn.replaceWith(fresh);
+      fresh.addEventListener('click',fixedAddMonorail);
+    }
+  });
+
+  safeRun(ensureMethod16C);
+  safeRun(populateMonorailControls);
+  safeRun(fixedRenderMonorails);
+  safeRun(()=>{if(typeof buildEquipment==='function') buildEquipment();});
+  safeRun(()=>{if(typeof renderMasterEquipment==='function') renderMasterEquipment();});
+
+  window.STP_MOBILIZATION_HOTFIX='2026-09-10';
+})();
