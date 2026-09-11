@@ -19,20 +19,20 @@ if (html.includes(sdkNeedle) && !html.includes('"./vendor/supabase.min.js"')) {
   html = html.replace(sdkNeedle, `${sdkNeedle}\n  "./vendor/supabase.min.js",`);
 }
 
-if (!html.includes('rata-standards-patch.js')) {
+function injectBeforeBody(tag, marker) {
+  if (html.includes(marker)) return;
   const closeBody = html.toLowerCase().lastIndexOf('</body>');
   if (closeBody < 0) throw new Error('Could not find final </body> in Stack Test Pro index.html');
-  html = html.slice(0, closeBody) + '  <script src="./rata-standards-patch.js?v=20260908rata1"></script>\n' + html.slice(closeBody);
+  html = html.slice(0, closeBody) + `  ${tag}\n` + html.slice(closeBody);
 }
 
-if (!html.includes('native-runtime.js')) {
-  const closeBody = html.toLowerCase().lastIndexOf('</body>');
-  if (closeBody < 0) throw new Error('Could not find final </body> in Stack Test Pro index.html');
-  html = html.slice(0, closeBody) + '  <script src="./native-runtime.js"></script>\n' + html.slice(closeBody);
-}
+injectBeforeBody('<script src="./rata-standards-patch.js?v=20260908rata1"></script>', 'rata-standards-patch.js');
+injectBeforeBody('<script src="./native-runtime.js"></script>', 'native-runtime.js');
+injectBeforeBody('<script src="./mobilize-fix.js?v=20260910native1"></script>', 'mobilize-fix.js');
+
 fs.writeFileSync(path.join(www, 'index.html'), html);
 
-for (const name of ['manifest.webmanifest', 'sw.js', 'icon-192.png', 'icon-512.png', 'rata-standards-patch.js']) {
+for (const name of ['manifest.webmanifest', 'sw.js', 'icon-192.png', 'icon-512.png', 'rata-standards-patch.js', 'mobilize-fix.js']) {
   const src = path.join(root, name);
   if (fs.existsSync(src)) fs.copyFileSync(src, path.join(www, name));
 }
@@ -49,4 +49,4 @@ if (sdk) {
   console.warn('Supabase UMD not found yet. Run npm install before the Android build.');
 }
 
-console.log('Prepared Stack Test Pro web assets in www/.');
+console.log('Prepared Stack Test Pro web assets in www/ with Mobilize native actions.');
