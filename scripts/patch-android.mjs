@@ -109,6 +109,14 @@ public class StackTestNativePlugin extends Plugin {
     private WebView printWebView;
 
     @PluginMethod()
+    public void ping(PluginCall call) {
+        JSObject ret = new JSObject();
+        ret.put("native", true);
+        ret.put("platform", "android");
+        call.resolve(ret);
+    }
+
+    @PluginMethod()
     public void shareText(PluginCall call) {
         String title = call.getString("title", "Stack Test Pro Loadout");
         String text = call.getString("text", "");
@@ -214,23 +222,32 @@ if (fs.existsSync(mainActivityPath)) {
     text = text.replace(packageLine, `${packageLine}\n\nimport android.os.Bundle;`);
   }
 
-  if (!text.includes('registerPlugin(StackTestNativePlugin.class)')) {
-    if (/void\s+onCreate\s*\(\s*Bundle\s+savedInstanceState\s*\)/.test(text)) {
-      text = text.replace(
-        /super\.onCreate\(savedInstanceState\);/,
-        'super.onCreate(savedInstanceState);\n        registerPlugin(StackTestNativePlugin.class);'
-      );
-    } else {
-      text = text.replace(
-        /public class MainActivity extends BridgeActivity\s*\{/,
-        `public class MainActivity extends BridgeActivity {
+  // Capacitor 8 constructs its Bridge during super.onCreate(). A manually
+  // registered plugin MUST be added to bridgeBuilder before that happens.
+  // Remove any stale post-super registration from an older generated build.
+  text = text.replace(/^\s*registerPlugin\(StackTestNativePlugin\.class\);\s*$/gm, '');
+
+  if (/void\s+onCreate\s*\(\s*Bundle\s+savedInstanceState\s*\)/.test(text)) {
+    text = text.replace(
+      /(^[ \t]*)super\.onCreate\(savedInstanceState\);/m,
+      (_match, indent) => `${indent}registerPlugin(StackTestNativePlugin.class);\n${indent}super.onCreate(savedInstanceState);`
+    );
+  } else {
+    text = text.replace(
+      /public class MainActivity extends BridgeActivity\s*\{/,
+      `public class MainActivity extends BridgeActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         registerPlugin(StackTestNativePlugin.class);
+        super.onCreate(savedInstanceState);
     }`
-      );
-    }
+    );
+  }
+
+  const registerPos = text.indexOf('registerPlugin(StackTestNativePlugin.class);');
+  const superPos = text.indexOf('super.onCreate(savedInstanceState);');
+  if (registerPos < 0 || superPos < 0 || registerPos > superPos) {
+    throw new Error('StackTestNative must be registered before super.onCreate(savedInstanceState).');
   }
 
   fs.writeFileSync(mainActivityPath, text);
@@ -264,4 +281,4 @@ for (const dir of ['mipmap-anydpi-v26']) {
   }
 }
 
-console.log(`Patched Android app: versionCode ${versionCode}, versionName ${versionName}, native Mobilize share/save/print actions, permanent release signing, cleartext policy, and launcher icons.`);
+console.log(`Patched Android app: versionCode ${versionCode}, versionName ${versionName}, native Mobilize share/save/print actions registered before bridge creation, permanent release signing, cleartext policy, and launcher icons.`);
