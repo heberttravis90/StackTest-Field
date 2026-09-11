@@ -1,6 +1,8 @@
-import { Capacitor } from '@capacitor/core';
+import { Capacitor, registerPlugin } from '@capacitor/core';
 import { App } from '@capacitor/app';
 import { Network } from '@capacitor/network';
+
+const StackTestNative = registerPlugin('StackTestNative');
 
 const workflowOrder = ['clientplant', 'prejob', 'prelims', 'field', 'crewtime', 'results', 'complete'];
 
@@ -13,6 +15,16 @@ async function setupNativeRuntime() {
 
   document.documentElement.classList.add('stp-native');
   window.STP_NATIVE = true;
+
+  // Native Android actions used by Mobilize:
+  // - shareText -> Android chooser (Messages, Gmail, Drive, Teams, etc.)
+  // - saveText  -> Android document picker
+  // - printHtml -> Android PrintManager (includes Save as PDF)
+  window.STP_NATIVE_ACTIONS = {
+    shareText: options => StackTestNative.shareText(options),
+    saveText: options => StackTestNative.saveText(options),
+    printHtml: options => StackTestNative.printHtml(options),
+  };
 
   try {
     const status = await Network.getStatus();
@@ -42,6 +54,7 @@ async function setupNativeRuntime() {
     const active = document.querySelector('.view.active');
     const activeId = active?.id || '';
     const index = workflowOrder.indexOf(activeId);
+
     if (index > 0 && typeof window.navigateStackTest === 'function') {
       window.navigateStackTest(workflowOrder[index - 1]);
       return;
